@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Jacob Henderson Studio - Software, workflows, and operational tools suite showcase">
+  <title>Jacob Henderson Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="light">
+  <!-- Background layers -->
+  <div class="bg-gradient" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-noise" aria-hidden="true"></div>
+  <div class="bg-blobs" aria-hidden="true">
+    <!-- Cool tones (original) -->
+    <div class="blob blob-1" data-speed="0.8" data-radius="0.4"></div>
+    <div class="blob blob-2" data-speed="0.6" data-radius="0.5"></div>
+    <div class="blob blob-3" data-speed="0.7" data-radius="0.35"></div>
+    <!-- Warm tones (added) -->
+    <div class="blob blob-4" data-speed="0.5" data-radius="0.45"></div>
+    <div class="blob blob-5" data-speed="0.9" data-radius="0.3"></div>
+    <div class="blob blob-6" data-speed="0.7" data-radius="0.4"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <a href="/" class="site-name"><span class="site-name-jacob">jacob</span><span class="site-name-henderson">henderson</span><span class="site-name-studio">.studio</span></a>
+    <div class="header-actions">
+      <button class="theme-toggle" aria-label="Toggle theme">
+        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+      <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="nav-modal">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="main-content">
+    <!-- Intro block -->
+    <section class="intro">
+      <h1 class="intro-title">Hi, I'm Jacob Henderson.</h1>
+      <p class="intro-body"><em>I design systems for creative work.</em></p>
+    </section>
+
+    <!-- Accordion -->
+    <div class="accordion">
+      <!-- Drawer 1: Software, workflows, and operational tools -->
+      <section class="drawer" id="drawer-ascend" data-product="ascend">
+        <button class="drawer-header" aria-expanded="false" aria-controls="panel-ascend">
+          <span class="glass-wash" aria-hidden="true"></span>
+          <span class="drawer-title">Ascend Visualization Studio</span>
+          <span class="drawer-descriptor">A purpose-built creative operating environment</span>
+          <span class="drawer-icon" aria-hidden="true"></span>
+        </button>
+        <div class="drawer-panel" id="panel-ascend" hidden>
+          <div class="stage">
+            <div class="stage-frame">
+              <div class="slot slot-showcase active">
+                <div class="showcase-placeholder">
+                  <span class="showcase-icon">&#9650;</span>
+                  <span class="showcase-label">Software, workflows, and operational tools</span>
+                </div>
+              </div>
+              <div class="slot slot-carousel" hidden></div>
+              <div class="slot slot-video" hidden></div>
+              <div class="slot slot-animation" hidden></div>
+            </div>
+          </div>
+          <div class="blurb blurb--two-col">
+            <div class="blurb-col blurb-col--text">
+              <span class="kicker">The Suite</span>
+              <h2 class="blurb-title">Software, workflows, and operational tools</h2>
+              <p class="blurb-body">The Ascend Visualization Studio is a purpose-built creative operating environment designed to support production work at scale inside a non-creative organization. It was originally developed within a large industrial manufacturer, where integrated teams needed to move quickly, stay aligned, and ship consistently without losing context, institutional knowledge, or taste.</p>
+              <p class="blurb-body">Ascend treats design, writing, and technical work as parts of a single system — one where ideas, assets, and decisions remain connected from intake to delivery.</p>
+            </div>
+            <div class="blurb-col blurb-col--list">
+              <ul class="blurb-list">
+                <li>A single source of truth for creative work across integrated teams</li>
+                <li>Clear ownership and traceability from idea to archive</li>
+                <li>Fewer handoffs and less scope creep</li>
+                <li>Reduced duplication and lost work</li>
+                <li>Systems that evolve with how people actually work</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Drawer 2: ArtStart -->
+      <section class="drawer" id="drawer-artstart" data-product="artstart">
+        <button class="drawer-header" aria-expanded="false" aria-controls="panel-artstart">
+          <span class="glass-wash" aria-hidden="true"></span>
+          <span class="drawer-title">ArtStart</span>
+          <span class="drawer-descriptor">Creative intake and scope definition</span>
+          <span class="drawer-icon" aria-hidden="true"></span>
+        </button>
+        <div class="drawer-panel" id="panel-artstart" hidden>
+          <div class="stage">
+            <div class="stage-frame">
+              <div class="slot slot-showcase active">
+                <div class="showcase-placeholder">
+                  <span class="showcase-icon">&#9670;</span>
+                  <span class="showcase-label">ArtStart</span>
+                </div>
+              </div>
+              <div class="slot slot-carousel" hidden></div>
+              <div class="slot slot-video" hidden></div>
+              <div class="slot slot-animation" hidden></div>
+            </div>
+          </div>
+          <div class="blurb blurb--two-col">
+            <div class="blurb-col blurb-col--text">
+              <span class="kicker">Creative Intake</span>
+              <h2 class="blurb-title">ArtStart</h2>
+              <p class="blurb-body">ArtStart allows teams to intake and manage advertising and production requests directly against real delivery formats. Orders arrive already connected to size constraints, editorial calendars, localization requirements, and downstream systems like QR generation and asset tracking.</p>
+              <p class="blurb-body">ArtStart also handles the administrative labor around creative work: notifying stakeholders, trafficking jobs across teams, and automatically preparing standardized working files on each operator's local system. By the time work reaches a creative desk, the context is complete, the structure is in place, and the only remaining tasks are creative.</p>
+            </div>
+            <div class="blurb-col blurb-col--list">
+              <ul class="blurb-list">
+                <li>Structured intake tied to vendor advertising formats and constraints</li>
+                <li>Automatic job routing and stakeholder notification</li>
+                <li>Standardized working files generated at the start of each project</li>
+                <li>Integrated localization and QR generation at the intake stage</li>
+                <li>Zero re-entry of data between request and production</li>
+                <li>Automatic archival of completed work with full context preserved</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Drawer 3: Copydesk -->
+      <section class="drawer" id="drawer-copydesk" data-product="copydesk">
+        <button class="drawer-header" aria-expanded="false" aria-controls="panel-copydesk">
+          <span class="glass-wash" aria-hidden="true"></span>
+          <span class="drawer-title">Copydesk</span>
+          <span class="drawer-descriptor">Canonical language and multilingual revision</span>
+          <span class="drawer-icon" aria-hidden="true"></span>
+        </button>
+        <div class="drawer-panel" id="panel-copydesk" hidden>
+          <div class="stage">
+            <div class="stage-frame">
+              <div class="slot slot-showcase active">
+                <div class="showcase-placeholder">
+                  <span class="showcase-icon">&#9998;</span>
+                  <span class="showcase-label">Copydesk</span>
+                </div>
+              </div>
+              <div class="slot slot-carousel" hidden></div>
+              <div class="slot slot-video" hidden></div>
+              <div class="slot slot-animation" hidden></div>
+            </div>
+          </div>
+          <div class="blurb blurb--two-col">
+            <div class="blurb-col blurb-col--text">
+              <span class="kicker">Language System</span>
+              <h2 class="blurb-title">Copydesk</h2>
+              <p class="blurb-body">Copydesk places writing work directly on a production schedule, creating a shared timeline for authors, editors, and stakeholders. Content is reviewed in its eventual formatting — not as abstract text — so teams see exactly how language will appear in real deliverables before anything ships.</p>
+              <p class="blurb-body">Every revision is archived structurally, allowing language to become a reusable asset. The same database feeds dynamic product collateral, documentation, and localized content, while automatically generating translation surfaces and historical records in parallel.</p>
+            </div>
+            <div class="blurb-col blurb-col--list">
+              <ul class="blurb-list">
+                <li>Scheduled writing cycles with enforced stakeholder visibility</li>
+                <li>Content previewed in final production formats</li>
+                <li>Canonical language archive with persistent history</li>
+                <li>Dynamic reuse of copy across product and marketing systems</li>
+                <li>Automatic generation of translation artifacts and records</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Drawer 4: FileRoom -->
+      <section class="drawer" id="drawer-fileroom" data-product="fileroom">
+        <button class="drawer-header" aria-expanded="false" aria-controls="panel-fileroom">
+          <span class="glass-wash" aria-hidden="true"></span>
+          <span class="drawer-title">FileRoom</span>
+          <span class="drawer-descriptor">Deliverables registry and retrieval</span>
+          <span class="drawer-icon" aria-hidden="true"></span>
+        </button>
+        <div class="drawer-panel" id="panel-fileroom" hidden>
+          <div class="stage">
+            <div class="stage-frame">
+              <div class="slot slot-showcase active">
+                <div class="showcase-placeholder">
+                  <span class="showcase-icon">&#128193;</span>
+                  <span class="showcase-label">FileRoom</span>
+                </div>
+              </div>
+              <div class="slot slot-carousel" hidden></div>
+              <div class="slot slot-video" hidden></div>
+              <div class="slot slot-animation" hidden></div>
+            </div>
+          </div>
+          <div class="blurb blurb--two-col">
+            <div class="blurb-col blurb-col--text">
+              <span class="kicker">Archival System</span>
+              <h2 class="blurb-title">FileRoom</h2>
+              <p class="blurb-body">FileRoom functions as both a comprehensive digital asset manager and a living archive of creative work. Every project arrives with full context: original requests, specifications, versions, approvals, and final deliverables remain linked as a single historical record.</p>
+              <p class="blurb-body">In addition to preserving finished work, FileRoom maintains a continuously evolving library of prepared elements — images, layouts, and production-ready components — so high-value creative assets remain discoverable and reusable instead of being recreated or lost.</p>
+            </div>
+            <div class="blurb-col blurb-col--list">
+              <ul class="blurb-list">
+                <li>Centralized archive with full project context preserved</li>
+                <li>Intelligent tagging and cross-project categorization</li>
+                <li>Full-text and visual search across all asset types</li>
+                <li>Structural versioning tied to production history</li>
+                <li>Curated libraries of reusable creative elements</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Drawer 5: Codedesk -->
+      <section class="drawer" id="drawer-codedesk" data-product="codedesk">
+        <button class="drawer-header" aria-expanded="false" aria-controls="panel-codedesk">
+          <span class="glass-wash" aria-hidden="true"></span>
+          <span class="drawer-title">Codedesk</span>
+          <span class="drawer-descriptor">Structured QR generation and design</span>
+          <span class="drawer-icon" aria-hidden="true"></span>
+        </button>
+        <div class="drawer-panel" id="panel-codedesk" hidden>
+          <div class="stage">
+            <div class="stage-frame">
+              <div class="slot slot-showcase active">
+                <div class="showcase-placeholder">
+                  <span class="showcase-icon">&lt;/&gt;</span>
+                  <span class="showcase-label">Codedesk</span>
+                </div>
+              </div>
+              <div class="slot slot-carousel" hidden></div>
+              <div class="slot slot-video" hidden></div>
+              <div class="slot slot-animation" hidden></div>
+            </div>
+          </div>
+          <div class="blurb blurb--two-col">
+            <div class="blurb-col blurb-col--text">
+              <span class="kicker">QR Studio</span>
+              <h2 class="blurb-title">Codedesk</h2>
+              <p class="blurb-body">Codedesk exists because contemporary systems need to communicate across physical and digital space. QR codes are often treated as simple links or marketing artifacts. In practice, they are boundary objects — interfaces between people, devices, and systems that don't otherwise talk to each other.</p>
+              <p class="blurb-body">In addition to technical structure, Codedesk introduces a design and semiotic layer: visual styling, layout systems, and symbolic markers (such as emojis) allow these interfaces to carry human meaning at a glance. Instead of anonymous black squares, they become legible surfaces that signal intent, category, and trust before they are ever scanned.</p>
+              <a href="https://jacobeugenehenderson.github.io/ascend-portal/codedesk/?mode=embed" target="_blank" rel="noopener" class="blurb-action">Try Codedesk</a>
+            </div>
+            <div class="blurb-col blurb-col--list">
+              <ul class="blurb-list">
+                <li>Structured QR types tied to multiple data formats</li>
+                <li>Consistent visual systems across functional categories</li>
+                <li>Semiotic markers for human legibility and intent</li>
+                <li>PNG-based outputs for reliable cross-platform rendering</li>
+                <li>Regenerable codes without changing encoded meaning</li>
+                <li>Codes treated as reusable system components</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <nav class="footer-nav">
+      <a href="mailto:hello@jacobhenderson.studio" class="footer-link">Contact</a>
+      <a href="/cv" class="footer-link">CV</a>
+      <a href="https://jacobeugenehenderson.github.io/ascend-portal/codedesk/?mode=embed" target="_blank" rel="noopener" class="footer-link footer-link--cta">Try Codedesk</a>
+    </nav>
+    <p class="footer-copy">&copy; Jacob Henderson, LLC 2026</p>
+  </footer>
+
+  <!-- Modal -->
+  <dialog class="modal" id="nav-modal">
+    <button class="modal-close" aria-label="Close menu">&times;</button>
+    <nav class="modal-content">
+      <section class="modal-section">
+        <h3 class="modal-section-title">About</h3>
+        <p class="modal-section-body">Designer, developer, and creative technologist building tools for makers.</p>
+      </section>
+      <section class="modal-section">
+        <h3 class="modal-section-title">Curios</h3>
+        <p class="modal-section-body modal-placeholder">Coming soon</p>
+      </section>
+      <section class="modal-section">
+        <h3 class="modal-section-title">ScaleMachine</h3>
+        <p class="modal-section-body modal-placeholder">Coming soon</p>
+      </section>
+      <section class="modal-section">
+        <h3 class="modal-section-title">Essays & Talks</h3>
+        <p class="modal-section-body modal-placeholder">Coming soon</p>
+      </section>
+      <section class="modal-section">
+        <h3 class="modal-section-title">Links</h3>
+        <ul class="modal-links">
+          <li><a href="https://github.com" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://twitter.com" target="_blank" rel="noopener">Twitter</a></li>
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </section>
+    </nav>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
