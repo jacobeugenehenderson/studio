@@ -1230,3 +1230,287 @@ a:focus-visible {
     margin-bottom: 0;
   }
 }
+
+/* ================================
+   Share FAB (Floating Action Button)
+   ================================ */
+.share-fab {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  z-index: 90;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  gap: var(--space-3);
+}
+
+.share-fab[hidden] {
+  display: none;
+}
+
+.share-fab:not([hidden]) {
+  animation: fabEnter var(--duration-slow) var(--ease-spring);
+}
+
+@keyframes fabEnter {
+  from {
+    opacity: 0;
+    transform: translateY(1rem) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Main trigger button */
+.share-fab-trigger {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  /* Glass morphism matching drawer headers */
+  background: rgba(40, 45, 55, 0.45);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
+
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    0 4px 12px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.share-fab-trigger::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(12px 6px at 85% 20%,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    linear-gradient(135deg,
+      rgba(255, 255, 255, 0.25) 0%,
+      rgba(255, 255, 255, 0.08) 50%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+  padding: 1px;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+.share-fab-trigger:hover {
+  transform: scale(1.08);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    0 6px 16px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.45);
+}
+
+.share-fab-trigger:active {
+  transform: scale(0.95);
+}
+
+.share-fab-trigger svg {
+  color: var(--color-text);
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.share-fab-trigger .share-icon {
+  position: absolute;
+}
+
+.share-fab-trigger .close-icon {
+  position: absolute;
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.5);
+}
+
+.share-fab-trigger[aria-expanded="true"] .share-icon {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.5);
+}
+
+.share-fab-trigger[aria-expanded="true"] .close-icon {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
+/* Share menu */
+.share-menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-radius: var(--border-radius-lg);
+  min-width: 160px;
+
+  /* Glass morphism */
+  background: rgba(40, 45, 55, 0.55);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35);
+}
+
+.share-menu[hidden] {
+  display: none;
+}
+
+.share-menu:not([hidden]) {
+  animation: menuEnter var(--duration-normal) var(--ease-spring);
+}
+
+@keyframes menuEnter {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Share option buttons */
+.share-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--border-radius);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-align: left;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.share-option:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.share-option:active {
+  background: rgba(255, 255, 255, 0.08);
+  transform: scale(0.98);
+}
+
+.share-option svg {
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+/* Success state for copy button */
+.share-option[data-action="copy"].copied {
+  color: #10b981;
+}
+
+.share-option[data-action="copy"].copied svg {
+  opacity: 1;
+}
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  bottom: var(--space-6);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 95;
+
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border-radius: 9999px;
+
+  background: rgba(16, 185, 129, 0.95);
+  color: white;
+  font-size: var(--text-sm);
+  font-weight: 500;
+
+  box-shadow:
+    0 8px 24px rgba(16, 185, 129, 0.35),
+    0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.toast[hidden] {
+  display: none;
+}
+
+.toast:not([hidden]) {
+  animation: toastEnter var(--duration-normal) var(--ease-spring);
+}
+
+@keyframes toastEnter {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(1rem) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+.toast.hiding {
+  animation: toastExit var(--duration-normal) var(--ease-out) forwards;
+}
+
+@keyframes toastExit {
+  from {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-0.5rem) scale(0.9);
+  }
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .share-fab-trigger {
+  background: rgba(30, 35, 45, 0.55);
+}
+
+[data-theme="dark"] .share-menu {
+  background: rgba(30, 35, 45, 0.65);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .share-fab {
+    bottom: var(--space-4);
+    right: var(--space-4);
+  }
+
+  .share-fab-trigger {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .share-fab-trigger svg {
+    width: 18px;
+    height: 18px;
+  }
+}
