@@ -442,6 +442,47 @@
   })();
 
   // ================================
+  // Custom Tooltips (Desktop only)
+  // ================================
+  (function initTooltips() {
+    // Skip on touch devices
+    if (window.matchMedia('(hover: none)').matches) return;
+
+    const drawers = document.querySelectorAll('.drawer');
+
+    drawers.forEach((drawer) => {
+      const header = drawer.querySelector('.drawer-header[data-tooltip]');
+      if (!header) return;
+
+      const tooltipText = header.getAttribute('data-tooltip');
+      const benefitText = header.getAttribute('data-tooltip-benefit');
+      if (!tooltipText) return;
+
+      // Create two-part tooltip structure
+      const tooltip = document.createElement('div');
+      tooltip.className = 'drawer-tooltip';
+      tooltip.setAttribute('aria-hidden', 'true');
+
+      // Top section - the "what"
+      const topSection = document.createElement('div');
+      topSection.className = 'tooltip-top';
+      topSection.textContent = tooltipText;
+      tooltip.appendChild(topSection);
+
+      // Bottom section - the "so what" (if provided)
+      if (benefitText) {
+        const bottomSection = document.createElement('div');
+        bottomSection.className = 'tooltip-bottom';
+        bottomSection.textContent = benefitText;
+        tooltip.appendChild(bottomSection);
+      }
+
+      // Insert into drawer (not header, to avoid overflow:hidden clipping)
+      drawer.appendChild(tooltip);
+    });
+  })();
+
+  // ================================
   // Animated Gradient Blob System
   // ================================
   (function initBlobAnimation() {
