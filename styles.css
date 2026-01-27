@@ -1240,7 +1240,7 @@ a:focus-visible {
   position: absolute;
   top: -8px;
   left: 50%;
-  transform: translateX(-50%) translateY(4px);
+  transform: translateX(-50%) translateY(4px) scale(0.96);
   pointer-events: none;
   opacity: 0;
   z-index: 50;
@@ -1260,9 +1260,9 @@ a:focus-visible {
     /* Outer rim shadow */
     inset 0 -1px 0 rgba(0, 0, 0, 0.2);
 
-  /* Transition */
-  transition: opacity var(--duration-fast) var(--ease-out),
-              transform var(--duration-fast) var(--ease-out);
+  /* Soft transition */
+  transition: opacity var(--duration-normal) var(--ease-out),
+              transform var(--duration-normal) var(--ease-out);
 }
 
 /* Top section - the "what" */
@@ -1273,11 +1273,11 @@ a:focus-visible {
   font-weight: 600;
   color: white;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  background: var(--accent, rgba(99, 102, 241, 1));
+  background: color-mix(in srgb, var(--accent, #6366f1) 80%, #1a1a2e);
   position: relative;
 
   /* Inner highlight at top */
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 /* Divider line between sections */
@@ -1308,11 +1308,11 @@ a:focus-visible {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 
   /* Darker shade of accent */
-  background: color-mix(in srgb, var(--accent, #6366f1) 85%, black);
+  background: color-mix(in srgb, var(--accent, #6366f1) 65%, #0d0d1a);
   position: relative;
 
   /* Inner shadow at top for depth */
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 /* Tooltip arrow - attached to bottom section */
@@ -1323,14 +1323,14 @@ a:focus-visible {
   left: 50%;
   transform: translateX(-50%);
   border: 8px solid transparent;
-  border-top-color: color-mix(in srgb, var(--accent, #6366f1) 85%, black);
+  border-top-color: color-mix(in srgb, var(--accent, #6366f1) 65%, #0d0d1a);
   filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.15));
 }
 
 /* Show tooltip on hover of the header */
 .drawer:hover .drawer-tooltip {
   opacity: 1;
-  transform: translateX(-50%) translateY(0);
+  transform: translateX(-50%) translateY(0) scale(1);
 }
 
 /* Hide tooltip when drawer is expanded */
