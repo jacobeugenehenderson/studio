@@ -269,6 +269,63 @@
 
 
   // ================================
+  // Image Lightbox
+  // ================================
+  const lightbox = document.getElementById('image-lightbox');
+  const lightboxImage = lightbox?.querySelector('.lightbox-image');
+  const lightboxClose = lightbox?.querySelector('.lightbox-close');
+  const showcaseImages = document.querySelectorAll('.showcase-image');
+
+  function openLightbox(imgSrc, imgAlt) {
+    if (!lightbox || !lightboxImage) return;
+
+    lightboxImage.src = imgSrc;
+    lightboxImage.alt = imgAlt;
+    lightbox.showModal();
+  }
+
+  function closeLightbox() {
+    if (!lightbox) return;
+    lightbox.close();
+    // Clear image after transition
+    setTimeout(() => {
+      if (lightboxImage) {
+        lightboxImage.src = '';
+        lightboxImage.alt = '';
+      }
+    }, 200);
+  }
+
+  // Click handlers for showcase images
+  showcaseImages.forEach((img) => {
+    img.addEventListener('click', () => {
+      openLightbox(img.src, img.alt);
+    });
+  });
+
+  // Lightbox close button
+  if (lightboxClose) {
+    lightboxClose.addEventListener('click', closeLightbox);
+  }
+
+  // Close lightbox on backdrop click
+  if (lightbox) {
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    // Sync state on native close (Escape key)
+    lightbox.addEventListener('close', () => {
+      if (lightboxImage) {
+        lightboxImage.src = '';
+        lightboxImage.alt = '';
+      }
+    });
+  }
+
+  // ================================
   // Custom Tooltips (Desktop only)
   // ================================
   (function initTooltips() {
