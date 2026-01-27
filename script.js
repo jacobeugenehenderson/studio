@@ -363,6 +363,22 @@
 
       // Insert into drawer (not header, to avoid overflow:hidden clipping)
       drawer.appendChild(tooltip);
+
+      // Track pointer position to offset tooltip away from cursor
+      header.addEventListener('mousemove', (e) => {
+        const rect = header.getBoundingClientRect();
+        const cursorX = e.clientX - rect.left;
+        const headerWidth = rect.width;
+
+        // Calculate how far from center the cursor is (-0.5 to 0.5)
+        const normalizedX = (cursorX / headerWidth) - 0.5;
+
+        // Offset tooltip in opposite direction (away from cursor)
+        // Max offset of ~80px either direction
+        const offsetX = -normalizedX * 160;
+
+        tooltip.style.setProperty('--pointer-offset', `${offsetX}px`);
+      });
     });
   })();
 
