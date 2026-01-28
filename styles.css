@@ -1017,6 +1017,19 @@ ul {
 }
 
 /* ================================
+   Coda
+   ================================ */
+.coda {
+  max-width: var(--max-width);
+  margin: var(--space-12) auto var(--space-8);
+  padding: 0 var(--space-6);
+  text-align: center;
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+/* ================================
    Footer
    ================================ */
 .site-footer {
