@@ -1353,7 +1353,8 @@ a:focus-visible {
   position: absolute;
   top: -16px;
   left: 50%;
-  transform: translateX(calc(-50% + var(--pointer-offset))) translateY(2px);
+  translate: calc(-50% + var(--pointer-offset)) 0;
+  scale: 0.99;
   pointer-events: none;
   opacity: 0;
   z-index: 50;
@@ -1373,10 +1374,8 @@ a:focus-visible {
     /* Outer rim shadow */
     inset 0 -1px 0 rgba(0, 0, 0, 0.2);
 
-  /* Gentle fade with minimal motion */
-  transition: opacity 500ms ease-out,
-              transform 600ms ease-out;
-  transition-delay: 0ms;
+  /* Gentle matching fade and scale - translate is NOT transitioned */
+  transition: opacity 300ms ease, scale 300ms ease;
 }
 
 /* Top section - the "what" */
@@ -1444,8 +1443,7 @@ a:focus-visible {
 /* Show tooltip on hover of the header */
 .drawer:hover .drawer-tooltip {
   opacity: 1;
-  transform: translateX(calc(-50% + var(--pointer-offset))) translateY(0);
-  transition-delay: 200ms;
+  scale: 1;
 }
 
 /* Hide tooltip when drawer is expanded */
