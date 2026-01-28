@@ -1307,7 +1307,7 @@ a:focus-visible {
   .drawer-descriptor {
     grid-column: 1;
     grid-row: 2;
-    color: rgba(255, 255, 255, 0.8);
+    color: white;
     margin-top: 0;
   }
 
