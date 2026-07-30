@@ -26,9 +26,16 @@ the colours are not merely flipped.
 motif, not a texture invented here. Two of the spot inks (treelawn green, lot
 plum) come literally from `looks/lafayette-square/design.json` in The Ward.
 
-**Built from** static HTML, CSS and about 250 lines of JavaScript. No framework,
+**Built from** static HTML, CSS and about 300 lines of JavaScript (406 with its comments, which are half the point). No framework,
 no build step, nothing shipped that it didn't write. The only offline tool is an
 image pipeline that turns `_source/` originals into served derivatives.
+
+**The live pieces are the products themselves**, framed from their own public
+addresses — not screenshots, and not copies hosted here. Three of the seven run
+that way. The Ward goes furthest: its slab and its player are separate payloads
+by contract, so the page mounts them separately and lets you switch between
+them, which is the site's whole argument demonstrated by the one piece that can
+prove it rather than illustrate it.
 
 **The masthead** is four printing plates — cyan, magenta, yellow, registration
 black — that begin badly out of register and pull in on load, stopping *just
@@ -50,6 +57,12 @@ point.
 | `docs/rebuild-plan.html` | The original plan. Superseded in places by what actually got built; kept because the reasoning still holds. |
 | `tools/build-images.py` | `_source/` → `assets/`. Forces each pair to identical dimensions and reports whether every pair registered. |
 | Commit messages | Where the *why* of each decision is written, including the ones that were wrong first. |
+
+The products keep their own records, and for The Ward the relevant ones are
+`SLAB-CONTRACT.md` (the slab/player boundary this site's embed exercises),
+`ls/ARCHITECTURE.md` §7 (what the embed does, and the measurements behind why
+it must never hide the canvas) and `cartograph/PREVIEW.md` §0.2 (the publish
+gate — slab data goes straight to prod, code goes staging-first).
 
 Longer-lived context — Jacob's positioning, the naming of The Ward, the graph
 paper motif, and a recurring factual error about Arborist — is kept as memory

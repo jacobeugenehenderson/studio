@@ -111,8 +111,7 @@ Getting this wrong cost several rebuilds. The distinction is worth keeping.
 | **`.stepper`** | An ordered sequence. Every stage stays visible, nothing auto-advances. |
 | **`.pager`** | Many variations of one argument. One at a time, buttons in the margins so paging is never confused with dragging, and a visible count so the extent is known. |
 | **`.embed`** | Any live product. Preferred over a screenshot: it is the actual thing, and it cannot go stale. **Three embeds exist today** — Codedesk, Picture Wrap and The Ward. This row has now been wrong three times: first claiming renders-plus-a-link, then claiming all three embedded while only two were, then claiming the iframe count was 2 because a launcher injected The Ward's frame — true for about an hour, until the launcher was removed. **Count, do not trust:** `grep -c "iframe src=" index.html` → 3, `grep -c 'class="embed[ "]' index.html` → 3. Line numbers are deliberately not given here; they move. |
-| **`.pill` driving an `.embed`** | **One demo area, never a diagram beside the thing.** A wireframe stood where The Ward's embed now is; it was the *spec* for the demo, and once the demo existed it could only disagree with it. The pill is now the embed's own switcher, choosing which **payload** the running product shows: slab, both, or commons. It switches by **`postMessage`, never by changing `src`** — a reload rebuilds the product's WebGL context and resets its camera, and then the three states are three pictures instead of one stack with its ground taken away. The origin lives once, in `data-embed-base`. |
-| **A product's own loading screen** | Do not invent a placeholder for a live embed. The Ward already has one — a radial horizon with stars — so the frame simply loads and that covers the boot. An invented card is one more thing to keep true, and it is not what the product looks like. |
+| **`.pill` driving an `.embed`** | When a piece both switches views *and* embeds the product, one control must do both, or the diagram contradicts the thing beside it. On The Ward the pill chooses which **payload** the running product shows. See *An embed can be more than one payload* below. |
 | **`.more`** | Depth. **Collapsed is a preview, never a closed door** — the picture and the claim stay out, and expanding only adds reading. |
 
 ---
@@ -133,6 +132,57 @@ build would make the page lie.
 Do it in the product, behind its own flag, not from the embedding page. The
 site cannot reach into a frame, and should not want to: the product knows what
 it looks like with nothing to save.
+
+### An embed can be more than one payload
+
+The Ward is the deepest of the three, and the pattern generalises: **when a
+product is built out of separable parts, embed the parts, not the front door.**
+
+The first version framed `lafayette-square.com` — the composed thing — under a
+pill that claimed the slab and the commons come apart. It asserted the
+separation instead of showing it, which is the same fault as Codedesk's emoji
+claim: the one thing a piece argues is the one thing the visitor cannot watch
+happen. It was rebuilt.
+
+Now the pill *is* the frame's switcher, and each state loads a different
+payload from the product's own address:
+
+| State | URL | What it is |
+|---|---|---|
+| Slab | `?layer=slab` | the baked environment — ground, buildings, trees, lamps, sky. No Player. |
+| Composite | *(no param)* | both, exactly as the public gets it |
+| Ward | `?layer=player` | the commons — ticker, Almanac, Bulletin, Society — on a sheet, no slab |
+
+`SLAB-CONTRACT.md` in that repo has always said the slab and the reader are
+separate payloads that never import each other. Embedding them separately is
+the first time anything outside that repo has taken the claim at its word.
+
+**Four rules this piece paid for:**
+
+1. **One demo area.** A wireframe of three stacked layers stood above the frame
+   while this was being specified. Once the live thing existed the diagram could
+   only disagree with it, so it went. Never a placeholder beside the working
+   version of the same thing.
+2. **Switch by message, never by reloading.** Changing the frame's `src` rebuilds
+   the product's WebGL context and resets its camera, and then three layers are
+   three unrelated pictures rather than one stack having its ground taken away.
+   `js/site.js` posts to the running app and it swaps in place.
+3. **Use the product's own loading screen.** The Ward has one — a radial horizon
+   with stars. An invented placeholder card is one more thing to keep true, and
+   it is not what the product looks like.
+4. **The sheet is always there.** `.graph` was originally put on the frame so the
+   slab covered it and removing the slab revealed it. That reading was right and
+   the mechanism was wrong — see §6 — so the sheet now lives inside the product,
+   which is also what lets it follow this page's Paper/Plate switch. The
+   argument survived; the implementation did not.
+
+**Previewing it.** `data-embed-base` carries the deployed origin;
+`data-embed-base-local` is used instead when this page is served from
+localhost, so a change to the product can be seen here without deploying it
+first. Same carve-out, for the same reason, that `trustedOrigin` makes for
+height messages — and equally impossible in production, where the hostname test
+fails. It needs the product's dev server running; if it is not, the frame fails
+to load, which beats silently showing a stale deploy.
 
 ## 5b. Embedded products size themselves
 
@@ -193,6 +243,18 @@ Each of these was a real bug. They are cheap to reintroduce.
   out of the stack and stays visible when the layer above should cover it.
 - **Verify with the disclosure closed.** Every early check rendered `open`, which
   is exactly why the Safari bug survived so long.
+- **Never make a live canvas invisible — hiding it costs seconds to undo.**
+  The Ward's embed shows the commons without the slab. Every obvious way to do
+  that — `visibility: hidden`, `display: none`, `opacity: 0`, even a fully
+  opaque cover over it — makes Chrome drop the WebGL surface, and restoring
+  context, shaders and textures lands as **one blocked frame of 5–12 seconds**.
+  Jacob reported it as "it feels like it's crashing," and it is not a dev-build
+  artifact: production stalled 8.2s. A *fully occluded* canvas is culled exactly
+  like a hidden one, which is the part that surprises. The fix is to leave it
+  rendering and cover it at `opacity: 0.95` — the last 5% is what keeps it
+  composited. The general rule: **an expensive live thing must keep costing what
+  it costs, or you pay the whole start-up again.** Full measurements in that
+  repo's `ls/ARCHITECTURE.md §7`.
 - **A `background` shorthand later in the file silently disarms a utility
   class.** `.graph` (§11) paints its grid with `background-image`; `.embed` (§18)
   sets `background:` as a *shorthand*, which resets `background-image` to `none`.
