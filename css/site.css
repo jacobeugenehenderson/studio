@@ -573,6 +573,27 @@ a { color: inherit; }
 .wipe-range:focus-visible { outline-offset: -3px; }
 
 
+/* 7d ── credit line ======================================================= */
+/*
+   A named roster, set as a credit list. Recognisable brands are the highest
+   scan-value thing on the page and cost nothing to state when there are no
+   images to show for them.
+*/
+
+.credit {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  border-top: 1px solid var(--rule);
+  padding-top: var(--s2);
+  max-width: var(--measure);
+}
+
+.credit strong { color: var(--ink-soft); font-weight: 400; }
+
+
 /* 8 ── placeholder slugs ================================================== */
 /*
    Everything visual is a slug until the real asset is wired. Correct aspect
@@ -627,6 +648,155 @@ a { color: inherit; }
 .slug--1x1  { aspect-ratio: 1 / 1; }
 
 
+/* 8b ── case-study pages ================================================== */
+/*
+   One template, seven fills. The spine is identical on every page so a reader
+   who has learned one has learned all of them: rank and ink, title, claim,
+   facts in the rail, then numbered figures.
+
+   Figures are numbered because the numbers are referenced from the prose —
+   that is a real sequence carrying real information, not decoration.
+*/
+
+.crumb {
+  display: inline-block;
+  margin-bottom: var(--s5);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-decoration: none;
+}
+.crumb:hover { color: var(--ink); }
+
+.work-head {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: var(--gutter);
+  padding-bottom: var(--s6);
+  border-bottom: 2px solid var(--ink);
+}
+
+/* The head's right column owns its own rhythm, so the title carries no
+   margin — gap handles it and the credit rule can't crowd the standfirst. */
+.work-head-body { display: grid; gap: var(--s4); align-content: start; }
+
+.work-title {
+  font-size: clamp(2rem, 6vw, 3.75rem);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.work-standfirst {
+  font-size: var(--fs-lead);
+  line-height: var(--lh-snug);
+  max-width: var(--measure);
+}
+
+/* the rank chip, inked with the piece's spot */
+.work-rank {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--spot, var(--ink));
+  padding: 0.3em 0.5em;
+  align-self: start;
+  justify-self: start;
+  margin-bottom: var(--s4);
+}
+
+.work-body { display: grid; gap: var(--s8); margin-top: var(--s8); }
+
+.work-section {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: var(--gutter);
+}
+
+.work-prose { display: grid; gap: var(--s4); max-width: var(--measure); }
+
+.work-h { font-size: var(--fs-h3); text-transform: uppercase; letter-spacing: 0.01em; }
+
+/* ---- figures ---- */
+
+.figures { display: grid; gap: var(--s7); }
+
+.figure { display: grid; gap: var(--s3); }
+
+.figure-cap {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em 0.8em;
+  border-top: 1px solid var(--rule);
+  padding-top: var(--s2);
+}
+
+.figure-num { color: var(--ink); text-transform: uppercase; letter-spacing: var(--tr-label); }
+
+/* ---- fact sheet ---- */
+
+.facts { width: 100%; border-collapse: collapse; font-size: var(--fs-fine); }
+
+.facts th,
+.facts td {
+  text-align: left;
+  padding: 0.5rem 0.9rem 0.5rem 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+  font-variant-numeric: tabular-nums;
+}
+
+.facts th {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 400;
+  white-space: nowrap;
+  width: 11rem;
+}
+
+/* ---- prev / next ---- */
+
+.work-nav {
+  margin-top: var(--s9);
+  padding-top: var(--s4);
+  border-top: 2px solid var(--ink);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--s4);
+}
+
+.work-nav a {
+  text-decoration: none;
+  display: grid;
+  gap: 0.2rem;
+  max-width: 22ch;
+}
+
+.work-nav .label { color: var(--ink-faint); }
+
+.work-nav-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+}
+
+.work-nav a:hover .work-nav-title { border-bottom: 2px solid var(--spot, var(--ink)); }
+
+.work-nav--next { text-align: right; justify-items: end; margin-left: auto; }
+
+
 /* 9 ── footer ============================================================= */
 
 .site-footer {
@@ -653,7 +823,11 @@ a { color: inherit; }
   :root { --rail: 0rem; --gutter: 0rem; }
 
   .thesis,
-  .piece { grid-template-columns: 1fr; gap: var(--s3); }
+  .piece,
+  .work-head,
+  .work-section { grid-template-columns: 1fr; gap: var(--s3); }
+
+  .facts th { width: auto; }
 
   .piece-rank {
     border-left: 0;
