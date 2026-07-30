@@ -54,11 +54,17 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    opens on a code that is correct but plain: black-and-white squares. The claim
    printed above the frame is *pick an emoji and it becomes the code's palette*,
    and that is the one thing on the piece a visitor cannot currently see
-   happening. Make the startup code emoji-styled — and look at `presets` in
-   `qr_type_manifest.json` while you are there: the key exists with an empty
-   array for every type, so the mechanism was planned and never filled in. That
-   is likely where a landing preset belongs, rather than values being seeded
-   from `qr_sync_pipeline.js` as they are now.
+   happening.
+
+   **Do not build this from scratch.** okQRal already has the presets, the
+   `applyPreset()` machinery and a `WELCOME` landing preset, and 20 of its 21
+   control IDs match Codedesk's. See *"The QR engine's missing pieces live in
+   okQRal"* below for line numbers. The right move is to port that, and to let
+   the landing state come from `presets` rather than being seeded by hand from
+   `qr_sync_pipeline.js` as it is now.
+
+   While in there: the emoji picker works but renders dark on a light app, and
+   Codedesk wires it twice. Both noted below.
 2. **Picture Wrap — commit the snippet, then deploy.** `embed-height.js` is in
    the repo root, byte-identical to `docs/embed-height.js`, loaded at its
    `index.html:85` — but **untracked**, and `picture-wrap.com` serves no copy of
@@ -80,6 +86,62 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    the quiet one: flat scans, no interaction.
 5. **From Jacob:** the Cordis pair (spec in README §8), and how many
    photograph/illustration pairs exist for the Nordson filmstrip.
+
+### The QR engine's missing pieces live in okQRal — stop hunting
+
+Checked 30 July 2026 across Codedesk, okQRal and the ascend lineage. This has
+cost time more than once, so it is written down with line numbers.
+
+**`~/Desktop/dev.nosync/okQRal`** is the same engine with the data and the
+polish that Codedesk shipped without.
+
+**Presets.** Codedesk's `qr_type_manifest.json` has a `presets` key with an
+empty array per type. That is not an unfinished feature — it is a stripped one.
+Checked the earliest manifest in Codedesk's history: empty there too, so the
+data was never in this lineage. okQRal has **18 presets** (`qr_type_manifest.json:321`),
+and the machinery in `qr_app.js`:
+
+| Piece | Line |
+|---|---|
+| `applyPreset(type, index)` — preset keys → control IDs, fires events, then `refreshModulesMode()` / `refreshCenter()` / `render()` | `qr_app.js:664` |
+| `getPresets(type)` — case-insensitive lookup | `:548` |
+| `setCaptionFromPreset()` — headline/body, falls back to the type name | `:738` |
+| Preset cycling — per-type index, `preset_change` event | `:767–804` |
+
+**20 of the 21 control IDs it writes to already exist in Codedesk.** The gap is
+`bgTransparent`, and okQRal writes it *inverted*
+(`setValAndFire('bgTransparent', !p.bgTransparent)`) — read that line, do not
+copy it.
+
+**`presets.WELCOME` is the landing state**, and it is deliberately *not* a type,
+so it never appears in the type menu: caption "WELCOME" / "Click the 💖 to get
+started", `modulesMode: Emoji` with 🟫, centre 🐿️ at scale 1.5. This is the
+data-driven version of the welcome ceremony removed from Codedesk's embed, and
+it is what `docs/okqral-cleanup-brief.md` meant by "the landing state must be
+settled first". **That brief and the preset work are the same decision, not
+two.**
+
+**The emoji picker exists in Codedesk and works.** Verified against the deployed
+embed: set Module Fill to Emoji, press *Pick…*, the modal opens and the CDN
+`emoji-picker-element` appears. Both apps use the same shape — a hand-rolled
+modal shell (`#emojiModal` / `#emojiGrid` / `#emojiSearch` / `#emojiClose`) with
+a curated `EMOJI_BIG` catalog as the scaffold, which the CDN element then
+*replaces* at runtime (`grid.replaceWith(picker)`). Codedesk has all of it:
+shell in `index.html`, catalog and wiring in `qr_ui_toolkit.js:375`, plus a
+second copy of the wiring in `index.html:449` — **two implementations of the
+same thing, worth reconciling before editing either.**
+
+**Its one real bug:** the picker renders dark on a light app. Both apps set
+`picker.setAttribute('theme', …)`, and `theme` is **not** part of
+`emoji-picker-element`'s API — it honours `prefers-color-scheme` unless you put
+a `light` / `dark` **class** on the element or set its CSS custom properties.
+Confirmed live: attribute reads `light`, OS prefers dark, picker renders dark.
+The attribute is written and ignored. Fix it in both, or in the shared snippet
+if one gets made.
+
+**okQRal has uncommitted work** — `assets/love.html`, `love.jpg`, `love.png`
+deleted and `styles/theme.css` modified, all unstaged. Codedesk still references
+`assets/love.html`. Resolve that before working in okQRal.
 
 ### Done, so you do not go looking
 
