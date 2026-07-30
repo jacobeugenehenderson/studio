@@ -600,6 +600,159 @@ a { color: inherit; }
 .credit strong { color: var(--ink-soft); font-weight: 400; }
 
 
+/* 7e ── graph paper ======================================================= */
+/*
+   A grey sheet carrying two stroked grids — a fine minor rule with a coarser
+   major rule over it. This is one of Jacob's recurring motifs, so it is a
+   system element rather than a texture invented for one figure.
+
+   Used as the ground whenever a subject is shown isolated from its environment.
+   Never as a page background: a full-page grid is what the old site did, and it
+   read as SaaS wallpaper. Under a drawing it reads as a drafting sheet.
+*/
+
+.graph {
+  background-color: var(--graph-bg);
+  background-image:
+    repeating-linear-gradient(to right,  var(--graph-major) 0 1px, transparent 1px var(--graph-major-cell)),
+    repeating-linear-gradient(to bottom, var(--graph-major) 0 1px, transparent 1px var(--graph-major-cell)),
+    repeating-linear-gradient(to right,  var(--graph-minor) 0 1px, transparent 1px var(--graph-cell)),
+    repeating-linear-gradient(to bottom, var(--graph-minor) 0 1px, transparent 1px var(--graph-cell));
+}
+
+/* wireframe fills, for reading structure before the art exists */
+.wf-a { background-color: var(--wf-a); }
+.wf-b { background-color: var(--wf-b); }
+.wf-c { background-color: var(--wf-c); }
+
+/* Wireframe interface furniture — stands in for the Ward's DOM layer. It has to
+   be a few discrete blocks on a transparent ground, not a filled rectangle: an
+   opaque placeholder would hide whatever it is layered over, which is precisely
+   the thing the peel exists to show. */
+.wf-ui { position: absolute; inset: 0; }
+
+.wf-ui > * { position: absolute; background: var(--wf-b); border: 1px solid var(--rule-firm); }
+
+.wf-ui-ticker { top: 4%;  left: 4%;  right: 4%;  height: 7%; }
+.wf-ui-panel  { top: 18%; right: 4%; width: 26%; bottom: 18%; }
+.wf-ui-card   { bottom: 6%; left: 4%; width: 30%; height: 22%; }
+.wf-ui-pill   { top: 18%; left: 4%; width: 14%; height: 7%; border-radius: 999px; }
+
+
+/* 7f ── the peel ========================================================== */
+/*
+   Three stacked layers, one value, centred at rest.
+
+     bottom  the slab — the 3D environment
+     middle  graph paper — the drafting sheet
+     top     the Ward — the interface layer
+
+   At 50 the graph paper is clipped to nothing and the Ward is whole, so the
+   frame shows the composed scene.
+
+   Drag RIGHT and graph paper sweeps in from the right edge, covering the slab.
+   The Ward stays on top of it, so that side becomes the interface on its sheet.
+
+   Drag LEFT and the Ward is clipped away from the left edge, so bare slab
+   sweeps in from the left.
+
+   Whatever you drag toward enters from that side, so the direction of travel
+   always matches the gesture. Two clip widths are written by JS from the single
+   value; nothing here does arithmetic.
+*/
+
+.peel {
+  --slab-w: 0%;    /* bare slab exposed from the left  */
+  --graph-w: 0%;   /* graph sheet drawn in from the right */
+  position: relative;
+  overflow: hidden;
+  background: var(--paper-sunk);
+  border: 1px solid var(--rule-firm);
+  touch-action: pan-y;
+}
+
+.peel--16x9 { aspect-ratio: 16 / 9; }
+.peel--3x2  { aspect-ratio: 3 / 2; }
+
+.peel-layer { position: absolute; inset: 0; }
+.peel-layer img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.peel-slab  { z-index: 1; }
+.peel-sheet { z-index: 2; clip-path: inset(0 0 0 calc(100% - var(--graph-w))); }
+.peel-ward  { z-index: 3; clip-path: inset(0 0 0 var(--slab-w)); }
+
+/* One divider, at whichever edge is currently doing the work. */
+.peel-divider {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: var(--seam, 50%);
+  width: 2px;
+  margin-left: -1px;
+  background: var(--paper);
+  z-index: 4;
+  pointer-events: none;
+  opacity: var(--seam-shown, 0);
+}
+
+.peel-divider::after {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 2.25rem; height: 2.25rem;
+  transform: translate(-50%, -50%);
+  border: 2px solid var(--paper);
+  border-radius: 50%;
+  background: var(--ink);
+  opacity: 0.9;
+}
+
+/* End labels, so the two directions announce themselves before anyone drags */
+.peel-ends {
+  position: absolute;
+  inset: auto var(--s3) var(--s3) var(--s3);
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.peel-end {
+  background: var(--paper);
+  color: var(--ink-soft);
+  border: 1px solid var(--rule-firm);
+  padding: 0.3em 0.55em;
+}
+
+.peel-range {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  width: 100%; height: 100%;
+  margin: 0; padding: 0;
+  background: transparent;
+  border: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  pointer-events: none;          /* the frame owns the gesture */
+}
+
+.peel-range::-webkit-slider-runnable-track { background: transparent; height: 100%; border: 0; }
+.peel-range::-webkit-slider-thumb {
+  appearance: none; -webkit-appearance: none;
+  width: 4px; height: 60rem; background: transparent; border: 0;
+}
+.peel-range::-moz-range-track { background: transparent; height: 100%; border: 0; }
+.peel-range::-moz-range-thumb {
+  width: 4px; height: 60rem; background: transparent; border: 0; border-radius: 0;
+}
+.peel-range:focus-visible { outline: none; }
+.peel:has(.peel-range:focus-visible) { outline: 2px solid var(--process-m); outline-offset: 3px; }
+
+
 /* 8 ── placeholder slugs ================================================== */
 /*
    Everything visual is a slug until the real asset is wired. Correct aspect

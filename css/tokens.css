@@ -41,6 +41,23 @@
   --spot-picture:  #B08A1F;  /* gold                          */
   --spot-pbg:      #C8386F;  /* magenta                       */
 
+  /* ---- wireframe fills --------------------------------------------------
+     Flat stand-ins so structure reads before any art exists. Distinct enough
+     to tell apart, quiet enough to never pass for design.                    */
+  --wf-a: #A9B6BE;
+  --wf-b: #C6B49C;
+  --wf-c: #9FAE96;
+
+  /* ---- graph paper ------------------------------------------------------
+     A ground under a figure, never a page background — a full-page grid was
+     the SaaS wallpaper this site dropped. Under a drawing it is a drafting
+     sheet.                                                                  */
+  --graph-bg:    #C6CACC;   /* the sheet itself — neutral grey, not paper */
+  --graph-minor: #B2B8BB;
+  --graph-major: #949CA1;
+  --graph-cell:       0.75rem;   /* minor rule */
+  --graph-major-cell: 3.75rem;   /* every fifth */
+
   /* ---- how the plates mix ----------------------------------------------- */
   --plate-blend: multiply;   /* subtractive: ink absorbs light */
   --grain-opacity: 0.055;
@@ -119,6 +136,12 @@
     --spot-picture:  #DCB03A;
     --spot-pbg:      #E86494;
 
+    --wf-a: #3E4A52;
+    --wf-b: #4E4438;
+    --wf-c: #3C4838;
+    --graph-bg:    #2A2E30;
+    --graph-minor: #373C3F;
+    --graph-major: #474E52;
     --plate-blend: screen;
     --grain-opacity: 0.08;
   }
@@ -151,6 +174,13 @@
   --spot-picture:  #DCB03A;
   --spot-pbg:      #E86494;
 
+  --wf-a: #3E4A52;
+  --wf-b: #4E4438;
+  --wf-c: #3C4838;
+  --graph-bg:    #2A2E30;
+  --graph-minor: #373C3F;
+  --graph-major: #474E52;
+
   --plate-blend: screen;
   --grain-opacity: 0.08;
 }
@@ -179,6 +209,12 @@
   --spot-picture:  #B08A1F;
   --spot-pbg:      #C8386F;
 
+  --wf-a: #A9B6BE;
+  --wf-b: #C6B49C;
+  --wf-c: #9FAE96;
+  --graph-bg:    #C6CACC;
+  --graph-minor: #B2B8BB;
+  --graph-major: #949CA1;
   --plate-blend: multiply;
   --grain-opacity: 0.055;
 }
