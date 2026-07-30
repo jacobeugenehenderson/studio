@@ -41,6 +41,7 @@ point.
 
 | Document | What it holds |
 |---|---|
+| `CLAUDE.md` | Binding instructions for a session: you are Colophon, follow the read-in first, the non-negotiables. Loaded as instruction rather than background, which memory is not. |
 | `README.md` | The argument the site makes, the seven rules, which component is right for which job, six traps already fallen into, the audit script, current state. **Start here.** |
 | `docs/read-in.md` | **Start-of-session procedure.** What to read, in what order, what to skip, how to verify the docs before trusting them, and the working posture. |
 | `docs/handoff.md` | The short baton. Where things are, what not to do, what's outstanding. |
