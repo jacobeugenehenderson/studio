@@ -489,6 +489,8 @@ a { color: inherit; }
 
 .wipe-layer img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
+/* No will-change here. It promotes a layer and forces re-rasterisation on every
+   clip change, which makes dragging worse rather than better. */
 .wipe--ltr .wipe-after { clip-path: inset(0 calc(100% - var(--wipe)) 0 0); }
 .wipe--rtl .wipe-after { clip-path: inset(0 0 0 var(--wipe)); }
 
@@ -551,26 +553,30 @@ a { color: inherit; }
   cursor: ew-resize;
 }
 
+/* The input does not handle pointing at all — pointer-events: none. Native
+   range inputs treat pen input inconsistently (a press away from the thumb can
+   register as tap-and-jump rather than a drag, which feels sticky), so the
+   frame drives dragging via Pointer Events instead.
+
+   The input stays in the DOM because it is still the accessibility surface:
+   focusable by keyboard, announced as a slider, with a real value. */
+
+.wipe-range { pointer-events: none; }
+
 .wipe-range::-webkit-slider-runnable-track { background: transparent; height: 100%; border: 0; }
 .wipe-range::-webkit-slider-thumb {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 2.75rem;
-  height: 60rem;             /* taller than any frame; the wipe clips it */
-  background: transparent;
-  border: 0;
-  cursor: ew-resize;
+  appearance: none; -webkit-appearance: none;
+  width: 4px; height: 60rem; background: transparent; border: 0;
 }
 .wipe-range::-moz-range-track { background: transparent; height: 100%; border: 0; }
 .wipe-range::-moz-range-thumb {
-  width: 2.75rem;
-  height: 60rem;
-  background: transparent;
-  border: 0;
-  border-radius: 0;
-  cursor: ew-resize;
+  width: 4px; height: 60rem; background: transparent; border: 0; border-radius: 0;
 }
-.wipe-range:focus-visible { outline-offset: -3px; }
+
+/* keyboard focus has to be visible even though the control is not */
+.wipe-range:focus-visible { outline: none; }
+.wipe:has(.wipe-range:focus-visible) { outline: 2px solid var(--process-m); outline-offset: 3px; }
+.wipe:has(.wipe-range:focus-visible) .wipe-divider::after { background: var(--process-m); }
 
 
 /* 7d ── credit line ======================================================= */

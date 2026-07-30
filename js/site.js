@@ -55,16 +55,90 @@
      clip and the divider can follow. Authored CSS all lives in css/, and this
      custom property is dynamic state rather than styling.                  */
 
+  /*
+    Dragging is driven by Pointer Events on the frame, not by the range input.
+
+    Native range inputs handle `pen` pointers inconsistently — a press that does
+    not land on the thumb can register as tap-and-jump instead of a continuous
+    drag, which feels sticky with a stylus. Pointer Events with
+    setPointerCapture behave identically for mouse, touch and pen, and give
+    sub-pixel positions.
+
+    The range input remains the accessibility surface: focusable, announced as a
+    slider, carrying a real value. It has pointer-events: none in CSS, so it
+    never competes for the gesture.
+
+    Position is written on the next animation frame, so a fast drag cannot queue
+    more style writes than the compositor can draw.
+  */
+
   Array.prototype.forEach.call(document.querySelectorAll('.wipe'), function (frame) {
     var range = frame.querySelector('.wipe-range');
     if (!range) return;
 
-    function paint() {
-      frame.style.setProperty('--wipe', range.value + '%');
+    var pending = null;
+
+    function commit(value) {
+      var v = Math.min(100, Math.max(0, value));
+      range.value = v;
+      if (pending !== null) return;
+      pending = requestAnimationFrame(function () {
+        pending = null;
+        frame.style.setProperty('--wipe', range.value + '%');
+      });
     }
 
-    range.addEventListener('input', paint);
-    paint();
+    function fromPointer(event) {
+      var box = frame.getBoundingClientRect();
+      if (!box.width) return;
+      commit(((event.clientX - box.left) / box.width) * 100);
+    }
+
+    /* A local flag is the source of truth for "is a drag in progress". Capture
+       is attempted on top of it so the pointer keeps reporting outside the
+       frame, but a browser that refuses capture still drags correctly. */
+    var dragging = false;
+
+    frame.addEventListener('pointerdown', function (e) {
+      /* ignore secondary buttons so right-click does not yank the divider */
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      dragging = true;
+      try { frame.setPointerCapture(e.pointerId); } catch (err) { /* fine */ }
+      fromPointer(e);
+      e.preventDefault();
+    });
+
+    frame.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      fromPointer(e);
+    });
+
+    function release(e) {
+      dragging = false;
+      try { frame.releasePointerCapture(e.pointerId); } catch (err) { /* fine */ }
+    }
+    frame.addEventListener('pointerup', release);
+    frame.addEventListener('pointercancel', release);
+    frame.addEventListener('lostpointercapture', function () { dragging = false; });
+
+    /* keyboard, on the input, in steps a person can actually use */
+    range.addEventListener('keydown', function (e) {
+      var step = e.shiftKey ? 10 : 2;
+      var handled = true;
+      var v = parseFloat(range.value);
+
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') commit(v - step);
+      else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') commit(v + step);
+      else if (e.key === 'PageDown') commit(v - 20);
+      else if (e.key === 'PageUp') commit(v + 20);
+      else if (e.key === 'Home') commit(0);
+      else if (e.key === 'End') commit(100);
+      else handled = false;
+
+      if (handled) e.preventDefault();
+    });
+
+    commit(parseFloat(range.value));
   });
 
   /* If the viewer never chose, follow the OS when it changes under us. */
