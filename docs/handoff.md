@@ -13,8 +13,12 @@ Everything the site needs now lives on internal disk:
 ```
 ~/Desktop/dev.nosync/
   jacobhenderson-studio/   the site
-  ascend-portal/           sparse partial clone — only codedesk/ materialised,
-                           5.8 MB instead of 4.4 GB, git lineage intact
+  ascend-portal-codedesk/  sparse partial clone of ascend-portal — only
+                           codedesk/ materialised, 5.8 MB instead of 4.4 GB,
+                           git lineage intact. The folder is renamed; the
+                           GitHub repo is still ascend-portal, and must stay
+                           that way — the live embed and Codedesk's own CSS
+                           links both resolve through /ascend-portal/.
   picture-wrap/            whole product
   okQRal/                  whole product
 ~/Desktop/lafayette-square.nosync/    The Ward — 184 GB, do not copy
