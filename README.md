@@ -110,7 +110,7 @@ Getting this wrong cost several rebuilds. The distinction is worth keeping.
 | **`.states` + `.pill`** | Three or more discrete views of one stack, where one of them is the whole frame at once. A wipe cannot express that: centre-composed and seam-follows-finger are geometrically incompatible. |
 | **`.stepper`** | An ordered sequence. Every stage stays visible, nothing auto-advances. |
 | **`.pager`** | Many variations of one argument. One at a time, buttons in the margins so paging is never confused with dragging, and a visible count so the extent is known. |
-| **`.embed`** | Any live product. Preferred over a screenshot: it is the actual thing, and it cannot go stale. **All three products embed** — Codedesk, Picture Wrap and The Ward. An earlier draft of this file claimed The Ward was renders-plus-a-link; that was wrong and it is embedded like everything else. |
+| **`.embed`** | Any live product. Preferred over a screenshot: it is the actual thing, and it cannot go stale. **Two embeds exist today** — Codedesk (`index.html:630`) and Picture Wrap (`:847`). The Ward is *intended* to embed and does not yet; it is still a three-state pill on placeholder art. This row has now been wrong in both directions — first claiming renders-plus-a-link, then claiming all three were embedded — so count the iframes before trusting it. |
 | **`.more`** | Depth. **Collapsed is a preview, never a closed door** — the picture and the claim stay out, and expanding only adds reading. |
 
 ---
@@ -156,12 +156,18 @@ Do not fork the snippet. It is the same file in every product.
 
 | Product | Snippet |
 |---|---|
-| Codedesk (`~/Desktop/dev.nosync/codedesk`) | **committed** — standalone repo |
-| Picture Wrap | added, uncommitted |
-| The Ward | **outstanding** — lives at `~/Desktop/lafayette-square.nosync` (184 GB, branch `curb-offset-draw`) with active in-flight work. Read its `_handoffs/` and open `BRIEF-*.md` first. |
+| Codedesk (`~/Desktop/dev.nosync/codedesk`) | **live** — committed, deployed, and confirmed reporting height from the deployed URL |
+| Picture Wrap (`~/Desktop/dev.nosync/picture-wrap`) | **added, untracked, not deployed.** Loaded at its `index.html:85` and byte-identical to canonical, but `picture-wrap.com` serves no copy of it — so the site's frame still falls back to its CSS aspect ratio. Commit and deploy. |
+| The Ward | **outstanding** — not embedded at all yet. Lives at `~/Desktop/lafayette-square.nosync` (184 GB, branch `curb-offset-draw`) with active in-flight work. Read its `_handoffs/` and open `BRIEF-*.md` first. |
 
-Both products need deploying before the site sees any of it: the embeds point at
-the live URLs, not at local copies.
+The embeds point at live URLs, not local copies, so a product is only as current
+as its last deploy. Codedesk publishes from
+`github.com/jacobeugenehenderson/codedesk`; Picture Wrap still needs deploying.
+
+**Caching will lie to you.** The embedded scripts carry `?v=` strings, so a
+browser holding an old copy keeps showing the previous build long after the
+deploy has landed. Hard-reload before believing a regression — one was reported
+today that had already been fixed and shipped.
 
 ---
 
@@ -247,9 +253,9 @@ the page in a fixed-width iframe does give media queries a genuine 390px.
 | 2 Nordson | Cordis reveal, filmstrip | placeholder |
 | 3 Ascend | five-step stepper | **real** interfaces |
 | 4 QR engine | live Codedesk embed | **live** |
-| 5 The Ward | three-state pill | placeholder |
-| 6 Picture Wrap | live site embed | **live** |
-| Origin Provincetown | — | not built |
+| 5 The Ward | three-state pill | placeholder — **not embedded yet**, despite the intent to |
+| 6 Picture Wrap | live site embed | **live**, but not yet self-sizing — snippet undeployed |
+| Origin Provincetown | — | not built; no section exists in `index.html` |
 
 **Outstanding, needing Jacob:**
 
@@ -260,8 +266,10 @@ the page in a fixed-width iframe does give media queries a genuine 390px.
 - How many photograph/illustration pairs exist for the Nordson filmstrip.
 - The Ward embedded, with its slab / composed / Ward-on-graph-paper states as
   the thing you switch between inside the live product.
-- Codedesk's startup preset pointing at `okqral.com` with an emoji-styled code —
-  currently it boots a plain black-and-white one.
+- Codedesk's startup code is emoji-styled. It encodes `www.okQRal.com` and is
+  captioned, but the modules are still plain black-and-white squares, so the
+  claim above the frame — *pick an emoji and it becomes the code's palette* — is
+  the one thing on that piece a visitor cannot see happening. **Next session.**
 - Provincetown: flat scans of the guides, member map and Pride poster.
 
 **Known and accepted:** collapsing to one page cost per-piece link previews. Any

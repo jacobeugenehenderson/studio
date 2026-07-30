@@ -66,9 +66,21 @@ EOF
 
 Expected: `none`, `none`, the two reserved Nordson inks, `ok`.
 
-**If a document contradicts the code, the code is right.** Two documents here
-have already been corrected for confidently stating a decision that had been
-overturned. Fix the note; do not follow it.
+**If a document contradicts the code, the code is right.** Several documents
+here have now been corrected for confidently stating something untrue. Fix the
+note; do not follow it.
+
+The best of these is worth knowing by name. `README.md` §5 claimed **"All three
+products embed"** — and made a point of correcting an earlier draft that had
+said otherwise. `index.html` has contained exactly two iframes the whole time.
+The row had been wrong in both directions, and the confident correction is what
+made the second version convincing. **Count the iframes.**
+
+A cheap habit that catches most of this: when a document states a number, a
+path, or a status, check it as you read. `grep -c "iframe src=" index.html`,
+`git status` in the product repo, `curl` the deployed URL. A to-do list is only
+useful if every line is still true, and the ones that quietly go stale are the
+ones nobody re-checks because they *sound* settled.
 
 ## 6 · Look at it (2 min)
 
@@ -108,6 +120,55 @@ cost three rejected attempts in one session.
 **Check computed state, not attributes.** A `hidden` attribute that is correctly
 set can still be overridden by a class selector. Ask the browser what it
 computed.
+
+**An undefined custom property does not fall through — it wins, then
+evaporates.** `border-radius: var(--shape-corner-md)` with no fallback outranks
+`.rounded-md` on specificity; only *afterwards* does the undefined var make the
+declaration invalid at computed-value time, resetting the property to its
+initial value. So the rule that beat everything paints nothing, and the utility
+class never gets its turn. Every control in Codedesk rendered square for this
+reason. When a value is inexplicably `0` or `none`, check whether the token it
+references was ever declared. `grep -- '--token-name\s*:'` is the whole test.
+
+**Verify against the thing that ships, at the URL that ships it.** A fix was
+deployed, confirmed present in the served file, and the site still showed the
+old behaviour — because the browser held a cached copy of a `?v=`-stamped
+script. That produced a false regression and a wasted round of debugging.
+Hard-reload, or fetch the deployed asset and grep it, before believing a bug.
+
+**A programmatic `.click()` is not a click.** Driving the Codedesk accordion
+with `element.click()` produced states a real pointer never produces — closing
+every drawer instead of opening one. Use real pointer events to verify
+interaction; keep `.click()` for code that ships, where it runs in the app's own
+sequence.
+
+**If you need a before/after proof, put both under one origin.** Computed-style
+diffing across two ports fails silently: `localStorage` is per-origin, so the
+baseline never reaches the comparison. Serve both trees from one server as
+`/before/` and `/after/`. Element *counts* also drift on their own in a live
+app, so key the comparison by a stable path rather than by index — 851 shared
+elements with zero differences is a proof; a matching total is not.
+
+**Set state once and something else will unset it.** The embed's opening drawer
+kept closing because `codedeskSetLocked()` shuts every drawer as part of its
+job, and the filename gate calls it while wiring — order depending on boot
+timing. A single click was a coin toss. If you must impose a state at load,
+assert it briefly and idempotently rather than firing once, and only when it is
+not already true, so it can never fight the visitor.
+
+**Presentation belongs in the stylesheet.** Setting `.style.display` from
+JavaScript is an inline style by another name: invisible to anyone reading the
+CSS, and unreachable by the audit script. Jacob asked for this explicitly.
+Script should do only what CSS cannot express — moving nodes between parents,
+and seeding values.
+
+**An embed may be a different product from the same code.** Codedesk framed
+drops its header and setup ceremony and opens on a finished code; its normal
+build still opens on a filename prompt with every drawer locked, because there
+it is about to write a file to Drive. The rule that keeps it honest is **hide,
+do not strip** — nothing is deleted, so the claim above the frame ("Change
+anything") stays true. Do it in the product behind its own flag, never from the
+embedding page.
 
 **Test the state that ships.** A disclosure bug survived several checks because
 every check rendered it `open`. If a thing has a default state, verify *that*.
