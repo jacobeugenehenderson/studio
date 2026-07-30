@@ -20,6 +20,7 @@ Everything the site needs now lives on internal disk:
 ~/Desktop/lafayette-square.nosync/    The Ward — 184 GB, do not copy
 ```
 
+`docs/read-in.md` is the ten-minute start-of-session procedure — follow it first.
 `COLOPHON.md` indexes every document in the project, including this one.
 
 **Read `README.md` first.** It carries the argument the site makes, seven rules,

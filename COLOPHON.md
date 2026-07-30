@@ -4,6 +4,9 @@ A colophon is the note at the back of a book recording how the thing was made �
 the press, the paper, the faces, the hands. This is that, for
 **jacobhenderson.studio**, plus a map of where every other record lives.
 
+> **Starting a session?** Follow `docs/read-in.md` — an ordered ten-minute
+> procedure for getting accurate context rather than merely a lot of it.
+
 ---
 
 ## Materials
@@ -39,6 +42,7 @@ point.
 | Document | What it holds |
 |---|---|
 | `README.md` | The argument the site makes, the seven rules, which component is right for which job, six traps already fallen into, the audit script, current state. **Start here.** |
+| `docs/read-in.md` | **Start-of-session procedure.** What to read, in what order, what to skip, how to verify the docs before trusting them, and the working posture. |
 | `docs/handoff.md` | The short baton. Where things are, what not to do, what's outstanding. |
 | `docs/okqral-cleanup-brief.md` | A behaviour-preserving vestigial pass on okQRal, plus findings from a first look and the sequencing that matters. |
 | `docs/embed-height.js` | The snippet each embedded product carries so it can report its own height. Same file in all three — do not fork it. |
