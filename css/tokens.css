@@ -45,7 +45,6 @@
      to tell apart, quiet enough to never pass for design.                    */
   --wf-a: #A9B6BE;
   --wf-b: #C6B49C;
-  --wf-c: #9FAE96;
 
   /* ---- graph paper ------------------------------------------------------
      A ground under a figure, never a page background — a full-page grid was
@@ -136,7 +135,6 @@
 
     --wf-a: #3E4A52;
     --wf-b: #4E4438;
-    --wf-c: #3C4838;
     --graph-bg:    #2A2E30;
     --graph-minor: #373C3F;
     --graph-major: #474E52;
@@ -174,7 +172,6 @@
 
   --wf-a: #3E4A52;
   --wf-b: #4E4438;
-  --wf-c: #3C4838;
   --graph-bg:    #2A2E30;
   --graph-minor: #373C3F;
   --graph-major: #474E52;
@@ -209,7 +206,6 @@
 
   --wf-a: #A9B6BE;
   --wf-b: #C6B49C;
-  --wf-c: #9FAE96;
   --graph-bg:    #C6CACC;
   --graph-minor: #B2B8BB;
   --graph-major: #949CA1;

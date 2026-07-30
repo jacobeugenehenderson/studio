@@ -74,18 +74,32 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    undeployed.
 3. **The Ward — embedded as three layers, 30 July 2026. NOT YET LIVE.**
 
-   The pill drives the frame. Each state loads a different **payload** from the
-   product's own URL: `?layer=slab` (the baked environment, no Player), no
-   param (both), `?layer=player` (the commons, no slab). So the wireframe and
-   the live frame finally say the same thing — the first build embedded only
-   the composed front door, which asserted the separation instead of showing
-   it, and Jacob rightly rejected it.
+   **One demo area.** The wireframe that stood above the embed is gone — it was
+   the spec for the demo, and once the demo existed it could only disagree with
+   it. The pill is now the embed's switcher.
 
-   **Two anchors were added to The Ward** — `69dfaad2` on `curb-offset-draw`,
-   scoped to `src/App.jsx`, 2 real lines. `layer=slab` reuses App's existing
-   chrome gate; `layer=player` gates the `Scene` mount; absent, nothing
-   changes. Plus `WeatherPoller` mounted for the player layer only, because it
-   normally rides inside `Scene` and the Player alone read `--°F`.
+   **It switches by `postMessage`, never by reloading.** Changing `src` rebuilt
+   the product's WebGL context and reset its camera, which makes the three
+   states three separate pictures instead of one stack having its ground taken
+   away. Jacob caught this. `Scene` therefore stays MOUNTED for every layer and
+   is hidden by CSS — hide, do not strip — which also keeps `WeatherPoller`
+   alive, so the Player's Almanac still has a temperature.
+
+   **The Ward state stands on graph paper.** `.graph` is on the frame
+   permanently: the slab covers it, and taking the slab away reveals it. That
+   needs the product transparent under `?layer=player`, which took two of the
+   three Ward-side anchors.
+
+   **Ward anchors** — `69dfaad2` + follow-up on `curb-offset-draw`, in
+   `src/App.jsx`, `index.html` and `src/index.css`. URL params set the initial
+   layer and serve direct links; a `message` listener switches it live, and
+   only when framed. Absent, nothing changes.
+
+   ⚠ One `!important` in `src/index.css`: `Scene`'s wrapper carries an **inline**
+   `background: #000` (`Scene.jsx:747`), and nothing but `!important` outranks
+   an inline style. Without it the slab is hidden but its black backing still
+   covers the sheet. Overriding beats editing `Scene`, which has no business
+   knowing it is embedded.
 
    ⚠ **Deliberately not `?ground`.** `Scene.jsx`'s `IS_GROUND` reads the URL
    independently and strips trees, buildings, lamps, arch and post-FX to leave

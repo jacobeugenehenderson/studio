@@ -321,62 +321,47 @@
      and letting focus fall back to <body> would drop a keyboard visitor at the
      top of the document having just asked to go somewhere. */
 
-  /* Which payload each pill state asks the product for. Empty string is the
-     composite — the product's own front door, no param, exactly what the
-     public gets. The other two are the anchors added to The Ward so the slab
-     and the Player can be mounted separately (SLAB-CONTRACT.md §0). */
-  var WARD_LAYERS = { slab: '?layer=slab', composite: '', ward: '?layer=player' };
+  /* The pill's three states, in the product's own vocabulary. `composite` is
+     its front door — no param, exactly what the public gets. The other two are
+     the anchors added to The Ward so the slab and the Player can be mounted
+     separately (SLAB-CONTRACT.md §0). */
+  var WARD_LAYERS = { slab: 'slab', composite: null, ward: 'player' };
 
-  Array.prototype.forEach.call(document.querySelectorAll('.embed--waiting'), function (box) {
-    var launch = box.querySelector('.embed-launch');
-    if (!launch || !box.getAttribute('data-embed-base')) return;
-
-    /* The pill that already drives the wireframe diagram. If there isn't one,
-       this is an ordinary deferred embed and the base URL is the whole story. */
+  Array.prototype.forEach.call(document.querySelectorAll('.embed--ward'), function (box) {
     var piece = box.closest('.piece');
     var radios = piece ? piece.querySelectorAll('input[name="ward-view"]') : [];
+    if (!radios.length || !box.getAttribute('data-embed-base')) return;
 
     function wanted() {
       for (var i = 0; i < radios.length; i++) {
-        if (radios[i].checked) return WARD_LAYERS[radios[i].value] || '';
+        if (radios[i].checked) return WARD_LAYERS[radios[i].value] || null;
       }
-      return '';
+      return null;
     }
 
-    function load() {
+    /* Switching layers must NOT reload the frame. A reload rebuilds the
+       product's WebGL context and resets its camera, and then the three states
+       are three separate pictures rather than one stack with its ground taken
+       away. So the running app is told, and it swaps in place — the commons
+       holds still while the slab goes out from under it.
+
+       Targeted at the embed's own origin rather than '*', so the message is not
+       readable by any other document that happens to be framed. The origin is
+       read from the attribute each time, so the frame can be repointed
+       (staging → prod, or a local build) without touching this file. */
+    function tell() {
       var frame = box.querySelector('iframe');
-      /* Read at load time, not at wiring time: the attribute is the source of
-         truth for the origin, and reading it late means it can be repointed
-         (staging → prod, or a local build) without touching this file. */
-      var url = box.getAttribute('data-embed-base') + wanted();
-
-      /* Already showing this layer — do not reload it. Re-entrancy matters:
-         a change event can fire for the radio going OFF as well as the one
-         coming on, and reloading a 3D neighbourhood twice per click would be
-         both slow and visibly wrong. */
-      if (frame) {
-        if (frame.src !== url) frame.src = url;
-        return;
-      }
-
-      frame = document.createElement('iframe');
-      frame.src = url;
-      frame.title = box.getAttribute('data-embed-title') || '';
-      frame.setAttribute('allow', 'fullscreen');
-      box.replaceChild(frame, launch);
-      box.classList.remove('embed--waiting');
-      frame.focus();
+      if (!frame || !frame.contentWindow) return;
+      try {
+        frame.contentWindow.postMessage(
+          { type: 'ward-layer', layer: wanted() },
+          new URL(box.getAttribute('data-embed-base'), window.location.href).origin
+        );
+      } catch (e) { /* malformed base — nothing to talk to */ }
     }
 
-    launch.addEventListener('click', load);
-
-    /* Once the frame is live the pill drives it. Before that the pill goes on
-       driving the wireframe alone, so choosing a state does not silently boot
-       a whole 3D app behind the launcher the visitor has not pressed. */
     Array.prototype.forEach.call(radios, function (radio) {
-      radio.addEventListener('change', function () {
-        if (box.querySelector('iframe')) load();
-      });
+      radio.addEventListener('change', tell);
     });
   });
 

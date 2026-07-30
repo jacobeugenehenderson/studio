@@ -714,7 +714,7 @@
             Three neighbourhoods, one kit.</p>
 <div class="states">
           <fieldset class="pill">
-            <legend class="visually-hidden">Which layers to show</legend>
+            <legend class="visually-hidden">Which layer of The Ward to load</legend>
             <label class="pill-opt pill-opt--slab">
               <input type="radio" name="ward-view" value="slab">Slab
             </label>
@@ -726,15 +726,46 @@
             </label>
           </fieldset>
 
-          <div class="states-stage states-stage--16x9">
-            <div class="state state--slab wf-c" aria-hidden="true"></div>
-            <div class="state state--sheet graph" aria-hidden="true"></div>
-            <div class="state state--ui" aria-hidden="true">
-              <span class="wf-ui">
-                <i class="wf-ui-ticker"></i><i class="wf-ui-panel"></i>
-                <i class="wf-ui-card"></i><i class="wf-ui-pill"></i>
-              </span>
-            </div>
+          <!-- The one demo area. A wireframe of three stacked layers stood here
+               while this was being specified; the live thing is that spec built,
+               so there is no diagram beside it to disagree with.
+
+               The pill above is this frame's switcher. Each state loads a
+               different PAYLOAD from the product's own URL:
+
+                 Slab       ?layer=slab    the baked environment, no Player
+                 Composite  (no param)     both, as the public gets it
+                 Ward       ?layer=player  the commons, no slab beneath
+
+               SLAB-CONTRACT.md §0 says the slab and the reader are separate
+               payloads and that neither imports the other's source. Those two
+               params are the anchors added to The Ward so an outside consumer
+               can mount either alone — additive, absent by default.
+
+               `graph` is on the frame PERMANENTLY, not just in the Ward state.
+               The sheet is always under there; the slab covers it; take the
+               slab away and it is revealed. That is the argument the piece
+               makes, done with a background instead of a caption. It works
+               because `?layer=player` leaves The Ward's own background
+               transparent, so this sheet is what the commons stands on.
+
+               Switching does NOT reload the frame — it posts a message and the
+               running app swaps in place. A reload would rebuild its WebGL
+               context and reset its camera, and then these are three separate
+               pictures rather than one stack with its ground taken away.
+
+               No launcher and no invented placeholder: the product already has
+               a loading screen — a radial horizon with stars — and it is the
+               honest thing to show while the product loads. `loading="lazy"`
+               still keeps the boot off the page until the frame is near.
+
+               `data-embed-base` is the ONE place the origin lives. -->
+          <div class="embed embed--ward graph"
+               data-embed-base="https://jacobeugenehenderson.github.io/lafayette-square-staging/">
+            <iframe src="https://jacobeugenehenderson.github.io/lafayette-square-staging/"
+                    title="The Ward — Lafayette Square, running"
+                    allow="fullscreen"
+                    loading="lazy"></iframe>
           </div>
 
           <div class="layer-legend">
@@ -751,43 +782,10 @@
           </div>
         </div>
 
-          <!-- The Ward, live, and the SAME pill drives it.
-
-               The wireframe above argues that the slab and the commons come
-               apart. This frame stops that being an assertion: each state
-               loads the layer it names, from the product's own URL.
-
-                 Slab       ?layer=slab    the baked environment, no Player
-                 Composite  (no param)     both, exactly as the public gets it
-                 Ward       ?layer=player  the commons, with no slab beneath
-
-               SLAB-CONTRACT.md §0 says the slab and the reader are separate
-               payloads and that neither imports the other's source. Those two
-               params are the anchors added to The Ward so an outside consumer
-               can mount either alone — two lines, additive, absent by default.
-
-               Switching states reloads the frame, and that cost is not hidden:
-               each layer really is a separate delivery, and watching one
-               arrive without the other is the whole argument.
-
-               `data-embed-base` is the ONE place the origin lives. Until the
-               anchors are promoted to prod this points at staging; flipping it
-               to lafayette-square.com afterwards is a one-line change and the
-               only one needed. -->
-          <div class="embed embed--ward embed--waiting"
-               data-embed-base="https://jacobeugenehenderson.github.io/lafayette-square-staging/"
-               data-embed-title="The Ward — Lafayette Square, running">
-            <button class="embed-launch graph" type="button">
-              <span class="embed-launch-title">Walk into Lafayette Square</span>
-              <span class="embed-launch-note">Loads the live neighbourhood ·
-                3D, a few seconds to boot</span>
-            </button>
-          </div>
-
           <p class="credit">The Ward, running, served from its own address with nothing added
-            for this page. The pill switches which <em>payload</em> loads — the slab alone, both,
-            or the commons alone — and each arrives from a separate URL. The slab underneath was
-            baked by a different tool than the one drawing it.</p>
+            for this page. The switcher above chooses which <em>payload</em> loads — the slab
+            alone, both, or the commons alone — and each arrives from a separate URL. The slab
+            underneath was baked by a different tool than the one drawing it.</p>
 
           <details class="more">
             <summary class="more-toggle"><span>The full case — the slab, the commons, and Cary</span></summary>
