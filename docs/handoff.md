@@ -69,13 +69,22 @@ getting it wrong cost a rebuild.
    were referenced but never declared, so every control rendered square, and a
    fixed control height clipped the bottom of its own text. See Codedesk's
    README — the token one generalises.
-3. **Deploy** Codedesk and Picture Wrap — the snippet does nothing until live.
-   Codedesk now needs a decision it did not need before: the site still embeds
-   `jacobeugenehenderson.github.io/ascend-portal/codedesk/` (`index.html:625`),
-   which is served from the *old* repo and will not receive anything committed
-   to the new one. Either deploy the standalone repo and repoint the embed, or
-   keep publishing through the portal. Do not leave it half-done — the failure
-   mode is editing the extracted repo and wondering why the site never changes.
+3. **Deploy** — **Codedesk is done.** It has its own public repo
+   (`github.com/jacobeugenehenderson/codedesk`), Pages serves it at
+   `jacobeugenehenderson.github.io/codedesk/`, and `index.html` embeds that.
+   Verified end to end on the local site: Code drawer open, frame self-sizing.
+
+   Two leftovers from that move. The portal's copy at
+   `…/ascend-portal/codedesk/` and `ascend.jacobhenderson.studio/codedesk/` is
+   **stale and still live** — retire it, or it will confuse whoever finds it
+   next. And `~/Desktop/dev.nosync/ascend-portal-codedesk`, the old sparse
+   clone, can be deleted now.
+
+   **Picture Wrap still needs deploying** — its snippet does nothing until live.
+
+   Beware caching when checking: the embed's scripts carry `?v=` strings, so a
+   browser holding an old copy will show the previous landing state long after
+   Pages has updated. Hard-reload before believing a regression.
 4. **Provincetown** section — not built. Meant to be the quiet one: flat scans,
    no interaction.
 5. **From Jacob:** the Cordis pair (spec in README §8), and how many
