@@ -613,48 +613,22 @@
         </div>
         <div class="piece-body">
           <h2 class="piece-title">The QR engine</h2>
-          <p class="piece-claim">One engine, three deployments, configuration as the skin. The
-            manifest is the only thing that differs between the public product and the internal
-            tool — and you can verify that from a directory listing.</p>
-          <!-- The evidence, set as evidence: a directory listing anyone can go
-               and check. Not claimed: that the split version is smaller. It is
-               larger in total. The argument is separation. -->
-          <div class="listing">
-            <div class="listing-col">
-              <h3 class="listing-head">okQRal <span>· public</span></h3>
-              <ul class="listing-files">
-                <li>qr_app.js <b>105 KB</b></li>
-              </ul>
-              <p class="listing-note">One file. Everything in it.</p>
-              <p class="listing-manifest">manifest <b>19.6 KB</b> — full vocabulary</p>
-            </div>
+          <p class="piece-claim">Three tools that look and behave differently <em>because</em> they
+            are one engine configured three ways: a public product, an internal tool at Nordson,
+            and a feature living inside a neighbourhood app. Pick an emoji and it becomes the
+            code's palette, so one choice sets both what a code means and how it looks.</p>
+          <!-- The tool, showing a code it made — and that code is the link.
+               One image: a picture of the product, a thing it produced, and a
+               working QR. The screenshot wants regenerating once Codedesk's
+               default preset points at okqral.com. -->
+          <a class="shot" href="https://okqral.com">
+            <img src="assets/codedesk-interface.png"
+                 alt="Codedesk, showing a QR code it generated that links to okqral.com"
+                 loading="lazy" decoding="async">
+          </a>
 
-            <div class="listing-col">
-              <h3 class="listing-head">Codedesk <span>· Nordson</span></h3>
-              <ul class="listing-files">
-                <li>qr_app-bootstrapper.js <b>14 KB</b></li>
-                <li>qr_render_engine.js <b>45 KB</b></li>
-                <li>qr_state_engine.js <b>17 KB</b></li>
-                <li>qr_sync_pipeline.js <b>78 KB</b></li>
-                <li>qr_ui_toolkit.js <b>49 KB</b></li>
-              </ul>
-              <p class="listing-note">The same app, pulled into five named engines.</p>
-              <p class="listing-manifest">manifest <b>5.9 KB</b> — Nordson only</p>
-            </div>
-
-            <div class="listing-col">
-              <h3 class="listing-head">The Ward <span>· embedded</span></h3>
-              <ul class="listing-files">
-                <li>public/codedesk/</li>
-                <li>&#8230; the same five,</li>
-                <li>filename for filename</li>
-              </ul>
-              <p class="listing-note">Vendored whole into a different product.</p>
-              <p class="listing-manifest">manifest <b>per deployment</b></p>
-            </div>
-          </div>
-
-          <p class="credit">Same engine, three times. The manifest is the skin.</p>
+          <p class="credit">Codedesk, and a code it made. Scan or click — it goes to
+            <strong>okqral.com</strong>: the same spine, instantiated for a different job.</p>
 
           <details class="more">
             <summary class="more-toggle">The full case — the skin, the emoji, the codes</summary>
@@ -663,12 +637,17 @@
               <section class="more-section">
                 <p class="label">Why it holds</p>
                 <div class="work-prose">
-                  <h2 class="work-h">Configuration as the skin</h2>
+                  <h2 class="work-h">Different on purpose, from one spine</h2>
                   <p>A public tool and an internal one usually diverge into two codebases, then
-                    drift, and then one of them quietly dies. These share an engine and differ by a
-                    manifest: the public build carries the full type vocabulary, the Nordson build
-                    carries only what Nordson uses, and The Ward vendors the whole thing inside a
-                    product about neighbourhoods.</p>
+                    drift, and then one of them quietly dies. These three stay different on
+                    purpose. The public build carries the full type vocabulary because strangers
+                    arrive wanting anything; the Nordson build carries only what Nordson uses,
+                    because a shorter list is a faster tool for people doing one job all day; and
+                    The Ward's is embedded inside a product about neighbourhoods, where a code is
+                    a detail rather than the point.</p>
+                  <p>None of that is three codebases. It is one engine and three manifests — so
+                    each deployment can be shaped to its own job without any of them drifting away
+                    from the others.</p>
                   <p>The split version is <em>larger</em> in total, not smaller — five engines come
                     to about twice the monolith. That is the honest trade. What it buys is that a
                     change to rendering cannot break state, and a change to state cannot break

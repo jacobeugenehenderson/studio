@@ -1114,80 +1114,32 @@ a { color: inherit; }
 }
 
 
-/* 7i2 ── the listing ====================================================== */
+/* 7i2 ── the shot ========================================================= */
 /*
-   A directory listing, set as evidence. The claim — one engine, three
-   deployments, configuration as the skin — is checkable rather than asserted,
-   so the graphic is the thing a skeptic would go and look at anyway.
+   The tool, showing a code it made — and that code is the link out. One image
+   doing three jobs: a picture of the product, a thing the product produced, and
+   a working QR. Nothing needs to sit beside it.
 
-   Note what is NOT claimed: the split version is larger in total, not smaller.
-   The argument is separation of concerns, and overstating it into "smaller"
-   would be the one thing a technical reader could catch.
+   This replaced a directory-listing table comparing file sizes across the three
+   deployments. It was accurate and checkable, and it was written for a reader
+   auditing an architecture claim rather than for anyone doing the hiring. That
+   argument survives as prose behind the twirl, where it costs nobody anything.
+
+   The code inside the screenshot has to be big enough to scan as DISPLAYED —
+   roughly 180px at arm's length. Below that it is decoration pretending to be
+   functional, which is the one thing this piece cannot afford to be.
 */
 
-.listing {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--rule);
+.shot {
+  display: block;
   border: 1px solid var(--rule-firm);
+  overflow: hidden;
+  transition: border-color var(--dur-quick) linear;
 }
 
-/* Flex rather than grid so the manifest can be pushed to the foot of every
-   column. It is the hinge of the whole comparison — 19.6 KB against 5.9 KB —
-   and that only reads if the three sit on one line. */
-.listing-col {
-  background: var(--paper);
-  padding: var(--s4);
-  display: flex;
-  flex-direction: column;
-  gap: var(--s3);
-}
+.shot img { display: block; width: 100%; height: auto; }
 
-.listing-head {
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  letter-spacing: var(--tr-label);
-  text-transform: uppercase;
-  font-weight: 400;
-  color: var(--ink);
-  border-bottom: 2px solid var(--spot, var(--rule-firm));
-  padding-bottom: var(--s2);
-}
-
-.listing-head span { color: var(--ink-faint); }
-
-.listing-files {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 0.3rem;
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  color: var(--ink-soft);
-  font-variant-numeric: tabular-nums;
-}
-
-.listing-files b { color: var(--ink-faint); font-weight: 400; }
-
-.listing-note { font-size: var(--fs-fine); color: var(--ink-soft); }
-
-/* the hinge: the one file that differs between deployments */
-.listing-manifest {
-  margin-top: auto;              /* pin to the foot, so the three align */
-  border-top: 1px solid var(--rule);
-  padding-top: var(--s2);
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  color: var(--ink);
-}
-
-.listing-manifest b { color: var(--spot, var(--ink)); font-weight: 400; }
-
-@media (max-width: 46rem) {
-  .listing { grid-template-columns: 1fr; }
-}
+.shot:hover { border-color: var(--spot, var(--ink)); }
 
 
 /* 7j ── the disclosure ==================================================== */
