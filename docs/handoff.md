@@ -13,12 +13,13 @@ Everything the site needs now lives on internal disk:
 ```
 ~/Desktop/dev.nosync/
   jacobhenderson-studio/   the site
-  ascend-portal-codedesk/  sparse partial clone of ascend-portal — only
-                           codedesk/ materialised, 5.8 MB instead of 4.4 GB,
-                           git lineage intact. The folder is renamed; the
-                           GitHub repo is still ascend-portal, and must stay
-                           that way — the live embed and Codedesk's own CSS
-                           links both resolve through /ascend-portal/.
+  codedesk/                Codedesk, extracted from ascend-portal with its
+                           304 commits. Standalone: the portal's two
+                           stylesheets are vendored, so nothing reaches for
+                           /ascend-portal/ any more. 2.9 MB.
+  ascend-portal-codedesk/  the old sparse clone it came out of. Superseded —
+                           keep only until Codedesk is deployed from its new
+                           home, then delete.
   picture-wrap/            whole product
   okQRal/                  whole product
 ~/Desktop/lafayette-square.nosync/    The Ward — 184 GB, do not copy
@@ -51,10 +52,18 @@ getting it wrong cost a rebuild.
    in-flight work** — uncommitted `design.json` changes and a stack of
    `BRIEF-*.md` files, the latest commit retracting an earlier conclusion. Read
    `_handoffs/` and the open briefs before touching anything. Do not copy it.
-2. **Codedesk** — snippet added, uncommitted, in the sparse clone. Still needs
-   its startup preset set to an emoji-styled code encoding `okqral.com`; it
-   currently boots plain black-and-white, which contradicts the claim above it.
+2. **Codedesk** — extracted and standalone at `~/Desktop/dev.nosync/codedesk`,
+   snippet committed. Still needs its startup preset set to an emoji-styled
+   code encoding `okqral.com`; it currently boots plain black-and-white, which
+   contradicts the claim above it. Verified after extraction — that plain boot
+   is the old known issue, not a casualty of the move.
 3. **Deploy** Codedesk and Picture Wrap — the snippet does nothing until live.
+   Codedesk now needs a decision it did not need before: the site still embeds
+   `jacobeugenehenderson.github.io/ascend-portal/codedesk/` (`index.html:625`),
+   which is served from the *old* repo and will not receive anything committed
+   to the new one. Either deploy the standalone repo and repoint the embed, or
+   keep publishing through the portal. Do not leave it half-done — the failure
+   mode is editing the extracted repo and wondering why the site never changes.
 4. **Provincetown** section — not built. Meant to be the quiet one: flat scans,
    no interaction.
 5. **From Jacob:** the Cordis pair (spec in README §8), and how many

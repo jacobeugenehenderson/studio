@@ -139,7 +139,7 @@ Do not fork the snippet. It is the same file in every product.
 
 | Product | Snippet |
 |---|---|
-| Codedesk (`~/Desktop/dev.nosync/ascend-portal-codedesk/codedesk`) | added, uncommitted |
+| Codedesk (`~/Desktop/dev.nosync/codedesk`) | **committed** — standalone repo |
 | Picture Wrap | added, uncommitted |
 | The Ward | **outstanding** — lives at `~/Desktop/lafayette-square.nosync` (184 GB, branch `curb-offset-draw`) with active in-flight work. Read its `_handoffs/` and open `BRIEF-*.md` first. |
 
