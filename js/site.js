@@ -147,8 +147,20 @@
   Array.prototype.forEach.call(document.querySelectorAll('.wipe'), function (frame) {
     var range = frame.querySelector('.wipe-range');
     if (!range) return;
+    /* A .reveal's art is cut so that each end opens an empty field. The copy for
+       a side fades up as the drag approaches that end, and both stay hidden at
+       centre where the two half-machines meet. The copy sits outside the frame
+       in the DOM so it can fall below on narrow screens, which is why the
+       property goes on the parent. */
+    var reveal = frame.parentElement;
+    if (reveal && !reveal.classList.contains('reveal')) reveal = null;
+
     bindDrag(frame, range, function (v) {
       frame.style.setProperty('--wipe', v + '%');
+      if (reveal) {
+        reveal.style.setProperty('--t-left', Math.max(0, (50 - v) / 50));
+        reveal.style.setProperty('--t-right', Math.max(0, (v - 50) / 50));
+      }
     });
   });
 

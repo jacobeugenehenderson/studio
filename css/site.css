@@ -695,7 +695,130 @@ a { color: inherit; }
 }
 
 
-/* 7g ── three states, one pill ============================================ */
+/* 7g ── the reveal ======================================================== */
+/*
+   A wipe whose artwork is built so that dragging opens a place to write.
+
+   Two images, identical dimensions, the machine cut on the same axis in both:
+   the photograph carries the machine's left half with background running to the
+   right edge; the drawing carries the right half with background running left.
+
+   At centre the two halves meet and you see one complete machine, half
+   photographed and half drawn. Drag to either end and you get one half-machine
+   beside an empty field — and the copy fades up into that field.
+
+   Unlike a three-state stack, this works as a wipe: the hybrid at centre is a
+   consequence of how the art is cut, not a third state, so the seam can stay
+   under the pointer where it belongs.
+
+   The copy lives OUTSIDE the frame in the DOM and is positioned over it, so on a
+   narrow screen it can fall back to flowing underneath — where there is no empty
+   field to write in, both blocks simply stay visible.
+*/
+
+.reveal { position: relative; }
+
+.reveal-copy {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40%;
+  z-index: 5;
+  display: grid;
+  gap: var(--s2);
+  transition: opacity 160ms linear;
+}
+
+.reveal-copy--left  { left: 5%;  opacity: var(--t-left, 0); }
+.reveal-copy--right { right: 5%; opacity: var(--t-right, 0); }
+
+.reveal-copy h3 {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.reveal-copy p { font-size: var(--fs-small); line-height: var(--lh-snug); }
+
+/* Wireframe half-machines: a block in one half, empty field in the other, so the
+   cut and the writing space read before the real art exists.
+
+   Both are FLUSH to the 50% line, because that is the whole trick — at centre
+   the two halves have to join into one machine. Inset from the cut they read as
+   two separate blocks with a gap, which demonstrates the opposite. */
+.wf-machine-l,
+.wf-machine-r { position: absolute; top: 10%; bottom: 10%; background: var(--ink-faint); opacity: 0.55; }
+.wf-machine-l { left: 14%; right: 50%; }
+.wf-machine-r { left: 50%; right: 14%; }
+
+@media (max-width: 46rem) {
+  /* No empty field at this width — the copy flows below and both blocks stay. */
+  .reveal-copy {
+    position: static;
+    transform: none;
+    width: auto;
+    opacity: 1;
+    margin-top: var(--s4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-copy { transition: none; }
+}
+
+
+/* 7h ── the filmstrip ===================================================== */
+/*
+   A scrolling row of small pairs. Its job is to prove there is a LIBRARY rather
+   than one machine, so each item is itself a miniature pair — photograph above,
+   drawing below — which restates the argument a dozen times over instead of
+   merely showing a dozen things.
+*/
+
+.filmstrip-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s4);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: var(--s2);
+  margin-bottom: var(--s3);
+}
+
+.filmstrip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(11rem, 1fr);
+  gap: var(--s3);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding-bottom: var(--s3);
+  overscroll-behavior-x: contain;
+}
+
+.filmstrip-item { scroll-snap-align: start; display: grid; gap: 2px; }
+
+/* the two image cells; named rather than selected by element, so the caption
+   below them needs no specificity fight to opt out */
+.filmstrip-cell {
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--rule-firm);
+}
+
+.filmstrip-cap {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding-top: var(--s1);
+}
+
+
+/* 7i ── three states, one pill ============================================ */
 /*
    Three views of one scene, chosen by a segmented pill that starts in the
    middle. A wipe was wrong here: a wipe compares two registered images by
