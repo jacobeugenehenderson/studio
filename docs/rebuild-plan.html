@@ -1,0 +1,670 @@
+<title>jacobhenderson.studio — Rebuild Plan</title>
+
+<style>
+  /* ====================================================================
+     TOKENS — document palette from looks/lafayette-square/design.json
+     (The *site's* palette is press ink + paper; see §03.)
+     ==================================================================== */
+  :root {
+    --ground:    #E8E4DE;   /* LS edgeline */
+    --raised:    #F3F1ED;
+    --ink:       #2D2D2C;   /* LS highway  */
+    --ink-soft:  #4A4A48;   /* LS street   */
+    --ink-faint: #8A8478;
+    --rule:      #CFC9BE;
+    --rule-firm: #B3AC9E;
+    --accent:    #F2CE4A;   /* LS stripe   */
+    --accent-tx: #6B5410;
+    --tan:       #A8826A;   /* LS curb     */
+    --cut:       #A8462F;
+
+    /* proposed spot inks, one per piece */
+    --pc-we: #B5673A;   /* West Elm  — terracotta */
+    --pc-no: #007AC9;   /* Nordson   — their blue */
+    --pc-as: #6F7A85;   /* Ascend    — graphite   */
+    --pc-qr: #6A3E64;   /* QR engine — plum       */
+    --pc-wd: #5E8A3A;   /* Ward      — treelawn   */
+    --pc-pw: #B08A1F;   /* Picture Wrap — gold    */
+    --pc-pb: #C8386F;   /* PBG       — magenta    */
+
+    --font-display: "Avenir Next", Avenir, "Helvetica Neue", Helvetica, sans-serif;
+    --font-body: Charter, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --font-mono: "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+
+    --rail: 8.5rem;
+    --gap: 2rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #232322;  --raised: #2D2D2C;
+      --ink: #E8E4DE;     --ink-soft: #B8B2A4;  --ink-faint: #8A8478;
+      --rule: #3B3B39;    --rule-firm: #4F4F4C;
+      --accent-tx: #F2CE4A;  --tan: #BE9A7E;    --cut: #D2765C;
+      --pc-no: #4E9FDA;   --pc-as: #93A0AC;     --pc-pb: #E46C97;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #232322;  --raised: #2D2D2C;
+    --ink: #E8E4DE;     --ink-soft: #B8B2A4;  --ink-faint: #8A8478;
+    --rule: #3B3B39;    --rule-firm: #4F4F4C;
+    --accent-tx: #F2CE4A;  --tan: #BE9A7E;    --cut: #D2765C;
+    --pc-no: #4E9FDA;   --pc-as: #93A0AC;     --pc-pb: #E46C97;
+  }
+  :root[data-theme="light"] {
+    --ground: #E8E4DE;  --raised: #F3F1ED;
+    --ink: #2D2D2C;     --ink-soft: #4A4A48;  --ink-faint: #8A8478;
+    --rule: #CFC9BE;    --rule-firm: #B3AC9E;
+    --accent-tx: #6B5410;  --tan: #A8826A;    --cut: #A8462F;
+    --pc-no: #007AC9;   --pc-as: #6F7A85;     --pc-pb: #C8386F;
+  }
+
+  /* ==== base ========================================================== */
+  body {
+    background: var(--ground); color: var(--ink);
+    font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.62;
+    margin: 0; padding: 3.5rem 1.5rem 8rem;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 60rem; margin: 0 auto; }
+
+  /* ==== masthead ====================================================== */
+  .masthead { border-bottom: 2px solid var(--ink); padding-bottom: 1.1rem; }
+  .eyebrow {
+    font-family: var(--font-mono); font-size: 0.6875rem;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint);
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; margin-bottom: 1.1rem;
+  }
+  .masthead h1 {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: clamp(1.9rem, 5vw, 2.9rem); line-height: 1.06;
+    letter-spacing: -0.02em; margin: 0 0 0.5rem; text-wrap: balance;
+  }
+  .standfirst { margin: 0; max-width: 46ch; color: var(--ink-soft); font-size: 1.1rem; }
+  .stripe { height: 4px; background: var(--accent); margin-top: 1.1rem; }
+
+  /* ==== sections ====================================================== */
+  section { margin-top: 3.5rem; }
+  .sec-head {
+    display: grid; grid-template-columns: var(--rail) 1fr; gap: var(--gap);
+    align-items: baseline; border-bottom: 1px solid var(--rule-firm);
+    padding-bottom: 0.5rem; margin-bottom: 1.5rem;
+  }
+  .sec-num, .phase-n {
+    font-family: var(--font-mono); font-size: 0.6875rem;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint);
+  }
+  .sec-head h2 {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 1.32rem; letter-spacing: -0.01em; margin: 0;
+  }
+  .row { display: grid; grid-template-columns: var(--rail) 1fr; gap: var(--gap); }
+  .row + .row { margin-top: 1.6rem; }
+  .label {
+    font-family: var(--font-mono); font-size: 0.6875rem;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--tan);
+    line-height: 1.5; padding-top: 0.28rem;
+  }
+  .body > * { max-width: 68ch; }
+  .body > :first-child { margin-top: 0; }
+  .body > :last-child { margin-bottom: 0; }
+  .body p { margin: 0 0 0.85rem; }
+  strong { font-weight: 600; }
+  em.term { font-style: normal; border-bottom: 2px solid var(--accent); }
+  s { color: var(--ink-faint); text-decoration-color: var(--cut); }
+
+  /* ==== flow diagram ================================================== */
+  .flow {
+    display: grid; gap: 0.4rem; max-width: 68ch;
+    font-family: var(--font-mono); font-size: 0.78rem;
+    background: var(--raised); padding: 1rem 1.1rem; margin: 0 0 0.85rem;
+    border-left: 3px solid var(--pc-wd);
+  }
+  .flow .lvl { display: flex; flex-wrap: wrap; gap: 0.4rem 0.9rem; align-items: center; }
+  .flow .box {
+    border: 1px solid var(--rule-firm); padding: 0.2rem 0.5rem; border-radius: 2px;
+    background: var(--ground);
+  }
+  .flow .arm { color: var(--ink-faint); }
+  .flow .cap { color: var(--ink-faint); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* ==== legend ======================================================== */
+  .legend { display: grid; gap: 0.5rem; max-width: 68ch; }
+  .legend-item {
+    display: grid; grid-template-columns: 1.1rem 1fr auto; gap: 0.7rem;
+    align-items: center; font-family: var(--font-mono); font-size: 0.78rem;
+    padding-bottom: 0.5rem; border-bottom: 1px solid var(--rule);
+  }
+  .swatch { width: 1.1rem; height: 1.1rem; border-radius: 2px; }
+  .sw-we { background: var(--pc-we); } .sw-no { background: var(--pc-no); }
+  .sw-as { background: var(--pc-as); } .sw-qr { background: var(--pc-qr); }
+  .sw-wd { background: var(--pc-wd); } .sw-pw { background: var(--pc-pw); }
+  .sw-pb { background: var(--pc-pb); }
+  .legend-item .hex { color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+  .legend-item .nm { font-family: var(--font-body); font-size: 0.95rem; }
+
+  /* ==== ranked pieces ================================================= */
+  .piece {
+    border-top: 1px solid var(--rule); padding: 1.15rem 0;
+    display: grid; grid-template-columns: var(--rail) 1fr; gap: var(--gap);
+  }
+  .piece:last-of-type { border-bottom: 1px solid var(--rule); }
+  .piece-rank {
+    font-family: var(--font-mono); font-size: 1.5rem; color: var(--ink-faint);
+    line-height: 1; font-variant-numeric: tabular-nums;
+    border-left: 3px solid var(--rule-firm); padding-left: 0.6rem;
+  }
+  .p-we .piece-rank { border-left-color: var(--pc-we); }
+  .p-no .piece-rank { border-left-color: var(--pc-no); }
+  .p-as .piece-rank { border-left-color: var(--pc-as); }
+  .p-qr .piece-rank { border-left-color: var(--pc-qr); }
+  .p-wd .piece-rank { border-left-color: var(--pc-wd); }
+  .p-pw .piece-rank { border-left-color: var(--pc-pw); }
+  .p-pb .piece-rank { border-left-color: var(--pc-pb); font-size: 0.95rem; }
+  .piece h3 {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 1.06rem; margin: 0 0 0.15rem;
+  }
+  .piece .argues {
+    font-size: 0.95rem; color: var(--ink-soft); margin: 0 0 0.7rem; max-width: 62ch;
+  }
+  .spec { display: grid; gap: 0.3rem; max-width: 66ch; }
+  .spec div { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.7rem; font-size: 0.9rem; }
+  .spec .k {
+    font-family: var(--font-mono); font-size: 0.6875rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-faint); padding-top: 0.22rem;
+  }
+
+  /* ==== tables ======================================================== */
+  .scroll { overflow-x: auto; max-width: 100%; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; padding: 0.5rem 0.85rem 0.5rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th {
+    font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-faint);
+    border-bottom-color: var(--rule-firm); white-space: nowrap;
+  }
+  code {
+    font-family: var(--font-mono); font-size: 0.86em; background: var(--raised);
+    padding: 0.1em 0.35em; border-radius: 2px;
+  }
+  td code { font-size: 0.82rem; }
+
+  /* ==== lists ========================================================= */
+  ul.tight { margin: 0 0 0.85rem; padding-left: 1.15rem; }
+  ul.tight li { margin-bottom: 0.3rem; }
+  ul.tight li::marker { color: var(--tan); }
+
+  /* ==== phases ======================================================== */
+  .phase {
+    display: grid; grid-template-columns: var(--rail) 1fr; gap: var(--gap);
+    border-top: 1px solid var(--rule); padding: 1rem 0;
+  }
+  .phase:last-of-type { border-bottom: 1px solid var(--rule); }
+  .phase h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 600; margin: 0 0 0.3rem; }
+  .owner {
+    display: inline-block; font-family: var(--font-mono); font-size: 0.625rem;
+    letter-spacing: 0.1em; text-transform: uppercase; padding: 0.15em 0.45em;
+    border-radius: 2px; margin-left: 0.5rem; vertical-align: 0.15em;
+  }
+  .owner.jh { background: var(--accent); color: #2D2D2C; }
+  .owner.cc { background: var(--rule); color: var(--ink-soft); }
+
+  /* ==== callouts ====================================================== */
+  .note {
+    border-left: 3px solid var(--accent); background: var(--raised);
+    padding: 0.9rem 1.1rem; margin: 0 0 0.85rem; max-width: 68ch;
+  }
+  .note.was { border-left-color: var(--cut); }
+  .note p { margin: 0 0 0.5rem; }
+  .note p:last-child { margin: 0; }
+  .note .h {
+    font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent-tx); display: block; margin-bottom: 0.35rem;
+  }
+  .note.was .h { color: var(--cut); }
+
+  /* ==== open items ==================================================== */
+  .q { border-top: 1px solid var(--rule); padding: 0.85rem 0; max-width: 68ch; }
+  .q:last-child { border-bottom: 1px solid var(--rule); }
+  .q b { font-family: var(--font-display); font-weight: 600; font-size: 0.98rem; }
+  .q p { margin: 0.2rem 0 0; font-size: 0.95rem; color: var(--ink-soft); }
+
+  footer {
+    margin-top: 4rem; padding-top: 1rem; border-top: 2px solid var(--ink);
+    font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-faint);
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem;
+  }
+
+  @media (max-width: 44rem) {
+    :root { --rail: 0; --gap: 0; }
+    .sec-head, .row, .piece, .phase { grid-template-columns: 1fr; gap: 0.45rem; }
+    .piece-rank {
+      border-left: none; padding-left: 0; padding-top: 0.4rem; width: 2.5rem;
+      border-top: 3px solid var(--rule-firm);
+    }
+    .p-we .piece-rank { border-top-color: var(--pc-we); }
+    .p-no .piece-rank { border-top-color: var(--pc-no); }
+    .p-as .piece-rank { border-top-color: var(--pc-as); }
+    .p-qr .piece-rank { border-top-color: var(--pc-qr); }
+    .p-wd .piece-rank { border-top-color: var(--pc-wd); }
+    .p-pw .piece-rank { border-top-color: var(--pc-pw); }
+    .p-pb .piece-rank { border-top-color: var(--pc-pb); }
+    .label { padding-top: 0; }
+    .spec div { grid-template-columns: 1fr; gap: 0; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">
+      <span>jacobhenderson.studio</span><span>Rebuild plan</span>
+      <span>29 Jul 2026</span><span>Rev C</span>
+    </div>
+    <h1>One operation, six scales</h1>
+    <p class="standfirst">A full editorial rebuild, argued from a single claim: that the work is
+      compositing, and that every piece of it is an infographic.</p>
+    <div class="stripe"></div>
+  </header>
+
+  <!-- 01 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>The claim the site makes</h2></div>
+
+    <div class="row">
+      <div class="label">Thesis</div>
+      <div class="body">
+        <p><strong>Compositing is the through-line, and it's literal.</strong> Sources captured
+          separately, under conditions that never coincided, made into one thing that reads as
+          though it always was. Your own architecture doc says it:
+          <em class="term">the runtime composes them</em>.</p>
+        <p><strong>The form is the infographic.</strong> A map is one you walk into, a QR code is
+          one a machine reads, a rising gold bar is one about death. That gives the site a
+          grammar — annotated, labelled, legended — derived from your practice rather than imposed
+          by taste. Not a headline word: it carries 2012 content-marketing baggage.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">Title</div>
+      <div class="body">
+        <p><strong>Creative Operations leads as the practice; Creative Director carries the
+          level.</strong> Mirrors your CV — name huge, then title, then the three-part competency
+          line. People recognise Creative Director but it reads <em>light</em>, and the point is
+          substance. "Compositor" stays out of the title slot; it's a real job that ranks below
+          you, and it works as the argument in the paragraph after.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>The editorial element</h2></div>
+    <div class="row">
+      <div class="label">One big<br>swing</div>
+      <div class="body">
+        <p>Your brief: from <em>the before time</em>, when things had to look <strong>good</strong>;
+          now they only have to look <strong>real</strong>. A 2D, textured sensibility applied to
+          digital artifacts. Fun, alive, motion in the transitions.</p>
+        <p><strong>The name at enormous scale, assembled from misregistered printing plates that
+          slide into registration on load.</strong> Offset separations, visible tooth, halftone
+          texture — flat and made rather than photoreal and rendered.</p>
+        <p>It earns its place three times. <em>Plate</em> and <em>registration</em> are the exact
+          vocabulary of the West Elm files directly below it. Separate plates converging into one
+          image performs the compositing thesis typographically, before a word is read. And print
+          craft states the before-time argument in the medium rather than describing it.</p>
+        <p>Motion concentrates here and in page transitions — one orchestrated moment beats
+          scattered effects. <code>prefers-reduced-motion</code> lands it pre-registered.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Visual system</h2></div>
+
+    <div class="row">
+      <div class="label">Palette</div>
+      <div class="body">
+        <div class="note was">
+          <span class="h">Replaced in Rev C</span>
+          <p><s>Emoji-derived palette engine.</s> <s>Live emoji picker on the QR page.</s> Both
+            gone. The app is toy enough, and the mechanism was solving a problem nobody had.</p>
+        </div>
+        <p><strong>Press ink and paper.</strong> A paper ground, registration black, and process
+          inks used sparingly — which is already implied by a hero built from misregistered
+          plates. Then each piece carries one <strong>spot ink</strong>, chosen by hand.</p>
+        <p>"Spot colour" is the correct before-time concept and does the job the emoji ramps were
+          doing without the machinery. Nordson keeps its real inks, which sit naturally in a
+          process system since that blue is nearly a process cyan.</p>
+        <div class="legend">
+          <div class="legend-item"><span class="swatch sw-we"></span><span class="nm">West Elm — terracotta</span><span class="hex">#B5673A</span></div>
+          <div class="legend-item"><span class="swatch sw-no"></span><span class="nm">Nordson — brand blue</span><span class="hex">#007AC9 · #0039AC · #F0AB00</span></div>
+          <div class="legend-item"><span class="swatch sw-as"></span><span class="nm">Ascend — graphite</span><span class="hex">#6F7A85</span></div>
+          <div class="legend-item"><span class="swatch sw-qr"></span><span class="nm">QR engine — plum</span><span class="hex">#6A3E64</span></div>
+          <div class="legend-item"><span class="swatch sw-wd"></span><span class="nm">Ward — treelawn</span><span class="hex">#5E8A3A</span></div>
+          <div class="legend-item"><span class="swatch sw-pw"></span><span class="nm">Picture Wrap — gold</span><span class="hex">#B08A1F</span></div>
+          <div class="legend-item"><span class="swatch sw-pb"></span><span class="nm">PBG — magenta</span><span class="hex">#C8386F</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">CSS</div>
+      <div class="body">
+        <p><strong>All CSS in one findable place.</strong> <code>css/tokens.css</code> for tokens,
+          <code>css/site.css</code> for everything else. No inline <code>style</code> attributes,
+          no per-component blocks, no CSS-in-JS. Components style through tokens only, so a
+          palette change is one file.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">Assets</div>
+      <div class="body">
+        <p><strong>Grey slugs everywhere.</strong> Every image, photo, and video is a labelled
+          placeholder at correct aspect ratio. Layout and motion settle before a single real file
+          is wired, and nothing blocks on asset hunting.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">QR<br>codes</div>
+      <div class="body">
+        <p><strong>Two, both mobile-legitimate:</strong> Ward and Picture Wrap. The page discusses
+          the work; the code takes you to the real asset. Each PNG wraps in an <code>&lt;a&gt;</code>
+          — phones scan, desktops click — which retires inverted-polarity risk as a dead end.</p>
+        <p>Picture Wrap's is gold on transparent, Oscars register: a citation, since
+          <em>In Memoriam</em> names exactly the people that project is about. Anchors get real
+          accessible names — "Open Picture Wrap", not "QR code".</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><h2>The six, in order</h2></div>
+    <div class="row">
+      <div class="label">Order<br>logic</div>
+      <div class="body">
+        <p>Rank carries information, so it's numbered. West Elm leads because a stranger
+          recognises the name and the image is beautiful — client scale and taste. Below it, scale
+          escalates while the operation stays identical.</p>
+      </div>
+    </div>
+
+    <div class="piece p-we">
+      <div class="piece-rank">1</div>
+      <div>
+        <h3>West Elm</h3>
+        <p class="argues">Recognisable client, and the eye.</p>
+        <div class="spec">
+          <div><span class="k">Sources</span><span>Registered. Each <code>_Plate</code> diptych
+            holds the registered location plate in one half, the studio source in the other. In
+            <code>20</code> the pool, coping, gravel and dappled light match the composite
+            exactly.</span></div>
+          <div><span class="k">Component</span><span>A registered wipe, starting
+            <strong>centred</strong> as yours did — both states at once explains the piece
+            instantly. Animates from full composite to centre on load so the beauty moment
+            survives.</span></div>
+          <div><span class="k">Rhythm</span><span>The location half deliberately alternates sides
+            across the set. Component supports either; page preserves your ordering.</span></div>
+          <div><span class="k">Copy</span><span>Your caption is the point — shooting plates in situ
+            to place objects later is a <em>production-cost</em> argument. The thesis, applied to a
+            photo studio.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="piece p-no">
+      <div class="piece-rank">2</div>
+      <div>
+        <h3>Nordson — the cultivated library</h3>
+        <p class="argues">Creative operations at scale, built from work you're proud of.</p>
+        <div class="spec">
+          <div><span class="k">Dropped</span><span><s>34-title density grid.</s> A wall that needs
+            an apology isn't evidence.</span></div>
+          <div><span class="k">Instead</span><span>The product line where you built the image
+            library <em>and</em> illustrated every shot for drop-in reuse. Photograph beside
+            illustrated counterpart, across the line. One canonical subject, two rendered forms,
+            reused everywhere — and an illustration <em>is</em> the infographic of a
+            photograph.</span></div>
+          <div><span class="k">Also</span><span>Cordis Feed Center industrial design. Collaborating
+            with engineers on machine form is the rarest thing on your CV — possibly its own
+            piece.</span></div>
+          <div><span class="k">Rights</span><span>You're proceeding; published material.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="piece p-as">
+      <div class="piece-rank">3</div>
+      <div>
+        <h3>Ascend suite</h3>
+        <p class="argues">The method inside an enterprise.</p>
+        <div class="spec">
+          <div><span class="k">Treatment</span><span>Diagram the pipeline rather than screenshot
+            four UIs. Intake to archive as one annotated flow, screenshots hung off it as detail
+            views. Existing drawer copy is good and largely survives.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="piece p-qr">
+      <div class="piece-rank">4</div>
+      <div>
+        <h3>QR engine — okQRal · Codedesk · Ward</h3>
+        <p class="argues">One engine, three deployments, config as the skin. Also the <em>fun</em>
+          one: light, low-commitment, quick.</p>
+        <div class="spec">
+          <div><span class="k">Evidence</span><span>okQRal: one <code>qr_app.js</code>, 2,884
+            lines. Codedesk: the same app as five named engines. Ward's
+            <code>public/codedesk/</code>: that identical file set, filename for filename. A
+            skeptic verifies it from a directory listing in ten seconds.</span></div>
+          <div><span class="k">The hinge</span><span><code>qr_type_manifest.json</code> is 19.6 KB
+            public, 5.9 KB at Nordson. The manifest <em>is</em> the skin.</span></div>
+          <div><span class="k">Demo</span><span>Live generation, full type vocabulary. The one page
+            where codes are the content — and the app is its own toy, so it needs no
+            scaffolding.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="piece p-wd">
+      <div class="piece-rank">5</div>
+      <div>
+        <h3>Ward — <code>ward.works</code></h3>
+        <p class="argues">The commons, rendered as the actual place. Self-directed, nobody asking,
+          and already a platform.</p>
+        <div class="spec">
+          <div><span class="k">Reframed</span><span>Not a map viewer with good trees. <strong>The
+            Player carries community fortification</strong> — ticker, bulletin board — so this is
+            neighbourhood infrastructure that happens to be drawn as the neighbourhood. That's the
+            argument, not the tree pipeline.</span></div>
+          <div><span class="k">Architecture</span><span>
+            <span class="flow">
+              <span class="lvl"><span class="cap">author</span><span class="box">Arborist</span><span class="arm">+</span><span class="box">Meteorologist</span></span>
+              <span class="lvl"><span class="arm">↓ pour into</span></span>
+              <span class="lvl"><span class="cap">compose</span><span class="box">Cartograph → the <strong>slab</strong></span></span>
+              <span class="lvl"><span class="arm">↓ animated by</span></span>
+              <span class="lvl"><span class="cap">runtime</span><span class="box">Player — ticker, bulletin board</span></span>
+            </span>
+            The slab is the whole environment; the Player animates it.</span></div>
+          <div><span class="k">Arborist</span><span><strong>Not LiDAR-informed.</strong> Species
+            library and specimen browser, low-poly sources baked to GLB with per-instance jitter,
+            bark, seasons, morph-and-tint leaves. The <code>.laz</code> files mislead; I had this
+            wrong and it's recorded now.</span></div>
+          <div><span class="k">Proof</span><span>Lafayette Square extremely elaborated, Highpointe
+            Demun heavily built, Altadena with mountains and 20,000 people. Same slab-and-player,
+            three neighbourhoods, wildly different terrain.</span></div>
+          <div><span class="k">Naming</span><span>Resolved. Platform is <strong>Ward</strong> —
+            municipal division, and <em>to ward</em> is to protect. St. Louis governs by
+            aldermanic ward, so it's locally literal. <code>lafayette-square.com</code> stays as
+            the neighbourhood's own home.</span></div>
+          <div><span class="k">Fifth<br>instance</span><span>Three neighbourhood domains off one
+            slab-and-player is the okQRal/Codedesk pattern at the infrastructure level. Say it
+            explicitly — it's checkable structural evidence.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="piece p-pw">
+      <div class="piece-rank">6</div>
+      <div>
+        <h3>Picture Wrap</h3>
+        <p class="argues">Information design on live sources — the display <em>is</em> the
+          invention.</p>
+        <div class="spec">
+          <div><span class="k">Idea</span><span>One gold bar's height encodes the mortality state
+            of an entire cast and crew, readable at a glance, moving as the world changes.</span></div>
+          <div><span class="k">Rigour</span><span>Wikidata and TMDB from the browser, no backend;
+            the 4.5 MB archive deliberately never served, vault sharded by decade.</span></div>
+          <div><span class="k">Copy</span><span>"Every picture wraps twice." Your own words.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="piece p-pb">
+      <div class="piece-rank">origin</div>
+      <div>
+        <h3>Provincetown Business Guild, 2018</h3>
+        <p class="argues">Restored in Rev C. Where the method started.</p>
+        <div class="spec">
+          <div><span class="k">Why back</span><span>You didn't just do the publishing work — you
+            <strong>built the automated database that produced it</strong>. That's not adjacent
+            chops, it's a straight instance of the canonical-source pattern, four years before
+            Nordson. It makes the method a fifteen-year practice rather than a recent
+            habit.</span></div>
+          <div><span class="k">Placement</span><span>A short coda after the six rather than a
+            seventh competitor — framed as origin, so it adds depth without diluting rank.</span></div>
+          <div><span class="k">Assets</span><span>Carnival and Winter guides, 2019 member map,
+            2020 Pride poster, Summer Guide PDF — all recovered.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">05</span><h2>Architecture &amp; scope</h2></div>
+    <div class="row">
+      <div class="label">Pages</div>
+      <div class="body">
+        <div class="scroll">
+          <table>
+            <thead><tr><th>Route</th><th>Contents</th><th>Job</th></tr></thead>
+            <tbody>
+              <tr><td><code>/</code></td><td>Name treatment, thesis, the six + origin</td><td>Legibility in thirty seconds</td></tr>
+              <tr><td><code>/work/&lt;piece&gt;</code></td><td>Seven pages on one template</td><td>Depth on a consistent spine</td></tr>
+              <tr><td><code>/about</code></td><td>Profile, competencies, the method line</td><td>Who and why</td></tr>
+              <tr><td><code>/resume</code></td><td>CV in HTML plus PDF</td><td>The thing being promoted</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Vanilla HTML, CSS, JS on GitHub Pages with the existing <code>CNAME</code>. No framework,
+          no deploy-time build. Matches the ethos already in Picture Wrap, and keeps the site
+          inspectable — which matters when the pitch is rigour.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">Deferred</div>
+      <div class="body">
+        <p><strong>Curios</strong> — deferred, not deleted. The generous instinct is right;
+          placement was my only objection. But you need a job, not smiles, so it ships later at
+          <code>/curios</code> with no nav prominence. Assets catalogued, nothing lost.</p>
+        <p><strong>WindowLykr</strong> — out. Only logos survived; the player died so the content
+          died. Which is <em>literally</em> Picture Wrap's thesis about your own work, and may be
+          worth one line somewhere.</p>
+        <p><strong>Don't buy the Highpointe Demun domain for the portfolio's sake.</strong> You were
+          waiting on a restaurant partner — a real business reason. A domain with nothing behind it
+          is weaker than a staging link with a built neighbourhood on it. One live public URL plus
+          two in build is a normal, honest thing for a case study to say.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">06</span><h2>Sequence</h2></div>
+
+    <div class="phase">
+      <div class="phase-n">Phase 1</div>
+      <div>
+        <h3>okQRal vestigial pass <span class="owner jh">Jacob</span></h3>
+        <p>Brief written: <code>okqral-cleanup-brief.md</code>. Behaviour-preserving deletion,
+          baseline harness first, reachability analysis rather than grep — the dead code is dead
+          <em>paths</em>, not dead text. Runs parallel; gates only the QR page.</p>
+        <p><strong>Do not port Codedesk's engines over okQRal.</strong> Its manifest is 5.9 KB
+          against okQRal's 19.6 KB, so that would silently delete most of the public type
+          vocabulary. Clean in place.</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-n">Phase 2</div>
+      <div>
+        <h3>Shell, tokens, name treatment <span class="owner cc">Claude</span></h3>
+        <p><code>css/tokens.css</code> and <code>css/site.css</code>, type scale, both themes, page
+          template, grey-slug placeholder system. Then the plate-registration name treatment —
+          highest-risk element, and everything else calibrates against it.</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-n">Phase 3</div>
+      <div>
+        <h3>Home and the wipe <span class="owner cc">Claude</span></h3>
+        <p>The six plus origin in order, and the registered wipe with alternating-side support and
+          a centred default.</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-n">Phase 4</div>
+      <div>
+        <h3>Case studies <span class="owner cc">Claude</span></h3>
+        <p>One template, seven fills, all placeholders. Pipeline diagram reused for Ascend and Ward
+          since they're the same shape. Existing drawer copy re-cut.</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-n">Phase 5</div>
+      <div>
+        <h3>About, résumé, real assets <span class="owner cc">Claude</span></h3>
+        <p>Then swap slugs for real files, add the image pipeline, wire the two codes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">07</span><h2>Still open</h2></div>
+    <div class="row">
+      <div class="label">Decisions</div>
+      <div class="body">
+        <div class="q"><b>Which Nordson product line, and how many pairs?</b>
+          <p>Photograph-plus-illustration count shapes the whole page. The only item blocking a
+            case-study build.</p></div>
+        <div class="q"><b>Cordis Feed Center — its own piece, or inside Nordson?</b>
+          <p>Industrial design collaboration is rare enough it may deserve standing alone.</p></div>
+        <div class="q"><b>Photograph of you.</b>
+          <p>There's a <code>Selfie.jpg</code> in the archive. CD hiring is partly a read on the
+            person.</p></div>
+        <div class="q"><b>Does Cartograph become Cartographer?</b>
+          <p>Arborist and Meteorologist are specialists; Cartograph is an artifact. Completing the
+            family is tidy but it renames a shipped tool. Low stakes, your call.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Rev C</span><span>Ward · ward.works</span>
+    <span>Avenir Next · Charter · SF Mono</span>
+  </footer>
+
+</div>

@@ -1,4 +1,13 @@
+# Original art. Lives on disk, never in the repo — the build writes optimised
+# derivatives into assets/ and only those get committed.
+_source/
+
+# macOS
+.DS_Store
+._*
+
+# Raster output is committed only where it is deliberately part of the site, so
+# PNGs are ignored by default and assets/ is opted back in.
 *.png
 !assets/*.png
 !assets/**/*.png
-._*
