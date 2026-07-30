@@ -3,6 +3,11 @@
 **Repo:** `/Volumes/Today/okQRal` · deploys to `okqral.com` (GitHub Pages, `CNAME`)
 **Task type:** behaviour-preserving deletion. Not a refactor. Not a redesign.
 
+**Before you start: name yourself.** Choose a call name, state it up front, and
+use it in `CLEANUP-REPORT.md` and in every commit message. Project convention —
+several agents work across this site and its three products, and "who did this"
+should never be guesswork.
+
 ---
 
 ## 1. What this is

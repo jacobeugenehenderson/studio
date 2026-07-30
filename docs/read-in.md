@@ -120,3 +120,8 @@ anything.
 
 **`/Volumes/Today` unmounts mid-write.** Nothing the site needs depends on it.
 Keep it that way.
+
+**Any agent that is not Colophon names itself before starting**, and uses that
+name in its report and its commits. Jacob's convention, for bookkeeping. Put the
+instruction in the brief rather than hoping the agent volunteers it — see the
+first section of `docs/okqral-cleanup-brief.md` for the wording.

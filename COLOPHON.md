@@ -87,4 +87,8 @@ paper, The Ward.
 **Colophon** — project adviser and chief librarian. Building, and keeping this
 record straight.
 
+**Dispatched agents** name themselves before starting and sign their work, so
+this section can stay accurate as more hands touch the project. A colophon
+records the hands; every hand needs a name.
+
 *Rebuilt July 2026.*
