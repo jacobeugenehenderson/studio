@@ -64,7 +64,6 @@ a { color: inherit; }
   z-index: 1;
 }
 
-.measure { max-width: var(--measure); }
 
 /* Keeps a pair together without &nbsp;, whose fixed width gapes in Charter. */
 .nowrap { white-space: nowrap; }
@@ -483,7 +482,6 @@ a { color: inherit; }
 }
 
 .wipe--3x2  { aspect-ratio: 3 / 2; }
-.wipe--16x9 { aspect-ratio: 16 / 9; }
 
 .wipe-layer { position: absolute; inset: 0; display: grid; place-items: center; }
 
@@ -866,7 +864,7 @@ a { color: inherit; }
 
 .stepper-shot img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
-.stepper-panel .work-prose { padding-right: var(--s5); }
+.stepper-panel .prose { padding-right: var(--s5); }
 
 @media (max-width: 46rem) {
   /* five columns of names is unreadable on a phone; numbers alone still say
@@ -1037,7 +1035,6 @@ a { color: inherit; }
 }
 
 .states-stage--16x9 { aspect-ratio: 16 / 9; }
-.states-stage--3x2  { aspect-ratio: 3 / 2; }
 
 .state {
   position: absolute;
@@ -1252,96 +1249,26 @@ a { color: inherit; }
   max-width: 80%;
 }
 
-/* Temporary fills for the wipe's two layers, so the mechanism is visible
-   before the real plates are wired. Two tones, because a wipe between two
-   identical greys demonstrates nothing. Delete when the images land. */
-.wipe-layer--slug     { background: var(--paper-sunk); }
-.wipe-layer--slug-alt { background: var(--rule); }
 
-.slug--21x9 { aspect-ratio: 21 / 9; }
-.slug--3x2  { aspect-ratio: 3 / 2; }
-.slug--16x9 { aspect-ratio: 16 / 9; }
 .slug--4x3  { aspect-ratio: 4 / 3; }
-.slug--1x1  { aspect-ratio: 1 / 1; }
 
 
-/* 8b ── case-study pages ================================================== */
+/* 8b ── reading ========================================================== */
 /*
-   One template, seven fills. The spine is identical on every page so a reader
-   who has learned one has learned all of them: rank and ink, title, claim,
-   facts in the rail, then numbered figures.
+   What survived the collapse to one page. The rest of this section styled
+   standalone case-study pages — crumb, work-head, work-nav and friends — and
+   went when those pages did.
 
-   Figures are numbered because the numbers are referenced from the prose —
-   that is a real sequence carrying real information, not decoration.
+   The two prose classes were .work-prose and .work-h, named for an architecture
+   that no longer exists. Renamed, because a class named after a deleted concept
+   is a trap for whoever reads this next.
 */
 
-.crumb {
-  display: inline-block;
-  margin-bottom: var(--s5);
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  letter-spacing: var(--tr-label);
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  text-decoration: none;
-}
-.crumb:hover { color: var(--ink); }
+.prose { display: grid; gap: var(--s4); max-width: var(--measure); }
 
-.work-head {
-  display: grid;
-  grid-template-columns: var(--rail) minmax(0, 1fr);
-  gap: var(--gutter);
-  padding-bottom: var(--s6);
-  border-bottom: 2px solid var(--ink);
-}
+.prose-h { font-size: var(--fs-h3); text-transform: uppercase; letter-spacing: 0.01em; }
 
-/* The head's right column owns its own rhythm, so the title carries no
-   margin — gap handles it and the credit rule can't crowd the standfirst. */
-.work-head-body { display: grid; gap: var(--s4); align-content: start; }
-
-.work-title {
-  font-size: clamp(2rem, 6vw, 3.75rem);
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-}
-
-.work-standfirst {
-  font-size: var(--fs-lead);
-  line-height: var(--lh-snug);
-  max-width: var(--measure);
-}
-
-/* the rank chip, inked with the piece's spot */
-.work-rank {
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  letter-spacing: var(--tr-label);
-  text-transform: uppercase;
-  color: var(--paper);
-  background: var(--spot, var(--ink));
-  padding: 0.3em 0.5em;
-  align-self: start;
-  justify-self: start;
-  margin-bottom: var(--s4);
-}
-
-.work-body { display: grid; gap: var(--s8); margin-top: var(--s8); }
-
-.work-section {
-  display: grid;
-  grid-template-columns: var(--rail) minmax(0, 1fr);
-  gap: var(--gutter);
-}
-
-.work-prose { display: grid; gap: var(--s4); max-width: var(--measure); }
-
-.work-h { font-size: var(--fs-h3); text-transform: uppercase; letter-spacing: 0.01em; }
-
-/* ---- figures ---- */
-
-.figures { display: grid; gap: var(--s7); }
-
-.figure { display: grid; gap: var(--s3); }
+/* ---- figure captions ---- */
 
 .figure-cap {
   font-family: var(--font-mono);
@@ -1381,38 +1308,6 @@ a { color: inherit; }
   width: 11rem;
 }
 
-/* ---- prev / next ---- */
-
-.work-nav {
-  margin-top: var(--s9);
-  padding-top: var(--s4);
-  border-top: 2px solid var(--ink);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: var(--s4);
-}
-
-.work-nav a {
-  text-decoration: none;
-  display: grid;
-  gap: 0.2rem;
-  max-width: 22ch;
-}
-
-.work-nav .label { color: var(--ink-faint); }
-
-.work-nav-title {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: var(--fs-small);
-  text-transform: uppercase;
-}
-
-.work-nav a:hover .work-nav-title { border-bottom: 2px solid var(--spot, var(--ink)); }
-
-.work-nav--next { text-align: right; justify-items: end; margin-left: auto; }
-
 
 /* 9 ── footer ============================================================= */
 
@@ -1440,9 +1335,7 @@ a { color: inherit; }
   :root { --rail: 0rem; --gutter: 0rem; }
 
   .thesis,
-  .piece,
-  .work-head,
-  .work-section { grid-template-columns: 1fr; gap: var(--s3); }
+  .piece { grid-template-columns: 1fr; gap: var(--s3); }
 
   .facts th { width: auto; }
 
