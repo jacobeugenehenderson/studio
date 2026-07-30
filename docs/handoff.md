@@ -99,14 +99,15 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    |---|---|---|
    | `visibility:hidden` / `display:none` / `opacity:0` | idle | **5–12s frozen frame** |
    | fully opaque cover | idle (occlusion-culled) | **5.6s** |
-   | cover at `opacity: 0.98` | renders normally | **~220ms — none** |
+   | cover at `opacity: 0.95` (shipped) | renders normally | **~185ms — none** |
    | control: never switch | — | no stall ever |
 
    Chrome drops the WebGL surface the moment the canvas stops being visibly
    composited — hidden or *fully occluded*, it makes no difference — and
    restoring context, shaders and textures is one blocked frame of many
-   seconds. Two percent of transparency keeps it composited. **Do not round
-   `.embed-sheet`'s opacity up to 1**, and do not reintroduce
+   seconds. Two percent of transparency keeps it composited; it ships at
+   **0.95**, chosen so the ghost reads as intent rather than a smudge. **Do not
+   round `.embed-sheet`'s opacity up to 1**, and do not reintroduce
    `data-scene-pause` for this layer: pausing also idles it, and measured 4.4s.
    The slab costs what the composite costs, and that is the correct price.
 
