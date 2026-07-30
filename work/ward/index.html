@@ -67,22 +67,34 @@
 
     <div class="work-body">
 
-      <!-- One wipe: the bare slab against the Ward on its own sheet. The
-           composed product is at the link, not on the page. -->
+      <!-- Three states of one stack, chosen by a pill that starts on the
+           composite. Not a wipe: a wipe shows a seam between two registered
+           images, and the composite is the whole frame at once. -->
       <section class="work-section">
-        <p class="label">Two layers</p>
-        <div class="layers">
-          <div class="wipe wipe--16x9 wipe--rtl">
-            <div class="wipe-layer wipe-before wf-c" aria-hidden="true"></div>
-            <div class="wipe-layer wipe-after graph" aria-hidden="true">
+        <p class="label">Three states</p>
+        <div class="states">
+          <fieldset class="pill">
+            <legend class="visually-hidden">Which layers to show</legend>
+            <label class="pill-opt pill-opt--slab">
+              <input type="radio" name="ward-view" value="slab">Slab
+            </label>
+            <label class="pill-opt pill-opt--composite">
+              <input type="radio" name="ward-view" value="composite" checked>Composite
+            </label>
+            <label class="pill-opt pill-opt--ward">
+              <input type="radio" name="ward-view" value="ward">Ward
+            </label>
+          </fieldset>
+
+          <div class="states-stage states-stage--16x9">
+            <div class="state state--slab wf-c" aria-hidden="true"></div>
+            <div class="state state--sheet graph" aria-hidden="true"></div>
+            <div class="state state--ui" aria-hidden="true">
               <span class="wf-ui">
                 <i class="wf-ui-ticker"></i><i class="wf-ui-panel"></i>
                 <i class="wf-ui-card"></i><i class="wf-ui-pill"></i>
               </span>
             </div>
-            <span class="wipe-divider" aria-hidden="true"></span>
-            <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
-                   aria-label="Wipe between the bare slab and the Ward on its sheet">
           </div>
 
           <div class="layer-legend">

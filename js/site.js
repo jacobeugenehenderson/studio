@@ -147,14 +147,8 @@
   Array.prototype.forEach.call(document.querySelectorAll('.wipe'), function (frame) {
     var range = frame.querySelector('.wipe-range');
     if (!range) return;
-    /* If the frame sits inside a .layers wrapper, publish the value there too as
-       a 0–1 number, so sibling captions can dim toward whichever side is out of
-       view. The frame alone cannot carry it — the captions are its siblings. */
-    var host = frame.closest('.layers');
-
     bindDrag(frame, range, function (v) {
       frame.style.setProperty('--wipe', v + '%');
-      if (host) host.style.setProperty('--wipe-n', v / 100);
     });
   });
 

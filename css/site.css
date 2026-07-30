@@ -653,8 +653,6 @@ a { color: inherit; }
    have the width and the room for it.
 */
 
-.layers { --wipe-n: 0.5; }
-
 .layer-legend {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -669,8 +667,9 @@ a { color: inherit; }
   transition: opacity var(--dur-quick) linear;
 }
 
-.layer-legend-col--a { opacity: calc(1 - 0.45 * var(--wipe-n)); }
-.layer-legend-col--b { opacity: calc(0.55 + 0.45 * var(--wipe-n)); }
+/* Whichever control owns the figure sets these; the default is both bright. */
+.layer-legend-col--a { opacity: var(--dim-a, 1); }
+.layer-legend-col--b { opacity: var(--dim-b, 1); }
 
 .layer-legend-head {
   font-family: var(--font-mono);
@@ -693,6 +692,122 @@ a { color: inherit; }
 
 @media (prefers-reduced-motion: reduce) {
   .layer-legend-col { transition: none; }
+}
+
+
+/* 7g ── three states, one pill ============================================ */
+/*
+   Three views of one scene, chosen by a segmented pill that starts in the
+   middle. A wipe was wrong here: a wipe compares two registered images by
+   showing a seam, and these are not two images — they are three states of a
+   stack, one of which (the composite) is the whole frame at once.
+
+   Rather than three complete compositions, there are three LAYERS whose
+   opacities differ per state:
+
+       state       slab   sheet   interface
+       slab          1      0        0
+       composite     1      0        1
+       ward          0      1        1
+
+   So going composite → ward fades the ground out from under the interface while
+   the interface itself never moves. The transition shows what the argument is.
+
+   Radio inputs and :has() drive all of it, so there is no JavaScript and it
+   works before scripts load.
+*/
+
+.states { position: relative; --dim-a: 1; --dim-b: 1; }
+
+.states:has(input[value="slab"]:checked)      { --o-slab: 1; --o-sheet: 0; --o-ui: 0; --i: 0; --dim-a: 1;    --dim-b: 0.55; }
+.states:has(input[value="composite"]:checked) { --o-slab: 1; --o-sheet: 0; --o-ui: 1; --i: 1; --dim-a: 1;    --dim-b: 1; }
+.states:has(input[value="ward"]:checked)      { --o-slab: 0; --o-sheet: 1; --o-ui: 1; --i: 2; --dim-a: 0.55; --dim-b: 1; }
+
+/* ---- the stage ---- */
+
+.states-stage {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper-sunk);
+  border: 1px solid var(--rule-firm);
+  margin-top: var(--s3);
+}
+
+.states-stage--16x9 { aspect-ratio: 16 / 9; }
+.states-stage--3x2  { aspect-ratio: 3 / 2; }
+
+.state {
+  position: absolute;
+  inset: 0;
+  transition: opacity 300ms var(--ease-ink);
+}
+
+.state img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.state--slab  { z-index: 1; opacity: var(--o-slab, 1); }
+.state--sheet { z-index: 2; opacity: var(--o-sheet, 0); }
+.state--ui    { z-index: 3; opacity: var(--o-ui, 1); }
+
+/* ---- the pill ---- */
+
+.pill {
+  position: relative;
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(5.5rem, 1fr);
+  border: 1px solid var(--rule-firm);
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  isolation: isolate;
+}
+
+/* the travelling indicator — one third wide, translated by the state index */
+.pill::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0; bottom: 0; left: 0;
+  width: calc(100% / 3);
+  background: var(--ink);
+  border-radius: 999px;
+  transform: translateX(calc(var(--i, 1) * 100%));
+  transition: transform 300ms var(--ease-ink);
+}
+
+.pill-opt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-align: center;
+  padding: 0.6em 0.9em;
+  cursor: pointer;
+  transition: color var(--dur-quick) linear;
+  white-space: nowrap;
+}
+
+.pill-opt input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* the inked segment's label has to invert to stay readable */
+.states:has(input[value="slab"]:checked)      .pill-opt--slab,
+.states:has(input[value="composite"]:checked) .pill-opt--composite,
+.states:has(input[value="ward"]:checked)      .pill-opt--ward { color: var(--paper); }
+
+.pill-opt:has(input:focus-visible) {
+  outline: 2px solid var(--process-m);
+  outline-offset: -2px;
+  border-radius: 999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .state, .pill::before, .pill-opt { transition: none; }
 }
 
 
