@@ -705,15 +705,21 @@ a { color: inherit; }
 
    At centre the two halves meet and you see one complete machine, half
    photographed and half drawn. Drag to either end and you get one half-machine
-   beside an empty field — and the copy fades up into that field.
+   beside an empty field, with that side's writing in it.
 
    Unlike a three-state stack, this works as a wipe: the hybrid at centre is a
    consequence of how the art is cut, not a third state, so the seam can stay
    under the pointer where it belongs.
 
-   The copy lives OUTSIDE the frame in the DOM and is positioned over it, so on a
-   narrow screen it can fall back to flowing underneath — where there is no empty
-   field to write in, both blocks simply stay visible.
+   THE COPY LIVES INSIDE THE WIPE LAYERS, so the same clip that uncovers each
+   image uncovers its writing. There is no fade and no timing to tune. Two
+   consequences, both of which were bugs in the fading version: the seam can
+   never cross the text, because it is always at the text's leading edge; and the
+   reveal begins immediately either side of centre rather than after a long drag
+   through blankness.
+
+   Each block sits in its own layer's empty half — the photograph keeps its
+   machine left and its words right, the drawing the reverse.
 */
 
 .reveal { position: relative; }
@@ -722,18 +728,21 @@ a { color: inherit; }
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 40%;
-  z-index: 5;
+  width: 38%;
   display: grid;
   gap: var(--s2);
-  transition: opacity 160ms linear;
+
+  /* Deliberately NO z-index. The base layer is unclipped, so its copy must be
+     coverable by the layer above it — any z-index here lifts the text out of
+     that stack and leaves it visible at centre, where there should be none. */
+
+  /* Without this the copy swallows the drag wherever it covers the frame. Losing
+     text selection is a fair price for the frame staying grabbable throughout. */
+  pointer-events: none;
 }
 
-/* Each block is bounded at 8% from its own edge, so the seam has cleared it by
-   the time the fade starts (see the ramp in site.js). The seam therefore never
-   travels across visible text — it is always outboard of it. */
-.reveal-copy--left  { left: 8%;  opacity: var(--t-left, 0); }
-.reveal-copy--right { right: 8%; opacity: var(--t-right, 0); }
+.reveal-copy--left  { left: 6%; }
+.reveal-copy--right { right: 6%; }
 
 .reveal-copy h3 {
   font-family: var(--font-mono);
@@ -758,18 +767,17 @@ a { color: inherit; }
 .wf-machine-r { left: 50%; right: 14%; }
 
 @media (max-width: 46rem) {
-  /* No empty field at this width — the copy flows below and both blocks stay. */
+  /* A 38% column is about 110px on a phone, which is unusable. The copy becomes
+     a band across the foot of its layer instead — still inside the clip, so the
+     wipe still uncovers it and the mechanism is the same at every width. */
   .reveal-copy {
-    position: static;
-    transform: none;
+    top: auto;
+    bottom: 5%;
+    left: 5%;
+    right: 5%;
     width: auto;
-    opacity: 1;
-    margin-top: var(--s4);
+    transform: none;
   }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal-copy { transition: none; }
 }
 
 

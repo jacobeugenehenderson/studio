@@ -76,12 +76,6 @@
      value means differs. `apply` receives 0–100 and writes whatever custom
      properties its component needs. */
 
-  /* 0 at `from`, 1 at `to`, clamped. Works in either direction, so a fade that
-     runs toward zero reads as ramp(v, 12, 0) rather than needing its own maths. */
-  function ramp(v, from, to) {
-    return Math.min(1, Math.max(0, (v - from) / (to - from)));
-  }
-
   function bindDrag(frame, range, apply) {
     var pending = null;
 
@@ -154,26 +148,10 @@
   Array.prototype.forEach.call(document.querySelectorAll('.wipe'), function (frame) {
     var range = frame.querySelector('.wipe-range');
     if (!range) return;
-    /* A .reveal's art is cut so that each end opens an empty field. The copy for
-       a side fades up as the drag approaches that end, and both stay hidden at
-       centre where the two half-machines meet. The copy sits outside the frame
-       in the DOM so it can fall below on narrow screens, which is why the
-       property goes on the parent. */
-    var reveal = frame.parentElement;
-    if (reveal && !reveal.classList.contains('reveal')) reveal = null;
-
     /* Kept on the element so the pager can recentre a pair when it comes into
        view, without reaching into bindDrag's internals. */
     frame.setWipe = bindDrag(frame, range, function (v) {
       frame.style.setProperty('--wipe', v + '%');
-      if (reveal) {
-        /* Fade a side up only once the seam has passed beyond it, so the divider
-           never travels across visible text. The copy is inset 8% from its edge,
-           and the field it writes into only exists once the seam is well past
-           centre — hence the ramp starting at 88 rather than 50. */
-        reveal.style.setProperty('--t-right', ramp(v, 88, 100));
-        reveal.style.setProperty('--t-left', ramp(v, 12, 0));
-      }
     });
   });
 

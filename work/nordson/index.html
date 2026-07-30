@@ -75,30 +75,34 @@
         <div>
           <div class="reveal">
             <div class="wipe wipe--3x2 wipe--ltr">
-              <div class="wipe-layer wipe-before wf-a" aria-hidden="true">
-                <span class="wf-machine-r"></span>
+
+              <!-- Each layer carries its own writing, in its own empty half, so
+                   the clip that uncovers the picture uncovers the words with it.
+                   aria-hidden sits on the decorative art only. -->
+              <div class="wipe-layer wipe-before wf-a">
+                <span class="wf-machine-r" aria-hidden="true"></span>
+                <div class="reveal-copy reveal-copy--left">
+                  <h3>The drawing</h3>
+                  <p>Drawn from the photograph, so the two are interchangeable at any size. The
+                    drawings carry technical documentation, spec sheets, marketing, and trade-show
+                    graphics — anywhere a photograph would be too literal, too dark, or too heavy
+                    to print.</p>
+                </div>
               </div>
-              <div class="wipe-layer wipe-after wf-b" aria-hidden="true">
-                <span class="wf-machine-l"></span>
+
+              <div class="wipe-layer wipe-after wf-b">
+                <span class="wf-machine-l" aria-hidden="true"></span>
+                <div class="reveal-copy reveal-copy--right">
+                  <h3>The photograph</h3>
+                  <p>Shot, composited, and retouched into a drop-in asset. I also worked with the
+                    engineers on the machine's form, and drew its mark — so the object, its
+                    identity, and its picture were all decided in the same room.</p>
+                </div>
               </div>
+
               <span class="wipe-divider" aria-hidden="true"></span>
               <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
-                     aria-label="Drag between the photographed machine and the drawn one; the two halves meet at centre">
-            </div>
-
-            <div class="reveal-copy reveal-copy--left">
-              <h3>The drawing</h3>
-              <p>Drawn from the photograph, so the two are interchangeable at any size. The
-                drawings carry technical documentation, spec sheets, marketing, and trade-show
-                graphics — anywhere a photograph would be too literal, too dark, or too heavy to
-                print.</p>
-            </div>
-
-            <div class="reveal-copy reveal-copy--right">
-              <h3>The photograph</h3>
-              <p>Shot, composited, and retouched into a drop-in asset. I also worked with the
-                engineers on the machine's form, and drew its mark — so the object, its identity,
-                and its picture were all decided in the same room.</p>
+                     aria-label="Drag to uncover either the photographed machine or the drawn one; the two halves meet at centre">
             </div>
           </div>
         </div>
