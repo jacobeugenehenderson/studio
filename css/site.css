@@ -1164,11 +1164,10 @@ a { color: inherit; }
   margin-top: var(--s5);
 }
 
+/* The summary keeps its default display. Safari does not handle display:flex on
+   <summary> and can stop the disclosure opening at all, so the layout goes on a
+   wrapper inside it instead. */
 .more-toggle {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--s4);
   padding: var(--s3) 0;
   cursor: pointer;
   font-family: var(--font-mono);
@@ -1183,14 +1182,21 @@ a { color: inherit; }
 .more-toggle::-webkit-details-marker { display: none; }
 .more-toggle:hover { color: var(--ink); }
 
-.more-toggle::after {
+.more-toggle > span {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s4);
+}
+
+.more-toggle > span::after {
   content: "+";
   font-size: var(--fs-body);
   line-height: 1;
   color: var(--spot, var(--ink-faint));
 }
 
-.more[open] .more-toggle::after { content: "\2212"; }   /* minus */
+.more[open] .more-toggle > span::after { content: "\2212"; }   /* minus */
 
 .more-toggle:focus-visible { outline: 2px solid var(--process-m); outline-offset: 3px; }
 

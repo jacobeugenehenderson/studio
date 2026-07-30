@@ -297,7 +297,7 @@
         </div>
 
           <details class="more">
-            <summary class="more-toggle">The full case — problem, method, numbers</summary>
+            <summary class="more-toggle"><span>The full case — problem, method, numbers</span></summary>
             <div class="more-body">
 <section class="more-section">
         <p class="label">How it works</p>
@@ -388,7 +388,7 @@
         </div>
 
           <details class="more">
-            <summary class="more-toggle">The full case — the library, and why it holds</summary>
+            <summary class="more-toggle"><span>The full case — the library, and why it holds</span></summary>
             <div class="more-body">
 <section class="more-section">
         <p class="label">The library</p>
@@ -567,7 +567,7 @@
         </div>
 
           <details class="more">
-            <summary class="more-toggle">The full case — why it holds, and the numbers</summary>
+            <summary class="more-toggle"><span>The full case — why it holds, and the numbers</span></summary>
             <div class="more-body">
 <section class="more-section">
         <p class="label">Why it holds</p>
@@ -632,7 +632,7 @@
             instantiated for a different job.</p>
 
           <details class="more">
-            <summary class="more-toggle">The full case — the skin, the emoji, the codes</summary>
+            <summary class="more-toggle"><span>The full case — the skin, the emoji, the codes</span></summary>
             <div class="more-body">
 
               <section class="more-section">
@@ -747,7 +747,7 @@
         </div>
 
           <details class="more">
-            <summary class="more-toggle">The full case — the slab, the commons, and Cary</summary>
+            <summary class="more-toggle"><span>The full case — the slab, the commons, and Cary</span></summary>
             <div class="more-body">
 <section class="more-section">
         <p class="label">The slab</p>
@@ -831,11 +831,78 @@
         <div class="piece-body">
           <h2 class="piece-title">Picture Wrap</h2>
           <p class="piece-claim">Every picture wraps twice: first when the shooting stops, and
-            finally when the last person who made it is gone. One gold bar carries the whole
-            state.</p>
-          <div class="slug slug--3x2">
-            <span class="slug-label">The rising bar · living above, dead below</span>
+            finally when the last person who made it is gone. A film's page is one list of everyone
+            credited on it, divided by a gold bar — the living above, the dead below. As people die
+            the bar rises. When it reaches the top the picture has wrapped, and it enters the
+            Vault.</p>
+
+          <!-- The real thing, running. Static files querying Wikidata and TMDB
+               from the browser, so there is no backend to embed around. -->
+          <div class="embed">
+            <iframe src="https://picture-wrap.com"
+                    title="Picture Wrap — who made a film, and who is left"
+                    loading="lazy"></iframe>
           </div>
+
+          <p class="credit">Live at <strong><a href="https://picture-wrap.com">picture-wrap.com</a></strong>
+            · posting closed pictures at <strong>@picture-wrap.bsky.social</strong></p>
+
+          <details class="more">
+            <summary class="more-toggle"><span>The full case — two halves, and one hard question</span></summary>
+            <div class="more-body">
+
+              <section class="more-section">
+                <p class="label">The display is the invention</p>
+                <div class="work-prose">
+                  <h2 class="work-h">One bar carries the whole state</h2>
+                  <p>The interesting problem was never fetching the data. It was finding a way to
+                    show mortality across a cast and crew of hundreds without turning it into a
+                    table nobody reads. One horizontal rule does it: everyone above is alive,
+                    everyone below is not, and the rule's height <em>is</em> the number. You read
+                    the state of a film before you read a single name.</p>
+                  <p>It also means the graphic updates itself. Nothing needs redrawing when someone
+                    dies — the bar simply sits higher than it did, and eventually reaches the top.</p>
+                </div>
+              </section>
+
+              <section class="more-section">
+                <p class="label">How it is built</p>
+                <div class="work-prose">
+                  <h2 class="work-h">Two halves that barely know each other</h2>
+                  <p>The site is static files. No backend, no build step; the browser queries
+                    Wikidata and TMDB directly. The poster is a set of Node scripts that finds
+                    pictures which have closed, holds them for approval, and posts the approved
+                    ones to Bluesky. Delete the poster and the site still works — it just has no
+                    Vault.</p>
+                  <p>They share exactly two files, and the difference between those two is the
+                    whole design. <code>shared.js</code> is what both halves must agree
+                    <em>about</em> — properties, languages, pure helpers. <code>verify.js</code> is
+                    what they must agree <em>on</em>: whether anyone who made a picture is still
+                    alive.</p>
+                  <p>The poster writes a 4.5 MB archive for itself and a sharded vault for the
+                    browser — a summary, an index of ids, and one file per decade. The site never
+                    fetches the archive; at that size it would be a poor thing to hand somebody who
+                    only wanted the front page.</p>
+                </div>
+              </section>
+
+              <section class="more-section">
+                <p class="label">At a glance</p>
+                <div>
+                  <table class="facts">
+                    <tbody>
+                      <tr><th scope="row">Sources</th><td>Wikidata and TMDB, queried live from the browser</td></tr>
+                      <tr><th scope="row">Backend</th><td>None</td></tr>
+                      <tr><th scope="row">Shared surface</th><td>Two files: what they agree about, and what they agree on</td></tr>
+                      <tr><th scope="row">Vault</th><td>Sharded by decade; the 4.5 MB archive is never served</td></tr>
+                      <tr><th scope="row">Posts to</th><td>@picture-wrap.bsky.social</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
+            </div>
+          </details>
         </div>
       </article>
 
