@@ -165,8 +165,17 @@ print('undefined   :', sorted(used-defined) or 'none')
 d=set(re.findall(r'^\s*(--[a-z0-9-]+):',tokens,re.M))
 r=set(re.findall(r'var\((--[a-z0-9-]+)',site+tokens+js))
 print('unused token:', sorted(d-r) or 'none')
+n=[int(m.group(1)) for m in re.finditer(r'^/\* (\d+) ── ',site,re.M)]
+print('sections    :', 'ok' if n==list(range(1,len(n)+1)) else f'DRIFT {n}')
 EOF
 ```
+
+The section check matters because the numbering *did* drift once: inserting
+components mid-file produced `7g2`, `7i2` and two sections both numbered `7i`,
+in the one file meant to be navigable. Sections are now a flat sequence and the
+contents block at the top is generated from the headers rather than maintained
+by hand — if you add a section, renumber and regenerate rather than appending a
+letter.
 
 `--spot-nordson2` and `--spot-nordson3` are expected to report unused; they are
 reserved for Nordson art that has not landed.

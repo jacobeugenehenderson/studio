@@ -6,15 +6,28 @@
 
    Contents
      1  reset & base
-     2  page furniture — grain, registration marks
+     2  page furniture
      3  header
-     4  the name treatment (plates)
+     4  the name treatment
      5  positioning line & thesis
      6  colour bar — the piece index
      7  piece list
-     8  placeholder slugs
-     9  footer
-    10  reduced motion
+     8  marginalia rail
+     9  the registered wipe
+    10  credit line
+    11  graph paper
+    12  the layer legend
+    13  the reveal
+    14  the stepper
+    15  the pager
+    16  the filmstrip
+    17  three states, one pill
+    18  the shot
+    19  the disclosure
+    20  placeholder slugs
+    21  reading
+    22  footer
+    23  reduced motion
    ========================================================================= */
 
 
@@ -413,7 +426,7 @@ a { color: inherit; }
 }
 
 
-/* 7b ── marginalia rail =================================================== */
+/* 8 ── marginalia rail ==================================================== */
 /*
    The rail was empty in Phase 2. If the grammar is going to be infographic
    rather than merely well-set, it has to carry real annotation — so it holds
@@ -453,7 +466,7 @@ a { color: inherit; }
 }
 
 
-/* 7c ── the registered wipe =============================================== */
+/* 9 ── the registered wipe ================================================ */
 /*
    A before/after that is honest about what it compares: the registered
    location plate against the finished composite. Same frame, so the wipe
@@ -572,7 +585,7 @@ a { color: inherit; }
 .wipe:has(.wipe-range:focus-visible) .wipe-divider::after { background: var(--process-m); }
 
 
-/* 7d ── credit line ======================================================= */
+/* 10 ── credit line ======================================================= */
 /*
    A named roster, set as a credit list. Recognisable brands are the highest
    scan-value thing on the page and cost nothing to state when there are no
@@ -593,7 +606,7 @@ a { color: inherit; }
 .credit strong { color: var(--ink-soft); font-weight: 400; }
 
 
-/* 7e ── graph paper ======================================================= */
+/* 11 ── graph paper ======================================================= */
 /*
    A grey sheet carrying two stroked grids — a fine minor rule with a coarser
    major rule over it. This is one of Jacob's recurring motifs, so it is a
@@ -632,7 +645,7 @@ a { color: inherit; }
 .wf-ui-pill   { top: 18%; left: 4%; width: 14%; height: 7%; border-radius: 999px; }
 
 
-/* 7f ── the layer legend ================================================== */
+/* 12 ── the layer legend ================================================== */
 /*
    Two captions under a wipe, one per side, both always present. The wipe dims
    the side you are not looking at rather than hiding it — content behind a
@@ -688,7 +701,7 @@ a { color: inherit; }
 }
 
 
-/* 7g ── the reveal ======================================================== */
+/* 13 ── the reveal ======================================================== */
 /*
    A wipe whose artwork is built so that dragging opens a place to write.
 
@@ -774,7 +787,7 @@ a { color: inherit; }
 }
 
 
-/* 7g2 ── the stepper ====================================================== */
+/* 14 ── the stepper ======================================================= */
 /*
    A pipeline is an ordered thing, so this is a stepper and not a carousel:
    every stage is visible in the strip at once, you always know where you are,
@@ -878,7 +891,7 @@ a { color: inherit; }
 }
 
 
-/* 7h ── the pager ========================================================= */
+/* 15 ── the pager ========================================================= */
 /*
    One frame at a time, paged from the margins.
 
@@ -948,7 +961,7 @@ a { color: inherit; }
 }
 
 
-/* 7i ── the filmstrip ===================================================== */
+/* 16 ── the filmstrip ===================================================== */
 /*
    A scrolling row of small pairs. Its job is to prove there is a LIBRARY rather
    than one machine, so each item is itself a miniature pair — photograph above,
@@ -996,7 +1009,7 @@ a { color: inherit; }
 }
 
 
-/* 7i ── three states, one pill ============================================ */
+/* 17 ── three states, one pill ============================================ */
 /*
    Three views of one scene, chosen by a segmented pill that starts in the
    middle. A wipe was wrong here: a wipe compares two registered images by
@@ -1111,7 +1124,7 @@ a { color: inherit; }
 }
 
 
-/* 7i2 ── the shot ========================================================= */
+/* 18 ── the shot ========================================================== */
 /*
    The tool, showing a code it made — and that code is the link out. One image
    doing three jobs: a picture of the product, a thing the product produced, and
@@ -1142,7 +1155,7 @@ a { color: inherit; }
 }
 
 
-/* 7j ── the disclosure ==================================================== */
+/* 19 ── the disclosure ==================================================== */
 /*
    Seven pieces on one page. Each keeps its working component visible at all
    times and puts the reading behind a twirl.
@@ -1208,7 +1221,7 @@ a { color: inherit; }
 .more-section { display: grid; gap: var(--s3); }
 
 
-/* 8 ── placeholder slugs ================================================== */
+/* 20 ── placeholder slugs ================================================= */
 /*
    Everything visual is a slug until the real asset is wired. Correct aspect
    ratio, labelled with what belongs there, and unmistakably not artwork.
@@ -1253,7 +1266,7 @@ a { color: inherit; }
 .slug--4x3  { aspect-ratio: 4 / 3; }
 
 
-/* 8b ── reading ========================================================== */
+/* 21 ── reading =========================================================== */
 /*
    What survived the collapse to one page. The rest of this section styled
    standalone case-study pages — crumb, work-head, work-nav and friends — and
@@ -1309,7 +1322,7 @@ a { color: inherit; }
 }
 
 
-/* 9 ── footer ============================================================= */
+/* 22 ── footer ============================================================ */
 
 .site-footer {
   margin-top: var(--s9);
@@ -1363,7 +1376,7 @@ a { color: inherit; }
 }
 
 
-/* 10 ── reduced motion ==================================================== */
+/* 23 ── reduced motion ==================================================== */
 /*
    The plates land pre-registered — at the residual offset, not at zero, so the
    fringe survives. Nothing moves, nothing is lost.
