@@ -1024,6 +1024,11 @@ a { color: inherit; }
 
 .states { position: relative; --dim-a: 1; --dim-b: 1; }
 
+/* The switcher needs air under it. The placeholder stage that used to sit here
+   carried this margin; the live frame replaced the stage and inherited none,
+   so the pill sat straight on the product. */
+.states .embed { margin-top: var(--s4); }
+
 .states:has(input[value="slab"]:checked)      { --i: 0; --dim-a: 1;    --dim-b: 0.55; }
 .states:has(input[value="composite"]:checked) { --i: 1; --dim-a: 1;    --dim-b: 1; }
 .states:has(input[value="ward"]:checked)      { --i: 2; --dim-a: 0.55; --dim-b: 1; }
