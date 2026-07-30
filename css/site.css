@@ -1114,6 +1114,66 @@ a { color: inherit; }
 }
 
 
+/* 7j ── the disclosure ==================================================== */
+/*
+   Seven pieces on one page. Each keeps its working component visible at all
+   times and puts the reading behind a twirl.
+
+   The rule that matters: collapsed is a PREVIEW, never a closed door. The old
+   site failed as an accordion because it opened with everything shut and no
+   image on screen. Here the picture and the claim are always out, and expanding
+   only adds depth.
+
+   Built on <details>, so keyboard, screen readers and find-in-page work without
+   any JavaScript.
+*/
+
+.more {
+  border-top: 1px solid var(--rule);
+  margin-top: var(--s5);
+}
+
+.more-toggle {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s4);
+  padding: var(--s3) 0;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  list-style: none;                 /* Firefox marker */
+  transition: color var(--dur-quick) linear;
+}
+
+.more-toggle::-webkit-details-marker { display: none; }
+.more-toggle:hover { color: var(--ink); }
+
+.more-toggle::after {
+  content: "+";
+  font-size: var(--fs-body);
+  line-height: 1;
+  color: var(--spot, var(--ink-faint));
+}
+
+.more[open] .more-toggle::after { content: "\2212"; }   /* minus */
+
+.more-toggle:focus-visible { outline: 2px solid var(--process-m); outline-offset: 3px; }
+
+.more-body {
+  display: grid;
+  gap: var(--s7);
+  padding: var(--s3) 0 var(--s6);
+}
+
+/* Inside a piece the rail is already spent on the meta, so these stack rather
+   than running the two-column work-section grid a second time. */
+.more-section { display: grid; gap: var(--s3); }
+
+
 /* 8 ── placeholder slugs ================================================== */
 /*
    Everything visual is a slug until the real asset is wired. Correct aspect

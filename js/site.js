@@ -231,6 +231,28 @@
     fromHash();
   });
 
+  /* ---- links into collapsed content -------------------------------------
+     A link is worthless if its target is inside a shut <details>, so anything
+     addressed by the hash gets its ancestors opened first. Nested-safe, though
+     nothing nests today.                                                      */
+
+  function openForHash() {
+    var id = window.location.hash.slice(1);
+    if (!id) return;
+
+    var el = document.getElementById(id);
+    if (!el || !el.closest) return;
+
+    var box = el.closest('details');
+    while (box) {
+      box.open = true;
+      box = box.parentElement ? box.parentElement.closest('details') : null;
+    }
+  }
+
+  window.addEventListener('hashchange', openForHash);
+  openForHash();
+
   /* If the viewer never chose, follow the OS when it changes under us. */
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
     var stored = null;
