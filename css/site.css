@@ -729,8 +729,11 @@ a { color: inherit; }
   transition: opacity 160ms linear;
 }
 
-.reveal-copy--left  { left: 5%;  opacity: var(--t-left, 0); }
-.reveal-copy--right { right: 5%; opacity: var(--t-right, 0); }
+/* Each block is bounded at 8% from its own edge, so the seam has cleared it by
+   the time the fade starts (see the ramp in site.js). The seam therefore never
+   travels across visible text — it is always outboard of it. */
+.reveal-copy--left  { left: 8%;  opacity: var(--t-left, 0); }
+.reveal-copy--right { right: 8%; opacity: var(--t-right, 0); }
 
 .reveal-copy h3 {
   font-family: var(--font-mono);
@@ -770,7 +773,73 @@ a { color: inherit; }
 }
 
 
-/* 7h ── the filmstrip ===================================================== */
+/* 7h ── the pager ========================================================= */
+/*
+   One frame at a time, paged from the margins.
+
+   Ten registered pairs stacked vertically ran to nearly six thousand pixels of
+   scroll and turned ten arguments into one skim. They are variations on a single
+   claim, so showing one properly beats showing ten badly.
+
+   The buttons sit OUTSIDE the frame, in the margins. Paging must never be a
+   swipe across the image, or it competes with the drag that the frame exists
+   for. The counter is not decoration: without it nobody knows there are ten.
+*/
+
+.pager {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.pager-track { grid-column: 2; }
+
+.pager-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  background: none;
+  border: 1px solid var(--rule-firm);
+  border-radius: 50%;
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: var(--fs-body);
+  line-height: 1;
+  cursor: pointer;
+  transition: background var(--dur-quick) linear, color var(--dur-quick) linear;
+}
+
+.pager-btn:hover:not(:disabled) { background: var(--ink); color: var(--paper); }
+.pager-btn:disabled { opacity: 0.3; cursor: default; }
+
+.pager-foot {
+  grid-column: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s4);
+  border-top: 1px solid var(--rule);
+  padding-top: var(--s2);
+}
+
+.pager-count { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.pager-slide { margin: 0; display: grid; gap: var(--s3); }
+
+@media (max-width: 46rem) {
+  /* Buttons drop below the frame; 2.5rem of margin each side is a third of a
+     phone screen otherwise. */
+  .pager { grid-template-columns: 1fr; }
+  .pager-track, .pager-foot { grid-column: 1; }
+  .pager-btn--prev { grid-row: 3; justify-self: start; }
+  .pager-btn--next { grid-row: 3; justify-self: end; }
+  .pager-foot { grid-row: 2; }
+}
+
+
+/* 7i ── the filmstrip ===================================================== */
 /*
    A scrolling row of small pairs. Its job is to prove there is a LIBRARY rather
    than one machine, so each item is itself a miniature pair — photograph above,

@@ -76,6 +76,12 @@
      value means differs. `apply` receives 0–100 and writes whatever custom
      properties its component needs. */
 
+  /* 0 at `from`, 1 at `to`, clamped. Works in either direction, so a fade that
+     runs toward zero reads as ramp(v, 12, 0) rather than needing its own maths. */
+  function ramp(v, from, to) {
+    return Math.min(1, Math.max(0, (v - from) / (to - from)));
+  }
+
   function bindDrag(frame, range, apply) {
     var pending = null;
 
@@ -140,6 +146,7 @@
     });
 
     commit(parseFloat(range.value));
+    return commit;
   }
 
   /* ---- the wipe: one value, one clip ------------------------------------ */
@@ -155,13 +162,77 @@
     var reveal = frame.parentElement;
     if (reveal && !reveal.classList.contains('reveal')) reveal = null;
 
-    bindDrag(frame, range, function (v) {
+    /* Kept on the element so the pager can recentre a pair when it comes into
+       view, without reaching into bindDrag's internals. */
+    frame.setWipe = bindDrag(frame, range, function (v) {
       frame.style.setProperty('--wipe', v + '%');
       if (reveal) {
-        reveal.style.setProperty('--t-left', Math.max(0, (50 - v) / 50));
-        reveal.style.setProperty('--t-right', Math.max(0, (v - 50) / 50));
+        /* Fade a side up only once the seam has passed beyond it, so the divider
+           never travels across visible text. The copy is inset 8% from its edge,
+           and the field it writes into only exists once the seam is well past
+           centre — hence the ramp starting at 88 rather than 50. */
+        reveal.style.setProperty('--t-right', ramp(v, 88, 100));
+        reveal.style.setProperty('--t-left', ramp(v, 12, 0));
       }
     });
+  });
+
+  /* ---- the pager --------------------------------------------------------
+     One slide visible at a time, paged from the margins. Every slide stays in
+     the DOM so the content is findable and printable; only visibility changes.
+
+     Arrow keys are not bound globally — the buttons are focusable, so arrows act
+     on whichever control has focus. That keeps them from fighting the wipe's own
+     arrow-key handling on the same frame.                                    */
+
+  Array.prototype.forEach.call(document.querySelectorAll('.pager'), function (pager) {
+    var slides = pager.querySelectorAll('.pager-slide');
+    var prev = pager.querySelector('.pager-btn--prev');
+    var next = pager.querySelector('.pager-btn--next');
+    var count = pager.querySelector('.pager-count');
+    if (!slides.length) return;
+
+    var at = 0;
+
+    function show(i, moveFocus) {
+      at = Math.min(slides.length - 1, Math.max(0, i));
+
+      Array.prototype.forEach.call(slides, function (slide, n) {
+        var isCurrent = n === at;
+        slide.hidden = !isCurrent;
+
+        /* Recentre the incoming pair so each one is met the same way. */
+        if (isCurrent) {
+          var frame = slide.querySelector('.wipe');
+          if (frame && frame.setWipe) frame.setWipe(50);
+        }
+      });
+
+      if (count) count.textContent = (at + 1) + ' / ' + slides.length;
+      if (prev) prev.disabled = at === 0;
+      if (next) next.disabled = at === slides.length - 1;
+
+      /* Only pull focus when a jump link brought us here, never on a click —
+         stealing focus mid-click is disorienting. */
+      if (moveFocus) {
+        var heading = slides[at].querySelector('.figure-cap');
+        if (heading) heading.scrollIntoView({ block: 'nearest' });
+      }
+    }
+
+    if (prev) prev.addEventListener('click', function () { show(at - 1); });
+    if (next) next.addEventListener('click', function () { show(at + 1); });
+
+    /* Deep links: #pair-8 from the prose pages straight to that pair, so an
+       annotation in the copy can actually be followed. */
+    function fromHash() {
+      var m = /^#pair-(\d+)$/.exec(window.location.hash);
+      if (m) show(parseInt(m[1], 10) - 1, true);
+    }
+    window.addEventListener('hashchange', fromHash);
+
+    show(0);
+    fromHash();
   });
 
   /* If the viewer never chose, follow the OS when it changes under us. */
