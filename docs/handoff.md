@@ -82,8 +82,12 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    retracting an earlier conclusion. Read `_handoffs/` and the open briefs
    first. Do not copy it.
    Check: `grep -c "iframe src=" index.html` — 2 today, 3 when this is done.
-4. **Provincetown** — not built; no section exists in `index.html`. Meant to be
-   the quiet one: flat scans, no interaction.
+4. **Provincetown — built, waiting on art.** Two previous notes said no section
+   existed; `article#pbg` has been in `index.html` all along, at line 914, with
+   rail, meta, claim and one labelled 4×3 slug. It is the quiet one by design —
+   no interaction, and none wanted. What is missing is only the flat scans of
+   the guides, member map and Pride poster.
+   Check: `grep -c '<article class="piece' index.html` — seven, as COLOPHON says.
 5. **From Jacob:** the Cordis pair (spec in README §8), and how many
    photograph/illustration pairs exist for the Nordson filmstrip.
 

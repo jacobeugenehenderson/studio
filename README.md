@@ -255,7 +255,7 @@ the page in a fixed-width iframe does give media queries a genuine 390px.
 | 4 QR engine | live Codedesk embed | **live** |
 | 5 The Ward | three-state pill | placeholder — **not embedded yet**, despite the intent to |
 | 6 Picture Wrap | live site embed | **live**, but not yet self-sizing — snippet undeployed |
-| Origin Provincetown | — | not built; no section exists in `index.html` |
+| Origin Provincetown | rail + claim, no interaction | placeholder — `article#pbg` at `index.html:914`, one labelled 4×3 slug awaiting scans |
 
 **Outstanding, needing Jacob:**
 
