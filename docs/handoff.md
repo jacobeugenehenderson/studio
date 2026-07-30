@@ -85,10 +85,30 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    is hidden by CSS — hide, do not strip — which also keeps `WeatherPoller`
    alive, so the Player's Almanac still has a temperature.
 
-   **The Ward state stands on graph paper.** `.graph` is on the frame
-   permanently: the slab covers it, and taking the slab away reveals it. That
-   needs the product transparent under `?layer=player`, which took two of the
-   three Ward-side anchors.
+   **The Ward state stands on graph paper — drawn INSIDE the product.** The
+   sheet is `.embed-sheet` in the Ward's `src/index.css`, laid over the slab.
+   The motif therefore now exists in two codebases; the Ward's copy carries
+   Jacob's token values and follows the site's Paper/Plate switch, which the
+   site sends as `ground` in the layer message (a cross-origin frame cannot
+   read it).
+
+   ⚠⚠ **Never hide the slab, and never fully cover it.** This cost most of a
+   session. Measured on the dev build *and on production*:
+
+   | What | While showing | Switching back |
+   |---|---|---|
+   | `visibility:hidden` / `display:none` / `opacity:0` | idle | **5–12s frozen frame** |
+   | fully opaque cover | idle (occlusion-culled) | **5.6s** |
+   | cover at `opacity: 0.98` | renders normally | **~220ms — none** |
+   | control: never switch | — | no stall ever |
+
+   Chrome drops the WebGL surface the moment the canvas stops being visibly
+   composited — hidden or *fully occluded*, it makes no difference — and
+   restoring context, shaders and textures is one blocked frame of many
+   seconds. Two percent of transparency keeps it composited. **Do not round
+   `.embed-sheet`'s opacity up to 1**, and do not reintroduce
+   `data-scene-pause` for this layer: pausing also idles it, and measured 4.4s.
+   The slab costs what the composite costs, and that is the correct price.
 
    **Ward anchors** — `69dfaad2` + follow-up on `curb-offset-draw`, in
    `src/App.jsx`, `index.html` and `src/index.css`. URL params set the initial

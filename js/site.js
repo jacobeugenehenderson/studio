@@ -354,7 +354,10 @@
       if (!frame || !frame.contentWindow) return;
       try {
         frame.contentWindow.postMessage(
-          { type: 'ward-layer', layer: wanted() },
+          /* `ground` so the sheet the commons stands on is this page's own —
+             the product cannot read our Paper/Plate switch from inside a
+             cross-origin frame, so it is told. */
+          { type: 'ward-layer', layer: wanted(), ground: current() === 'dark' ? 'plate' : 'paper' },
           new URL(box.getAttribute('data-embed-base'), window.location.href).origin
         );
       } catch (e) { /* malformed base — nothing to talk to */ }
@@ -363,6 +366,11 @@
     Array.prototype.forEach.call(radios, function (radio) {
       radio.addEventListener('change', tell);
     });
+
+    /* The sheet is this page's graph paper, so it has to follow this page's
+       ground. Watching the attribute rather than hooking the switch keeps the
+       two independent — the OS-preference path changes it too. */
+    new MutationObserver(tell).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
   });
 
   /* If the viewer never chose, follow the OS when it changes under us. */
