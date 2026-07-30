@@ -53,10 +53,13 @@ getting it wrong cost a rebuild.
    `BRIEF-*.md` files, the latest commit retracting an earlier conclusion. Read
    `_handoffs/` and the open briefs before touching anything. Do not copy it.
 2. **Codedesk** — extracted and standalone at `~/Desktop/dev.nosync/codedesk`,
-   snippet committed. Still needs its startup preset set to an emoji-styled
-   code encoding `okqral.com`; it currently boots plain black-and-white, which
-   contradicts the claim above it. Verified after extraction — that plain boot
-   is the old known issue, not a casualty of the move.
+   snippet committed. The embed now opens on a finished code encoding
+   `www.okQRal.com`, with Caption open and no filename ceremony, so the credit
+   line under the embed is true. **Still black-and-white**: the emoji palette
+   half of that outstanding item is not done, and the claim *"pick an emoji and
+   it becomes the code's palette"* is still only demonstrable by hand. Landing
+   state changed in embed mode only — normal use keeps the ceremony, because
+   that flow names a working file before writing it to Drive.
 3. **Deploy** Codedesk and Picture Wrap — the snippet does nothing until live.
    Codedesk now needs a decision it did not need before: the site still embeds
    `jacobeugenehenderson.github.io/ascend-portal/codedesk/` (`index.html:625`),
@@ -75,3 +78,9 @@ getting it wrong cost a rebuild.
 including findings from a first look. Sequencing matters: the landing state is a
 design decision and must be settled *before* the cleanup, or a careful agent will
 prove the welcome path live and preserve code that is about to be deleted.
+
+**Partly settled now**, for Codedesk: the embed skips the filename ceremony and
+lands on a finished code. But the ceremony is only *bypassed* there, not removed
+— normal use still runs it, so none of that code is dead yet and the cleanup
+cannot treat it as such. okQRal is a separate app and its own landing state is
+still undecided.
