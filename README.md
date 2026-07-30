@@ -136,9 +136,9 @@ Do not fork the snippet. It is the same file in every product.
 
 | Product | Snippet |
 |---|---|
-| Codedesk (`ascend-portal/codedesk`) | added, uncommitted |
+| Codedesk (`~/Desktop/dev.nosync/ascend-portal/codedesk`) | added, uncommitted |
 | Picture Wrap | added, uncommitted |
-| The Ward | **outstanding** — no full working checkout exists locally, only `public/` and `src/stage`. Needs cloning from the bare repo first. |
+| The Ward | **outstanding** — lives at `~/Desktop/lafayette-square.nosync` (184 GB, branch `curb-offset-draw`) with active in-flight work. Read its `_handoffs/` and open `BRIEF-*.md` first. |
 
 Both products need deploying before the site sees any of it: the embeds point at
 the live URLs, not at local copies.

@@ -11,3 +11,4 @@ _source/
 *.png
 !assets/*.png
 !assets/**/*.png
+_local.html

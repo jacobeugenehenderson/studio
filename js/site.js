@@ -275,8 +275,19 @@
   var EMBED_MIN = 420;
   var EMBED_MAX = 1200;
 
+  /* When the SITE itself is being served from localhost, also trust locally
+     served products — otherwise previewing an embed before deploying it is
+     impossible, because every height message is rejected. This can never widen
+     anything in production: on jacobhenderson.studio the hostname test fails. */
+  function trustedOrigin(origin) {
+    if (EMBED_ORIGINS.indexOf(origin) !== -1) return true;
+    var here = window.location.hostname;
+    var local = (here === '127.0.0.1' || here === 'localhost');
+    return local && /^https?:\/\/(127\.0\.0\.1|localhost):\d+$/.test(origin);
+  }
+
   window.addEventListener('message', function (e) {
-    if (EMBED_ORIGINS.indexOf(e.origin) === -1) return;
+    if (!trustedOrigin(e.origin)) return;
 
     var msg = e.data;
     if (!msg || msg.type !== 'embed-height' || typeof msg.height !== 'number') return;
