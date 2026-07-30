@@ -122,10 +122,27 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    bare ground. `?ground` is a ground-only diagnostic, **not the slab**. Do not
    merge the two, and do not "simplify" `layer=slab` into it.
 
+   ⚠ **The Ward's repo holds more than one job.** `lafayette-square.nosync` is
+   a single git repository containing several separate codebases — the LS
+   runtime, cartograph, arborist, meteorologist — worked as **separate jobs
+   that must not overlap**. On 30 July 2026 its trunk was 152 commits ahead of
+   `origin`: 8 the embed work, 144 an unrelated extent / trees / intake / Łódź
+   arc. A plain `git push origin curb-offset-draw` would have deployed that
+   other job to staging as a side effect of shipping this one. **Do not.**
+
+   The two do not touch: the embed commits change `src/App.jsx`,
+   `src/index.css`, `src/components/SidePanel.jsx`, `src/hooks/useCamera.js`,
+   `ls/ARCHITECTURE.md` and `ls/FEATURES.md`, and the other 144 touch **none**
+   of those files. So the embed work lifts onto a branch of its own cleanly —
+   which is how it should travel.
+
    **What is still needed to go live**, in order:
-   a. `git push origin curb-offset-draw` → staging builds. Code changes are
-      staging-first per `cartograph/PREVIEW.md` §0.2 (only *slab data* goes
-      straight to prod).
+   a. Lift the 8 embed commits onto a branch off `origin/curb-offset-draw` and
+      push **that** — never the whole trunk, per the warning above. Code
+      changes are staging-first per `cartograph/PREVIEW.md` §0.2 (only *slab
+      data* goes straight to prod). Note `staging.yml` triggers on pushes to
+      `curb-offset-draw`, so a side branch needs `workflow_dispatch` or a
+      merge; settle that with Jacob rather than guessing.
    b. Verify all three layers on the staging URL.
    c. Promote via **Preview's Publish panel**, not a manual push — that is the
       canon path (bake → commit → staging → promote). Note `promote`

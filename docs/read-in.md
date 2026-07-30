@@ -70,17 +70,30 @@ Expected: `none`, `none`, the two reserved Nordson inks, `ok`.
 here have now been corrected for confidently stating something untrue. Fix the
 note; do not follow it.
 
-The best of these is worth knowing by name. `README.md` §5 claimed **"All three
-products embed"** — and made a point of correcting an earlier draft that had
-said otherwise. `index.html` has contained exactly two iframes the whole time.
-The row had been wrong in both directions, and the confident correction is what
-made the second version convincing. **Count the iframes.**
+The best of these is worth knowing by name, and it has now been wrong **four
+times in a row** about the same fact. `README.md` §5 first claimed
+renders-plus-a-link. Then it claimed all three products embed — correcting the
+earlier draft, which is what made it convincing — when only two did. Then a
+session wrote **"`grep -c "iframe src="` returns 2, and that is correct,"** with
+the verification command right there beside it; it was true when written and
+false one commit later, because removing a launcher put the frame back in the
+markup. It is 3.
+
+So: **check the count, and distrust the check itself.** A note that tells you
+how to verify it can go stale in exactly the way the claim did. Re-derive what
+the right question is, not just the answer.
 
 A cheap habit that catches most of this: when a document states a number, a
 path, or a status, check it as you read. `grep -c "iframe src=" index.html`,
 `git status` in the product repo, `curl` the deployed URL. A to-do list is only
 useful if every line is still true, and the ones that quietly go stale are the
 ones nobody re-checks because they *sound* settled.
+
+**Your own notes go stale fastest.** The four corrections above were each
+written by someone who had just done the work. Within one session a handoff
+here claimed Scene was "hidden by CSS" (hiding was the bug), described an
+`!important` for a rule that had been deleted, and gave a percentage that had
+changed. Re-read what you wrote before you commit it, not just what you found.
 
 ## 6 · Look at it (2 min)
 
@@ -100,6 +113,36 @@ minutes of reading CSS.
   reasoning holds; the structure does not.
 - The product repos — Codedesk, Picture Wrap, The Ward. Open one only when
   working on it, and read its own handoff first.
+
+  **Working on a product and this page together?** Serve both, and the frame
+  will use the local product: `data-embed-base-local` is honoured only when
+  this page is on localhost. Otherwise the embed shows the last *deploy*, which
+  is how a whole session went by looking at the right page and the wrong Ward.
+
+  ⚠ **One git repository is not one job.** `lafayette-square.nosync` holds
+  several separate codebases — the LS runtime, cartograph, arborist,
+  meteorologist — and Jacob runs them as **separate jobs that must not
+  overlap**, sharing a repo only for convenience. A branch is therefore *not* a
+  single arc of work, and "push the trunk" can ship somebody else's job.
+
+  On 30 July 2026 the trunk was **152 commits ahead of `origin`**: eight were
+  the embed work, the other 144 were an unrelated extent / trees / intake /
+  Łódź arc. Pushing would have deployed that other job to staging as a side
+  effect of shipping this one.
+
+  So, before any push: `git log origin/<branch>..HEAD --oneline | wc -l`, then
+  check whether the work is even entangled —
+  `git diff --name-only <first-of-yours>^..HEAD` against
+  `git log origin/<branch>..<first-of-yours>^ -- <those files>`. The embed work
+  overlapped the other 144 on **zero files**, so it could be lifted onto its own
+  branch cleanly. Establish that separation *before* proposing a deploy, not
+  after Jacob stops you.
+
+  **The Ward deploys through Preview's Publish panel, not through git.** Bake →
+  commit the slab → staging → promote. Slab *data* goes straight to prod; *code*
+  is staging-first (`cartograph/PREVIEW.md` §0.2). `promote` fast-forwards
+  `main` from the trunk, so it carries everything on it. Jacob's call, never an
+  agent's.
 - `_source/` — originals for the image pipeline. Never edited by hand.
 
 ---
@@ -175,6 +218,40 @@ every check rendered it `open`. If a thing has a default state, verify *that*.
 
 **Verify in a browser, not by reasoning.** Every real bug this session was found
 by rendering and looking. None were found by reading CSS.
+
+**Performance is measured, never reasoned about — and measure the control.**
+Asked why switching a live embed felt like a crash, I blamed four mechanisms in
+turn and was wrong every time: the hiding method, `display:none` specifically,
+the render-pause, and "it must be a dev-build artifact." The actual cause only
+appeared once I ran the control — *sit still and change nothing* — which never
+stalled at all. Isolate one variable per run, and run the do-nothing case first.
+
+**Hiding an expensive live thing is not free.** Chrome drops a WebGL surface the
+moment its canvas stops being visibly composited, and restoring context, shaders
+and textures lands as ONE blocked frame of five to twelve seconds. Every route
+does it: `visibility: hidden`, `display: none`, `opacity: 0`, a fully opaque
+cover over it, or pausing its render loop. A *fully occluded* canvas is culled
+exactly like a hidden one — that is the half nobody expects. Production stalled
+8.2s, so it is not a dev artifact. The fix is to let it keep rendering and cover
+it at `opacity: 0.95`; the last five percent is what keeps it composited. General
+form: **an expensive live thing must keep costing what it costs, or you pay the
+whole start-up again.** Full measurements in The Ward's `ls/ARCHITECTURE.md §7`.
+
+**Embed the parts, not the front door.** When a product is built out of
+separable pieces, framing the composed thing asserts the separation; framing the
+pieces shows it. The Ward's slab and player are separate payloads by contract,
+so the page mounts them separately and switches between them — by `postMessage`,
+never by changing the frame's `src`, because a reload rebuilds the product's
+WebGL context and resets its camera, and then three layers are three unrelated
+pictures. See README §5.
+
+**Do not invent a placeholder for a live embed.** The product already has a
+loading screen. An invented card is one more thing to keep true, and it is not
+what the product looks like.
+
+**Never put a diagram beside the working version of the same thing.** A
+wireframe can specify a demo; once the demo exists the wireframe can only
+disagree with it. One demo area.
 
 **The copy is provisional.** All of it will be rewritten. Do not let it decide
 anything.
