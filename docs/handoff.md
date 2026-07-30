@@ -20,6 +20,8 @@ Everything the site needs now lives on internal disk:
 ~/Desktop/lafayette-square.nosync/    The Ward — 184 GB, do not copy
 ```
 
+`COLOPHON.md` indexes every document in the project, including this one.
+
 **Read `README.md` first.** It carries the argument the site makes, seven rules,
 a table of which component is right for which job, six bugs already fallen into
 with why each survived testing, and an audit script. Most of it exists because

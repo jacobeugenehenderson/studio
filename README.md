@@ -12,6 +12,8 @@ serve   python3 -m http.server 8787 --bind 127.0.0.1
 open    http://127.0.0.1:8787
 ```
 
+`COLOPHON.md` records how the thing was made and indexes every other document.
+
 ---
 
 ## 1. What the site argues
@@ -37,6 +39,7 @@ is substance. Do not swap these.
 ## 2. Files
 
 ```
+COLOPHON.md             how it was made; index of every document
 index.html              the whole site
 css/tokens.css          every colour, size, family, duration
 css/site.css            everything else, in numbered sections
