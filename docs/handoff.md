@@ -113,9 +113,12 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    The slab costs what the composite costs, and that is the correct price.
 
    **Ward anchors** — `69dfaad2`, `c702fee4`, `e2b0ece0`, `7c10baee` on
-   `curb-offset-draw`, in `src/App.jsx` and `src/index.css`. URL params set the
-   initial layer and serve direct links; a `message` listener switches it live,
-   carrying `ground`, and only when framed. Absent, nothing changes.
+   `curb-offset-draw`, in `src/App.jsx` and `src/index.css`, and lifted onto
+   the `embed-layers` branch for deploy. **Framed-only, params and messages
+   alike** — unframed, `?layer=` is ignored outright, so the public URL can
+   never show half an app. The param seeds the initial layer; a `message`
+   listener switches it live and carries `ground`. Absent a frame, nothing
+   changes.
 
    ⚠ **Deliberately not `?ground`.** `Scene.jsx`'s `IS_GROUND` reads the URL
    independently and strips trees, buildings, lamps, arch and post-FX to leave
@@ -136,20 +139,33 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    of those files. So the embed work lifts onto a branch of its own cleanly —
    which is how it should travel.
 
-   **What is still needed to go live**, in order:
-   a. Lift the 8 embed commits onto a branch off `origin/curb-offset-draw` and
-      push **that** — never the whole trunk, per the warning above. Code
-      changes are staging-first per `cartograph/PREVIEW.md` §0.2 (only *slab
-      data* goes straight to prod). Note `staging.yml` triggers on pushes to
-      `curb-offset-draw`, so a side branch needs `workflow_dispatch` or a
-      merge; settle that with Jacob rather than guessing.
-   b. Verify all three layers on the staging URL.
-   c. Promote via **Preview's Publish panel**, not a manual push — that is the
-      canon path (bake → commit → staging → promote). Note `promote`
-      fast-forwards `main` from the trunk, so it carries everything else on
-      `curb-offset-draw` with it. Jacob's call, not an agent's.
-   d. Flip `data-embed-base` in `index.html` from the staging URL to
-      `https://lafayette-square.com/`. One line, the only one.
+   **Live on staging; NOT on prod, deliberately.** The branch is
+   `embed-layers` (`7600cb5a`, 9 commits, six files), deployed to staging by
+   `workflow_dispatch` — `staging.yml` only auto-triggers on `curb-offset-draw`,
+   so a side branch must be dispatched by hand. All three layers verified there.
+
+   WARNING **Do not promote the embed on its own, and do not press Preview's
+   Promote button for it.** Three things, all checked on 30 July 2026:
+
+   - Promote fast-forwards `main` from the repo's **current branch** — locally
+     `curb-offset-draw`. Pressing it ships the other job to
+     lafayette-square.com.
+   - `main` is **358 commits behind** the trunk, so `embed-layers:main` is a
+     clean fast-forward that carries **367** commits to prod, 358 of them the
+     other job.
+   - Cherry-picking just the 9 onto `main` was tried and abandoned: prod's
+     `App.jsx` has no `FeatureBoundary`, so the render block these commits edit
+     is structurally different there. It is a hand-merge into a stale base
+     producing a `main` in a shape neither branch has ever been — too much risk
+     for a portfolio embed.
+
+   **So the embed rides along.** When the extent / trees / intake work is
+   promoted to prod, `embed-layers` merges into the trunk first and goes with
+   it — already tested, no hand-merge, free. Until then the site points at
+   staging and works.
+
+   Then, and only then: flip `data-embed-base` in `index.html` from the staging
+   URL to `https://lafayette-square.com/`. One line, the only one.
 
    **`grep -c "iframe src=" index.html` → 3**, and it is honest again. It read
    2 for part of this session, while a launcher injected The Ward's frame on
