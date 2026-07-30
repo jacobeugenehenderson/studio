@@ -617,18 +617,19 @@
             are one engine configured three ways: a public product, an internal tool at Nordson,
             and a feature living inside a neighbourhood app. Pick an emoji and it becomes the
             code's palette, so one choice sets both what a code means and how it looks.</p>
-          <!-- The tool, showing a code it made — and that code is the link.
-               One image: a picture of the product, a thing it produced, and a
-               working QR. The screenshot wants regenerating once Codedesk's
-               default preset points at okqral.com. -->
-          <a class="shot" href="https://okqral.com">
-            <img src="assets/codedesk-interface.png"
-                 alt="Codedesk, showing a QR code it generated that links to okqral.com"
-                 loading="lazy" decoding="async">
-          </a>
+          <!-- The actual tool, running. mode=embed is Codedesk's own standalone
+               flag: it drops the Ascend and FileRoom integrations and just works.
+               Lazy, because nobody should pay for a whole app before scrolling
+               to it. -->
+          <div class="embed">
+            <iframe src="https://jacobeugenehenderson.github.io/ascend-portal/codedesk/?mode=embed"
+                    title="Codedesk — make a QR code"
+                    loading="lazy"></iframe>
+          </div>
 
-          <p class="credit">Codedesk, and a code it made. Scan or click — it goes to
-            <strong>okqral.com</strong>: the same spine, instantiated for a different job.</p>
+          <p class="credit">Codedesk, running. Change anything. The code it starts on goes to
+            <strong><a href="https://okqral.com">okqral.com</a></strong> — the same spine,
+            instantiated for a different job.</p>
 
           <details class="more">
             <summary class="more-toggle">The full case — the skin, the emoji, the codes</summary>
