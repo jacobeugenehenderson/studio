@@ -3,6 +3,10 @@
 For the next Colophon. The aim is a clean start in about ten minutes, with
 context that is *accurate* rather than merely large.
 
+**Triggered by "hey colophon."** Jacob uses that as a standing instruction to run
+this procedure before doing anything else. It is also recorded in memory, so a
+session that has never seen this repo still knows to come here first.
+
 Read in this order. Stop at each checkpoint and confirm before continuing — the
 point is to catch a document that has gone stale, not to absorb everything.
 
