@@ -145,6 +145,45 @@ Two known issues are deliberately out of scope for this pass — record them, do
   (nearer 16% on a small code)
 - inverted (light-on-dark) codes are not reliably read by all in-app scanners
 
+## 6b. Findings from a first look — read before starting
+
+Recorded 29 Jul 2026, from serving the app locally and reading the source. None of
+this is instruction to change anything; it is what the next person should not have
+to rediscover.
+
+**The "welcome ceremony" is a preset, not a gate.** `qr_app.js` runs a block
+guarded by `if (!typeSel.value)` which applies the `WELCOME` preset from
+`qr_type_manifest.json`. As shipped that preset is `name: "Hi Shugg"`, body
+`"Click the 💖 to get started"` — so a first-time visitor is greeted by name, with
+someone else's name. There is a hardcoded offline fallback at `qr_app.js:433`
+whose headline is the more neutral `"WELCOME"`; the manifest overrides it.
+
+**The 💖 is the type picker.** `index.html:84` —
+`<option value="" disabled selected hidden>💖</option>`. The product's primary
+action is an unlabelled emoji in the top-right corner, and the caption exists to
+tell you to go and find it.
+
+**Rotation was intended but never wired.** The startup path always calls
+`applyPreset('WELCOME', 0)`, so further WELCOME presets could never appear. The
+original intent was for the landing code to vary over time. Any fix should pick by
+date rather than at random — a refresh that reshuffles reads as a glitch.
+
+**A real scope problem, and a likely source of dead wiring.** `renderTypeForm` is
+declared inside a closure (`qr_app.js:603`, writing into `#detailsPanel`) that the
+startup block at the end of the file cannot reach. An attempt to build the URL form
+on load failed silently for exactly that reason. Worth mapping deliberately: where
+else does the startup path reach for functions it cannot see?
+
+**okQRal has no templates.** Codedesk carries `qr_templates.json`; okQRal does not.
+That is part of what diverged between the two, and it means "port Codedesk over"
+would import a system this deployment has never had.
+
+**Sequencing.** Streamlining the landing state is a design change, and this brief
+forbids behaviour and visual changes. It should be decided and implemented FIRST —
+cleaning code that is about to be deleted is wasted work, and a careful agent will
+otherwise prove the welcome path live and preserve it.
+
+
 ## 7. Definition of done
 
 The app is byte-identical in output and pixel-identical in appearance, measurably smaller,
