@@ -1149,9 +1149,23 @@ a { color: inherit; }
 
 .embed iframe { display: block; width: 100%; height: 100%; border: 0; }
 
+/* Once a product reports its own height, the frame follows it instead of
+   holding an aspect ratio guessed from out here. Until then the ratio stands,
+   so a product that has not adopted the snippet still looks deliberate.
+   See the message listener in js/site.js. */
+.embed.is-sized {
+  aspect-ratio: auto;
+  height: var(--embed-h);
+  transition: height 200ms var(--ease-ink);
+}
+
 @media (max-width: 46rem) {
   /* A form-heavy authoring UI needs height more than width on a phone. */
   .embed { aspect-ratio: 3 / 4; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .embed.is-sized { transition: none; }
 }
 
 

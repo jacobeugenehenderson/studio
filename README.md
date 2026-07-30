@@ -107,8 +107,41 @@ Getting this wrong cost several rebuilds. The distinction is worth keeping.
 | **`.states` + `.pill`** | Three or more discrete views of one stack, where one of them is the whole frame at once. A wipe cannot express that: centre-composed and seam-follows-finger are geometrically incompatible. |
 | **`.stepper`** | An ordered sequence. Every stage stays visible, nothing auto-advances. |
 | **`.pager`** | Many variations of one argument. One at a time, buttons in the margins so paging is never confused with dragging, and a visible count so the extent is known. |
-| **`.embed`** | A live product that is DOM rather than WebGL. Preferred over a screenshot: it is the actual thing, and it cannot go stale. |
+| **`.embed`** | Any live product. Preferred over a screenshot: it is the actual thing, and it cannot go stale. **All three products embed** — Codedesk, Picture Wrap and The Ward. An earlier draft of this file claimed The Ward was renders-plus-a-link; that was wrong and it is embedded like everything else. |
 | **`.more`** | Depth. **Collapsed is a preview, never a closed door** — the picture and the claim stay out, and expanding only adds reading. |
+
+---
+
+## 5b. Embedded products size themselves
+
+An iframe has a fixed height; these apps do not — action up top, menus folding
+out below. Any height chosen from the embedding page is wrong twice: dead space
+when collapsed, clipped or nested-scrolling when expanded. Only the app knows how
+tall it currently is, so the app says so.
+
+**Product side.** `docs/embed-height.js`, pasted verbatim into each product and
+loaded last. It does nothing when the page is not framed, so it is safe to ship
+unconditionally. It reports `document.documentElement.scrollHeight` on a
+`ResizeObserver`, coalesced into one animation frame, and ignores changes under
+two pixels so jitter cannot ping the parent forever.
+
+**Site side.** A `message` listener in `js/site.js`. It trusts only known
+origins — otherwise any framed page could resize itself at will — and clamps the
+result between 420 and 1200px, because a product reporting 20,000px would
+otherwise take over the page. Until a message arrives the frame keeps its CSS
+aspect ratio, so a product that has not adopted the snippet still looks
+deliberate.
+
+Do not fork the snippet. It is the same file in every product.
+
+| Product | Snippet |
+|---|---|
+| Codedesk (`ascend-portal/codedesk`) | added, uncommitted |
+| Picture Wrap | added, uncommitted |
+| The Ward | **outstanding** — no full working checkout exists locally, only `public/` and `src/stage`. Needs cloning from the bare repo first. |
+
+Both products need deploying before the site sees any of it: the embeds point at
+the live URLs, not at local copies.
 
 ---
 
@@ -205,7 +238,8 @@ the page in a fixed-width iframe does give media queries a genuine 390px.
   drawing carrying the right half with background running left. About 60 words
   per side, backgrounds quiet enough for type in both themes.
 - How many photograph/illustration pairs exist for the Nordson filmstrip.
-- Three Ward renders from one camera: slab only, composed, Ward only.
+- The Ward embedded, with its slab / composed / Ward-on-graph-paper states as
+  the thing you switch between inside the live product.
 - Codedesk's startup preset pointing at `okqral.com` with an emoji-styled code —
   currently it boots a plain black-and-white one.
 - Provincetown: flat scans of the guides, member map and Pride poster.

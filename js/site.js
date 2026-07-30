@@ -253,6 +253,45 @@
   window.addEventListener('hashchange', openForHash);
   openForHash();
 
+  /* ---- embedded products sizing themselves ------------------------------
+     An iframe has a fixed height; these apps do not — action up top, menus
+     folding out below. Any height chosen from out here is wrong twice: dead
+     space when collapsed, clipped or nested-scrolling when expanded.
+
+     So the embedded product reports its own height and the frame follows. Until
+     a message arrives the frame keeps its CSS aspect-ratio, so a product that
+     has not adopted the snippet still looks deliberate.
+
+     Two safeguards. Only known origins are trusted, or any framed page could
+     resize itself at will. And the height is clamped, because a product
+     reporting 20,000px would otherwise take over the page.                   */
+
+  var EMBED_ORIGINS = [
+    'https://jacobeugenehenderson.github.io',
+    'https://picture-wrap.com',
+    'https://lafayette-square.com',
+    'https://okqral.com'
+  ];
+  var EMBED_MIN = 420;
+  var EMBED_MAX = 1200;
+
+  window.addEventListener('message', function (e) {
+    if (EMBED_ORIGINS.indexOf(e.origin) === -1) return;
+
+    var msg = e.data;
+    if (!msg || msg.type !== 'embed-height' || typeof msg.height !== 'number') return;
+
+    var frames = document.querySelectorAll('.embed iframe');
+    for (var i = 0; i < frames.length; i++) {
+      if (frames[i].contentWindow !== e.source) continue;
+      var box = frames[i].parentElement;
+      var h = Math.min(EMBED_MAX, Math.max(EMBED_MIN, Math.ceil(msg.height)));
+      box.style.setProperty('--embed-h', h + 'px');
+      box.classList.add('is-sized');
+      break;
+    }
+  });
+
   /* If the viewer never chose, follow the OS when it changes under us. */
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
     var stored = null;
