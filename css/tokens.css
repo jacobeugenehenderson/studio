@@ -78,7 +78,7 @@
   /* ---- layout ----------------------------------------------------------- */
   --measure: 68ch;      /* reading column                     */
   --page-max: 78rem;
-  --rail: 9rem;         /* marginalia column                  */
+  --rail: 10.5rem;      /* marginalia column                  */
   --gutter: 2rem;
   --edge: 1.5rem;       /* page inset; registration marks sit in it */
 

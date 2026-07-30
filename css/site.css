@@ -66,6 +66,9 @@ a { color: inherit; }
 
 .measure { max-width: var(--measure); }
 
+/* Keeps a pair together without &nbsp;, whose fixed width gapes in Charter. */
+.nowrap { white-space: nowrap; }
+
 .visually-hidden {
   position: absolute; width: 1px; height: 1px;
   padding: 0; margin: -1px; overflow: hidden;
@@ -411,6 +414,165 @@ a { color: inherit; }
 }
 
 
+/* 7b ── marginalia rail =================================================== */
+/*
+   The rail was empty in Phase 2. If the grammar is going to be infographic
+   rather than merely well-set, it has to carry real annotation — so it holds
+   the facts a reader actually wants: when, in what capacity, and in which ink.
+   Everything here comes off the CV. None of it is filler.
+*/
+
+.piece-rail { display: grid; gap: var(--s4); align-self: start; }
+
+.piece-meta { display: grid; gap: var(--s3); margin: 0; }
+.piece-meta > div { display: grid; gap: 0.15rem; }
+
+.piece-meta dt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.piece-meta dd {
+  margin: 0;
+  font-size: var(--fs-fine);
+  line-height: var(--lh-snug);
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+/* the ink name, swatched with the piece's own spot */
+.piece-ink { display: flex; align-items: center; gap: var(--s2); }
+.piece-ink::before {
+  content: "";
+  width: 0.75rem;
+  height: 0.75rem;
+  flex: none;
+  background: var(--spot, var(--rule-firm));
+}
+
+
+/* 7c ── the registered wipe =============================================== */
+/*
+   A before/after that is honest about what it compares: the registered
+   location plate against the finished composite. Same frame, so the wipe
+   lands. This is not a diptych of unrelated sources.
+
+   It starts centred. Seeing both states at once explains the piece faster than
+   a reveal does, and that is how the original worked.
+
+   The control is a real <input type="range">, so dragging, arrow keys, touch,
+   and screen-reader announcement all come free. Its thumb is transparent and
+   covers the whole frame, which is why the image is grabbable anywhere; the
+   visible divider is decorative and follows --wipe.
+
+   Direction alternates across a set — --ltr puts the composite left of the
+   divider, --rtl puts it right. That alternation is deliberate rhythm, so both
+   modifiers are first-class rather than one being a special case.
+*/
+
+.wipe {
+  --wipe: 50%;
+  position: relative;
+  overflow: hidden;
+  background: var(--paper-sunk);
+  border: 1px solid var(--rule-firm);
+  touch-action: pan-y;        /* the page still scrolls over the frame */
+}
+
+.wipe--3x2  { aspect-ratio: 3 / 2; }
+.wipe--16x9 { aspect-ratio: 16 / 9; }
+
+.wipe-layer { position: absolute; inset: 0; display: grid; place-items: center; }
+
+.wipe-layer img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.wipe--ltr .wipe-after { clip-path: inset(0 calc(100% - var(--wipe)) 0 0); }
+.wipe--rtl .wipe-after { clip-path: inset(0 0 0 var(--wipe)); }
+
+.wipe-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--wipe);
+  width: 2px;
+  margin-left: -1px;
+  background: var(--paper);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.wipe-divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2.25rem;
+  height: 2.25rem;
+  transform: translate(-50%, -50%);
+  border: 2px solid var(--paper);
+  border-radius: 50%;
+  background: var(--ink);
+  opacity: 0.9;
+}
+
+.wipe-tag {
+  position: absolute;
+  bottom: var(--s3);
+  z-index: 3;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--paper);
+  color: var(--ink-soft);
+  border: 1px solid var(--rule-firm);
+  padding: 0.3em 0.55em;
+  pointer-events: none;
+}
+
+.wipe-tag--left  { left: var(--s3); }
+.wipe-tag--right { right: var(--s3); }
+
+.wipe-range {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: ew-resize;
+}
+
+.wipe-range::-webkit-slider-runnable-track { background: transparent; height: 100%; border: 0; }
+.wipe-range::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 2.75rem;
+  height: 60rem;             /* taller than any frame; the wipe clips it */
+  background: transparent;
+  border: 0;
+  cursor: ew-resize;
+}
+.wipe-range::-moz-range-track { background: transparent; height: 100%; border: 0; }
+.wipe-range::-moz-range-thumb {
+  width: 2.75rem;
+  height: 60rem;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  cursor: ew-resize;
+}
+.wipe-range:focus-visible { outline-offset: -3px; }
+
+
 /* 8 ── placeholder slugs ================================================== */
 /*
    Everything visual is a slug until the real asset is wired. Correct aspect
@@ -451,6 +613,12 @@ a { color: inherit; }
   text-align: center;
   max-width: 80%;
 }
+
+/* Temporary fills for the wipe's two layers, so the mechanism is visible
+   before the real plates are wired. Two tones, because a wipe between two
+   identical greys demonstrates nothing. Delete when the images land. */
+.wipe-layer--slug     { background: var(--paper-sunk); }
+.wipe-layer--slug-alt { background: var(--rule); }
 
 .slug--21x9 { aspect-ratio: 21 / 9; }
 .slug--3x2  { aspect-ratio: 3 / 2; }
@@ -493,6 +661,18 @@ a { color: inherit; }
     padding-left: 0;
     padding-top: var(--s2);
     width: max-content;
+  }
+
+  /* The rail lies down and becomes a caption strip.
+     It must WRAP, not flow in one row — max-content columns here overflow the
+     viewport and drag the whole page sideways with them. */
+  .piece-rail {
+    display: grid;
+    gap: var(--s3);
+  }
+  .piece-meta {
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    gap: var(--s3) var(--s4);
   }
 
   .name { margin-top: var(--s6); }

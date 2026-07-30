@@ -50,6 +50,23 @@
   var stock = document.querySelector('.stock');
   if (stock) wire(stock);
 
+  /* ---- the registered wipe ---------------------------------------------
+     The range input owns the value; this only mirrors it onto --wipe so the
+     clip and the divider can follow. Authored CSS all lives in css/, and this
+     custom property is dynamic state rather than styling.                  */
+
+  Array.prototype.forEach.call(document.querySelectorAll('.wipe'), function (frame) {
+    var range = frame.querySelector('.wipe-range');
+    if (!range) return;
+
+    function paint() {
+      frame.style.setProperty('--wipe', range.value + '%');
+    }
+
+    range.addEventListener('input', paint);
+    paint();
+  });
+
   /* If the viewer never chose, follow the OS when it changes under us. */
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
     var stored = null;
