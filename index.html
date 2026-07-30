@@ -616,9 +616,99 @@
           <p class="piece-claim">One engine, three deployments, configuration as the skin. The
             manifest is the only thing that differs between the public product and the internal
             tool — and you can verify that from a directory listing.</p>
-          <div class="slug slug--4x3">
-            <span class="slug-label">Live generator · full type vocabulary</span>
+          <!-- The evidence, set as evidence: a directory listing anyone can go
+               and check. Not claimed: that the split version is smaller. It is
+               larger in total. The argument is separation. -->
+          <div class="listing">
+            <div class="listing-col">
+              <h3 class="listing-head">okQRal <span>· public</span></h3>
+              <ul class="listing-files">
+                <li>qr_app.js <b>105 KB</b></li>
+              </ul>
+              <p class="listing-note">One file. Everything in it.</p>
+              <p class="listing-manifest">manifest <b>19.6 KB</b> — full vocabulary</p>
+            </div>
+
+            <div class="listing-col">
+              <h3 class="listing-head">Codedesk <span>· Nordson</span></h3>
+              <ul class="listing-files">
+                <li>qr_app-bootstrapper.js <b>14 KB</b></li>
+                <li>qr_render_engine.js <b>45 KB</b></li>
+                <li>qr_state_engine.js <b>17 KB</b></li>
+                <li>qr_sync_pipeline.js <b>78 KB</b></li>
+                <li>qr_ui_toolkit.js <b>49 KB</b></li>
+              </ul>
+              <p class="listing-note">The same app, pulled into five named engines.</p>
+              <p class="listing-manifest">manifest <b>5.9 KB</b> — Nordson only</p>
+            </div>
+
+            <div class="listing-col">
+              <h3 class="listing-head">The Ward <span>· embedded</span></h3>
+              <ul class="listing-files">
+                <li>public/codedesk/</li>
+                <li>&#8230; the same five,</li>
+                <li>filename for filename</li>
+              </ul>
+              <p class="listing-note">Vendored whole into a different product.</p>
+              <p class="listing-manifest">manifest <b>per deployment</b></p>
+            </div>
           </div>
+
+          <p class="credit">Same engine, three times. The manifest is the skin.</p>
+
+          <details class="more">
+            <summary class="more-toggle">The full case — the skin, the emoji, the codes</summary>
+            <div class="more-body">
+
+              <section class="more-section">
+                <p class="label">Why it holds</p>
+                <div class="work-prose">
+                  <h2 class="work-h">Configuration as the skin</h2>
+                  <p>A public tool and an internal one usually diverge into two codebases, then
+                    drift, and then one of them quietly dies. These share an engine and differ by a
+                    manifest: the public build carries the full type vocabulary, the Nordson build
+                    carries only what Nordson uses, and The Ward vendors the whole thing inside a
+                    product about neighbourhoods.</p>
+                  <p>The split version is <em>larger</em> in total, not smaller — five engines come
+                    to about twice the monolith. That is the honest trade. What it buys is that a
+                    change to rendering cannot break state, and a change to state cannot break
+                    sync, which is what lets one engine survive three owners.</p>
+                </div>
+              </section>
+
+              <section class="more-section">
+                <p class="label">The emoji</p>
+                <div class="work-prose">
+                  <h2 class="work-h">The mark is also the palette</h2>
+                  <p>Most styled QR codes bolt an icon onto a black square. Here the emoji you pick
+                    is run through a colour extractor and <em>becomes</em> the code's palette — so
+                    one choice sets both what the code means and what it looks like. A code signals
+                    its category before anyone scans it, and it does so without a separate design
+                    decision.</p>
+                  <p>Codes are treated as system components rather than marketing artifacts:
+                    structured types, consistent visual systems per category, and PNG output so they
+                    render the same everywhere. They can be regenerated without changing what they
+                    encode.</p>
+                </div>
+              </section>
+
+              <section class="more-section">
+                <p class="label">At a glance</p>
+                <div>
+                  <table class="facts">
+                    <tbody>
+                      <tr><th scope="row">Engine</th><td>One, authored solo</td></tr>
+                      <tr><th scope="row">Deployments</th><td>Public product, internal tool, embedded feature</td></tr>
+                      <tr><th scope="row">What differs</th><td>The manifest, and nothing else</td></tr>
+                      <tr><th scope="row">Types</th><td>URL, Payment, WiFi, Contact, Message, Event, Map</td></tr>
+                      <tr><th scope="row">Live</th><td><a href="https://okqral.com">okqral.com</a></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
+            </div>
+          </details>
         </div>
       </article>
 
