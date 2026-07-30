@@ -1159,13 +1159,93 @@ a { color: inherit; }
   transition: height 200ms var(--ease-ink);
 }
 
+/* ---- an embed that waits to be asked ----------------------------------
+   Codedesk and Picture Wrap are documents; they can load with the page and
+   cost nothing much. The Ward is a WebGL neighbourhood that takes several
+   seconds to boot and then holds a GPU for as long as it is on screen.
+   `loading="lazy"` is no protection: it only defers until the frame nears the
+   viewport, so the thing would start itself while the visitor is still two
+   pieces up the page, reading about Ascend.
+
+   So this one asks first. The ground is graph paper, which is the sheet a
+   subject sits on here whenever it is shown apart from its environment — and
+   an embed that has not booted is exactly that. Once the frame is injected the
+   modifier comes off and the ordinary .embed rules above take over, so there is
+   only one set of rules for a running product.
+
+   The whole face is one button rather than a card with a button in it: the
+   target should be as big as the thing it opens, and there is nothing else in
+   here to click. */
+
+.embed--waiting { position: relative; }
+
+.embed-launch {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s3);
+  padding: var(--s5);
+  border: 0;
+  color: var(--ink);
+  text-align: center;
+  cursor: pointer;
+}
+
+/* The graph paper is carried by .graph in the markup, on this element rather
+   than on the frame around it. .embed sets `background` as a SHORTHAND and
+   sits later in this file than §11, so putting .graph on the frame would let
+   the shorthand reset background-image and take the grid away — the rule that
+   looks like it won paints nothing. Nothing here may set `background`. */
+
+.embed-launch-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-snug);
+}
+
+/* A rule in the piece's own ink, drawn under the title. It grows on hover so
+   the face has one clear affordance without the button acquiring a border and
+   starting to look like a dialog. */
+.embed-launch-title::after {
+  content: "";
+  display: block;
+  width: var(--s7);
+  height: 2px;
+  margin: var(--s2) auto 0;
+  background: var(--spot, var(--ink-faint));
+  transition: width var(--dur-quick) var(--ease-ink);
+}
+
+.embed-launch:hover .embed-launch-title::after,
+.embed-launch:focus-visible .embed-launch-title::after { width: var(--s9); }
+
+.embed-launch-note {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  max-width: 46ch;
+  line-height: var(--lh-snug);
+}
+
+.embed-launch:focus-visible { outline: 2px solid var(--process-m); outline-offset: -4px; }
+
 @media (max-width: 46rem) {
   /* A form-heavy authoring UI needs height more than width on a phone. */
   .embed { aspect-ratio: 3 / 4; }
+
+  /* The Ward is the exception: it is a landscape you look across, and a
+     portrait frame crops the horizon out of it. */
+  .embed--ward { aspect-ratio: 4 / 3; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .embed.is-sized { transition: none; }
+  .embed-launch-title::after { transition: none; }
 }
 
 

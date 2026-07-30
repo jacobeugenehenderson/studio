@@ -110,7 +110,9 @@ Getting this wrong cost several rebuilds. The distinction is worth keeping.
 | **`.states` + `.pill`** | Three or more discrete views of one stack, where one of them is the whole frame at once. A wipe cannot express that: centre-composed and seam-follows-finger are geometrically incompatible. |
 | **`.stepper`** | An ordered sequence. Every stage stays visible, nothing auto-advances. |
 | **`.pager`** | Many variations of one argument. One at a time, buttons in the margins so paging is never confused with dragging, and a visible count so the extent is known. |
-| **`.embed`** | Any live product. Preferred over a screenshot: it is the actual thing, and it cannot go stale. **Two embeds exist today** — Codedesk (`index.html:630`) and Picture Wrap (`:847`). The Ward is *intended* to embed and does not yet; it is still a three-state pill on placeholder art. This row has now been wrong in both directions — first claiming renders-plus-a-link, then claiming all three were embedded — so count the iframes before trusting it. |
+| **`.embed`** | Any live product. Preferred over a screenshot: it is the actual thing, and it cannot go stale. **Three embeds exist today** — Codedesk (`index.html:630`), Picture Wrap (`:847`) and The Ward (`:754`). This row has been wrong in both directions before — first claiming renders-plus-a-link, then claiming all three embedded while only two did — so count before trusting it. **`grep -c "iframe src=" index.html` returns 2, and that is correct:** The Ward's frame does not exist in the markup at all. Count `class="embed` instead. |
+| **`.embed--waiting`** | An embed too expensive to load unasked. The Ward is a WebGL neighbourhood — seconds to boot, a GPU held for as long as it is on screen — and `loading="lazy"` only defers until the frame nears the viewport, which would start it while the visitor is two pieces up the page. So the frame is graph paper with a launcher, and `js/site.js` swaps in the iframe when asked. Use it for anything with a real running cost; the two document-ish products do not need it. |
+| **`.pill` driving an `.embed`** | When a piece both *diagrams* a claim and *embeds* the thing, the same control must drive both, or the diagram is contradicted by the live view sitting under it. On The Ward the pill picks which **payload** loads — `?layer=slab`, no param, `?layer=player` — so Slab / Composite / Ward mean the same thing above and below. Switching reloads the frame; that cost is the argument, not a defect. The origin lives once, in `data-embed-base`, read at load time so it can be repointed without touching JS. |
 | **`.more`** | Depth. **Collapsed is a preview, never a closed door** — the picture and the claim stay out, and expanding only adds reading. |
 
 ---
@@ -158,7 +160,7 @@ Do not fork the snippet. It is the same file in every product.
 |---|---|
 | Codedesk (`~/Desktop/dev.nosync/codedesk`) | **live** — committed, deployed, and confirmed reporting height from the deployed URL |
 | Picture Wrap (`~/Desktop/dev.nosync/picture-wrap`) | **added, untracked, not deployed.** Loaded at its `index.html:85` and byte-identical to canonical, but `picture-wrap.com` serves no copy of it — so the site's frame still falls back to its CSS aspect ratio. Commit and deploy. |
-| The Ward | **outstanding** — not embedded at all yet. Lives at `~/Desktop/lafayette-square.nosync` (184 GB, branch `curb-offset-draw`) with active in-flight work. Read its `_handoffs/` and open `BRIEF-*.md` first. |
+| The Ward | **not needed, deliberately.** Embedded from `lafayette-square.com` and carrying no snippet. Self-sizing is for apps whose height is content; The Ward is a landscape you look *across*, so a fixed aspect is the right frame and a reported height would only stretch the horizon. The frame keeps its CSS ratio — 16/10, and 4/3 on a phone so the horizon survives. |
 
 The embeds point at live URLs, not local copies, so a product is only as current
 as its last deploy. Codedesk publishes from
@@ -191,6 +193,15 @@ Each of these was a real bug. They are cheap to reintroduce.
   out of the stack and stays visible when the layer above should cover it.
 - **Verify with the disclosure closed.** Every early check rendered `open`, which
   is exactly why the Safari bug survived so long.
+- **A `background` shorthand later in the file silently disarms a utility
+  class.** `.graph` (§11) paints its grid with `background-image`; `.embed` (§18)
+  sets `background:` as a *shorthand*, which resets `background-image` to `none`.
+  Put both on one element and the grid vanishes with no error, no override
+  warning, and nothing wrong-looking in either rule — the later shorthand simply
+  ate a longhand it never mentions. This is the same shape as the undefined-token
+  trap: the losing declaration is invisible at the point of failure. Utilities
+  and components must not both touch `background`; the graph paper now goes on
+  the launcher *inside* the frame for exactly this reason.
 
 ---
 
@@ -253,7 +264,7 @@ the page in a fixed-width iframe does give media queries a genuine 390px.
 | 2 Nordson | Cordis reveal, filmstrip | placeholder |
 | 3 Ascend | five-step stepper | **real** interfaces |
 | 4 QR engine | live Codedesk embed | **live** |
-| 5 The Ward | three-state pill | placeholder — **not embedded yet**, despite the intent to |
+| 5 The Ward | three-state pill **+ live embed** | pill art still placeholder; the embed is **live** |
 | 6 Picture Wrap | live site embed | **live**, but not yet self-sizing — snippet undeployed |
 | Origin Provincetown | rail + claim, no interaction | placeholder — `article#pbg` at `index.html:914`, one labelled 4×3 slug awaiting scans |
 
@@ -264,8 +275,12 @@ the page in a fixed-width iframe does give media queries a genuine 390px.
   drawing carrying the right half with background running left. About 60 words
   per side, backgrounds quiet enough for type in both themes.
 - How many photograph/illustration pairs exist for the Nordson filmstrip.
-- The Ward embedded, with its slab / composed / Ward-on-graph-paper states as
-  the thing you switch between inside the live product.
+- The Ward's pill art. The embed is live now, so the wireframe placeholder sits
+  directly above a real render of the same neighbourhood, and the comparison is
+  unkind to it. Two ways out: stills captured from the live Ward so the diagram
+  is made of the thing itself, or the original intent — slab / composed /
+  Ward-on-graph-paper as states you switch between *inside* the live product,
+  which is Ward-side work. Jacob's call.
 - Codedesk's startup code is emoji-styled. It encodes `www.okQRal.com` and is
   captioned, but the modules are still plain black-and-white squares, so the
   claim above the frame — *pick an emoji and it becomes the code's palette* — is

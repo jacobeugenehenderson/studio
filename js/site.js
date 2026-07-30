@@ -1,11 +1,15 @@
 /* ============================================================================
    site.js — jacobhenderson.studio
    ----------------------------------------------------------------------------
-   Two jobs only. The plate registration on the name is pure CSS, so there is
-   no JavaScript in the hero and nothing to wait for.
+   Nothing in the hero. The plate registration on the name is pure CSS, so
+   there is nothing to wait for before the page is right.
 
-     1  the paper / plate switch
-     2  respecting a system preference change while the page is open
+     1  the paper / plate switch, and a system preference changing under it
+     2  the drag shared by the wipe and the peel
+     3  the pager, and deep links into it
+     4  opening a disclosure that the hash points inside
+     5  embedded products reporting their own height
+     6  the embed that waits to be asked before it loads
 
    The initial theme is stamped by a tiny inline script in <head>, before first
    paint, because doing it here would flash the wrong ground first.
@@ -301,6 +305,79 @@
       box.classList.add('is-sized');
       break;
     }
+  });
+
+  /* ---- an embed that waits to be asked ----------------------------------
+     The Ward is a WebGL neighbourhood: several seconds to boot, and a GPU held
+     for as long as it is on screen. `loading="lazy"` only defers until the
+     frame nears the viewport, so it would start itself while the visitor is
+     still reading two pieces up the page. This one loads when it is asked for.
+
+     The script does only what CSS cannot: it swaps one node for another and
+     seeds the src. Everything visible is in css/site.css §18 — removing
+     .embed--waiting is what hands the frame back to the ordinary embed rules.
+
+     Focus follows the frame in. The button that had it is about to be removed,
+     and letting focus fall back to <body> would drop a keyboard visitor at the
+     top of the document having just asked to go somewhere. */
+
+  /* Which payload each pill state asks the product for. Empty string is the
+     composite — the product's own front door, no param, exactly what the
+     public gets. The other two are the anchors added to The Ward so the slab
+     and the Player can be mounted separately (SLAB-CONTRACT.md §0). */
+  var WARD_LAYERS = { slab: '?layer=slab', composite: '', ward: '?layer=player' };
+
+  Array.prototype.forEach.call(document.querySelectorAll('.embed--waiting'), function (box) {
+    var launch = box.querySelector('.embed-launch');
+    if (!launch || !box.getAttribute('data-embed-base')) return;
+
+    /* The pill that already drives the wireframe diagram. If there isn't one,
+       this is an ordinary deferred embed and the base URL is the whole story. */
+    var piece = box.closest('.piece');
+    var radios = piece ? piece.querySelectorAll('input[name="ward-view"]') : [];
+
+    function wanted() {
+      for (var i = 0; i < radios.length; i++) {
+        if (radios[i].checked) return WARD_LAYERS[radios[i].value] || '';
+      }
+      return '';
+    }
+
+    function load() {
+      var frame = box.querySelector('iframe');
+      /* Read at load time, not at wiring time: the attribute is the source of
+         truth for the origin, and reading it late means it can be repointed
+         (staging → prod, or a local build) without touching this file. */
+      var url = box.getAttribute('data-embed-base') + wanted();
+
+      /* Already showing this layer — do not reload it. Re-entrancy matters:
+         a change event can fire for the radio going OFF as well as the one
+         coming on, and reloading a 3D neighbourhood twice per click would be
+         both slow and visibly wrong. */
+      if (frame) {
+        if (frame.src !== url) frame.src = url;
+        return;
+      }
+
+      frame = document.createElement('iframe');
+      frame.src = url;
+      frame.title = box.getAttribute('data-embed-title') || '';
+      frame.setAttribute('allow', 'fullscreen');
+      box.replaceChild(frame, launch);
+      box.classList.remove('embed--waiting');
+      frame.focus();
+    }
+
+    launch.addEventListener('click', load);
+
+    /* Once the frame is live the pill drives it. Before that the pill goes on
+       driving the wireframe alone, so choosing a state does not silently boot
+       a whole 3D app behind the launcher the visitor has not pressed. */
+    Array.prototype.forEach.call(radios, function (radio) {
+      radio.addEventListener('change', function () {
+        if (box.querySelector('iframe')) load();
+      });
+    });
   });
 
   /* If the viewer never chose, follow the OS when it changes under us. */

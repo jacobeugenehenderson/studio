@@ -72,16 +72,48 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    Check: `git status` in `~/Desktop/dev.nosync/picture-wrap`, and
    `curl -s https://picture-wrap.com | grep -c embed-height` — `0` means
    undeployed.
-3. **The Ward — not embedded yet.** Despite the intent recorded in README §5,
-   `index.html` contains exactly two iframes, Codedesk and Picture Wrap; The
-   Ward is still a three-state pill on placeholder art. Embedding it means
-   adding `docs/embed-height.js` there too. It lives at
-   `~/Desktop/lafayette-square.nosync`, a 184 GB working tree on branch
-   `curb-offset-draw`, with **active in-flight work** — uncommitted
-   `design.json` changes and a stack of `BRIEF-*.md` files, the latest commit
-   retracting an earlier conclusion. Read `_handoffs/` and the open briefs
-   first. Do not copy it.
-   Check: `grep -c "iframe src=" index.html` — 2 today, 3 when this is done.
+3. **The Ward — embedded as three layers, 30 July 2026. NOT YET LIVE.**
+
+   The pill drives the frame. Each state loads a different **payload** from the
+   product's own URL: `?layer=slab` (the baked environment, no Player), no
+   param (both), `?layer=player` (the commons, no slab). So the wireframe and
+   the live frame finally say the same thing — the first build embedded only
+   the composed front door, which asserted the separation instead of showing
+   it, and Jacob rightly rejected it.
+
+   **Two anchors were added to The Ward** — `69dfaad2` on `curb-offset-draw`,
+   scoped to `src/App.jsx`, 2 real lines. `layer=slab` reuses App's existing
+   chrome gate; `layer=player` gates the `Scene` mount; absent, nothing
+   changes. Plus `WeatherPoller` mounted for the player layer only, because it
+   normally rides inside `Scene` and the Player alone read `--°F`.
+
+   ⚠ **Deliberately not `?ground`.** `Scene.jsx`'s `IS_GROUND` reads the URL
+   independently and strips trees, buildings, lamps, arch and post-FX to leave
+   bare ground. `?ground` is a ground-only diagnostic, **not the slab**. Do not
+   merge the two, and do not "simplify" `layer=slab` into it.
+
+   **What is still needed to go live**, in order:
+   a. `git push origin curb-offset-draw` → staging builds. Code changes are
+      staging-first per `cartograph/PREVIEW.md` §0.2 (only *slab data* goes
+      straight to prod).
+   b. Verify all three layers on the staging URL.
+   c. Promote via **Preview's Publish panel**, not a manual push — that is the
+      canon path (bake → commit → staging → promote). Note `promote`
+      fast-forwards `main` from the trunk, so it carries everything else on
+      `curb-offset-draw` with it. Jacob's call, not an agent's.
+   d. Flip `data-embed-base` in `index.html` from the staging URL to
+      `https://lafayette-square.com/`. One line, the only one.
+
+   **Do not count iframes to check this.** `grep -c "iframe src="` returns
+   **2** — The Ward's frame is injected by `js/site.js` and is nowhere in the
+   markup. Use `grep -c 'class="embed[ "]' index.html` → 3.
+
+   Jacob's in-flight work is untouched: the commit was scoped to one file and
+   `BRIEF-polygon-asks-the-stamp.md`, both `design.json`s and the `.pre-reset`
+   are all still dirty and unstaged, exactly as they were.
+
+   Still open: the pill's wireframe art is placeholder, now sitting above a
+   live render of the same neighbourhood. See README §8.
 4. **Provincetown — built, waiting on art.** Two previous notes said no section
    existed; `article#pbg` has been in `index.html` all along, at line 914, with
    rail, meta, claim and one labelled 4×3 slug. It is the quiet one by design —

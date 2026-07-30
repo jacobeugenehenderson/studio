@@ -751,6 +751,44 @@
           </div>
         </div>
 
+          <!-- The Ward, live, and the SAME pill drives it.
+
+               The wireframe above argues that the slab and the commons come
+               apart. This frame stops that being an assertion: each state
+               loads the layer it names, from the product's own URL.
+
+                 Slab       ?layer=slab    the baked environment, no Player
+                 Composite  (no param)     both, exactly as the public gets it
+                 Ward       ?layer=player  the commons, with no slab beneath
+
+               SLAB-CONTRACT.md §0 says the slab and the reader are separate
+               payloads and that neither imports the other's source. Those two
+               params are the anchors added to The Ward so an outside consumer
+               can mount either alone — two lines, additive, absent by default.
+
+               Switching states reloads the frame, and that cost is not hidden:
+               each layer really is a separate delivery, and watching one
+               arrive without the other is the whole argument.
+
+               `data-embed-base` is the ONE place the origin lives. Until the
+               anchors are promoted to prod this points at staging; flipping it
+               to lafayette-square.com afterwards is a one-line change and the
+               only one needed. -->
+          <div class="embed embed--ward embed--waiting"
+               data-embed-base="https://jacobeugenehenderson.github.io/lafayette-square-staging/"
+               data-embed-title="The Ward — Lafayette Square, running">
+            <button class="embed-launch graph" type="button">
+              <span class="embed-launch-title">Walk into Lafayette Square</span>
+              <span class="embed-launch-note">Loads the live neighbourhood ·
+                3D, a few seconds to boot</span>
+            </button>
+          </div>
+
+          <p class="credit">The Ward, running, served from its own address with nothing added
+            for this page. The pill switches which <em>payload</em> loads — the slab alone, both,
+            or the commons alone — and each arrives from a separate URL. The slab underneath was
+            baked by a different tool than the one drawing it.</p>
+
           <details class="more">
             <summary class="more-toggle"><span>The full case — the slab, the commons, and Cary</span></summary>
             <div class="more-body">
