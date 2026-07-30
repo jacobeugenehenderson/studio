@@ -781,6 +781,110 @@ a { color: inherit; }
 }
 
 
+/* 7g2 ── the stepper ====================================================== */
+/*
+   A pipeline is an ordered thing, so this is a stepper and not a carousel:
+   every stage is visible in the strip at once, you always know where you are,
+   and nothing advances on its own. Auto-rotation steals reading time.
+
+   The numbers carry real information — intake genuinely precedes archive — which
+   is the test any numbered device on this site has to pass.
+
+   Radio inputs and :has() again, so there is no JavaScript. One transform moves
+   the whole track; interface shots sit on graph paper under object-fit: contain,
+   which handles their differing shapes without cropping anything.
+*/
+
+.stepper { --i: 0; }
+
+.stepper:has(input[value="artstart"]:checked) { --i: 0; }
+.stepper:has(input[value="copydesk"]:checked) { --i: 1; }
+.stepper:has(input[value="codedesk"]:checked) { --i: 2; }
+.stepper:has(input[value="fileroom"]:checked) { --i: 3; }
+.stepper:has(input[value="portal"]:checked)   { --i: 4; }
+
+.stepper-nav {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 1px;
+  border: 0;
+  margin: 0 0 var(--s3);
+  padding: 0;
+  background: var(--rule);
+}
+
+.stepper-step {
+  position: relative;
+  display: grid;
+  gap: 0.15rem;
+  padding: var(--s2) var(--s3);
+  background: var(--paper);
+  cursor: pointer;
+  border-top: 3px solid var(--rule-firm);
+  transition: border-color var(--dur-quick) linear, background var(--dur-quick) linear;
+}
+
+.stepper-step input { position: absolute; opacity: 0; pointer-events: none; }
+
+.stepper-n {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-label);
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.stepper-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-fine);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+/* the stage you are on takes the piece's ink */
+.stepper-step:has(input:checked) {
+  border-top-color: var(--spot, var(--ink));
+  background: var(--paper-raised);
+}
+.stepper-step:has(input:checked) .stepper-n { color: var(--ink); }
+.stepper-step:has(input:focus-visible) { outline: 2px solid var(--process-m); outline-offset: -2px; }
+
+.stepper-viewport { overflow: hidden; }
+
+.stepper-track {
+  display: flex;
+  transform: translateX(calc(var(--i) * -100%));
+  transition: transform 320ms var(--ease-ink);
+}
+
+.stepper-panel { flex: 0 0 100%; display: grid; gap: var(--s3); }
+
+.stepper-shot {
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--rule-firm);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.stepper-shot img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+.stepper-panel .work-prose { padding-right: var(--s5); }
+
+@media (max-width: 46rem) {
+  /* five columns of names is unreadable on a phone; numbers alone still say
+     where you are, and the name repeats in the panel heading anyway */
+  .stepper-name { display: none; }
+  .stepper-step { padding: var(--s2); text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepper-track, .stepper-step { transition: none; }
+}
+
+
 /* 7h ── the pager ========================================================= */
 /*
    One frame at a time, paged from the margins.
