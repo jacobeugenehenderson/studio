@@ -115,6 +115,23 @@ Getting this wrong cost several rebuilds. The distinction is worth keeping.
 
 ---
 
+### An embedded product is allowed to be a different product
+
+An embed is seen by someone who did not come for the tool, has not signed in,
+and will give it ten seconds. Codedesk framed is the worked example: no header,
+no setup step, one content drawer open on a finished code. Its normal build
+still opens on a filename prompt with every drawer locked, because there it is
+about to write a file to Drive and the name matters.
+
+The distinction that keeps this honest is **hide, do not strip**. Every QR type
+is still there, the tracking parameters are one disclosure away, and nothing is
+deleted — so the claim above the frame ("Change anything") stays true. A cut-down
+build would make the page lie.
+
+Do it in the product, behind its own flag, not from the embedding page. The
+site cannot reach into a frame, and should not want to: the product knows what
+it looks like with nothing to save.
+
 ## 5b. Embedded products size themselves
 
 An iframe has a fixed height; these apps do not — action up top, menus folding

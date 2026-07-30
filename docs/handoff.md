@@ -53,13 +53,22 @@ getting it wrong cost a rebuild.
    `BRIEF-*.md` files, the latest commit retracting an earlier conclusion. Read
    `_handoffs/` and the open briefs before touching anything. Do not copy it.
 2. **Codedesk** — extracted and standalone at `~/Desktop/dev.nosync/codedesk`,
-   snippet committed. The embed now opens on a finished code encoding
-   `www.okQRal.com`, with Caption open and no filename ceremony, so the credit
-   line under the embed is true. **Still black-and-white**: the emoji palette
-   half of that outstanding item is not done, and the claim *"pick an emoji and
-   it becomes the code's palette"* is still only demonstrable by hand. Landing
-   state changed in embed mode only — normal use keeps the ceremony, because
-   that flow names a working file before writing it to Drive.
+   snippet committed. Framed, it is now a different product from the same code:
+   no header, no filename ceremony, three rows — **Code** (URL + caption, with
+   the UTM parameters folded into *Advanced*), Design, Download PNG — opening on
+   a finished code encoding `www.okQRal.com` captioned "Scan me". So the credit
+   line under the embed is true. Normal use is untouched and still runs the
+   ceremony, which names a working file before writing it to Drive.
+
+   **Still black-and-white**: the emoji palette half of that item is not done,
+   and the claim *"pick an emoji and it becomes the code's palette"* is still
+   only demonstrable by hand.
+
+   Two app-wide bugs were found and fixed along the way, neither embed-specific
+   and neither introduced by the extraction: three `--shape-corner-*` tokens
+   were referenced but never declared, so every control rendered square, and a
+   fixed control height clipped the bottom of its own text. See Codedesk's
+   README — the token one generalises.
 3. **Deploy** Codedesk and Picture Wrap — the snippet does nothing until live.
    Codedesk now needs a decision it did not need before: the site still embeds
    `jacobeugenehenderson.github.io/ascend-portal/codedesk/` (`index.html:625`),
