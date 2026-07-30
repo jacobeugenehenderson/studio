@@ -81,9 +81,9 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    **It switches by `postMessage`, never by reloading.** Changing `src` rebuilt
    the product's WebGL context and reset its camera, which makes the three
    states three separate pictures instead of one stack having its ground taken
-   away. Jacob caught this. `Scene` therefore stays MOUNTED for every layer and
-   is hidden by CSS — hide, do not strip — which also keeps `WeatherPoller`
-   alive, so the Player's Almanac still has a temperature.
+   away. Jacob caught this. `Scene` therefore stays MOUNTED for every layer —
+   and, per the table below, is never hidden either. That also keeps
+   `WeatherPoller` alive, so the Player's Almanac has a temperature.
 
    **The Ward state stands on graph paper — drawn INSIDE the product.** The
    sheet is `.embed-sheet` in the Ward's `src/index.css`, laid over the slab.
@@ -105,22 +105,17 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    Chrome drops the WebGL surface the moment the canvas stops being visibly
    composited — hidden or *fully occluded*, it makes no difference — and
    restoring context, shaders and textures is one blocked frame of many
-   seconds. Two percent of transparency keeps it composited; it ships at
-   **0.95**, chosen so the ghost reads as intent rather than a smudge. **Do not
-   round `.embed-sheet`'s opacity up to 1**, and do not reintroduce
+   seconds. Leaving a little of it composited is what keeps the switch instant.
+   It ships at **0.95** — 0.98 also cleared the culling, but 5% is where the
+   ghost reads as intent rather than a smudge. **Do not round
+   `.embed-sheet`'s opacity up to 1**, and do not reintroduce
    `data-scene-pause` for this layer: pausing also idles it, and measured 4.4s.
    The slab costs what the composite costs, and that is the correct price.
 
-   **Ward anchors** — `69dfaad2` + follow-up on `curb-offset-draw`, in
-   `src/App.jsx`, `index.html` and `src/index.css`. URL params set the initial
-   layer and serve direct links; a `message` listener switches it live, and
-   only when framed. Absent, nothing changes.
-
-   ⚠ One `!important` in `src/index.css`: `Scene`'s wrapper carries an **inline**
-   `background: #000` (`Scene.jsx:747`), and nothing but `!important` outranks
-   an inline style. Without it the slab is hidden but its black backing still
-   covers the sheet. Overriding beats editing `Scene`, which has no business
-   knowing it is embedded.
+   **Ward anchors** — `69dfaad2`, `c702fee4`, `e2b0ece0`, `7c10baee` on
+   `curb-offset-draw`, in `src/App.jsx` and `src/index.css`. URL params set the
+   initial layer and serve direct links; a `message` listener switches it live,
+   carrying `ground`, and only when framed. Absent, nothing changes.
 
    ⚠ **Deliberately not `?ground`.** `Scene.jsx`'s `IS_GROUND` reads the URL
    independently and strips trees, buildings, lamps, arch and post-FX to leave
@@ -139,9 +134,12 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    d. Flip `data-embed-base` in `index.html` from the staging URL to
       `https://lafayette-square.com/`. One line, the only one.
 
-   **Do not count iframes to check this.** `grep -c "iframe src="` returns
-   **2** — The Ward's frame is injected by `js/site.js` and is nowhere in the
-   markup. Use `grep -c 'class="embed[ "]' index.html` → 3.
+   **`grep -c "iframe src=" index.html` → 3**, and it is honest again. It read
+   2 for part of this session, while a launcher injected The Ward's frame on
+   click; that went when the launcher did, and the iframe is back in the markup
+   with the product's own loading screen covering its boot. `grep -c
+   'class="embed[ "]' index.html` also gives 3. Both were checked, not assumed —
+   this row has now been wrong three times.
 
    Jacob's in-flight work is untouched: the commit was scoped to one file and
    `BRIEF-polygon-asks-the-stamp.md`, both `design.json`s and the `.pre-reset`
