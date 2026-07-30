@@ -76,8 +76,10 @@
      value means differs. `apply` receives 0–100 and writes whatever custom
      properties its component needs. */
 
-  function bindDrag(frame, range, apply) {
+  function bindDrag(frame, range, apply, opts) {
     var pending = null;
+    var snapAt = opts && opts.snapAt;
+    var snapWithin = (opts && opts.snapWithin) || 7;
 
     function commit(value) {
       var v = Math.min(100, Math.max(0, value));
@@ -114,9 +116,25 @@
       fromPointer(e);
     });
 
+    /* Let go near the middle and it eases back to it, rather than leaving the
+       seam a percent or two off true. Pointer only — arrow keys should stay
+       exact, and a keyboard user aiming for 48 means 48. */
+    function snapHome() {
+      if (snapAt == null) return;
+      if (Math.abs(parseFloat(range.value) - snapAt) > snapWithin) return;
+
+      frame.classList.add('is-snapping');
+      commit(snapAt);
+      window.setTimeout(function () {
+        frame.classList.remove('is-snapping');
+      }, 260);
+    }
+
     function release(e) {
+      if (!dragging) return;
       dragging = false;
       try { frame.releasePointerCapture(e.pointerId); } catch (err) { /* fine */ }
+      snapHome();
     }
     frame.addEventListener('pointerup', release);
     frame.addEventListener('pointercancel', release);
@@ -152,7 +170,7 @@
        view, without reaching into bindDrag's internals. */
     frame.setWipe = bindDrag(frame, range, function (v) {
       frame.style.setProperty('--wipe', v + '%');
-    });
+    }, { snapAt: 50 });
   });
 
   /* ---- the pager --------------------------------------------------------

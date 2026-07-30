@@ -520,23 +520,18 @@ a { color: inherit; }
   opacity: 0.9;
 }
 
-.wipe-tag {
-  position: absolute;
-  bottom: var(--s3);
-  z-index: 3;
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  background: var(--paper);
-  color: var(--ink-soft);
-  border: 1px solid var(--rule-firm);
-  padding: 0.3em 0.55em;
-  pointer-events: none;
-}
+/* Released near the middle, the seam eases home instead of resting a percent or
+   two off true. The class is only present for the length of the animation, so
+   dragging itself is never transitioned — that would feel like lag. */
+.wipe.is-snapping .wipe-after,
+.wipe.is-snapping .wipe-before { transition: clip-path 240ms var(--ease-ink); }
+.wipe.is-snapping .wipe-divider { transition: left 240ms var(--ease-ink); }
 
-.wipe-tag--left  { left: var(--s3); }
-.wipe-tag--right { right: var(--s3); }
+@media (prefers-reduced-motion: reduce) {
+  .wipe.is-snapping .wipe-after,
+  .wipe.is-snapping .wipe-before,
+  .wipe.is-snapping .wipe-divider { transition: none; }
+}
 
 .wipe-range {
   position: absolute;

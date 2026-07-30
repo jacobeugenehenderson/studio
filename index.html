@@ -159,13 +159,15 @@
           <!-- The registered wipe. Composite left of the divider, plate right;
                direction alternates across the full set on the case-study page. -->
           <div class="wipe wipe--3x2 wipe--ltr">
-            <!-- No inner labels: the corner tags already name each side, and a
-                 centred label would sit under the divider knob. -->
-            <div class="wipe-layer wipe-before wipe-layer--slug"></div>
-            <div class="wipe-layer wipe-after wipe-layer--slug-alt"></div>
+            <!-- No labels: with the real plate against the real composite it is
+                 self-evident which side is the empty room. -->
+            <div class="wipe-layer wipe-before" aria-hidden="true">
+              <img src="assets/west-elm/01-plate.jpg" alt="" loading="lazy" decoding="async">
+            </div>
+            <div class="wipe-layer wipe-after" aria-hidden="true">
+              <img src="assets/west-elm/01-composite.jpg" alt="" loading="lazy" decoding="async">
+            </div>
             <span class="wipe-divider" aria-hidden="true"></span>
-            <span class="wipe-tag wipe-tag--left">Composite</span>
-            <span class="wipe-tag wipe-tag--right">Plate</span>
             <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
                    aria-label="Wipe between the location plate and the finished composite">
           </div>
