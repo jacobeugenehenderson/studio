@@ -1,0 +1,518 @@
+/* ============================================================================
+   SITE — jacobhenderson.studio
+   ----------------------------------------------------------------------------
+   Every value here comes from css/tokens.css. If you are about to type a hex
+   code, a px font-size, or a font family into this file, add a token instead.
+
+   Contents
+     1  reset & base
+     2  page furniture — grain, registration marks
+     3  header
+     4  the name treatment (plates)
+     5  positioning line & thesis
+     6  colour bar — the piece index
+     7  piece list
+     8  placeholder slugs
+     9  footer
+    10  reduced motion
+   ========================================================================= */
+
+
+/* 1 ── reset & base ======================================================= */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--paper);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: var(--lh-tight);
+  text-wrap: balance;
+  margin: 0;
+}
+
+p { margin: 0; }
+
+a { color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--process-m);
+  outline-offset: 3px;
+}
+
+.page {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--s7) var(--edge) var(--s9);
+  position: relative;
+  z-index: 1;
+}
+
+.measure { max-width: var(--measure); }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+/* shared label style — uppercase mono needs letterspacing to breathe */
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+
+/* 2 ── page furniture ===================================================== */
+
+/* Paper tooth. An inline SVG turbulence, so nothing is fetched. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Registration marks, one per corner, sitting in the page inset where a
+   printer's would be. Ring plus crosshair, drawn without markup. */
+.reg {
+  position: fixed;
+  inset: var(--s2);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.reg-mark {
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  background: radial-gradient(circle,
+    transparent 0 4.5px,
+    var(--rule-firm) 4.5px 5.5px,
+    transparent 5.5px);
+  opacity: 0.8;
+}
+
+.reg-mark::before,
+.reg-mark::after {
+  content: "";
+  position: absolute;
+  background: var(--rule-firm);
+}
+.reg-mark::before { left: 0; right: 0; top: 50%; height: 1px; transform: translateY(-50%); }
+.reg-mark::after  { top: 0; bottom: 0; left: 50%; width: 1px; transform: translateX(-50%); }
+
+.reg-mark--tl { top: 0; left: 0; }
+.reg-mark--tr { top: 0; right: 0; }
+.reg-mark--bl { bottom: 0; left: 0; }
+.reg-mark--br { bottom: 0; right: 0; }
+
+
+/* 3 ── header ============================================================= */
+
+.masthead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s5);
+  padding-bottom: var(--s4);
+  border-bottom: 1px solid var(--rule);
+}
+
+.masthead-mark {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+/* Paper / Plate switch — the light and dark grounds named for what they are */
+.stock {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid var(--rule-firm);
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  line-height: 1;
+}
+
+.stock-opt { padding: 0.45em 0.6em; }
+
+/* the active ground is inked; :root carries the state */
+:root[data-theme="light"] .stock-opt--paper,
+:root:not([data-theme="dark"]) .stock-opt--paper { background: var(--ink); color: var(--paper); }
+:root[data-theme="dark"] .stock-opt--plate { background: var(--ink); color: var(--paper); }
+:root[data-theme="dark"] .stock-opt--paper { background: none; color: var(--ink-faint); }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .stock-opt--paper { background: none; color: var(--ink-faint); }
+  :root:not([data-theme="light"]) .stock-opt--plate { background: var(--ink); color: var(--paper); }
+}
+
+
+/* 4 ── the name treatment ================================================= */
+/*
+   Four plates. The black plate is the anchor and sits in the flow; cyan,
+   magenta and yellow are absolute copies that begin badly out of register and
+   pull in on load.
+
+   They stop just short of true registration. Perfect registration does not
+   happen on a press, and the residual fringe is the point — it keeps the
+   artifact permanently, rather than only during an animation.
+*/
+
+.name {
+  position: relative;
+  margin: var(--s8) 0 var(--s6);
+  isolation: isolate;          /* keep the blend off the page background */
+}
+
+.name-line {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-name);
+  line-height: 0.9;
+  letter-spacing: var(--tr-name);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.name-plate {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: var(--plate-blend);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.name-plate--c { color: var(--process-c); animation: register-c var(--dur-register) var(--ease-ink) both; }
+.name-plate--m { color: var(--process-m); animation: register-m var(--dur-register) var(--ease-ink) both; }
+.name-plate--y { color: var(--process-y); animation: register-y var(--dur-register) var(--ease-ink) both; }
+
+/* the K plate — real text, in flow, establishes the box */
+.name-plate--k {
+  position: relative;
+  color: var(--ink);
+  mix-blend-mode: normal;
+}
+
+/* Each plate holds badly out of register for the first fifth of the animation
+   before pulling in. Without the hold the movement front-loads and the
+   separation is gone before anyone has perceived it. */
+
+@keyframes register-c {
+  0%, 20% { transform: translate(-0.15em, 0.075em) rotate(-0.85deg); }
+  100%    { transform: translate(-0.011em, 0.005em) rotate(-0.06deg); }
+}
+@keyframes register-m {
+  0%, 20% { transform: translate(0.13em, -0.09em) rotate(0.72deg); }
+  100%    { transform: translate(0.009em, -0.006em) rotate(0.05deg); }
+}
+@keyframes register-y {
+  0%, 20% { transform: translate(0.055em, 0.14em) rotate(0.5deg); }
+  100%    { transform: translate(0.004em, 0.010em) rotate(0.03deg); }
+}
+
+
+/* 5 ── positioning line & thesis ========================================== */
+
+.billing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s2) var(--s5);
+  padding-top: var(--s3);
+  border-top: 2px solid var(--ink);
+}
+
+/* Creative Operations leads as the practice; Creative Director carries the
+   level. Order here is the whole argument, so it is not decorative. */
+.billing-practice {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h3);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.billing-level {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.billing-competencies {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  width: 100%;
+}
+
+.thesis {
+  margin: var(--s7) 0 0;
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, var(--measure));
+  gap: var(--gutter);
+}
+
+.thesis-body { display: grid; gap: var(--s4); }
+
+.thesis-lead {
+  font-size: var(--fs-lead);
+  line-height: var(--lh-snug);
+}
+
+.thesis em {
+  font-style: normal;
+  border-bottom: 2px solid var(--process-m);
+}
+
+
+/* 6 ── colour bar — the piece index ======================================= */
+/*
+   A printer's colour control strip, doing real work: one patch per case study
+   in its spot ink. It is the index, so the device encodes something true
+   rather than dressing the page.
+*/
+
+.colorbar {
+  margin: var(--s8) 0 var(--s7);
+  border-top: 1px solid var(--rule);
+  padding-top: var(--s3);
+}
+
+.colorbar-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
+  gap: 1px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.colorbar-item { display: flex; }
+
+.colorbar-link {
+  flex: 1;
+  display: grid;
+  gap: var(--s2);
+  text-decoration: none;
+  padding-bottom: var(--s2);
+  transition: opacity var(--dur-quick) var(--ease-ink);
+}
+
+.colorbar-link:hover { opacity: 0.72; }
+
+.colorbar-patch {
+  height: 2.75rem;
+  background: var(--patch, var(--rule-firm));
+}
+
+.colorbar-name {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.colorbar-ink {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* one patch per piece — the ink is the only thing that varies */
+.patch--westelm { --patch: var(--spot-westelm); }
+.patch--nordson { --patch: var(--spot-nordson); }
+.patch--ascend  { --patch: var(--spot-ascend); }
+.patch--code    { --patch: var(--spot-code); }
+.patch--ward    { --patch: var(--spot-ward); }
+.patch--picture { --patch: var(--spot-picture); }
+.patch--pbg     { --patch: var(--spot-pbg); }
+
+
+/* 7 ── piece list ========================================================= */
+
+.pieces { display: grid; gap: var(--s8); }
+
+.piece {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: var(--gutter);
+  border-top: 1px solid var(--rule);
+  padding-top: var(--s4);
+}
+
+.piece-rank {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+  border-left: 3px solid var(--spot, var(--rule-firm));
+  padding-left: var(--s3);
+  align-self: start;
+}
+
+.piece--westelm { --spot: var(--spot-westelm); }
+.piece--nordson { --spot: var(--spot-nordson); }
+.piece--ascend  { --spot: var(--spot-ascend); }
+.piece--code    { --spot: var(--spot-code); }
+.piece--ward    { --spot: var(--spot-ward); }
+.piece--picture { --spot: var(--spot-picture); }
+.piece--pbg     { --spot: var(--spot-pbg); }
+
+.piece-body { display: grid; gap: var(--s4); }
+
+.piece-title { font-size: var(--fs-h2); }
+
+.piece-claim {
+  font-size: var(--fs-lead);
+  line-height: var(--lh-snug);
+  color: var(--ink-soft);
+  max-width: var(--measure);
+}
+
+
+/* 8 ── placeholder slugs ================================================== */
+/*
+   Everything visual is a slug until the real asset is wired. Correct aspect
+   ratio, labelled with what belongs there, and unmistakably not artwork.
+*/
+
+.slug {
+  position: relative;
+  display: grid;
+  place-items: center;
+  background: var(--paper-sunk);
+  border: 1px solid var(--rule-firm);
+  overflow: hidden;
+}
+
+.slug::before,
+.slug::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(var(--slug-angle), transparent calc(50% - 0.5px), var(--rule) calc(50% - 0.5px) calc(50% + 0.5px), transparent calc(50% + 0.5px));
+  opacity: 0.5;
+}
+.slug::before { --slug-angle: to bottom right; }
+.slug::after  { --slug-angle: to bottom left; }
+
+.slug-label {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: var(--paper);
+  padding: 0.35em 0.6em;
+  border: 1px solid var(--rule-firm);
+  text-align: center;
+  max-width: 80%;
+}
+
+.slug--21x9 { aspect-ratio: 21 / 9; }
+.slug--3x2  { aspect-ratio: 3 / 2; }
+.slug--16x9 { aspect-ratio: 16 / 9; }
+.slug--4x3  { aspect-ratio: 4 / 3; }
+.slug--1x1  { aspect-ratio: 1 / 1; }
+
+
+/* 9 ── footer ============================================================= */
+
+.site-footer {
+  margin-top: var(--s9);
+  padding-top: var(--s4);
+  border-top: 2px solid var(--ink);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3) var(--s6);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.site-footer a { text-decoration: none; border-bottom: 1px solid var(--rule-firm); }
+.site-footer a:hover { color: var(--ink); }
+
+
+/* ── narrow ─────────────────────────────────────────────────────────────── */
+
+@media (max-width: 46rem) {
+  :root { --rail: 0rem; --gutter: 0rem; }
+
+  .thesis,
+  .piece { grid-template-columns: 1fr; gap: var(--s3); }
+
+  .piece-rank {
+    border-left: 0;
+    border-top: 3px solid var(--spot, var(--rule-firm));
+    padding-left: 0;
+    padding-top: var(--s2);
+    width: max-content;
+  }
+
+  .name { margin-top: var(--s6); }
+}
+
+
+/* 10 ── reduced motion ==================================================== */
+/*
+   The plates land pre-registered — at the residual offset, not at zero, so the
+   fringe survives. Nothing moves, nothing is lost.
+*/
+
+@media (prefers-reduced-motion: reduce) {
+  .name-plate--c,
+  .name-plate--m,
+  .name-plate--y { animation: none; }
+
+  .name-plate--c { transform: translate(-0.011em, 0.005em) rotate(-0.06deg); }
+  .name-plate--m { transform: translate(0.009em, -0.006em) rotate(0.05deg); }
+  .name-plate--y { transform: translate(0.004em, 0.010em) rotate(0.03deg); }
+
+  .colorbar-link { transition: none; }
+}

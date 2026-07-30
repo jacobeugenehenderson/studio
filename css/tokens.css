@@ -1,0 +1,184 @@
+/* ============================================================================
+   TOKENS — jacobhenderson.studio
+   ----------------------------------------------------------------------------
+   The palette is press ink on paper.
+
+   Light theme is the sheet: uncoated warm stock, registration black, process
+   inks. Dark theme is the plate: the same inks lit from behind rather than
+   printed, so the metaphor inverts instead of the colours merely flipping.
+
+   Nothing outside this file defines a colour, a size, or a family. Components
+   style through these tokens only — a palette change is one file.
+   ========================================================================= */
+
+:root {
+  /* ---- ground & ink ------------------------------------------------------ */
+  --paper:        #E7E4DD;   /* uncoated stock                */
+  --paper-raised: #F1EFE9;   /* a second, lighter sheet       */
+  --paper-sunk:   #DBD7CE;   /* recessed wells, slugs         */
+  --ink:          #1A1A19;   /* registration black            */
+  --ink-soft:     #4A4845;
+  --ink-faint:    #8B877D;
+  --rule:         #C9C4BA;
+  --rule-firm:    #ABA599;
+
+  /* ---- process inks ------------------------------------------------------
+     Used for the plate registration treatment and for structural marks.
+     These are the four plates, not decoration.                              */
+  --process-c: #00A0DA;
+  --process-m: #E5007E;
+  --process-y: #F5D400;
+  --process-k: var(--ink);
+
+  /* ---- spot inks, one per piece ------------------------------------------ */
+  --spot-westelm:  #B5673A;  /* terracotta                    */
+  --spot-nordson:  #007AC9;  /* Nordson brand blue            */
+  --spot-nordson2: #0039AC;  /* Nordson deep blue             */
+  --spot-nordson3: #F0AB00;  /* Nordson gold                  */
+  --spot-ascend:   #6F7A85;  /* graphite                      */
+  --spot-code:     #6A3E64;  /* plum                          */
+  --spot-ward:     #5E8A3A;  /* treelawn green                */
+  --spot-picture:  #B08A1F;  /* gold                          */
+  --spot-pbg:      #C8386F;  /* magenta                       */
+
+  /* ---- how the plates mix ----------------------------------------------- */
+  --plate-blend: multiply;   /* subtractive: ink absorbs light */
+  --grain-opacity: 0.055;
+
+  /* ---- type -------------------------------------------------------------
+     System stacks by necessity — a linked webfont would fail silently
+     against the CSP, and a face embedded as a data URI would cost more than
+     it returns here. Helvetica Neue is the press face anyway.               */
+  --font-display: "Helvetica Neue", Helvetica, "Arial Black", Arial, sans-serif;
+  --font-body:    Charter, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-mono:    "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+  --fs-label: 0.6875rem;
+  --fs-fine:  0.8125rem;
+  --fs-small: 0.9375rem;
+  --fs-body:  1.0625rem;
+  --fs-lead:  1.3125rem;
+  --fs-h3:    1.375rem;
+  --fs-h2:    1.875rem;
+  --fs-h1:    2.75rem;
+  --fs-name:  clamp(2.75rem, 13.5vw, 11rem);
+
+  --lh-tight: 1.06;
+  --lh-snug:  1.28;
+  --lh-body:  1.62;
+
+  --tr-label: 0.14em;   /* uppercase mono needs air           */
+  --tr-name:  -0.035em; /* enormous type needs the reverse    */
+
+  /* ---- space ------------------------------------------------------------ */
+  --s1: 0.25rem;  --s2: 0.5rem;   --s3: 0.75rem;  --s4: 1rem;
+  --s5: 1.5rem;   --s6: 2rem;     --s7: 3rem;     --s8: 4rem;
+  --s9: 6rem;     --s10: 9rem;
+
+  /* ---- layout ----------------------------------------------------------- */
+  --measure: 68ch;      /* reading column                     */
+  --page-max: 78rem;
+  --rail: 9rem;         /* marginalia column                  */
+  --gutter: 2rem;
+  --edge: 1.5rem;       /* page inset; registration marks sit in it */
+
+  /* ---- motion ----------------------------------------------------------- */
+  --ease-ink: cubic-bezier(0.33, 0.02, 0.16, 1);
+  --dur-register: 1500ms;
+  --dur-quick: 220ms;
+}
+
+/* ============================================================================
+   DARK — the plate, lit from behind.
+   Inks stay saturated and switch to an additive blend, so overlaps brighten
+   the way transmitted light does rather than muddying toward black.
+   ========================================================================= */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:        #191918;
+    --paper-raised: #22221F;
+    --paper-sunk:   #121211;
+    --ink:          #E7E4DD;
+    --ink-soft:     #B0ABA0;
+    --ink-faint:    #7E7A71;
+    --rule:         #33332F;
+    --rule-firm:    #4B4A45;
+
+    --process-c: #22B8EE;
+    --process-m: #FF3D97;
+    --process-y: #FFE22E;
+
+    --spot-westelm:  #D2814F;
+    --spot-nordson:  #3FA3E0;
+    --spot-nordson2: #4A6FD8;
+    --spot-nordson3: #FFC02E;
+    --spot-ascend:   #97A2AE;
+    --spot-code:     #A9709F;
+    --spot-ward:     #85B356;
+    --spot-picture:  #DCB03A;
+    --spot-pbg:      #E86494;
+
+    --plate-blend: screen;
+    --grain-opacity: 0.08;
+  }
+}
+
+/* The viewer's toggle must win over the OS preference in both directions,
+   so both explicit states are declared. */
+
+:root[data-theme="dark"] {
+  --paper:        #191918;
+  --paper-raised: #22221F;
+  --paper-sunk:   #121211;
+  --ink:          #E7E4DD;
+  --ink-soft:     #B0ABA0;
+  --ink-faint:    #7E7A71;
+  --rule:         #33332F;
+  --rule-firm:    #4B4A45;
+
+  --process-c: #22B8EE;
+  --process-m: #FF3D97;
+  --process-y: #FFE22E;
+
+  --spot-westelm:  #D2814F;
+  --spot-nordson:  #3FA3E0;
+  --spot-nordson2: #4A6FD8;
+  --spot-nordson3: #FFC02E;
+  --spot-ascend:   #97A2AE;
+  --spot-code:     #A9709F;
+  --spot-ward:     #85B356;
+  --spot-picture:  #DCB03A;
+  --spot-pbg:      #E86494;
+
+  --plate-blend: screen;
+  --grain-opacity: 0.08;
+}
+
+:root[data-theme="light"] {
+  --paper:        #E7E4DD;
+  --paper-raised: #F1EFE9;
+  --paper-sunk:   #DBD7CE;
+  --ink:          #1A1A19;
+  --ink-soft:     #4A4845;
+  --ink-faint:    #8B877D;
+  --rule:         #C9C4BA;
+  --rule-firm:    #ABA599;
+
+  --process-c: #00A0DA;
+  --process-m: #E5007E;
+  --process-y: #F5D400;
+
+  --spot-westelm:  #B5673A;
+  --spot-nordson:  #007AC9;
+  --spot-nordson2: #0039AC;
+  --spot-nordson3: #F0AB00;
+  --spot-ascend:   #6F7A85;
+  --spot-code:     #6A3E64;
+  --spot-ward:     #5E8A3A;
+  --spot-picture:  #B08A1F;
+  --spot-pbg:      #C8386F;
+
+  --plate-blend: multiply;
+  --grain-opacity: 0.055;
+}
