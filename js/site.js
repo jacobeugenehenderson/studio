@@ -147,29 +147,14 @@
   Array.prototype.forEach.call(document.querySelectorAll('.wipe'), function (frame) {
     var range = frame.querySelector('.wipe-range');
     if (!range) return;
+    /* If the frame sits inside a .layers wrapper, publish the value there too as
+       a 0–1 number, so sibling captions can dim toward whichever side is out of
+       view. The frame alone cannot carry it — the captions are its siblings. */
+    var host = frame.closest('.layers');
+
     bindDrag(frame, range, function (v) {
       frame.style.setProperty('--wipe', v + '%');
-    });
-  });
-
-  /* ---- the peel: one value, two clips, centred at rest ------------------
-     Below 50, the Ward is clipped from the left so bare slab is exposed.
-     Above 50, graph paper is drawn in from the right, covering the slab while
-     the Ward stays on top of it. At 50 neither is clipped — the frame shows the
-     composed scene, and the divider hides because there is no seam to mark. */
-
-  Array.prototype.forEach.call(document.querySelectorAll('.peel'), function (frame) {
-    var range = frame.querySelector('.peel-range');
-    if (!range) return;
-
-    bindDrag(frame, range, function (v) {
-      var slabW  = Math.max(0, (50 - v) * 2);
-      var graphW = Math.max(0, (v - 50) * 2);
-
-      frame.style.setProperty('--slab-w', slabW + '%');
-      frame.style.setProperty('--graph-w', graphW + '%');
-      frame.style.setProperty('--seam', (v < 50 ? slabW : 100 - graphW) + '%');
-      frame.style.setProperty('--seam-shown', Math.abs(v - 50) < 0.5 ? 0 : 1);
+      if (host) host.style.setProperty('--wipe-n', v / 100);
     });
   });
 

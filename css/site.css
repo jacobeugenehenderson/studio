@@ -639,118 +639,61 @@ a { color: inherit; }
 .wf-ui-pill   { top: 18%; left: 4%; width: 14%; height: 7%; border-radius: 999px; }
 
 
-/* 7f ── the peel ========================================================== */
+/* 7f ── the layer legend ================================================== */
 /*
-   Three stacked layers, one value, centred at rest.
+   Two captions under a wipe, one per side, both always present. The wipe dims
+   the side you are not looking at rather than hiding it — content behind a
+   gesture is content most people never read.
 
-     bottom  the slab — the 3D environment
-     middle  graph paper — the drafting sheet
-     top     the Ward — the interface layer
+   Dimming bottoms out at 0.55 so the quiet side stays legible. Below that it
+   becomes decorative grey, which is worse than not dimming at all.
 
-   At 50 the graph paper is clipped to nothing and the Ward is whole, so the
-   frame shows the composed scene.
-
-   Drag RIGHT and graph paper sweeps in from the right edge, covering the slab.
-   The Ward stays on top of it, so that side becomes the interface on its sheet.
-
-   Drag LEFT and the Ward is clipped away from the left edge, so bare slab
-   sweeps in from the left.
-
-   Whatever you drag toward enters from that side, so the direction of travel
-   always matches the gesture. Two clip widths are written by JS from the single
-   value; nothing here does arithmetic.
+   These are CAPTIONS. They say what you are looking at in a sentence or two.
+   Explaining a complex system is the job of the prose sections below, which
+   have the width and the room for it.
 */
 
-.peel {
-  --slab-w: 0%;    /* bare slab exposed from the left  */
-  --graph-w: 0%;   /* graph sheet drawn in from the right */
-  position: relative;
-  overflow: hidden;
-  background: var(--paper-sunk);
-  border: 1px solid var(--rule-firm);
-  touch-action: pan-y;
+.layers { --wipe-n: 0.5; }
+
+.layer-legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s5);
+  margin-top: var(--s4);
 }
 
-.peel--16x9 { aspect-ratio: 16 / 9; }
-.peel--3x2  { aspect-ratio: 3 / 2; }
-
-.peel-layer { position: absolute; inset: 0; }
-.peel-layer img { display: block; width: 100%; height: 100%; object-fit: cover; }
-
-.peel-slab  { z-index: 1; }
-.peel-sheet { z-index: 2; clip-path: inset(0 0 0 calc(100% - var(--graph-w))); }
-.peel-ward  { z-index: 3; clip-path: inset(0 0 0 var(--slab-w)); }
-
-/* One divider, at whichever edge is currently doing the work. */
-.peel-divider {
-  position: absolute;
-  top: 0; bottom: 0;
-  left: var(--seam, 50%);
-  width: 2px;
-  margin-left: -1px;
-  background: var(--paper);
-  z-index: 4;
-  pointer-events: none;
-  opacity: var(--seam-shown, 0);
+.layer-legend-col {
+  display: grid;
+  gap: var(--s2);
+  align-content: start;
+  transition: opacity var(--dur-quick) linear;
 }
 
-.peel-divider::after {
-  content: "";
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 2.25rem; height: 2.25rem;
-  transform: translate(-50%, -50%);
-  border: 2px solid var(--paper);
-  border-radius: 50%;
-  background: var(--ink);
-  opacity: 0.9;
-}
+.layer-legend-col--a { opacity: calc(1 - 0.45 * var(--wipe-n)); }
+.layer-legend-col--b { opacity: calc(0.55 + 0.45 * var(--wipe-n)); }
 
-/* End labels, so the two directions announce themselves before anyone drags */
-.peel-ends {
-  position: absolute;
-  inset: auto var(--s3) var(--s3) var(--s3);
-  z-index: 5;
-  display: flex;
-  justify-content: space-between;
-  pointer-events: none;
+.layer-legend-head {
   font-family: var(--font-mono);
   font-size: var(--fs-label);
-  letter-spacing: 0.1em;
+  letter-spacing: var(--tr-label);
   text-transform: uppercase;
+  color: var(--ink);
+  border-top: 2px solid var(--spot, var(--ink));
+  padding-top: var(--s2);
 }
 
-.peel-end {
-  background: var(--paper);
-  color: var(--ink-soft);
-  border: 1px solid var(--rule-firm);
-  padding: 0.3em 0.55em;
+.layer-legend-col p { font-size: var(--fs-small); line-height: var(--lh-snug); margin: 0; }
+
+@media (max-width: 46rem) {
+  .layer-legend { grid-template-columns: 1fr; gap: var(--s4); }
+  /* stacked, there is no "side you are not looking at" */
+  .layer-legend-col--a,
+  .layer-legend-col--b { opacity: 1; }
 }
 
-.peel-range {
-  position: absolute;
-  inset: 0;
-  z-index: 6;
-  width: 100%; height: 100%;
-  margin: 0; padding: 0;
-  background: transparent;
-  border: 0;
-  appearance: none;
-  -webkit-appearance: none;
-  pointer-events: none;          /* the frame owns the gesture */
+@media (prefers-reduced-motion: reduce) {
+  .layer-legend-col { transition: none; }
 }
-
-.peel-range::-webkit-slider-runnable-track { background: transparent; height: 100%; border: 0; }
-.peel-range::-webkit-slider-thumb {
-  appearance: none; -webkit-appearance: none;
-  width: 4px; height: 60rem; background: transparent; border: 0;
-}
-.peel-range::-moz-range-track { background: transparent; height: 100%; border: 0; }
-.peel-range::-moz-range-thumb {
-  width: 4px; height: 60rem; background: transparent; border: 0; border-radius: 0;
-}
-.peel-range:focus-visible { outline: none; }
-.peel:has(.peel-range:focus-visible) { outline: 2px solid var(--process-m); outline-offset: 3px; }
 
 
 /* 8 ── placeholder slugs ================================================== */
