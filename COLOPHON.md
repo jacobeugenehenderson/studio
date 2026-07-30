@@ -54,7 +54,7 @@ point.
 Longer-lived context — Jacob's positioning, the naming of The Ward, the graph
 paper motif, and a recurring factual error about Arborist — is kept as memory
 outside this repo, at
-`~/.claude/projects/-Volumes-Today-jacobhenderson-studio/memory/`.
+`~/.claude/projects/-Users-jacobhenderson-Desktop-dev-nosync-jacobhenderson-studio/memory/`.
 
 ---
 
