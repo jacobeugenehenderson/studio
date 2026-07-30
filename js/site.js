@@ -339,6 +339,22 @@
       return null;
     }
 
+    /* Where the product is served from. When THIS page is on localhost and the
+       frame offers a local address, take it: otherwise the only way to see a
+       change to the product from here is to deploy it first, which is how a
+       whole session went by with the embed quietly showing the last staging
+       build. Same carve-out, and the same reasoning, as trustedOrigin above —
+       and equally impossible in production, where the hostname test fails.
+
+       If the local product is not running the frame will fail to load, which
+       is the correct and obvious signal. */
+    function base() {
+      var here = window.location.hostname;
+      var local = (here === '127.0.0.1' || here === 'localhost');
+      return (local && box.getAttribute('data-embed-base-local')) ||
+             box.getAttribute('data-embed-base');
+    }
+
     /* Switching layers must NOT reload the frame. A reload rebuilds the
        product's WebGL context and resets its camera, and then the three states
        are three separate pictures rather than one stack with its ground taken
@@ -358,10 +374,16 @@
              the product cannot read our Paper/Plate switch from inside a
              cross-origin frame, so it is told. */
           { type: 'ward-layer', layer: wanted(), ground: current() === 'dark' ? 'plate' : 'paper' },
-          new URL(box.getAttribute('data-embed-base'), window.location.href).origin
+          new URL(base(), window.location.href).origin
         );
       } catch (e) { /* malformed base — nothing to talk to */ }
     }
+
+    /* Point the frame at the local product when there is one. Seeding a src is
+       the sort of thing script may do; the markup still carries the deployed
+       URL, so view-source and production are unchanged. */
+    var frame = box.querySelector('iframe');
+    if (frame && base() !== box.getAttribute('data-embed-base')) frame.src = base();
 
     Array.prototype.forEach.call(radios, function (radio) {
       radio.addEventListener('change', tell);

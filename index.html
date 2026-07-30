@@ -759,9 +759,16 @@
                honest thing to show while the product loads. `loading="lazy"`
                still keeps the boot off the page until the frame is near.
 
-               `data-embed-base` is the ONE place the origin lives. -->
+               `data-embed-base` is the ONE place the deployed origin lives.
+               `-local` is used only when THIS page is served from localhost, so
+               a change to the product can be seen here without deploying it
+               first — the same carve-out trustedOrigin makes in js/site.js, and
+               equally impossible in production. Requires The Ward's dev server
+               (`npm run dev:web` in its repo); if it is not running the frame
+               fails to load, which is the signal you want. -->
           <div class="embed embed--ward graph"
-               data-embed-base="https://jacobeugenehenderson.github.io/lafayette-square-staging/">
+               data-embed-base="https://jacobeugenehenderson.github.io/lafayette-square-staging/"
+               data-embed-base-local="http://localhost:5173/">
             <iframe src="https://jacobeugenehenderson.github.io/lafayette-square-staging/"
                     title="The Ward — Lafayette Square, running"
                     allow="fullscreen"
