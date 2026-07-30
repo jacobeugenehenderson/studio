@@ -836,6 +836,10 @@ a { color: inherit; }
 
 .pager-slide { margin: 0; display: grid; gap: var(--s3); }
 
+/* A class selector beats the UA's [hidden] { display: none }, so setting the
+   attribute alone leaves every slide visible. This has to be stated. */
+.pager-slide[hidden] { display: none; }
+
 @media (max-width: 46rem) {
   /* Buttons drop below the frame; 2.5rem of margin each side is a third of a
      phone screen otherwise. */
