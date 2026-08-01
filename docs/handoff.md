@@ -4,7 +4,12 @@ Picking up the rebuild of **jacobhenderson.studio** — a one-page portfolio.
 Static HTML/CSS/JS, no framework, no build step.
 
 ```
-repo     ~/Desktop/dev.nosync/jacobhenderson-studio   (branch: rebuild, pushed)
+repo     ~/Desktop/dev.nosync/jacobhenderson-studio   (branch: rebuild)
+         ⚠ 1 Aug 2026: rebuild is 19 commits AHEAD of origin/rebuild, and
+         nothing of it is public. Pages builds from `main` (legacy source,
+         branch + root), so jacobhenderson.studio still serves the old site.
+         Check: git status -sb, and curl the domain for `iframe src=` — 0
+         means the rebuild has not landed.
 serve    python3 -m http.server 8787 --bind 127.0.0.1
 ```
 
@@ -65,14 +70,7 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
 
    While in there: the emoji picker works but renders dark on a light app, and
    Codedesk wires it twice. Both noted below.
-2. **Picture Wrap — commit the snippet, then deploy.** `embed-height.js` is in
-   the repo root, byte-identical to `docs/embed-height.js`, loaded at its
-   `index.html:85` — but **untracked**, and `picture-wrap.com` serves no copy of
-   it, so the site's frame still falls back to its CSS aspect ratio.
-   Check: `git status` in `~/Desktop/dev.nosync/picture-wrap`, and
-   `curl -s https://picture-wrap.com | grep -c embed-height` — `0` means
-   undeployed.
-3. **The Ward — embedded as three layers, 30 July 2026. NOT YET LIVE.**
+2. **The Ward — embedded as three layers, 30 July 2026. NOT YET LIVE.**
 
    **One demo area.** The wireframe that stood above the embed is gone — it was
    the spec for the demo, and once the demo existed it could only disagree with
@@ -147,12 +145,16 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    WARNING **Do not promote the embed on its own, and do not press Preview's
    Promote button for it.** Three things, all checked on 30 July 2026:
 
-   - Promote fast-forwards `main` from the repo's **current branch** — locally
-     `curb-offset-draw`. Pressing it ships the other job to
-     lafayette-square.com.
-   - `main` is **358 commits behind** the trunk, so `embed-layers:main` is a
-     clean fast-forward that carries **367** commits to prod, 358 of them the
-     other job.
+   - Promote fast-forwards `main` from the repo's **current branch** — which is
+     whatever Jacob is working on, not the embed. Pressing it ships the other
+     job to lafayette-square.com. Checked 1 Aug 2026: the checked-out branch
+     there is now **`land-use-derivation`**, not `curb-offset-draw`. The
+     specific branch name in this row goes stale constantly; read
+     `git branch --show-current` in that repo rather than trusting it.
+   - `main` is **1749 commits behind** the trunk as of 1 Aug 2026 — it was 358
+     on 30 July, so the gap is *widening*, not closing. `embed-layers:main`
+     remains a clean fast-forward, but it would now carry ~1758 commits to
+     prod, all but 9 of them the other job.
    - Cherry-picking just the 9 onto `main` was tried and abandoned: prod's
      `App.jsx` has no `FeatureBoundary`, so the render block these commits edit
      is structurally different there. It is a hand-merge into a stale base
@@ -180,13 +182,13 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
 
    Still open: the pill's wireframe art is placeholder, now sitting above a
    live render of the same neighbourhood. See README §8.
-4. **Provincetown — built, waiting on art.** Two previous notes said no section
+3. **Provincetown — built, waiting on art.** Two previous notes said no section
    existed; `article#pbg` has been in `index.html` all along, at line 914, with
    rail, meta, claim and one labelled 4×3 slug. It is the quiet one by design —
    no interaction, and none wanted. What is missing is only the flat scans of
    the guides, member map and Pride poster.
    Check: `grep -c '<article class="piece' index.html` — seven, as COLOPHON says.
-5. **From Jacob:** the Cordis pair (spec in README §8), and how many
+4. **From Jacob:** the Cordis pair (spec in README §8), and how many
    photograph/illustration pairs exist for the Nordson filmstrip.
 
 ### The QR engine's missing pieces live in okQRal — stop hunting
@@ -247,6 +249,12 @@ deleted and `styles/theme.css` modified, all unstaged. Codedesk still references
 
 ### Done, so you do not go looking
 
+- **Picture Wrap self-sizes.** Confirmed 1 Aug 2026: `embed-height.js` is
+  tracked in `~/Desktop/dev.nosync/picture-wrap`, byte-identical to
+  `docs/embed-height.js`, and `picture-wrap.com` serves it at its
+  `index.html:85`. This was outstanding for one session as "untracked, not
+  deployed" and is now simply done.
+  Check: `curl -s https://picture-wrap.com | grep -c embed-height` — `1`.
 - **Codedesk is extracted, standalone and live.** Own public repo
   (`github.com/jacobeugenehenderson/codedesk`), Pages at
   `jacobeugenehenderson.github.io/codedesk/`, embedded at `index.html:630`.

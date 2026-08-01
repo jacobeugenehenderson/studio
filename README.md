@@ -4,8 +4,15 @@ A one-page portfolio for Jacob Henderson — creative operations, systems design
 graphics production. Static HTML, CSS and a little JavaScript. No framework, no
 build step for the site itself.
 
-Deployed from `main` to GitHub Pages, custom domain in `CNAME`. The rebuild lives
-on the `rebuild` branch; `main` still serves the previous site.
+Deployed from `main` to GitHub Pages (legacy source, branch + root), custom
+domain in `CNAME`. Work happens on `rebuild`; `main` is fast-forwarded from it
+to publish, so the two are the same commit whenever the site is current.
+
+**The rebuild went live 1 Aug 2026, deliberately incomplete** — Nordson's art
+and Provincetown's scans are labelled placeholders, per rule 7, and the site
+reads as unfinished rather than broken. It also frames The Ward from that
+product's *staging* build; see `docs/handoff.md` for why that is deliberate and
+what has to happen before it points at prod.
 
 ```
 serve   python3 -m http.server 8787 --bind 127.0.0.1
@@ -209,12 +216,14 @@ Do not fork the snippet. It is the same file in every product.
 | Product | Snippet |
 |---|---|
 | Codedesk (`~/Desktop/dev.nosync/codedesk`) | **live** — committed, deployed, and confirmed reporting height from the deployed URL |
-| Picture Wrap (`~/Desktop/dev.nosync/picture-wrap`) | **added, untracked, not deployed.** Loaded at its `index.html:85` and byte-identical to canonical, but `picture-wrap.com` serves no copy of it — so the site's frame still falls back to its CSS aspect ratio. Commit and deploy. |
+| Picture Wrap (`~/Desktop/dev.nosync/picture-wrap`) | **live** — tracked, deployed, byte-identical to canonical, and served from `picture-wrap.com` at its `index.html:85`. Was untracked and undeployed for one session; confirmed done 1 Aug 2026 with `curl -s https://picture-wrap.com \| grep -c embed-height` → `1`. |
 | The Ward | **not needed, deliberately.** Embedded from `lafayette-square.com` and carrying no snippet. Self-sizing is for apps whose height is content; The Ward is a landscape you look *across*, so a fixed aspect is the right frame and a reported height would only stretch the horizon. The frame keeps its CSS ratio — 16/10, and 4/3 on a phone so the horizon survives. |
 
 The embeds point at live URLs, not local copies, so a product is only as current
 as its last deploy. Codedesk publishes from
-`github.com/jacobeugenehenderson/codedesk`; Picture Wrap still needs deploying.
+`github.com/jacobeugenehenderson/codedesk`; Picture Wrap from `picture-wrap.com`;
+The Ward, for now, from its staging Pages build rather than prod — see the
+handoff for why that is deliberate.
 
 **Caching will lie to you.** The embedded scripts carry `?v=` strings, so a
 browser holding an old copy keeps showing the previous build long after the
@@ -327,7 +336,7 @@ the page in a fixed-width iframe does give media queries a genuine 390px.
 | 3 Ascend | five-step stepper | **real** interfaces |
 | 4 QR engine | live Codedesk embed | **live** |
 | 5 The Ward | three-state pill **+ live embed** | pill art still placeholder; the embed is **live** |
-| 6 Picture Wrap | live site embed | **live**, but not yet self-sizing — snippet undeployed |
+| 6 Picture Wrap | live site embed | **live**, and self-sizing — snippet deployed |
 | Origin Provincetown | rail + claim, no interaction | placeholder — `article#pbg` at `index.html:914`, one labelled 4×3 slug awaiting scans |
 
 **Outstanding, needing Jacob:**
