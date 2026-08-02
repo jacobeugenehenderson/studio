@@ -729,7 +729,9 @@ a { color: inherit; }
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 38%;
+  /* 22%, not 38%: the machine starts at 28.4% and a wider column would run under
+     it. 4% + 22% leaves a couple of percent of air before the drawing begins. */
+  width: 22%;
   display: grid;
   gap: var(--s2);
 
@@ -740,10 +742,17 @@ a { color: inherit; }
   /* Without this the copy swallows the drag wherever it covers the frame. Losing
      text selection is a fair price for the frame staying grabbable throughout. */
   pointer-events: none;
+
+  /* Fixed dark ink, not var(--ink). Each block sits on its own layer's pale
+     half — that is what the mirrored grounds are for — and the art does not
+     invert with the theme, so on the plate var(--ink) put pale type on a pale
+     photograph and the writing disappeared. Found by looking at it in Plate;
+     it read perfectly in Paper, which is how it would have shipped. */
+  color: var(--ink-on-art);
 }
 
-.reveal-copy--left  { left: 6%; }
-.reveal-copy--right { right: 6%; }
+.reveal-copy--left  { left: 4%; }
+.reveal-copy--right { right: 4%; }
 
 .reveal-copy h3 {
   font-family: var(--font-mono);
@@ -751,26 +760,34 @@ a { color: inherit; }
   letter-spacing: var(--tr-label);
   text-transform: uppercase;
   font-weight: 400;
-  color: var(--ink-soft);
+  color: var(--ink-on-art-soft);
 }
 
 .reveal-copy p { font-size: var(--fs-small); line-height: var(--lh-snug); }
 
-/* Wireframe half-machines: a block in one half, empty field in the other, so the
-   cut and the writing space read before the real art exists.
+/* Two wireframe half-machines stood here — a block flush to the 50% line in one
+   half, empty field in the other — so the cut and the writing space could be read
+   before the art existed. The Cordis art landed on 1 August 2026 and they went
+   with it.
 
-   Both are FLUSH to the 50% line, because that is the whole trick — at centre
-   the two halves have to join into one machine. Inset from the cut they read as
-   two separate blocks with a gap, which demonstrates the opposite. */
-.wf-machine-l,
-.wf-machine-r { position: absolute; top: 10%; bottom: 10%; background: var(--ink-faint); opacity: 0.55; }
-.wf-machine-l { left: 14%; right: 50%; }
-.wf-machine-r { left: 50%; right: 14%; }
+   The art moved the writing space. The placeholder assumed a machine filling one
+   whole half, leaving the other half free; the real machine is centred and spans
+   28.4%–71.4% of the frame, so the clear field at each end is only about 28%.
+   Measured off the files, not guessed — the two differ solely in their ground, so
+   the columns where they agree are exactly the machine. */
 
 @media (max-width: 46rem) {
-  /* A 38% column is about 110px on a phone, which is unusable. The copy becomes
+  /* The side column is about 90px on a phone, which is unusable. The copy becomes
      a band across the foot of its layer instead — still inside the clip, so the
-     wipe still uncovers it and the mechanism is the same at every width. */
+     wipe still uncovers it and the mechanism is the same at every width.
+
+     The band needs a wash under it, which the wireframe stage did not. That
+     placeholder machine filled one half and left the other empty, so a band at
+     the foot found clear ground; the Cordis art is centred and runs 3%–97% of
+     the frame, so at this width the band crosses the machine wherever it sits.
+     Dark type on the blue cabinet is unreadable — seen at 390px, not deduced.
+     The wash is confined to this query: the wide layout still sets type on the
+     artwork's own pale field, which needs nothing behind it. */
   .reveal-copy {
     top: auto;
     bottom: 5%;
@@ -778,6 +795,8 @@ a { color: inherit; }
     right: 5%;
     width: auto;
     transform: none;
+    padding: var(--s4);
+    background: var(--paper-on-art);
   }
 }
 

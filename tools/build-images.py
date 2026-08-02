@@ -32,6 +32,15 @@ QUALITY = 80
 # lets the wipe land without any cropping or alignment work.
 WEST_ELM = ["01", "02", "03", "04", "05", "08", "12", "14", "20", "21"]
 
+# Nordson's Cordis pair. Both files carry the SAME machine — drawing left of
+# centre, photograph right of it, cut at exactly half — and differ only in which
+# side the pale ground falls on. That mirroring is not decoration: each layer of
+# the reveal writes its copy into its own pale half, so the type always lands on
+# the quiet side. Named for where the pale field is, because that is the thing
+# that differs and the thing the layout depends on.
+NORDSON = [("Cordis-Spread-1", "cordis-paper-left"),
+           ("Cordis-Spread-2", "cordis-paper-right")]
+
 
 def derive(src_path, out_path, exact=None):
     """Write one derivative. `exact` forces a size, used to make a pair match."""
@@ -47,10 +56,33 @@ def derive(src_path, out_path, exact=None):
         return im.size, os.path.getsize(out_path)
 
 
+def build_nordson():
+    """The Cordis pair. Same forcing as West Elm: the first file sets the size and
+    the second is made to match, because the reveal holds them exactly on top of
+    each other and a pixel of drift would show as the machine twitching."""
+    src_dir = os.path.join(SRC, "nordson")
+    if not os.path.isdir(src_dir):
+        print("\nno _source/nordson — skipping the Cordis pair")
+        return
+
+    out_dir = os.path.join(OUT, "nordson")
+    print("\nNordson")
+    size = None
+    for src_name, out_name in NORDSON:
+        src = os.path.join(src_dir, f"{src_name}.jpg")
+        if not os.path.exists(src):
+            print(f"  MISSING {src_name}.jpg")
+            continue
+        got, wrote = derive(src, os.path.join(out_dir, f"{out_name}.jpg"), exact=size)
+        size = size or got
+        print(f"  {out_name}.jpg  {got[0]}x{got[1]}  {wrote // 1024} KB")
+
+
 def main():
     src_dir = os.path.join(SRC, "west-elm")
     if not os.path.isdir(src_dir):
-        sys.exit("no _source/west-elm — nothing to build")
+        print("no _source/west-elm — skipping those pairs")
+        return build_nordson()
 
     out_dir = os.path.join(OUT, "west-elm")
     total_in = total_out = 0
@@ -82,6 +114,8 @@ def main():
 
     mismatched = [p for p, (a, b) in dims.items() if a != b]
     print("all pairs registered" if not mismatched else f"MISMATCHED: {mismatched}")
+
+    build_nordson()
 
 
 if __name__ == "__main__":

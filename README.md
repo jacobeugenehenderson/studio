@@ -264,6 +264,22 @@ Each of these was a real bug. They are cheap to reintroduce.
   composited. The general rule: **an expensive live thing must keep costing what
   it costs, or you pay the whole start-up again.** Full measurements in that
   repo's `ls/ARCHITECTURE.md §7`.
+- **Type over fixed art cannot use `var(--ink)`.** Every colour here flips with
+  the theme because it sits on the page. A photograph does not flip, so on the
+  plate the Nordson reveal put pale ink on the artwork's pale field and the
+  writing vanished — while reading perfectly in Paper, which is how it would
+  have shipped. Type over art uses `--ink-on-art` / `--ink-on-art-soft`,
+  declared once in `:root` and deliberately absent from both theme blocks. The
+  general form: **if the thing behind it does not know the theme changed, the
+  ink in front of it must not either.** Check a piece in *both* grounds the
+  moment real art lands on it.
+- **Art can move the writing space out from under the copy.** The Cordis art
+  arrived centred, spanning 28.4%–71.4% of the frame and 3%–97% of its height —
+  where the wireframe it replaced had filled one whole half and left the other
+  clear. Wide, that was free: the copy narrowed from 38% to 22% and sits in the
+  real clear field. Narrow, the copy is a band across the foot, and there is no
+  longer any foot to sit in, so it needs `--paper-on-art` behind it. Measure the
+  art before trusting a layout written against its placeholder.
 - **A `background` shorthand later in the file silently disarms a utility
   class.** `.graph` (§11) paints its grid with `background-image`; `.embed` (§18)
   sets `background:` as a *shorthand*, which resets `background-image` to `none`.
@@ -332,7 +348,7 @@ the page in a fixed-width iframe does give media queries a genuine 390px.
 | Piece | Component | Art |
 |---|---|---|
 | 1 West Elm | pager, ten registered pairs | **real** |
-| 2 Nordson | Cordis reveal, filmstrip | placeholder |
+| 2 Nordson | Cordis reveal, filmstrip | reveal **real**; filmstrip still placeholder |
 | 3 Ascend | five-step stepper | **real** interfaces |
 | 4 QR engine | live Codedesk embed | **live** |
 | 5 The Ward | three-state pill **+ live embed** | pill art still placeholder; the embed is **live** |
@@ -341,11 +357,9 @@ the page in a fixed-width iframe does give media queries a genuine 390px.
 
 **Outstanding, needing Jacob:**
 
-- Two Cordis images, 2000 × 1334, identical dimensions, machine cut at exactly
-  x = 1000 — photograph carrying the left half with background running right,
-  drawing carrying the right half with background running left. About 60 words
-  per side, backgrounds quiet enough for type in both themes.
-- How many photograph/illustration pairs exist for the Nordson filmstrip.
+- How many photograph/illustration pairs exist for the Nordson filmstrip. The
+  Cordis reveal above it is now real art, so the eight grey slugs below it are
+  the last placeholder in that piece.
 - The Ward's pill art. The embed is live now, so the wireframe placeholder sits
   directly above a real render of the same neighbourhood, and the comparison is
   unkind to it. Two ways out: stills captured from the live Ward so the diagram

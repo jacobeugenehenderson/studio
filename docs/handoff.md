@@ -188,8 +188,18 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    no interaction, and none wanted. What is missing is only the flat scans of
    the guides, member map and Pride poster.
    Check: `grep -c '<article class="piece' index.html` — seven, as COLOPHON says.
-4. **From Jacob:** the Cordis pair (spec in README §8), and how many
-   photograph/illustration pairs exist for the Nordson filmstrip.
+4. **Ascend's stepper overflows every piece on a phone.** Found 1 Aug 2026 while
+   checking Nordson at 390px, and **pre-existing** — measured identical against
+   the deployed build, so it is live now. `main.pieces` is a grid whose items
+   default to `min-width: auto`, so the column is sized by the widest item's
+   min-content. Ascend's is **738px**; every other piece is 128–266, and Nordson
+   is 140. One piece therefore drags all seven to 738 inside a 390 viewport.
+   Check: measure `article.piece` at `width: min-content` in a 390px iframe.
+   Not fixed here — the likely one-line answer (`minmax(0, 1fr)`, or
+   `min-width: 0` on the items) changes every piece's narrow layout at once, and
+   that wants looking at rather than assuming.
+5. **From Jacob:** how many photograph/illustration pairs exist for the Nordson
+   filmstrip. The Cordis pair landed 1 Aug 2026 and is built — see below.
 
 ### The QR engine's missing pieces live in okQRal — stop hunting
 
@@ -249,6 +259,23 @@ deleted and `styles/theme.css` modified, all unstaged. Codedesk still references
 
 ### Done, so you do not go looking
 
+- **The Cordis reveal is real art.** Landed 1 Aug 2026. Both files hold the
+  *same* machine, already composited — drawing left of centre, photograph right,
+  cut at exactly x = 1000 — and differ **only** in which side the pale ground
+  falls on. Verified by differencing them: the machine is pixel-identical, so
+  every column where the two agree is the machine.
+
+  That mirroring is the mechanism, not decoration. Each layer writes its copy
+  into its own pale half, so `paper-left` is the layer with copy on the left and
+  `paper-right` the one on the right. **Swap them and you get type on Nordson
+  blue.** The frame is 1.4993 against `.wipe--3x2`, and the machine's own cut
+  falls on the wipe's rest position, so the handle sits on the join and the seam
+  is the artwork's seam. At centre the ground reads as one unbroken blue and no
+  copy shows; drag either way and a pale field opens carrying the writing.
+
+  Built through `tools/build-images.py` like everything else — originals in
+  `_source/nordson/`, 1600px q80 derivatives in `assets/nordson/`, 765 KB down
+  to ~92 KB each, the pair forced to identical dimensions.
 - **Picture Wrap self-sizes.** Confirmed 1 Aug 2026: `embed-height.js` is
   tracked in `~/Desktop/dev.nosync/picture-wrap`, byte-identical to
   `docs/embed-height.js`, and `picture-wrap.com` serves it at its

@@ -22,6 +22,23 @@
   --rule:         #C9C4BA;
   --rule-firm:    #ABA599;
 
+  /* ---- ink that sits on art ----------------------------------------------
+     Declared once and DELIBERATELY not repeated in either theme block, so it
+     stays dark on the plate as well as on the sheet. Everything else here
+     flips because it sits on the page; this sits on a photograph, and a
+     photograph does not know the theme changed. Nordson's reveal is the case
+     that needs it — its copy always lands on the artwork's own pale field, so
+     pale ink would vanish exactly where the writing matters.
+     Add to this only for type over fixed art. Anything over the page uses
+     --ink and gets both themes free.                                        */
+  --ink-on-art:      #1A1A19;
+  --ink-on-art-soft: #4A4845;
+  /* A wash to lay under type where the art leaves it nowhere quiet to sit. Also
+     fixed across themes, and near-opaque on purpose: a faint scrim that still
+     lets the picture through is the version that fails, because the letterforms
+     fight the detail underneath. Narrow widths only — see §13.               */
+  --paper-on-art:    #E4E2DCF2;
+
   /* ---- process inks ------------------------------------------------------
      Used for the plate registration treatment and for structural marks.
      These are the four plates, not decoration.                              */
