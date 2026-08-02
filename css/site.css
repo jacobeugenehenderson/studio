@@ -871,7 +871,21 @@ a { color: inherit; }
 .stepper-step:has(input:checked) .stepper-n { color: var(--ink); }
 .stepper-step:has(input:focus-visible) { outline: 2px solid var(--process-m); outline-offset: -2px; }
 
-.stepper-viewport { overflow: hidden; }
+/* `contain: inline-size` is load-bearing, and nothing about it is visible.
+
+   The track is five panels at `flex: 0 0 100%`. Because they cannot shrink, each
+   one contributes its own content width to the track's min-content, so the track
+   reported all five side by side — about 738px — and `overflow: hidden` hid that
+   on screen without changing the number. The piece sits in `main.pieces`, a grid
+   whose column is sized by the widest item's min-content, so ONE piece set the
+   width of all seven and every one of them overflowed a phone. Ascend measured
+   738 where the next widest was 266.
+
+   `min-width: 0` on the panels does NOT fix this and was tried first: with
+   `flex-shrink: 0` an item contributes its flex base size whatever its floor is.
+   Containment is the honest statement instead — this box's inline size does not
+   depend on its contents, which is exactly what a clipping viewport means. */
+.stepper-viewport { overflow: hidden; contain: inline-size; }
 
 .stepper-track {
   display: flex;

@@ -264,6 +264,21 @@ Each of these was a real bug. They are cheap to reintroduce.
   composited. The general rule: **an expensive live thing must keep costing what
   it costs, or you pay the whole start-up again.** Full measurements in that
   repo's `ls/ARCHITECTURE.md §7`.
+- **A clipped carousel still reports its full width, and one piece can size the
+  whole page.** Ascend's stepper is five panels at `flex: 0 0 100%`. They cannot
+  shrink, so each contributes its own content width and the track's min-content
+  was all five side by side — 738px. `overflow: hidden` hid that on screen
+  without changing the number. `main.pieces` sizes its column from the widest
+  item's min-content, so that one piece set the width of all seven and every
+  piece overflowed a phone; the document measured 761 in a 390 viewport, and it
+  shipped that way. The fix is `contain: inline-size` on the clipping viewport —
+  the honest statement that this box's width does not depend on its contents.
+  **`min-width: 0` on the panels does not work**: with `flex-shrink: 0` an item
+  contributes its flex base size whatever its floor is. Two lessons, and the
+  second is the general one: **`overflow: hidden` hides the symptom, not the
+  measurement**, and in a grid of siblings the worst-behaved one silently sets
+  the terms for the rest. Measure `article.piece` at `width: min-content`, not
+  the layout you can see.
 - **Type over fixed art cannot use `var(--ink)`.** Every colour here flips with
   the theme because it sits on the page. A photograph does not flip, so on the
   plate the Nordson reveal put pale ink on the artwork's pale field and the

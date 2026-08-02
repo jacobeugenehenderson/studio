@@ -188,17 +188,7 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    no interaction, and none wanted. What is missing is only the flat scans of
    the guides, member map and Pride poster.
    Check: `grep -c '<article class="piece' index.html` — seven, as COLOPHON says.
-4. **Ascend's stepper overflows every piece on a phone.** Found 1 Aug 2026 while
-   checking Nordson at 390px, and **pre-existing** — measured identical against
-   the deployed build, so it is live now. `main.pieces` is a grid whose items
-   default to `min-width: auto`, so the column is sized by the widest item's
-   min-content. Ascend's is **738px**; every other piece is 128–266, and Nordson
-   is 140. One piece therefore drags all seven to 738 inside a 390 viewport.
-   Check: measure `article.piece` at `width: min-content` in a 390px iframe.
-   Not fixed here — the likely one-line answer (`minmax(0, 1fr)`, or
-   `min-width: 0` on the items) changes every piece's narrow layout at once, and
-   that wants looking at rather than assuming.
-5. **From Jacob:** how many photograph/illustration pairs exist for the Nordson
+4. **From Jacob:** how many photograph/illustration pairs exist for the Nordson
    filmstrip. The Cordis pair landed 1 Aug 2026 and is built — see below.
 
 ### The QR engine's missing pieces live in okQRal — stop hunting
@@ -259,6 +249,24 @@ deleted and `styles/theme.css` modified, all unstaged. Codedesk still references
 
 ### Done, so you do not go looking
 
+- **The stepper no longer sets the width of the whole page.** Fixed 2 Aug 2026.
+  Ascend's five panels are `flex: 0 0 100%` and could not shrink, so each
+  contributed its own content width and the track's min-content was all five
+  side by side — **738px**. `overflow: hidden` hid that on screen without
+  changing the number, and because `main.pieces` sizes its column from the
+  widest item's min-content, that one piece set the width of all seven: every
+  piece overflowed a 390px viewport, the document measuring 761. It had been
+  live.
+
+  `.stepper-viewport` now carries `contain: inline-size`. Document 761 → 390,
+  the grid column 738 → 342, Ascend's min-content 738 → 166; the other six were
+  128–266 all along and are untouched. Desktop geometry is identical to the
+  commit before — nav, viewport, panel and shot all measured the same on both.
+
+  **`min-width: 0` on the panels does not fix this**, and was tried first: with
+  `flex-shrink: 0` an item contributes its flex base size no matter what its
+  floor is. It was removed again rather than left in looking useful.
+  Check: measure `article.piece` at `width: min-content` in a 390px iframe.
 - **The Cordis reveal is real art.** Landed 1 Aug 2026. Both files hold the
   *same* machine, already composited — drawing left of centre, photograph right,
   cut at exactly x = 1000 — and differ **only** in which side the pale ground
