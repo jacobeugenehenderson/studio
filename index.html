@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jacob Henderson — Creative Operations</title>
-  <meta name="description" content="Creative operations, systems design, and graphics production. I build the systems that let creative teams do their best work, then I do the work.">
+  <meta name="description" content="Creative operations, systems design, and graphics production. I create tools and systems that help teams do their best work, then I lead the creative work.">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://jacobhenderson.studio/">
   <meta property="og:title" content="Jacob Henderson — Creative Operations">
-  <meta property="og:description" content="I build the systems that let creative teams do their best work, then I do the work.">
+  <meta property="og:description" content="I create tools and systems that help teams do their best work, then I lead the creative work.">
 
   <link rel="icon" type="image/svg+xml" href="assets/CD_ROM.svg">
   <link rel="stylesheet" href="css/tokens.css">
@@ -41,9 +41,13 @@
 
     <header class="masthead">
       <a class="masthead-mark" href="/">jacobhenderson.studio</a>
+      <!-- The control says Light/Dark; the CSS still calls the two grounds
+           paper and plate, because that is what the design system is and it
+           is the vocabulary the Ward embed's `ground` message speaks. Renaming
+           the classes would have to be done in that repo too. -->
       <button class="stock" type="button">
-        <span class="stock-opt stock-opt--paper">Paper</span>
-        <span class="stock-opt stock-opt--plate">Plate</span>
+        <span class="stock-opt stock-opt--paper">Light</span>
+        <span class="stock-opt stock-opt--plate">Dark</span>
       </button>
     </header>
 
@@ -60,42 +64,36 @@
     <div class="billing">
       <span class="billing-practice">Creative Operations</span>
       <span class="billing-level">Creative Director</span>
-      <span class="billing-competencies">Systems Design · Digital Project Management · Video &amp; Graphics Production</span>
+      <span class="billing-competencies">Systems Design · Digital Project Management · Print Production, Small &amp; Large Format · Environmental &amp; Trade Show Design · Video &amp; Graphics Production</span>
     </div>
 
     <section class="thesis">
       <p class="label">Thesis</p>
       <div class="thesis-body">
-        <p class="thesis-lead">I build the systems that let creative teams do their best work.
-          Then I do the work.</p>
-        <p>Compositing means taking sources captured separately, under conditions that never
-          coincided, and making one thing that reads as though it always was. A studio shot and
-          an empty room become a photograph nobody took. Four authoring tools and a runtime
-          become a place you can walk around in.</p>
-        <p>I have arrived at the same structure in a photo studio, a tourism guild, a
-          <span class="nowrap">Fortune 500</span> manufacturer, and a neighbourhood I built
-          alone: <em>separate tools,
-          each publishing one canonical thing, composed by a runtime.</em> Fifteen years, four
-          industries, one operation at six scales.</p>
+        <p class="thesis-lead">Creative leader with expertise across design, content, motion, and
+          environmental work. I create tools and systems that help teams do their best work, then
+          I lead the creative work. Fluent in workflows, language, and large-scale visual
+          strategy. Proven ability to unify departments, modernize brand expression, and build
+          scalable creative operations across industries.</p>
       </div>
     </section>
 
     <!-- A printer's colour control strip, doing real work: one patch per case
          study, in that piece's spot ink. The device is the index. -->
-    <nav class="colorbar" aria-labelledby="ink-index">
-      <p class="label" id="ink-index">Ink index</p>
+    <nav class="colorbar" aria-labelledby="contents">
+      <p class="label" id="contents">Contents</p>
       <ul class="colorbar-strip">
-        <li class="colorbar-item">
-          <a class="colorbar-link" href="#westelm">
-            <span class="colorbar-patch patch--westelm"></span>
-            <span class="colorbar-name">West Elm</span>
-            <span class="colorbar-ink">1</span>
-          </a>
-        </li>
         <li class="colorbar-item">
           <a class="colorbar-link" href="#nordson">
             <span class="colorbar-patch patch--nordson"></span>
             <span class="colorbar-name">Nordson</span>
+            <span class="colorbar-ink">1</span>
+          </a>
+        </li>
+        <li class="colorbar-item">
+          <a class="colorbar-link" href="#showdesk">
+            <span class="colorbar-patch patch--showdesk"></span>
+            <span class="colorbar-name">ShowDesk</span>
             <span class="colorbar-ink">2</span>
           </a>
         </li>
@@ -121,9 +119,9 @@
           </a>
         </li>
         <li class="colorbar-item">
-          <a class="colorbar-link" href="#picture">
-            <span class="colorbar-patch patch--picture"></span>
-            <span class="colorbar-name">Picture Wrap</span>
+          <a class="colorbar-link" href="#westelm">
+            <span class="colorbar-patch patch--westelm"></span>
+            <span class="colorbar-name">West Elm</span>
             <span class="colorbar-ink">6</span>
           </a>
         </li>
@@ -131,7 +129,21 @@
           <a class="colorbar-link" href="#pbg">
             <span class="colorbar-patch patch--pbg"></span>
             <span class="colorbar-name">Provincetown</span>
-            <span class="colorbar-ink">Origin</span>
+            <span class="colorbar-ink">00</span>
+          </a>
+        </li>
+        <li class="colorbar-item">
+          <a class="colorbar-link" href="#picture">
+            <span class="colorbar-patch patch--picture"></span>
+            <span class="colorbar-name">Picture Wrap</span>
+            <span class="colorbar-ink">Curio</span>
+          </a>
+        </li>
+        <li class="colorbar-item">
+          <a class="colorbar-link" href="#scale">
+            <span class="colorbar-patch patch--scale"></span>
+            <span class="colorbar-name">Scale Machine</span>
+            <span class="colorbar-ink">Curio</span>
           </a>
         </li>
       </ul>
@@ -139,212 +151,13 @@
 
     <main class="pieces">
 
-      <article class="piece piece--westelm" id="westelm">
-        <div class="piece-rail">
-          <p class="piece-rank">1</p>
-          <dl class="piece-meta">
-            <div><dt>Years</dt><dd>2021–2023</dd></div>
-            <div><dt>Booked through</dt><dd>Industrial Color</dd></div>
-            <div><dt>Role</dt><dd>Retoucher, compositor</dd></div>
-            <div><dt>Ink</dt><dd class="piece-ink">Terracotta</dd></div>
-          </dl>
-        </div>
-        <div class="piece-body">
-          <h2 class="piece-title">West Elm</h2>
-          <p class="piece-claim">Studio-shot furniture composited into location plates — the OG
-            “Augmented Reality.” Shooting the plates in situ and placing the objects later gives
-            you endless inexpensive options.</p>
-          <p class="credit">Same years, at Duggal — <strong>SKIMS · Beats · L’Oréal · Lyft</strong></p>
-<div class="pager">
-          <button class="pager-btn pager-btn--prev" type="button" aria-label="Previous pair">&larr;</button>
-          <div class="pager-track">
-            <figure class="pager-slide" id="pair-1">
-              <div class="wipe wipe--3x2 wipe--ltr">
-                <div class="wipe-layer wipe-before" aria-hidden="true"><img src="assets/west-elm/01-plate.jpg" alt="" loading="lazy" decoding="async"></div>
-                <div class="wipe-layer wipe-after" aria-hidden="true"><img src="assets/west-elm/01-composite.jpg" alt="" loading="lazy" decoding="async"></div>
-                <span class="wipe-divider" aria-hidden="true"></span>
-                <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
-                       aria-label="Pair 1: wipe between the location plate and the composite">
-              </div>
-              <figcaption class="figure-cap">
-                <span class="figure-num">Pair 1 · 01</span>
-                <span>Bedroom. A blown-out window replaced with real foliage; cactus, basket and bench added.</span>
-              </figcaption>
-            </figure>
-            <figure class="pager-slide" id="pair-2">
-              <div class="wipe wipe--3x2 wipe--rtl">
-                <div class="wipe-layer wipe-before" aria-hidden="true"><img src="assets/west-elm/02-plate.jpg" alt="" loading="lazy" decoding="async"></div>
-                <div class="wipe-layer wipe-after" aria-hidden="true"><img src="assets/west-elm/02-composite.jpg" alt="" loading="lazy" decoding="async"></div>
-                <span class="wipe-divider" aria-hidden="true"></span>
-                <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
-                       aria-label="Pair 2: wipe between the location plate and the composite">
-              </div>
-              <figcaption class="figure-cap">
-                <span class="figure-num">Pair 2 · 02</span>
-                <span>Caption to come.</span>
-              </figcaption>
-            </figure>
-            <figure class="pager-slide" id="pair-3">
-              <div class="wipe wipe--3x2 wipe--ltr">
-                <div class="wipe-layer wipe-before" aria-hidden="true"><img src="assets/west-elm/03-plate.jpg" alt="" loading="lazy" decoding="async"></div>
-                <div class="wipe-layer wipe-after" aria-hidden="true"><img src="assets/west-elm/03-composite.jpg" alt="" loading="lazy" decoding="async"></div>
-                <span class="wipe-divider" aria-hidden="true"></span>
-                <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
-                       aria-label="Pair 3: wipe between the location plate and the composite">
-              </div>
-              <figcaption class="figure-cap">
-                <span class="figure-num">Pair 3 · 03</span>
-                <span>Caption to come.</span>
-              </figcaption>
-            </figure>
-            <figure class="pager-slide" id="pair-4">
-              <div class="wipe wipe--3x2 wipe--rtl">
-                <div class="wipe-layer wipe-before" aria-hidden="true"><img src="assets/west-elm/04-plate.jpg" alt="" loading="lazy" decoding="async"></div>
-                <div class="wipe-layer wipe-after" aria-hidden="true"><img src="assets/west-elm/04-composite.jpg" alt="" loading="lazy" decoding="async"></div>
-                <span class="wipe-divider" aria-hidden="true"></span>
-                <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
-                       aria-label="Pair 4: wipe between the location plate and the composite">
-              </div>
-              <figcaption class="figure-cap">
-                <span class="figure-num">Pair 4 · 04</span>
-                <span>Caption to come.</span>
-              </figcaption>
-            </figure>
-            <figure class="pager-slide" id="pair-5">
-              <div class="wipe wipe--3x2 wipe--ltr">
-                <div class="wipe-layer wipe-before" aria-hidden="true"><img src="assets/west-elm/05-plate.jpg" alt="" loading="lazy" decoding="async"></div>
-                <div class="wipe-layer wipe-after" aria-hidden="true"><img src="assets/west-elm/05-composite.jpg" alt="" loading="lazy" decoding="async"></div>
-                <span class="wipe-divider" aria-hidden="true"></span>
-                <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
-                       aria-label="Pair 5: wipe between the location plate and the composite">
-              </div>
-              <figcaption class="figure-cap">
-                <span class="figure-num">Pair 5 · 05</span>
-                <span>Caption to come.</span>
-              </figcaption>
-            </figure>
-            <figure class="pager-slide" id="pair-6">
-              <div class="wipe wipe--3x2 wipe--rtl">
-                <div class="wipe-layer wipe-before" aria-hidden="true"><img src="assets/west-elm/08-plate.jpg" alt="" loading="lazy" decoding="async"></div>
-                <div class="wipe-layer wipe-after" aria-hidden="true"><img src="assets/west-elm/08-composite.jpg" alt="" loading="lazy" decoding="async"></div>
-                <span class="wipe-divider" aria-hidden="true"></span>
-                <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
-                       aria-label="Pair 6: wipe between the location plate and the composite">
-              </div>
-              <figcaption class="figure-cap">
-                <span class="figure-num">Pair 6 · 08</span>
-                <span>Caption to come.</span>
-              </figcaption>
-            </figure>
-            <figure class="pager-slide" id="pair-7">
-              <div class="wipe wipe--3x2 wipe--ltr">
-                <div class="wipe-layer wipe-before" aria-hidden="true"><img src="assets/west-elm/12-plate.jpg" alt="" loading="lazy" decoding="async"></div>
-                <div class="wipe-layer wipe-after" aria-hidden="true"><img src="assets/west-elm/12-composite.jpg" alt="" loading="lazy" decoding="async"></div>
-                <span class="wipe-divider" aria-hidden="true"></span>
-                <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
-                       aria-label="Pair 7: wipe between the location plate and the composite">
-              </div>
-              <figcaption class="figure-cap">
-                <span class="figure-num">Pair 7 · 12</span>
-                <span>Caption to come.</span>
-              </figcaption>
-            </figure>
-            <figure class="pager-slide" id="pair-8">
-              <div class="wipe wipe--3x2 wipe--rtl">
-                <div class="wipe-layer wipe-before" aria-hidden="true"><img src="assets/west-elm/14-plate.jpg" alt="" loading="lazy" decoding="async"></div>
-                <div class="wipe-layer wipe-after" aria-hidden="true"><img src="assets/west-elm/14-composite.jpg" alt="" loading="lazy" decoding="async"></div>
-                <span class="wipe-divider" aria-hidden="true"></span>
-                <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
-                       aria-label="Pair 8: wipe between the location plate and the composite">
-              </div>
-              <figcaption class="figure-cap">
-                <span class="figure-num">Pair 8 · 14</span>
-                <span>Courtyard. The wall is extended to carry a third window that was never there.</span>
-              </figcaption>
-            </figure>
-            <figure class="pager-slide" id="pair-9">
-              <div class="wipe wipe--3x2 wipe--ltr">
-                <div class="wipe-layer wipe-before" aria-hidden="true"><img src="assets/west-elm/20-plate.jpg" alt="" loading="lazy" decoding="async"></div>
-                <div class="wipe-layer wipe-after" aria-hidden="true"><img src="assets/west-elm/20-composite.jpg" alt="" loading="lazy" decoding="async"></div>
-                <span class="wipe-divider" aria-hidden="true"></span>
-                <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
-                       aria-label="Pair 9: wipe between the location plate and the composite">
-              </div>
-              <figcaption class="figure-cap">
-                <span class="figure-num">Pair 9 · 20</span>
-                <span>Poolside. Table, benches, chairs and the whole setting placed into an empty terrace.</span>
-              </figcaption>
-            </figure>
-            <figure class="pager-slide" id="pair-10">
-              <div class="wipe wipe--3x2 wipe--rtl">
-                <div class="wipe-layer wipe-before" aria-hidden="true"><img src="assets/west-elm/21-plate.jpg" alt="" loading="lazy" decoding="async"></div>
-                <div class="wipe-layer wipe-after" aria-hidden="true"><img src="assets/west-elm/21-composite.jpg" alt="" loading="lazy" decoding="async"></div>
-                <span class="wipe-divider" aria-hidden="true"></span>
-                <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
-                       aria-label="Pair 10: wipe between the location plate and the composite">
-              </div>
-              <figcaption class="figure-cap">
-                <span class="figure-num">Pair 10 · 21</span>
-                <span>Caption to come.</span>
-              </figcaption>
-            </figure>
-          </div>
-          <button class="pager-btn pager-btn--next" type="button" aria-label="Next pair">&rarr;</button>
-          <div class="pager-foot">
-            <p class="label">Drag each frame &middot; plate against composite</p>
-            <p class="label pager-count">1 / 10</p>
-          </div>
-        </div>
-
-          <details class="more">
-            <summary class="more-toggle"><span>The full case — problem, method, numbers</span></summary>
-            <div class="more-body">
-<section class="more-section">
-        <p class="label">How it works</p>
-        <div class="prose">
-          <h2 class="prose-h">A catalogue needs more rooms than a budget has</h2>
-          <p>A seasonal range has to appear in a plausible home, in enough different homes that
-            the range reads as a range. Building or booking a location for every configuration is
-            the expensive way there, and it locks you into whatever you shot on the day.</p>
-          <p>Shooting the location empty, once, changes the arithmetic. The plate is captured on
-            site with the real light. The objects are shot separately in a studio where they can
-            be lit and re-lit and reshot. What arrives at the end is a photograph nobody took.</p>
-          <p>It is not a beauty pass. Sun direction and shadow length have to agree with a plate
-            shot hours earlier or on another day, and contact shadows have to be built. In
-            <a href="#pair-8">pair 8</a> the wall is extended to carry a third window that was
-            never there; in <a href="#pair-1">pair 1</a> a blown-out window is replaced with real
-            foliage and the room gains a cactus, a basket, and a bench.</p>
-          <p>Once a plate exists it can be reused. That is the argument: the marginal cost of the
-            next configuration falls to studio time, and the location is available forever.</p>
-        </div>
-      </section>
-<section class="more-section">
-        <p class="label">At a glance</p>
-        <div>
-          <table class="facts">
-            <tbody>
-              <tr><th scope="row">Pairs shown</th><td>10</td></tr>
-              <tr><th scope="row">Delivery</th><td>1920 px, dimensions matched per pair</td></tr>
-              <tr><th scope="row">Sources per frame</th><td>Location plate + studio element pass</td></tr>
-              <tr><th scope="row">Reuse</th><td>One plate, many configurations</td></tr>
-              <tr><th scope="row">Built for</th><td>Seasonal catalogue and web</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-            </div>
-          </details>
-        </div>
-      </article>
-
       <article class="piece piece--nordson" id="nordson">
         <div class="piece-rail">
-          <p class="piece-rank">2</p>
+          <p class="piece-rank">1</p>
           <dl class="piece-meta">
             <div><dt>Years</dt><dd>2022–present</dd></div>
             <div><dt>For</dt><dd>Nordson Industrial Coating Systems</dd></div>
             <div><dt>Role</dt><dd>Creative Director, consulting</dd></div>
-            <div><dt>Ink</dt><dd class="piece-ink">Nordson blue</dd></div>
           </dl>
         </div>
         <div class="piece-body">
@@ -352,76 +165,93 @@
           <p class="piece-claim">An image library built and illustrated for drop-in reuse across a
             product line. One canonical subject, two rendered forms — and an illustration is the
             infographic of a photograph.</p>
-<div>
-          <div class="reveal">
-            <div class="wipe wipe--3x2 wipe--ltr">
+<div data-wipe-follow>
+          <!-- Design to deploy, read left to right: blueprint on the left of the
+               seam, photograph on the right.
 
-              <!-- Each layer carries its own writing, in its own empty half, so
-                   the clip that uncovers the picture uncovers the words with it.
+               ⚠ THAT MEANS THE BLUEPRINT IS `wipe-after`. The names lie about
+               position: .wipe--ltr clips the AFTER layer with a right-hand
+               inset, so `after` occupies everything LEFT of the divider and
+               `before` is the right-hand side. Built backwards once already.
+               The copy follows the same rule — .follow--a tracks `before`
+               (right), .follow--b tracks `after` (left) — which is why Deploy
+               is --a and Design is --b despite reading in the other order. The flat-colour illustration
+               that used to be the second layer moved down into the disclosure,
+               where it is a consequence rather than half the argument.
 
-                   Both files hold the SAME machine, already cut down the middle —
-                   drawing left, photograph right. What differs is which side the
-                   pale ground falls on, and that is what each layer is chosen
-                   for: the copy must land on the quiet half or it cannot be read.
-                   So the layer writing on the left takes the paper-left file, and
-                   the layer writing on the right takes paper-right. Swapping them
-                   puts white type on Nordson blue.
-
-                   Only the first carries alt text. The second is the same picture
-                   on a mirrored ground, so describing it twice would make a
-                   screen reader report two machines where there is one. -->
-              <div class="wipe-layer wipe-before">
-                <img src="assets/nordson/cordis-paper-left.jpg" width="1600" height="1067"
-                     alt="A Cordis VT coating centre, cut down the middle: the left half a line
-                          drawing, the right half a photograph of the same machine in the same
-                          position.">
-                <div class="reveal-copy reveal-copy--left">
-                  <h3>The drawing</h3>
-                  <p>Drawn from the photograph, so the two are interchangeable at any size. The
-                    drawings carry technical documentation, spec sheets, marketing, and trade-show
-                    graphics — anywhere a photograph would be too literal, too dark, or too heavy
-                    to print.</p>
-                </div>
-              </div>
-
-              <div class="wipe-layer wipe-after">
-                <img src="assets/nordson/cordis-paper-right.jpg" width="1600" height="1067" alt="">
-                <div class="reveal-copy reveal-copy--right">
-                  <h3>The photograph</h3>
-                  <p>Shot, composited, and retouched into a drop-in asset. I also worked with the
-                    engineers on the machine's form, and drew its mark — so the object, its
-                    identity, and its picture were all decided in the same room.</p>
-                </div>
-              </div>
-
-              <span class="wipe-divider" aria-hidden="true"></span>
-              <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
-                     aria-label="Drag to uncover either the photographed machine or the drawn one; the two halves meet at centre">
+               The blueprint is drawn on graph paper — Jacob's own recurring
+               motif, and a system element here (§11). It is fixed art either
+               way: it does not know the theme changed, so any type laid over it
+               must use --ink-on-art, never var(--ink). See README §6. -->
+          <div class="wipe wipe--3x2 wipe--ltr">
+            <!-- No alt: the same machine in the same position, photographed.
+                 Describing it again would have a screen reader report two
+                 machines where there is one. -->
+            <div class="wipe-layer wipe-before">
+              <img src="assets/nordson/cordis-photo.jpg" width="2000" height="1334" alt="">
             </div>
+
+            <div class="wipe-layer wipe-after">
+              <img src="assets/nordson/cordis-blueprint.jpg" width="2000" height="1334"
+                   alt="A Nordson Cordis VT powder feed centre drawn as white line on deep
+                        blue over graph paper: the cabinet, the gun bank, the touchscreen and
+                        the hopper, with no lighting or surface.">
+            </div>
+
+            <span class="wipe-divider" aria-hidden="true"></span>
+            <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
+                   aria-label="Drag between the drawn machine and the photographed one">
+          </div>
+
+          <div class="prose">
+            <p class="follow follow--b"><strong>Design.</strong> The machine as geometry — line,
+              on the grid, with no lighting and no room around it. I worked with the engineers on
+              this machine's form and drew its mark, so the object and its identity were settled
+              together. Held as line, it can be drawn again at any size for a schematic, a
+              cutaway or a wall.</p>
+            <p class="follow follow--a"><strong>Deploy.</strong> The machine as it ships — shot,
+              composited and retouched into a drop-in asset that lands in a spec sheet, a page or
+              a trade-show graphic without anyone opening a camera or a file again.</p>
           </div>
         </div>
 
           <details class="more">
-            <summary class="more-toggle"><span>The full case — the library, and why it holds</span></summary>
+            <summary class="more-toggle"><span>Content systems</span></summary>
             <div class="more-body">
 <section class="more-section">
-        <p class="label">The library</p>
-        <div>
-          <div class="filmstrip-head">
-            <h2 class="prose-h">Every unit, both ways</h2>
-            <p class="label">Scroll →</p>
+        <p class="label">As a consequence</p>
+
+        <!-- The ad sits BESIDE its argument, not under it. Stacked, it was a
+             lone half-width picture with the reasoning scrolled off above it,
+             so neither half was doing its job. .shot-aside is two equal columns
+             that collapse to one on a phone.
+
+             The paragraph that used to be here — "an eight-unit strip stood
+             here, captioned every unit, both ways" — was a note to ourselves
+             wearing the costume of copy, on a public page. The strip argued
+             extent, which is the hero's argument again at larger N, and it
+             needed eight subjects to say what one says better by being spent
+             more than one way. That belongs here, not out there. -->
+        <div class="shot-aside">
+          <figure class="shot">
+            <img src="assets/nordson/cordis-illo.jpg" width="2000" height="1334"
+                 loading="lazy" decoding="async"
+                 alt="A trade advertisement: the same Cordis VT rendered flat in Nordson
+                      blues on a blue field, with the Nordson logo, web address and contact
+                      set in the lower right.">
+          </figure>
+
+          <div class="prose">
+            <h2 class="prose-h">Once the geometry exists, the renderings are free</h2>
+            <p>The wipe above is design to deploy. This is what follows from it — a finished
+              trade ad, and not one hour of it was photography. No shoot, no studio, no
+              retouch, because the machine was already held as line.</p>
+            <p>That is the argument for a library, and it is not that any single image is good.
+              It is that <em>the next request is already answered</em> — a spec sheet on
+              Tuesday, a trade-show wall on Friday, both out of the same geometry, neither of
+              them a project.</p>
+            <p class="credit">Trade advertisement &middot; Nordson Industrial Coating Systems</p>
           </div>
-          <div class="filmstrip">
-            <div class="filmstrip-item"><span class="filmstrip-cell wf-b"></span><span class="filmstrip-cell wf-a"></span><span class="filmstrip-cap">Unit 01</span></div>
-            <div class="filmstrip-item"><span class="filmstrip-cell wf-b"></span><span class="filmstrip-cell wf-a"></span><span class="filmstrip-cap">Unit 02</span></div>
-            <div class="filmstrip-item"><span class="filmstrip-cell wf-b"></span><span class="filmstrip-cell wf-a"></span><span class="filmstrip-cap">Unit 03</span></div>
-            <div class="filmstrip-item"><span class="filmstrip-cell wf-b"></span><span class="filmstrip-cell wf-a"></span><span class="filmstrip-cap">Unit 04</span></div>
-            <div class="filmstrip-item"><span class="filmstrip-cell wf-b"></span><span class="filmstrip-cell wf-a"></span><span class="filmstrip-cap">Unit 05</span></div>
-            <div class="filmstrip-item"><span class="filmstrip-cell wf-b"></span><span class="filmstrip-cell wf-a"></span><span class="filmstrip-cap">Unit 06</span></div>
-            <div class="filmstrip-item"><span class="filmstrip-cell wf-b"></span><span class="filmstrip-cell wf-a"></span><span class="filmstrip-cap">Unit 07</span></div>
-            <div class="filmstrip-item"><span class="filmstrip-cell wf-b"></span><span class="filmstrip-cell wf-a"></span><span class="filmstrip-cap">Unit 08</span></div>
-          </div>
-          <p class="credit">Photograph above, drawing below. Count and captions to come.</p>
         </div>
       </section>
 <section class="more-section">
@@ -457,6 +287,148 @@
         </div>
       </article>
 
+      <article class="piece piece--showdesk" id="showdesk">
+        <div class="piece-rail">
+          <p class="piece-rank">2</p>
+          <dl class="piece-meta">
+            <div><dt>Years</dt><dd>2026</dd></div>
+            <div><dt>For</dt><dd>Nordson Industrial Coating Systems</dd></div>
+            <div><dt>Role</dt><dd>Sole author</dd></div>
+          </dl>
+        </div>
+        <div class="piece-body">
+          <h2 class="piece-title">ShowDesk</h2>
+          <p class="piece-claim">A trade-show application that builds a show out of the library
+            above. Two clips at a time — product and text — laid into one frame in four layouts,
+            with transitions, in either orientation. It runs off a USB stick on a booth PC with
+            no network and no database, and it exists because the assets were built to be
+            dropped in.</p>
+
+          <!-- A .shot rather than an .embed, and it is not a fallback: ShowDesk
+               runs off a USB stick against a folder of the client's video, so
+               there is nothing to point an iframe at. The honest artifact is
+               the builder, not any show it made — which is also why this frame
+               is the authoring UI and not the playback.
+
+               Note the app's own footer in the picture: ASCEND VISUALIZATION
+               STUDIO FOR NORDSON ICS. The tool brands itself as part of the
+               piece below it. -->
+          <figure class="shot">
+            <img src="assets/showdesk/builder.jpg" width="1600" height="900"
+                 loading="lazy" decoding="async"
+                 alt="ShowDesk's Show Builder. Left: a list of clips and a list of
+                      transitions. Centre: a live layout preview in Even mode, showing a
+                      photograph of the Cordis powder feed centre on one side and its feature
+                      list on the other, above an ordered playlist. Right: the loaded show,
+                      orientation, control mode and audio track.">
+          </figure>
+          <p class="credit">The <strong>Show Builder</strong>, loaded with <strong>PaintExpo
+            2026</strong> — the tool, not a show. The preview is in <em>Even</em>: two clips,
+            product and text, in one frame. That is the Cordis from the piece above, arriving
+            here as a clip.</p>
+
+          <details class="more">
+            <summary class="more-toggle"><span>Environmental and trade shows</span></summary>
+            <div class="more-body">
+
+              <section class="more-section">
+                <p class="label">Why it exists</p>
+                <div class="prose">
+                  <h2 class="prose-h">The library's payoff, not a second project</h2>
+                  <p>The piece above claims the library was built for drop-in reuse. This is the
+                    thing that took it at its word. A booth needs a different show for every
+                    event, assembled by whoever is standing in the booth, and that is only
+                    possible if every asset is already the right form at the right size on the
+                    right ground. ShowDesk could be written because the answer to "what do
+                    we have" was a folder rather than a request.</p>
+                  <p>The separation is visible in the picture above: the Cordis from the piece
+                    before, arriving here as a clip in a list. The footage belongs to Nordson and
+                    the machine that arranges it is mine — and so are the modules, which is the
+                    part that makes the rest of it work. Drop different files in those folders
+                    and it is a different show without a line changing.</p>
+                </div>
+              </section>
+
+              <section class="more-section">
+                <p class="label">The modules</p>
+                <div class="prose">
+                  <h2 class="prose-h">The filename is the whole schema</h2>
+                  <p>I make the clips as well as the thing that plays them — Cordis, Encore VT
+                    &amp; HD, Dynamic Contouring, Color On Demand, the alerts reel, the
+                    applications parade. That is the video half of this piece, and it is why the
+                    two halves fit together: there is no import step and no database between
+                    them, only a naming convention.</p>
+                  <p>A module is one prefix. <code>Cordis_product.mp4</code> and
+                    <code>Cordis_text.mp4</code> become a paired module the builder can lay
+                    side by side, stack, or run either half full frame;
+                    <code>Cordis_full.mp4</code> is a single. Anything that matches nothing is
+                    treated as full frame, so a file dropped in by someone who has never read
+                    this still plays.</p>
+                  <p>Authoring the content and the tool together is what lets the seam between
+                    them be a filename. Neither half had to be told about the other.</p>
+                </div>
+              </section>
+
+              <section class="more-section">
+                <p class="label">How it is built</p>
+                <div class="prose">
+                  <h2 class="prose-h">A booth appliance made of a browser</h2>
+                  <p>About 7,600 lines of JavaScript and CSS, hand-written, no framework. A
+                    <code>.bat</code> file starts a small PowerShell static server and launches
+                    Chrome in kiosk mode against it; the app reads video, audio and PDFs straight
+                    off disk through the File System Access API. No network calls, no telemetry,
+                    no upload step and no database — the media folders <em>are</em> the library.</p>
+                  <p>It goes through <code>localhost</code> rather than <code>file://</code> for
+                    two reasons that are the same reason: File System Access needs a secure
+                    context, and the folder permission Chrome persists is scoped per origin. Anchor
+                    everything to one port and the field tech picks the folder once, ever. That is
+                    the kind of decision this whole page is about — invisible when right, and a
+                    support call every morning of the show when wrong.</p>
+                </div>
+              </section>
+
+              <section class="more-section">
+                <p class="label">The handoff</p>
+                <div class="prose">
+                  <h2 class="prose-h">A tool nobody can run is not a tool</h2>
+                  <p>It shipped with three documents, and they are the half of this that is
+                    rarer than the code. A staff guide for booth operators — where the hidden
+                    panel is, how to interrupt the loop for a customer, why the USB connector
+                    should be blue. A hardware list with two setups, touchscreen or presenter
+                    remote, and a pre-show checklist that opens by warning that Smart App Control
+                    is a one-way switch the customer has to agree to first. And an orientation
+                    note to the colleague installing it, explaining which part calls which and
+                    why, before she reads any of the detail.</p>
+                  <p>Anyone can say they built a tool. The evidence that it was built for other
+                    people to run is the note to the person who ran it.</p>
+                </div>
+              </section>
+
+              <section class="more-section">
+                <p class="label">At a glance</p>
+                <div>
+                  <table class="facts">
+                    <tbody>
+                      <tr><th scope="row">Runs on</th><td>Windows mini PC, Chrome in kiosk mode, no network</td></tr>
+                      <tr><th scope="row">Layouts</th><td>Even · Offset · Full frame · Center, swappable live</td></tr>
+                      <tr><th scope="row">Transitions</th><td>Crossfade · Burn · Perlin Dissolve · Luminance Melt · Cross Zoom · Grid Flip · Hexagonalize</td></tr>
+                      <tr><th scope="row">Also plays</th><td>Slide decks and PDF brochures, same shell</td></tr>
+                      <tr><th scope="row">Orientation</th><td>1920×1080 horizontal or 1080×1920 vertical, adapting</td></tr>
+                      <tr><th scope="row">Control</th><td>Touchscreen, or a wireless presenter remote</td></tr>
+                      <tr><th scope="row">Shows</th><td>Named and saved per event, on the stick</td></tr>
+                      <tr><th scope="row">Written</th><td>~7,600 lines of JavaScript and CSS, no framework</td></tr>
+                      <tr><th scope="row">Modules</th><td>Mine — authored to a convention: <code>_product</code>, <code>_text</code>, <code>_full</code>, paired by prefix</td></tr>
+                      <tr><th scope="row">Content</th><td>Nordson's — the folders are the library</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
+            </div>
+          </details>
+        </div>
+      </article>
+
       <article class="piece piece--ascend" id="ascend">
         <div class="piece-rail">
           <p class="piece-rank">3</p>
@@ -464,7 +436,6 @@
             <div><dt>Years</dt><dd>2022–present</dd></div>
             <div><dt>For</dt><dd>Nordson Industrial Coating Systems</dd></div>
             <div><dt>Role</dt><dd>Founded and led</dd></div>
-            <div><dt>Ink</dt><dd class="piece-ink">Graphite</dd></div>
           </dl>
         </div>
         <div class="piece-body">
@@ -581,7 +552,7 @@
         </div>
 
           <details class="more">
-            <summary class="more-toggle"><span>The full case — why it holds, and the numbers</span></summary>
+            <summary class="more-toggle"><span>Creative operations</span></summary>
             <div class="more-body">
 <section class="more-section">
         <p class="label">Why it holds</p>
@@ -622,16 +593,37 @@
             <div><dt>Years</dt><dd>2025–2026</dd></div>
             <div><dt>Deployments</dt><dd>okQRal, Codedesk, The Ward</dd></div>
             <div><dt>Role</dt><dd>Sole author</dd></div>
-            <div><dt>Ink</dt><dd class="piece-ink">Plum</dd></div>
           </dl>
         </div>
         <div class="piece-body">
           <h2 class="piece-title">The QR engine</h2>
-          <p class="piece-claim">Three tools that look and behave differently <em>because</em> they
-            are one engine configured three ways: a public product, an internal tool at Nordson,
-            and a feature living inside a neighbourhood app. Pick an emoji and it becomes the
-            code's palette, so one choice sets both what a code means and how it looks.</p>
-          <!-- The actual tool, running. mode=embed is Codedesk's own flag, and it
+          <p class="piece-claim">A QR code is a piece of public infrastructure, and people
+            should be able to make and click free QRs without hydrating someone else's marketing
+            program with hidden extra URL data. The expression is <em>if there's no product
+            you're the product</em> — but that's not true at the okQRal.</p>
+          <!-- ⚠ "at THE okQRal" — the article is deliberate and is the whole
+               joke: ok-QR-al, the OK Corral. It reads like a slip and it is
+               not. Colophon "corrected" it once already, 17 Aug 2026. Leave it.
+
+               ⚠ The claim above is a PROMISE ABOUT THE PAYLOAD, and it is checkable:
+               qr_sync_pipeline.js buildText() ends its UTM branch with
+               `if (!s && !m && !c) return rawTrim;` — the typed URL goes into
+               the code unchanged unless the visitor entered a parameter
+               themselves. There is no redirect domain and nothing counts scans.
+               The only fetches in that file are Nordson's FileRoom sync and an
+               Ascend ping, both gated off by CODEDESK_EMBED_MODE. If that ever
+               stops being true, this paragraph becomes a lie rather than a
+               claim — re-read the function before editing either.
+
+               The claim used to LEAD on "pick an emoji and it becomes the
+               code's palette". That moved behind the twirl because the
+               infrastructure argument is the better opener, NOT because the
+               emoji claim was a problem to hide: Jacob is setting the landing
+               code's palette, and once he has, the embed demonstrates it on
+               arrival. Do not treat it as retired, and do not quietly delete
+               the emoji section while it is pending.
+
+               The actual tool, running. mode=embed is Codedesk's own flag, and it
                is a different product from the same code: no header, no setup
                step, one drawer open on a finished code. Nothing is stripped —
                every type is there and the tracking parameters are one disclosure
@@ -646,12 +638,10 @@
                     loading="lazy"></iframe>
           </div>
 
-          <p class="credit">Codedesk, running. Change anything. The code it starts on goes to
-            <strong><a href="https://okqral.com">okqral.com</a></strong> — the same spine,
-            instantiated for a different job.</p>
+          <p class="credit">Live at <strong><a href="https://okqral.com">okqral.com</a></strong></p>
 
           <details class="more">
-            <summary class="more-toggle"><span>The full case — the skin, the emoji, the codes</span></summary>
+            <summary class="more-toggle"><span>Systems design</span></summary>
             <div class="more-body">
 
               <section class="more-section">
@@ -718,7 +708,6 @@
             <div><dt>Years</dt><dd>2026</dd></div>
             <div><dt>Places</dt><dd>Lafayette Square, Highpointe Demun, Altadena</dd></div>
             <div><dt>Role</dt><dd>Self-directed</dd></div>
-            <div><dt>Ink</dt><dd class="piece-ink">Treelawn</dd></div>
           </dl>
         </div>
         <div class="piece-body">
@@ -809,7 +798,7 @@
             underneath was baked by a different tool than the one drawing it.</p>
 
           <details class="more">
-            <summary class="more-toggle"><span>The full case — the slab, the commons, and Cary</span></summary>
+            <summary class="more-toggle"><span>Platform architecture</span></summary>
             <div class="more-body">
 <section class="more-section">
         <p class="label">The slab</p>
@@ -880,14 +869,353 @@
         </div>
       </article>
 
-      <article class="piece piece--picture" id="picture">
+      <article class="piece piece--westelm" id="westelm">
         <div class="piece-rail">
           <p class="piece-rank">6</p>
+          <dl class="piece-meta">
+            <div><dt>Years</dt><dd>2021–2023</dd></div>
+            <div><dt>Booked through</dt><dd>Industrial Color</dd></div>
+            <div><dt>Role</dt><dd>Retoucher, compositor</dd></div>
+          </dl>
+        </div>
+        <div class="piece-body">
+          <h2 class="piece-title">West Elm</h2>
+          <p class="piece-claim">Studio-shot furniture composited into location plates — the OG
+            “Augmented Reality.” Shooting the plates in situ and placing the objects later gives
+            you endless inexpensive options.</p>
+          <p class="credit">Same years, at Duggal — <strong>SKIMS · Beats · L’Oréal · Lyft</strong></p>
+<div class="pager">
+          <button class="pager-btn pager-btn--prev" type="button" aria-label="Previous pair">&larr;</button>
+          <div class="pager-track">
+            <figure class="pager-slide" id="pair-1">
+              <div class="wipe wipe--3x2 wipe--ltr">
+                <div class="wipe-layer wipe-before"><img src="assets/west-elm/01-plate.jpg" alt="The location plate: the same frame, photographed empty." loading="lazy" decoding="async"></div>
+                <div class="wipe-layer wipe-after"><img src="assets/west-elm/01-composite.jpg" alt="A bedroom composited from two shoots: painted brick walls under a beamed ceiling, a low bed made up in cream and teal, a dresser and mirror, and a window seat looking out to trees and a cactus." loading="lazy" decoding="async"></div>
+                <span class="wipe-divider" aria-hidden="true"></span>
+                <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
+                       aria-label="Pair 1: wipe between the location plate and the composite">
+                <button class="alt-badge" type="button" aria-expanded="false">Alt</button>
+              </div>
+              <p class="alt-text" hidden></p>
+              <figcaption class="figure-cap">
+                <span class="figure-num">Pair 1 · 01</span>
+                <span>Bedroom. A blown-out window replaced with real foliage; cactus, basket and bench added.</span>
+              </figcaption>
+            </figure>
+            <figure class="pager-slide" id="pair-2">
+              <div class="wipe wipe--3x2 wipe--rtl">
+                <div class="wipe-layer wipe-before"><img src="assets/west-elm/02-plate.jpg" alt="The location plate: the same frame, photographed empty." loading="lazy" decoding="async"></div>
+                <div class="wipe-layer wipe-after"><img src="assets/west-elm/02-composite.jpg" alt="A pale plaster living room with tall windows, a cream sofa, two low leather armchairs, a rounded wooden coffee table, a shaded floor lamp and a potted palm." loading="lazy" decoding="async"></div>
+                <span class="wipe-divider" aria-hidden="true"></span>
+                <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
+                       aria-label="Pair 2: wipe between the location plate and the composite">
+                <button class="alt-badge" type="button" aria-expanded="false">Alt</button>
+              </div>
+              <p class="alt-text" hidden></p>
+              <figcaption class="figure-cap">
+                <span class="figure-num">Pair 2 · 02</span>
+                <span>Caption to come.</span>
+              </figcaption>
+            </figure>
+            <figure class="pager-slide" id="pair-3">
+              <div class="wipe wipe--3x2 wipe--ltr">
+                <div class="wipe-layer wipe-before"><img src="assets/west-elm/03-plate.jpg" alt="The location plate: the same frame, photographed empty." loading="lazy" decoding="async"></div>
+                <div class="wipe-layer wipe-after"><img src="assets/west-elm/03-composite.jpg" alt="A living room under an exposed timber truss: a white sectional, a stone fireplace, a rust velvet armchair, a low stone bowl on a patterned rug, and glazed doors open to greenery." loading="lazy" decoding="async"></div>
+                <span class="wipe-divider" aria-hidden="true"></span>
+                <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
+                       aria-label="Pair 3: wipe between the location plate and the composite">
+                <button class="alt-badge" type="button" aria-expanded="false">Alt</button>
+              </div>
+              <p class="alt-text" hidden></p>
+              <figcaption class="figure-cap">
+                <span class="figure-num">Pair 3 · 03</span>
+                <span>Caption to come.</span>
+              </figcaption>
+            </figure>
+            <figure class="pager-slide" id="pair-4">
+              <div class="wipe wipe--3x2 wipe--rtl">
+                <div class="wipe-layer wipe-before"><img src="assets/west-elm/04-plate.jpg" alt="The location plate: the same frame, photographed empty." loading="lazy" decoding="async"></div>
+                <div class="wipe-layer wipe-after"><img src="assets/west-elm/04-composite.jpg" alt="An outdoor dining deck under a spreading oak strung with lights: a long dark table, green and grey moulded chairs, a bench, a sideboard laid for a meal, and wooded hills beyond." loading="lazy" decoding="async"></div>
+                <span class="wipe-divider" aria-hidden="true"></span>
+                <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
+                       aria-label="Pair 4: wipe between the location plate and the composite">
+                <button class="alt-badge" type="button" aria-expanded="false">Alt</button>
+              </div>
+              <p class="alt-text" hidden></p>
+              <figcaption class="figure-cap">
+                <span class="figure-num">Pair 4 · 04</span>
+                <span>Caption to come.</span>
+              </figcaption>
+            </figure>
+            <figure class="pager-slide" id="pair-5">
+              <div class="wipe wipe--3x2 wipe--ltr">
+                <div class="wipe-layer wipe-before"><img src="assets/west-elm/05-plate.jpg" alt="The location plate: the same frame, photographed empty." loading="lazy" decoding="async"></div>
+                <div class="wipe-layer wipe-after"><img src="assets/west-elm/05-composite.jpg" alt="A living room with a grey sectional, an arc lamp under a cream drum shade, a round wooden coffee table, a blue abstract canvas, and a wall of windows onto a cactus." loading="lazy" decoding="async"></div>
+                <span class="wipe-divider" aria-hidden="true"></span>
+                <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
+                       aria-label="Pair 5: wipe between the location plate and the composite">
+                <button class="alt-badge" type="button" aria-expanded="false">Alt</button>
+              </div>
+              <p class="alt-text" hidden></p>
+              <figcaption class="figure-cap">
+                <span class="figure-num">Pair 5 · 05</span>
+                <span>Caption to come.</span>
+              </figcaption>
+            </figure>
+            <figure class="pager-slide" id="pair-6">
+              <div class="wipe wipe--3x2 wipe--rtl">
+                <div class="wipe-layer wipe-before"><img src="assets/west-elm/08-plate.jpg" alt="The location plate: the same frame, photographed empty." loading="lazy" decoding="async"></div>
+                <div class="wipe-layer wipe-after"><img src="assets/west-elm/08-composite.jpg" alt="A garden terrace among palms and banana leaves: a round concrete table with four woven armchairs in cream cushions, standing on stone paving." loading="lazy" decoding="async"></div>
+                <span class="wipe-divider" aria-hidden="true"></span>
+                <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
+                       aria-label="Pair 6: wipe between the location plate and the composite">
+                <button class="alt-badge" type="button" aria-expanded="false">Alt</button>
+              </div>
+              <p class="alt-text" hidden></p>
+              <figcaption class="figure-cap">
+                <span class="figure-num">Pair 6 · 08</span>
+                <span>Caption to come.</span>
+              </figcaption>
+            </figure>
+            <figure class="pager-slide" id="pair-7">
+              <div class="wipe wipe--3x2 wipe--ltr">
+                <div class="wipe-layer wipe-before"><img src="assets/west-elm/12-plate.jpg" alt="The location plate: the same frame, photographed empty." loading="lazy" decoding="async"></div>
+                <div class="wipe-layer wipe-after"><img src="assets/west-elm/12-composite.jpg" alt="A sunlit stucco courtyard: woven textiles hung and rolled against the wall, a striped flatweave on the ground, one palm frond, under a clear sky." loading="lazy" decoding="async"></div>
+                <span class="wipe-divider" aria-hidden="true"></span>
+                <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
+                       aria-label="Pair 7: wipe between the location plate and the composite">
+                <button class="alt-badge" type="button" aria-expanded="false">Alt</button>
+              </div>
+              <p class="alt-text" hidden></p>
+              <figcaption class="figure-cap">
+                <span class="figure-num">Pair 7 · 12</span>
+                <span>Caption to come.</span>
+              </figcaption>
+            </figure>
+            <figure class="pager-slide" id="pair-8">
+              <div class="wipe wipe--3x2 wipe--rtl">
+                <div class="wipe-layer wipe-before"><img src="assets/west-elm/14-plate.jpg" alt="The location plate: the same frame, photographed empty." loading="lazy" decoding="async"></div>
+                <div class="wipe-layer wipe-after"><img src="assets/west-elm/14-composite.jpg" alt="A terracotta and cream wall with green-framed windows: a low bench, rolled rugs, indigo textiles, a potted fig, and layered rugs across the floor." loading="lazy" decoding="async"></div>
+                <span class="wipe-divider" aria-hidden="true"></span>
+                <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
+                       aria-label="Pair 8: wipe between the location plate and the composite">
+                <button class="alt-badge" type="button" aria-expanded="false">Alt</button>
+              </div>
+              <p class="alt-text" hidden></p>
+              <figcaption class="figure-cap">
+                <span class="figure-num">Pair 8 · 14</span>
+                <span>Courtyard. The wall is extended to carry a third window that was never there.</span>
+              </figcaption>
+            </figure>
+            <figure class="pager-slide" id="pair-9">
+              <div class="wipe wipe--3x2 wipe--ltr">
+                <div class="wipe-layer wipe-before"><img src="assets/west-elm/20-plate.jpg" alt="The location plate: the same frame, photographed empty." loading="lazy" decoding="async"></div>
+                <div class="wipe-layer wipe-after"><img src="assets/west-elm/20-composite.jpg" alt="A poolside table in teak with matching benches, laid with plates, glasses, wine and fruit, the water running along behind it." loading="lazy" decoding="async"></div>
+                <span class="wipe-divider" aria-hidden="true"></span>
+                <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
+                       aria-label="Pair 9: wipe between the location plate and the composite">
+                <button class="alt-badge" type="button" aria-expanded="false">Alt</button>
+              </div>
+              <p class="alt-text" hidden></p>
+              <figcaption class="figure-cap">
+                <span class="figure-num">Pair 9 · 20</span>
+                <span>Poolside. Table, benches, chairs and the whole setting placed into an empty terrace.</span>
+              </figcaption>
+            </figure>
+            <figure class="pager-slide" id="pair-10">
+              <div class="wipe wipe--3x2 wipe--rtl">
+                <div class="wipe-layer wipe-before"><img src="assets/west-elm/21-plate.jpg" alt="The location plate: the same frame, photographed empty." loading="lazy" decoding="async"></div>
+                <div class="wipe-layer wipe-after"><img src="assets/west-elm/21-composite.jpg" alt="A covered porch in dark timber: a poured concrete bench, black wire chairs and a slatted side table, opening onto a tree and glazed doors." loading="lazy" decoding="async"></div>
+                <span class="wipe-divider" aria-hidden="true"></span>
+                <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
+                       aria-label="Pair 10: wipe between the location plate and the composite">
+                <button class="alt-badge" type="button" aria-expanded="false">Alt</button>
+              </div>
+              <p class="alt-text" hidden></p>
+              <figcaption class="figure-cap">
+                <span class="figure-num">Pair 10 · 21</span>
+                <span>Caption to come.</span>
+              </figcaption>
+            </figure>
+          </div>
+          <button class="pager-btn pager-btn--next" type="button" aria-label="Next pair">&rarr;</button>
+          <div class="pager-foot">
+            <p class="label">Drag each frame &middot; plate against composite</p>
+            <p class="label pager-count">1 / 10</p>
+          </div>
+        </div>
+
+          <details class="more">
+            <summary class="more-toggle"><span>Retouching and compositing</span></summary>
+            <div class="more-body">
+<section class="more-section">
+        <p class="label">How it works</p>
+        <div class="prose">
+          <h2 class="prose-h">A catalogue needs more rooms than a budget has</h2>
+          <p>A seasonal range has to appear in a plausible home, in enough different homes that
+            the range reads as a range. Building or booking a location for every configuration is
+            the expensive way there, and it locks you into whatever you shot on the day.</p>
+          <p>Shooting the location empty, once, changes the arithmetic. The plate is captured on
+            site with the real light. The objects are shot separately in a studio where they can
+            be lit and re-lit and reshot. What arrives at the end is a photograph nobody took.</p>
+          <p>It is not a beauty pass. Sun direction and shadow length have to agree with a plate
+            shot hours earlier or on another day, and contact shadows have to be built. In
+            <a href="#pair-8">pair 8</a> the wall is extended to carry a third window that was
+            never there; in <a href="#pair-1">pair 1</a> a blown-out window is replaced with real
+            foliage and the room gains a cactus, a basket, and a bench.</p>
+          <p>Once a plate exists it can be reused. That is the argument: the marginal cost of the
+            next configuration falls to studio time, and the location is available forever.</p>
+        </div>
+      </section>
+<section class="more-section">
+        <p class="label">At a glance</p>
+        <div>
+          <table class="facts">
+            <tbody>
+              <tr><th scope="row">Pairs shown</th><td>10</td></tr>
+              <tr><th scope="row">Delivery</th><td>1920 px, dimensions matched per pair</td></tr>
+              <tr><th scope="row">Sources per frame</th><td>Location plate + studio element pass</td></tr>
+              <tr><th scope="row">Reuse</th><td>One plate, many configurations</td></tr>
+              <tr><th scope="row">Built for</th><td>Seasonal catalogue and web</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+            </div>
+          </details>
+        </div>
+      </article>
+
+
+
+      <article class="piece piece--pbg" id="pbg">
+        <div class="piece-rail">
+          <p class="piece-rank">00</p>
+          <dl class="piece-meta">
+            <div><dt>Years</dt><dd>2018–2020</dd></div>
+            <div><dt>For</dt><dd>Provincetown Business Guild</dd></div>
+            <div><dt>Role</dt><dd>Creative Operations Manager</dd></div>
+          </dl>
+        </div>
+        <div class="piece-body">
+          <h2 class="piece-title">Provincetown Business Guild</h2>
+          <p class="piece-claim">Where the method starts. I did the publishing work — and built the
+            member-and-asset database that produced it, four years before anyone paid me to think
+            this way.</p>
+          <!-- The shelf. Eight publications, 2018–2020, every one of them an
+               output of the same member-and-asset database — which is the
+               claim above, made checkable. Covers keep their own proportions;
+               see site.css §20 for why they are not squared off.
+
+               Sources are the originals from the Guild's own files, so the
+               covers here are the covers that printed. -->
+          <ul class="shelf">
+            <li class="shelf-item">
+              <a class="shelf-link" href="assets/pbg/full/2018-carnival.pdf">
+                <img class="shelf-cover" src="assets/pbg/2018-carnival.jpg" width="473" height="720"
+                     loading="lazy" alt="Carnival book cover, 2018: a masked figure with a ship headdress, ‘Mardi Gras by the Sea’.">
+                <span class="shelf-name">Carnival Book</span>
+                <span class="shelf-meta">2018 · 40th · 56 pp</span>
+              </a>
+            </li>
+            <li class="shelf-item">
+              <a class="shelf-link" href="assets/pbg/full/2018-winter.pdf">
+                <img class="shelf-cover" src="assets/pbg/2018-winter.jpg" width="473" height="720"
+                     loading="lazy" alt="Winter and Holiday Guide cover, 2018: Commercial Street storefronts lit at dusk.">
+                <span class="shelf-name">Winter + Holiday Guide</span>
+                <span class="shelf-meta">2018 · 21 pp</span>
+              </a>
+            </li>
+            <li class="shelf-item">
+              <a class="shelf-link" href="assets/pbg/full/2019-summer.pdf">
+                <img class="shelf-cover" src="assets/pbg/2019-summer.jpg" width="309" height="720"
+                     loading="lazy" alt="Ultimate Summer LGBTQ Guide cover, 2019: a rainbow flag over the harbour and the Pilgrim Monument.">
+                <span class="shelf-name">Ultimate Summer Guide</span>
+                <span class="shelf-meta">2019 · 39 pp</span>
+              </a>
+            </li>
+            <li class="shelf-item">
+              <a class="shelf-link" href="assets/pbg/full/2019-carnival.pdf">
+                <img class="shelf-cover" src="assets/pbg/2019-carnival.jpg" width="450" height="720"
+                     loading="lazy" alt="Carnival book cover, 2019: an illustrated enchanted forest with a whale and the Pilgrim Monument.">
+                <span class="shelf-name">Carnival Book</span>
+                <span class="shelf-meta">2019 · 41st · 31 pp</span>
+              </a>
+            </li>
+            <li class="shelf-item">
+              <a class="shelf-link" href="assets/pbg/full/2019-map.pdf">
+                <img class="shelf-cover" src="assets/pbg/2019-map.jpg" width="312" height="720"
+                     loading="lazy" alt="Members Map cover, 2019: the title over a rainbow flag and the beach.">
+                <span class="shelf-name">Members Map</span>
+                <span class="shelf-meta">2019 · folded</span>
+              </a>
+            </li>
+            <li class="shelf-item">
+              <a class="shelf-link" href="assets/pbg/full/2019-winter.pdf">
+                <img class="shelf-cover" src="assets/pbg/2019-winter.jpg" width="473" height="720"
+                     loading="lazy" alt="Ultimate Fall, Winter and Holiday Guide cover, 2019: illustrated figures in a snowy street.">
+                <span class="shelf-name">Fall + Winter Guide</span>
+                <span class="shelf-meta">2019 · 33 pp</span>
+              </a>
+            </li>
+            <li class="shelf-item">
+              <a class="shelf-link" href="assets/pbg/full/2020-summer.pdf">
+                <img class="shelf-cover" src="assets/pbg/2020-summer.jpg" width="473" height="720"
+                     loading="lazy" alt="Ultimate LGBTQ Guide cover, 2020: the Pilgrim Monument against a rainbow field.">
+                <span class="shelf-name">Ultimate LGBTQ Guide</span>
+                <span class="shelf-meta">2020 · 53 pp</span>
+              </a>
+            </li>
+            <li class="shelf-item">
+              <a class="shelf-link" href="assets/pbg/full/2020-pride.jpg">
+                <img class="shelf-cover" src="assets/pbg/2020-pride.jpg" width="473" height="720"
+                     loading="lazy" alt="Provincetown Pride poster, 2020: the title in rainbow lettering over the Pilgrim Monument.">
+                <span class="shelf-name">Pride Poster</span>
+                <span class="shelf-meta">2020 · June 5–7</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Curios. Jacob's own name for this category, not a bin invented here:
+           github.com/jacobeugenehenderson/CURIOS is "web projects and
+           experiments" and Scale Machine already lives inside it.
+
+           The old WordPress site's CURIOS cover loop stood here for one
+           session and was cut: soft at any weight the page could afford (the
+           SOURCE is 1080p at 3 Mbps, so sharpness was never available), a
+           wordmark in the old site's typeface, a loop seam that jumps, and
+           tonally severe against uncoated stock. The four extracted covers are
+           kept in _source/curios/ because getting them again means reading
+           /Volumes/Today. Do not re-place one without re-reading README §8. -->
+      <section class="curios" aria-labelledby="curios-head">
+        <div class="curios-head">
+          <p class="piece-rank">Curios</p>
+          <div class="curios-intro">
+            <!-- The same four plates as the masthead, pulling in and stopping
+                 FAR short of true — see site.css §21. The K plate is the real
+                 heading; C, M and Y are copies and hidden from the reader. -->
+            <div class="curios-mark">
+              <span class="curios-plate curios-plate--c" aria-hidden="true">Curios</span>
+              <span class="curios-plate curios-plate--m" aria-hidden="true">Curios</span>
+              <span class="curios-plate curios-plate--y" aria-hidden="true">Curios</span>
+              <h2 class="curios-plate curios-plate--k" id="curios-head">Curios</h2>
+            </div>
+            <div class="prose">
+              <p>Nobody asked for either of these. They are here because the tools claim
+                above is not secondhand — same person, client removed, still shipping
+                finished things alone. Both are live; neither is a case study.</p>
+            </div>
+          </div>
+        </div>
+      <article class="piece piece--picture" id="picture">
+        <div class="piece-rail">
+          <p class="piece-rank">Curio</p>
           <dl class="piece-meta">
             <div><dt>Years</dt><dd>2026</dd></div>
             <div><dt>Sources</dt><dd>Wikidata, TMDB, live</dd></div>
             <div><dt>Role</dt><dd>Self-directed</dd></div>
-            <div><dt>Ink</dt><dd class="piece-ink">Gold</dd></div>
           </dl>
         </div>
         <div class="piece-body">
@@ -907,10 +1235,10 @@
           </div>
 
           <p class="credit">Live at <strong><a href="https://picture-wrap.com">picture-wrap.com</a></strong>
-            · posting closed pictures at <strong>@picture-wrap.bsky.social</strong></p>
+            · posting closed pictures at <strong>@picture-wrap.social</strong></p>
 
           <details class="more">
-            <summary class="more-toggle"><span>The full case — two halves, and one hard question</span></summary>
+            <summary class="more-toggle"><span>Data and archives</span></summary>
             <div class="more-body">
 
               <section class="more-section">
@@ -957,7 +1285,7 @@
                       <tr><th scope="row">Backend</th><td>None</td></tr>
                       <tr><th scope="row">Shared surface</th><td>Two files: what they agree about, and what they agree on</td></tr>
                       <tr><th scope="row">Vault</th><td>Sharded by decade; the 4.5 MB archive is never served</td></tr>
-                      <tr><th scope="row">Posts to</th><td>@picture-wrap.bsky.social</td></tr>
+                      <tr><th scope="row">Posts to</th><td>@picture-wrap.social</td></tr>
                     </tbody>
                   </table>
                 </div>
@@ -968,26 +1296,119 @@
         </div>
       </article>
 
-      <article class="piece piece--pbg" id="pbg">
+      <article class="piece piece--scale" id="scale">
         <div class="piece-rail">
-          <p class="piece-rank">Origin</p>
+          <p class="piece-rank">Curio</p>
           <dl class="piece-meta">
-            <div><dt>Years</dt><dd>2018–2020</dd></div>
-            <div><dt>For</dt><dd>Provincetown Business Guild</dd></div>
-            <div><dt>Role</dt><dd>Creative Operations Manager</dd></div>
-            <div><dt>Ink</dt><dd class="piece-ink">Magenta</dd></div>
+            <div><dt>Years</dt><dd>2026</dd></div>
+            <div><dt>Instruments</dt><dd>C · B♭ · E♭ · F</dd></div>
+            <div><dt>Role</dt><dd>Self-directed</dd></div>
           </dl>
         </div>
         <div class="piece-body">
-          <h2 class="piece-title">Provincetown Business Guild</h2>
-          <p class="piece-claim">Where the method starts. I did the publishing work — and built the
-            member-and-asset database that produced it, four years before anyone paid me to think
-            this way.</p>
-          <div class="slug slug--4x3">
-            <span class="slug-label">Guides, member map, Pride poster</span>
+          <h2 class="piece-title">Scale Machine</h2>
+          <p class="piece-claim">A trumpet's C sounds a concert B♭. An alto's sounds E♭. Tell four
+            players a tune is in A minor and only the pianist can use it. Scale Machine holds one
+            canonical set of scales and re-spells them for whichever horn you play — twelve keys,
+            engraved, right clef, right key signature. Four players read four different pages and
+            one sound comes out.</p>
+
+          <!-- The instrument itself, running. Static files, no backend, so the
+               frame is the product rather than a picture of it.
+
+               ?tuning= is the product's own documented deep-link parameter —
+               scales.app.js reads URL > localStorage > tuning overlay. Without
+               it the frame opens on a "Select Tuning" gate and a visitor who
+               gave this ten seconds sees no notation at all, which is the
+               Codedesk fault in README §5. B♭ because the claim above opens on
+               a trumpet. -->
+          <div class="embed">
+            <iframe src="https://scalemachine.app/?tuning=bb"
+                    title="Scale Machine — twelve-key scale practice for transposing instruments"
+                    loading="lazy"></iframe>
           </div>
+
+          <p class="credit">Live at <strong><a href="https://scalemachine.app">scalemachine.app</a></strong>
+            · no account, and the microphone never leaves the browser</p>
+
+          <details class="more">
+            <summary class="more-toggle"><span>Music and notation</span></summary>
+            <div class="more-body">
+
+              <section class="more-section">
+                <p class="label">Why it is here</p>
+                <div class="prose">
+                  <h2 class="prose-h">Transposition is compositing</h2>
+                  <p>Everything else on this page composites in space — a plate over a photograph,
+                    a slab under a commons, a studio shot into an empty room. This one composites
+                    in sound, and it is the clearest case because the sources cannot be reconciled
+                    by looking.</p>
+                  <p>The seven notes are the same seven notes. What changes is the page each
+                    player reads. Four musicians hold four different documents, disagreeing about
+                    the name of every note in front of them, and the disagreement is exactly what
+                    makes them agree out loud. That is the whole thesis at the smallest size it
+                    can be seen at.</p>
+                </div>
+              </section>
+
+              <section class="more-section">
+                <p class="label">How it is built</p>
+                <div class="prose">
+                  <h2 class="prose-h">One thing that is true, one thing that draws it</h2>
+                  <p><code>core/theory.js</code> is pure — no DOM, no <code>window</code>, no
+                    knowledge that a browser exists. It spells scales and transposes them, and
+                    that is all it does. <code>core/engrave.js</code> takes what it says and draws
+                    staves. Delete the drawing and the theory is untouched; the split is the same
+                    one every other piece here argues for, at a size where you can hold both
+                    halves in your head at once.</p>
+                  <p>No backend, no build step, no account. The listener runs on the microphone in
+                    the browser and nothing it hears is recorded, uploaded or kept — which is a
+                    design decision, not a privacy notice: there is nowhere for it to go.</p>
+                </div>
+              </section>
+
+              <section class="more-section">
+                <p class="label">Not built yet</p>
+                <div class="prose">
+                  <h2 class="prose-h">A second reader for the same core</h2>
+                  <p>The point of a pure core is that more than one thing can read it. A
+                    key-resolution service and a daily post to Bluesky are specified and not
+                    written — so today the core has exactly one reader, and the claim above is a
+                    structure rather than a demonstration. When the second lands it will be said
+                    here plainly, and not before.</p>
+                </div>
+              </section>
+
+              <section class="more-section">
+                <p class="label">At a glance</p>
+                <div>
+                  <table class="facts">
+                    <tbody>
+                      <tr><th scope="row">Keys</th><td>Twelve, chromatic, enterable at any tonic</td></tr>
+                      <tr><th scope="row">Scale types</th><td>Ten, major through half–whole diminished</td></tr>
+                      <tr><th scope="row">Instruments</th><td>C treble, C bass, B♭, E♭, F</td></tr>
+                      <tr><th scope="row">Notation</th><td>Engraved in the browser, correct clef and key signature</td></tr>
+                      <tr><th scope="row">Listener</th><td>Microphone pitch detection, nothing leaves the page</td></tr>
+                      <tr><th scope="row">Backend</th><td>None</td></tr>
+                      <tr><th scope="row">Second reader</th><td>Specified, not built</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
+            </div>
+          </details>
         </div>
       </article>
+
+      </section>
+
+
+
+
+
+
+
 
     </main>
 

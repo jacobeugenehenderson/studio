@@ -17,17 +17,16 @@
     10  credit line
     11  graph paper
     12  the layer legend
-    13  the reveal
-    14  the stepper
-    15  the pager
-    16  the filmstrip
-    17  three states, one pill
-    18  the shot
-    19  the disclosure
-    20  placeholder slugs
-    21  reading
-    22  footer
-    23  reduced motion
+    13  the stepper
+    14  the pager
+    15  three states, one pill
+    16  the shot
+    17  the disclosure
+    18  the shelf
+    19  curios
+    20  reading
+    21  footer
+    22  reduced motion
    ========================================================================= */
 
 
@@ -311,11 +310,6 @@ a { color: inherit; }
   line-height: var(--lh-snug);
 }
 
-.thesis em {
-  font-style: normal;
-  border-bottom: 2px solid var(--process-m);
-}
-
 
 /* 6 ── colour bar — the piece index ======================================= */
 /*
@@ -375,10 +369,12 @@ a { color: inherit; }
 /* one patch per piece — the ink is the only thing that varies */
 .patch--westelm { --patch: var(--spot-westelm); }
 .patch--nordson { --patch: var(--spot-nordson); }
+.patch--showdesk{ --patch: var(--spot-nordson2); }
 .patch--ascend  { --patch: var(--spot-ascend); }
 .patch--code    { --patch: var(--spot-code); }
 .patch--ward    { --patch: var(--spot-ward); }
 .patch--picture { --patch: var(--spot-picture); }
+.patch--scale   { --patch: var(--spot-scale); }
 .patch--pbg     { --patch: var(--spot-pbg); }
 
 
@@ -408,10 +404,14 @@ a { color: inherit; }
 
 .piece--westelm { --spot: var(--spot-westelm); }
 .piece--nordson { --spot: var(--spot-nordson); }
+/* ShowDesk is the same engagement as Nordson, so it takes that client's
+   second ink — and the name is the giveaway: Copydesk, Codedesk, ShowDesk. */
+.piece--showdesk{ --spot: var(--spot-nordson2); }
 .piece--ascend  { --spot: var(--spot-ascend); }
 .piece--code    { --spot: var(--spot-code); }
 .piece--ward    { --spot: var(--spot-ward); }
 .piece--picture { --spot: var(--spot-picture); }
+.piece--scale   { --spot: var(--spot-scale); }
 .piece--pbg     { --spot: var(--spot-pbg); }
 
 .piece-body { display: grid; gap: var(--s4); }
@@ -456,14 +456,6 @@ a { color: inherit; }
 }
 
 /* the ink name, swatched with the piece's own spot */
-.piece-ink { display: flex; align-items: center; gap: var(--s2); }
-.piece-ink::before {
-  content: "";
-  width: 0.75rem;
-  height: 0.75rem;
-  flex: none;
-  background: var(--spot, var(--rule-firm));
-}
 
 
 /* 9 ── the registered wipe ================================================ */
@@ -502,6 +494,10 @@ a { color: inherit; }
 
 /* No will-change here. It promotes a layer and forces re-rasterisation on every
    clip change, which makes dragging worse rather than better. */
+/* ⚠ `after` is the LEFT side, not the right. The inset is taken from the right
+   edge, so this layer is revealed from x=0 out to --wipe and `before` is what
+   remains to the right of the divider. The names describe stacking order, not
+   position, and reading them as position gets the art the wrong way round. */
 .wipe--ltr .wipe-after { clip-path: inset(0 calc(100% - var(--wipe)) 0 0); }
 .wipe--rtl .wipe-after { clip-path: inset(0 0 0 var(--wipe)); }
 
@@ -517,8 +513,16 @@ a { color: inherit; }
   z-index: 2;
 }
 
+/* Arrows rather than an instruction line. The caption that used to read "drag"
+   is gone from Nordson; this puts the affordance in the handle itself, where it
+   is visible without being read. Shared with West Elm's ten pairs. */
 .wipe-divider::after {
-  content: "";
+  content: "\25C2\00A0\25B8";
+  display: grid;
+  place-items: center;
+  color: var(--paper);
+  font-size: 0.55rem;
+  line-height: 1;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -535,8 +539,8 @@ a { color: inherit; }
    two off true. The class is only present for the length of the animation, so
    dragging itself is never transitioned — that would feel like lag. */
 .wipe.is-snapping .wipe-after,
-.wipe.is-snapping .wipe-before { transition: clip-path 240ms var(--ease-ink); }
-.wipe.is-snapping .wipe-divider { transition: left 240ms var(--ease-ink); }
+.wipe.is-snapping .wipe-before { transition: clip-path 320ms var(--ease-ink); }
+.wipe.is-snapping .wipe-divider { transition: left 320ms var(--ease-ink); }
 
 @media (prefers-reduced-motion: reduce) {
   .wipe.is-snapping .wipe-after,
@@ -585,6 +589,144 @@ a { color: inherit; }
 .wipe:has(.wipe-range:focus-visible) .wipe-divider::after { background: var(--process-m); }
 
 
+/* ---- copy that follows the drag ----------------------------------------
+   Jacob wanted the poster effect — text revealed with the picture. That was
+   built once, INSIDE the clipped layers, and removed with .reveal when the art
+   became two whole machines with no empty half to write into.
+
+   Below the frame it can be had without the mechanism. `--wipe-n` is the same
+   drag value as `--wipe`, unitless, written on the wrapper (js/site.js) so
+   siblings under the frame can read it — a custom property inherits, the clip
+   inside still works, and nothing else on the page opts in.
+
+   IT NEVER GOES BLANK, and that is deliberate. The fading version of the old
+   reveal had a dead zone: drag through the middle and there was nothing to read
+   in either direction until you had gone far enough. Here opacity runs 0.45 to
+   1, so the half you are moving toward inks up and the other recedes, both stay
+   legible, and at centre they are simply equal. Same idea as the layer legend's
+   --dim-a / --dim-b in §12, and for the same reason.
+*/
+
+/* The frame and its copy are one block, so the gap belongs here rather than on
+   .piece-body — which sees this whole thing as a single item. A .figure-cap
+   with a top rule used to provide the separation incidentally; it was removed
+   for duplicating the paragraph lead-ins, and took the breathing room with it.
+   Air plus a hairline: the rule states where the picture stops, and s6 keeps
+   the copy from reading as a caption hanging off the frame. */
+
+[data-wipe-follow] { display: grid; gap: var(--s6); }
+
+[data-wipe-follow] > .prose {
+  border-top: 1px solid var(--rule);
+  padding-top: var(--s5);
+}
+
+
+/* --f is this half's share of the drag, 0 to 100.
+
+   The first version put the two names in a caption row across the top of the
+   frame, one at each end, with the paragraphs stacked below on the left. It
+   failed twice over: the eye never joined a name at the far right to a
+   paragraph at the far left, and each name was then repeated as its own
+   paragraph's lead-in two lines down. The row is gone. The signal now sits ON
+   the copy, where the reader already is.
+
+   Three things move together, because one alone was not distinct enough:
+     · a RULE down the left edge, inked to the piece's spot when active and
+       fully transparent when not — the same device as .piece-rank's marker, so
+       it reads as this site rather than as a highlight
+     · the LEAD-IN runs spot -> ink-soft
+     · the body runs ink -> ink-soft, with opacity 0.85 to 1 under it
+
+   ⚠ THE FLOOR IS --ink-soft, NOT --ink-faint, AND THE OPACITY FADE IS SHALLOW.
+   The first version ran to ink-faint at 0.55 opacity, which measured 1.69:1 in
+   Paper and 2.12:1 in Plate — a paragraph of real copy that a lot of people
+   simply cannot read, and 3.83:1 at the RESTING position, which is what
+   everyone sees. Colour and opacity were both cutting contrast and the two
+   compounded. --ink-faint is itself only 2.82:1 in Paper, so nothing that fades
+   to it can pass. This version measures 13.7:1 active and 5.0:1 fully
+   inactive, worst case across both grounds. Distinctness comes from the rule
+   and the lead-in instead. Re-measure if you touch these numbers.
+
+   The padding stays constant so nothing shifts as the rule fades in.
+*/
+
+.follow {
+  transition: color var(--dur-quick) linear,
+              opacity var(--dur-quick) linear,
+              border-color var(--dur-quick) linear;
+}
+
+.follow--a { --f: calc(100 - var(--wipe-n, 50)); }
+.follow--b { --f: var(--wipe-n, 50); }
+
+.prose > .follow {
+  border-left: 3px solid color-mix(in oklab, var(--spot, var(--ink)) calc(var(--f) * 1%), transparent);
+  padding-left: var(--s3);
+  color: color-mix(in oklab, var(--ink) calc(var(--f) * 1%), var(--ink-soft));
+  opacity: calc(0.85 + 0.15 * var(--f) / 100);
+}
+
+.prose > .follow strong {
+  color: color-mix(in oklab, var(--spot, var(--ink)) calc(var(--f) * 1%), var(--ink-soft));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .follow { transition: none; }
+}
+
+
+/* ---- the ALT badge -------------------------------------------------------
+   Bluesky's convention: a small ALT mark on an image, which opens the written
+   description. Here it does double duty. The description IS the image's alt
+   attribute — so a screen reader has always had it, and the badge is how a
+   sighted reader asks for the same thing. One string, two audiences, and it
+   cannot drift out of sync because js/site.js reads the panel's text straight
+   off the img rather than a copy kept in the markup.
+
+   It sits above the divider (z-index 3) and stops its own pointerdown, or the
+   frame beneath would read the press as the start of a drag and the seam would
+   jump to wherever the badge is.
+*/
+
+.alt-badge {
+  position: absolute;
+  left: var(--s2);
+  bottom: var(--s2);
+  z-index: 3;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--ink);
+  border: 1px solid var(--paper);
+  border-radius: 2px;
+  padding: 0.25em 0.5em;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.72;
+  transition: opacity var(--dur-quick) linear;
+}
+
+.alt-badge:hover,
+.alt-badge[aria-expanded="true"] { opacity: 1; }
+
+.alt-text {
+  font-size: var(--fs-small);
+  line-height: var(--lh-snug);
+  color: var(--ink-soft);
+  border-left: 3px solid var(--spot, var(--rule-firm));
+  padding: var(--s2) 0 var(--s2) var(--s3);
+  margin-top: var(--s3);
+  max-width: var(--measure);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alt-badge { transition: none; }
+}
+
+
 /* 10 ── credit line ======================================================= */
 /*
    A named roster, set as a credit list. Recognisable brands are the highest
@@ -627,8 +769,6 @@ a { color: inherit; }
 }
 
 /* wireframe fills, for reading structure before the art exists */
-.wf-a { background-color: var(--wf-a); }
-.wf-b { background-color: var(--wf-b); }
 
 /* A third fill (.wf-c) and a set of wireframe interface blocks (.wf-ui*) stood
    here for The Ward's placeholder stage — a ticker, a panel, a card and a pill
@@ -696,112 +836,7 @@ a { color: inherit; }
 }
 
 
-/* 13 ── the reveal ======================================================== */
-/*
-   A wipe whose artwork is built so that dragging opens a place to write.
-
-   Two images, identical dimensions, the machine cut on the same axis in both:
-   the photograph carries the machine's left half with background running to the
-   right edge; the drawing carries the right half with background running left.
-
-   At centre the two halves meet and you see one complete machine, half
-   photographed and half drawn. Drag to either end and you get one half-machine
-   beside an empty field, with that side's writing in it.
-
-   Unlike a three-state stack, this works as a wipe: the hybrid at centre is a
-   consequence of how the art is cut, not a third state, so the seam can stay
-   under the pointer where it belongs.
-
-   THE COPY LIVES INSIDE THE WIPE LAYERS, so the same clip that uncovers each
-   image uncovers its writing. There is no fade and no timing to tune. Two
-   consequences, both of which were bugs in the fading version: the seam can
-   never cross the text, because it is always at the text's leading edge; and the
-   reveal begins immediately either side of centre rather than after a long drag
-   through blankness.
-
-   Each block sits in its own layer's empty half — the photograph keeps its
-   machine left and its words right, the drawing the reverse.
-*/
-
-.reveal { position: relative; }
-
-.reveal-copy {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  /* 22%, not 38%: the machine starts at 28.4% and a wider column would run under
-     it. 4% + 22% leaves a couple of percent of air before the drawing begins. */
-  width: 22%;
-  display: grid;
-  gap: var(--s2);
-
-  /* Deliberately NO z-index. The base layer is unclipped, so its copy must be
-     coverable by the layer above it — any z-index here lifts the text out of
-     that stack and leaves it visible at centre, where there should be none. */
-
-  /* Without this the copy swallows the drag wherever it covers the frame. Losing
-     text selection is a fair price for the frame staying grabbable throughout. */
-  pointer-events: none;
-
-  /* Fixed dark ink, not var(--ink). Each block sits on its own layer's pale
-     half — that is what the mirrored grounds are for — and the art does not
-     invert with the theme, so on the plate var(--ink) put pale type on a pale
-     photograph and the writing disappeared. Found by looking at it in Plate;
-     it read perfectly in Paper, which is how it would have shipped. */
-  color: var(--ink-on-art);
-}
-
-.reveal-copy--left  { left: 4%; }
-.reveal-copy--right { right: 4%; }
-
-.reveal-copy h3 {
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  letter-spacing: var(--tr-label);
-  text-transform: uppercase;
-  font-weight: 400;
-  color: var(--ink-on-art-soft);
-}
-
-.reveal-copy p { font-size: var(--fs-small); line-height: var(--lh-snug); }
-
-/* Two wireframe half-machines stood here — a block flush to the 50% line in one
-   half, empty field in the other — so the cut and the writing space could be read
-   before the art existed. The Cordis art landed on 1 August 2026 and they went
-   with it.
-
-   The art moved the writing space. The placeholder assumed a machine filling one
-   whole half, leaving the other half free; the real machine is centred and spans
-   28.4%–71.4% of the frame, so the clear field at each end is only about 28%.
-   Measured off the files, not guessed — the two differ solely in their ground, so
-   the columns where they agree are exactly the machine. */
-
-@media (max-width: 46rem) {
-  /* The side column is about 90px on a phone, which is unusable. The copy becomes
-     a band across the foot of its layer instead — still inside the clip, so the
-     wipe still uncovers it and the mechanism is the same at every width.
-
-     The band needs a wash under it, which the wireframe stage did not. That
-     placeholder machine filled one half and left the other empty, so a band at
-     the foot found clear ground; the Cordis art is centred and runs 3%–97% of
-     the frame, so at this width the band crosses the machine wherever it sits.
-     Dark type on the blue cabinet is unreadable — seen at 390px, not deduced.
-     The wash is confined to this query: the wide layout still sets type on the
-     artwork's own pale field, which needs nothing behind it. */
-  .reveal-copy {
-    top: auto;
-    bottom: 5%;
-    left: 5%;
-    right: 5%;
-    width: auto;
-    transform: none;
-    padding: var(--s4);
-    background: var(--paper-on-art);
-  }
-}
-
-
-/* 14 ── the stepper ======================================================= */
+/* 13 ── the stepper ======================================================= */
 /*
    A pipeline is an ordered thing, so this is a stepper and not a carousel:
    every stage is visible in the strip at once, you always know where you are,
@@ -919,7 +954,7 @@ a { color: inherit; }
 }
 
 
-/* 15 ── the pager ========================================================= */
+/* 14 ── the pager ========================================================= */
 /*
    One frame at a time, paged from the margins.
 
@@ -989,55 +1024,7 @@ a { color: inherit; }
 }
 
 
-/* 16 ── the filmstrip ===================================================== */
-/*
-   A scrolling row of small pairs. Its job is to prove there is a LIBRARY rather
-   than one machine, so each item is itself a miniature pair — photograph above,
-   drawing below — which restates the argument a dozen times over instead of
-   merely showing a dozen things.
-*/
-
-.filmstrip-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: var(--s4);
-  border-bottom: 1px solid var(--rule);
-  padding-bottom: var(--s2);
-  margin-bottom: var(--s3);
-}
-
-.filmstrip {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(11rem, 1fr);
-  gap: var(--s3);
-  overflow-x: auto;
-  scroll-snap-type: x proximity;
-  padding-bottom: var(--s3);
-  overscroll-behavior-x: contain;
-}
-
-.filmstrip-item { scroll-snap-align: start; display: grid; gap: 2px; }
-
-/* the two image cells; named rather than selected by element, so the caption
-   below them needs no specificity fight to opt out */
-.filmstrip-cell {
-  aspect-ratio: 4 / 3;
-  border: 1px solid var(--rule-firm);
-}
-
-.filmstrip-cap {
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  padding-top: var(--s1);
-}
-
-
-/* 17 ── three states, one pill ============================================ */
+/* 15 ── three states, one pill ============================================ */
 /*
    A segmented pill that starts in the middle, choosing between three states of
    one stack. A wipe was wrong here: a wipe compares two registered images by
@@ -1129,7 +1116,40 @@ a { color: inherit; }
 }
 
 
-/* 18 ── the shot ========================================================== */
+/* 16 ── the shot ========================================================== */
+/*
+   Two things live here: `.shot`, a still of a product, and `.embed`, the live
+   product itself. Prefer .embed — it cannot go stale. Use .shot when the thing
+   cannot be framed: ShowDesk runs off a USB stick against a folder of a
+   client's video, so there is nothing to point an iframe at.
+
+   .shot must NOT be combined with .graph: it sets `background` as a shorthand
+   and would eat the grid's background-image, exactly as .embed did. See §11.
+*/
+
+.shot {
+  border: 1px solid var(--rule-firm);
+  overflow: hidden;
+  background: var(--paper-raised);
+}
+
+.shot img { display: block; width: 100%; height: auto; }
+
+/* A shot beside its argument rather than above it. Half width alone left a
+   small picture stranded with its reasoning scrolled off, which is the worst of
+   both: too small to look at, too far from the words to be read with them.
+   `align-items: start` so a short column does not stretch to match a tall one. */
+.shot-aside {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s5);
+  align-items: start;
+}
+
+@media (max-width: 46rem) {
+  .shot-aside { grid-template-columns: 1fr; gap: var(--s4); }
+}
+
 /*
    The tool, showing a code it made — and that code is the link out. One image
    doing three jobs: a picture of the product, a thing the product produced, and
@@ -1165,10 +1185,20 @@ a { color: inherit; }
    holding an aspect ratio guessed from out here. Until then the ratio stands,
    so a product that has not adopted the snippet still looks deliberate.
    See the message listener in js/site.js. */
+/* ⚠ NO TRANSITION ON HEIGHT, and it is not an oversight. There was a 200ms one
+   and it made the frame crawl: the product reports its height on every animation
+   frame while its own accordion is opening or closing, so each new number
+   restarted a fresh 200ms transition from wherever the previous one had reached.
+   The frame never finished a move before being given another, and chased the
+   content down instead of following it — Jacob described it as moving slowly and
+   taking a long time to shrink.
+
+   Snapping is correct here. The thing that should appear to animate is the
+   product's own drawer, INSIDE the frame; the frame is just the window it is
+   seen through, and a window that eases is a window that lags. */
 .embed.is-sized {
   aspect-ratio: auto;
   height: var(--embed-h);
-  transition: height 200ms var(--ease-ink);
 }
 
 @media (max-width: 46rem) {
@@ -1180,14 +1210,10 @@ a { color: inherit; }
   .embed--ward { aspect-ratio: 4 / 3; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .embed.is-sized { transition: none; }
-}
 
-
-/* 19 ── the disclosure ==================================================== */
+/* 17 ── the disclosure ==================================================== */
 /*
-   Seven pieces on one page. Each keeps its working component visible at all
+   Eight pieces on one page. Each keeps its working component visible at all
    times and puts the reading behind a twirl.
 
    The rule that matters: collapsed is a PREVIEW, never a closed door. The old
@@ -1214,7 +1240,7 @@ a { color: inherit; }
   font-size: var(--fs-label);
   letter-spacing: var(--tr-label);
   text-transform: uppercase;
-  color: var(--ink-faint);
+  color: var(--ink-soft);
   list-style: none;                 /* Firefox marker */
   transition: color var(--dur-quick) linear;
 }
@@ -1222,21 +1248,39 @@ a { color: inherit; }
 .more-toggle::-webkit-details-marker { display: none; }
 .more-toggle:hover { color: var(--ink); }
 
+/* The sign LEADS the label and sits right beside it. It used to be pushed to
+   the far edge by space-between, which put a swatch on the right of the column
+   and a word on the left with a foot of nothing between them — two unrelated
+   things rather than one control. */
 .more-toggle > span {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--s4);
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--s3);
 }
 
-.more-toggle > span::after {
+/* The sign was a bare "+" in the spot ink and read as punctuation rather than a
+   control. It is now a filled square carrying a knocked-out glyph — the same
+   device as the colour bar's patches, so the piece's ink appears here as a
+   swatch instead of as coloured type. */
+.more-toggle > span::before {
   content: "+";
-  font-size: var(--fs-body);
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.65rem;
+  height: 1.65rem;
+  font-size: var(--fs-h3);
   line-height: 1;
-  color: var(--spot, var(--ink-faint));
+  color: var(--paper);
+  background: var(--spot, var(--ink));
+  transition: opacity var(--dur-quick) linear;
+  opacity: 0.9;
 }
 
-.more[open] .more-toggle > span::after { content: "\2212"; }   /* minus */
+.more-toggle:hover > span::before { opacity: 1; }
+
+.more[open] .more-toggle > span::before { content: "\2212"; }   /* minus */
 
 .more-toggle:focus-visible { outline: 2px solid var(--process-m); outline-offset: 3px; }
 
@@ -1251,52 +1295,213 @@ a { color: inherit; }
 .more-section { display: grid; gap: var(--s3); }
 
 
-/* 20 ── placeholder slugs ================================================= */
+/* 18 ── the shelf ========================================================= */
 /*
-   Everything visual is a slug until the real asset is wired. Correct aspect
-   ratio, labelled with what belongs there, and unmistakably not artwork.
+   Provincetown's publications, as covers.
+
+   A shelf, not a pager. The argument this piece makes is the *extent* — a body
+   of work over three years, all of it out of one member-and-asset database —
+   and `.pager` shows one at a time, which is exactly what hides an extent. Same
+   reason it is not a stepper: this is not a sequence, it is a shelf.
+
+   COMMON HEIGHT, NOT COMMON WIDTH, and that is the whole layout.
+
+   Six of the eight covers are 2:3 and two are not: the 2019 summer guide is a
+   real 288x720pt rack card and the members map is a folded panel. Set to a
+   common width — the first version of this — those two towered over the other
+   six, and six agreeing while two disagree does not read as variety, it reads
+   as two images someone sized wrong. Jacob caught it.
+
+   Set to a common height, the same difference reads correctly: a narrow one and
+   a wide one, standing on the same shelf. Nothing is cropped to achieve it, so
+   the artifacts stay honest. Flex rather than grid because the whole point is
+   that the columns are NOT equal — a grid track would either pad the narrow
+   ones or squash the wide ones back into a product grid.
 */
 
-.slug {
-  position: relative;
+.shelf {
+  display: flex;
+  flex-wrap: wrap;
+  /* Every cover is the same height, so aligning the tops aligns the bottoms
+     too — and a caption that wraps to two lines then hangs below without
+     shoving its cover out of line, which flex-end would do. */
+  align-items: flex-start;
+  gap: var(--s5) var(--s4);
+  margin: var(--s5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.shelf-item { display: flex; }
+
+/* min-content keeps the column exactly as wide as the cover. Without it the
+   box sizes to whichever is wider, cover or caption, so a long title like
+   "Winter + Holiday Guide" silently pushed the next cover further away than
+   its neighbours and the gaps between covers stopped being equal. */
+.shelf-link {
   display: grid;
-  place-items: center;
-  background: var(--paper-sunk);
-  border: 1px solid var(--rule-firm);
-  overflow: hidden;
+  grid-template-columns: min-content;
+  gap: var(--s2);
+  text-decoration: none;
+  color: inherit;
+  transition: opacity var(--dur-quick) var(--ease-ink);
 }
 
-.slug::before,
-.slug::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(var(--slug-angle), transparent calc(50% - 0.5px), var(--rule) calc(50% - 0.5px) calc(50% + 0.5px), transparent calc(50% + 0.5px));
-  opacity: 0.5;
-}
-.slug::before { --slug-angle: to bottom right; }
-.slug::after  { --slug-angle: to bottom left; }
+.shelf-link:hover { opacity: 0.78; }
 
-.slug-label {
-  position: relative;
-  z-index: 1;
+.shelf-cover {
+  display: block;
+  height: var(--shelf-cover);
+  width: auto;
+  border: 1px solid var(--rule);
+}
+
+.shelf-name {
   font-family: var(--font-mono);
   font-size: var(--fs-label);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink-soft);
-  background: var(--paper);
-  padding: 0.35em 0.6em;
-  border: 1px solid var(--rule-firm);
-  text-align: center;
-  max-width: 80%;
+  /* Two lines' worth whether it needs them or not, so a title that wraps under
+     a narrow cover does not push its own date line out of step with the rest
+     of the row. */
+  min-height: 2lh;
+}
+
+.shelf-meta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
 }
 
 
-.slug--4x3  { aspect-ratio: 4 / 3; }
+/* 19 ── curios ============================================================ */
+/*
+   A collection, not a leftovers bin. Jacob's own CURIOS repo is "web projects
+   and experiments" and Scale Machine already lives in it, so the page is
+   reflecting how the work is actually filed.
+
+   It sits AFTER Provincetown, as an appendix: the numbered spine runs 00 to 6
+   and these are the odds and ends, which is why they rank Curio rather than a
+   number — Provincetown is BEFORE the sequence, the curios are outside it.
+
+   The old site's cover loop stood here for one session — see README §8 for the
+   four reasons it went. Anything put back in its place is fixed art that does
+   not know the theme changed, so type over it must use --ink-on-art.
+
+   Gap is s6 rather than .pieces' s8: each piece inside already carries its own
+   border-top and padding, so the larger gap read as a hole under the header.
+*/
+
+.curios {
+  display: grid;
+  gap: var(--s6);
+  border-top: 2px solid var(--ink);
+  padding-top: var(--s4);
+}
+
+/* The header has to run the SAME two-column grid as .piece. As a plain child of
+   .pieces it spanned the rail as well, so the cover began where nothing else on
+   the page begins — the one thing on the site that was not on the measure. No
+   --spot is set: the fallback rule-firm is right, because a collection is not a
+   piece and should not borrow one's ink. */
+.curios-head {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: var(--gutter);
+}
+
+.curios-intro { display: grid; gap: var(--s4); }
+
+/* ---- the mark: the masthead's device, saying the opposite ----------------
+   Four plates again, pulling in on the same easing over the same duration —
+   and stopping about TWO AND A HALF TIMES further short of true than the name
+   does (0.026em against 0.011em, 0.16deg against 0.06deg) — close enough to
+   read as registered, off by enough to see. The masthead's residual
+   fringe says a press never registers perfectly. This one says the same press
+   was run fast, on a job that did not warrant the care, which is what these
+   two pieces are. Nothing new is introduced: same inks, same blend, same ease.
+
+   It comes together ON THE SCROLL, not on a clock: the plates are driven by
+   `animation-timeline: view()`, so the reader pulls them into register by
+   moving down the page and can push them back out by scrolling up. At the foot
+   of the page a timed animation would be over before anyone arrived.
+
+   Where a browser has no scroll timeline (Firefox today), js/site.js adds
+   .is-registering when the mark comes into view and the same keyframes run on
+   the clock instead. The JS feature-detects, so exactly one of the two fires. */
+
+.curios-mark {
+  position: relative;
+  isolation: isolate;        /* keep the blend off the page background */
+  width: max-content;
+  max-width: 100%;
+}
+
+.curios-plate {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-mark);
+  line-height: 1;
+  letter-spacing: var(--tr-name);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* C, M and Y are absolute copies over the K plate, which sits in the flow and
+   establishes the box — exactly as §4 does it. */
+.curios-plate--c,
+.curios-plate--m,
+.curios-plate--y {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: var(--plate-blend);
+  pointer-events: none;
+}
+
+.curios-plate--c { color: var(--process-c); transform: translate(-0.15em, 0.075em) rotate(-0.85deg); }
+.curios-plate--m { color: var(--process-m); transform: translate(0.13em, -0.09em) rotate(0.72deg); }
+.curios-plate--y { color: var(--process-y); transform: translate(0.055em, 0.14em) rotate(0.5deg); }
+.curios-plate--k { position: relative; color: var(--ink); mix-blend-mode: normal; }
+
+.curios-mark.is-registering .curios-plate--c { animation: curios-c var(--dur-register) var(--ease-ink) forwards; }
+.curios-mark.is-registering .curios-plate--m { animation: curios-m var(--dur-register) var(--ease-ink) forwards; }
+.curios-mark.is-registering .curios-plate--y { animation: curios-y var(--dur-register) var(--ease-ink) forwards; }
+
+/* The real version. `both` holds the 0% state before the range opens, so the
+   plates sit badly out of register until the mark is actually approached, and
+   hold the 100% state after. Range is deliberately generous — the mark is a
+   short element, so `entry` alone would resolve the whole thing in a few dozen
+   pixels of scroll and read as a snap rather than a press coming to true.
+
+   The end of the range is the tuning knob. Jacob set it by eye: 35% finished
+   too low, and 70% is where he wanted it. Note the number is NOT the screen
+   position it resolves to — the perceived point runs ahead of it — so tune this
+   by looking, not by arithmetic. All three rules must keep the SAME range, or
+   the plates arrive at different moments, which is a different effect and not
+   this one. */
+@supports (animation-timeline: view()) {
+  .curios-mark .curios-plate--c { animation: curios-c linear both; animation-timeline: view(); animation-range: entry 0% cover 70%; }
+  .curios-mark .curios-plate--m { animation: curios-m linear both; animation-timeline: view(); animation-range: entry 0% cover 70%; }
+  .curios-mark .curios-plate--y { animation: curios-y linear both; animation-timeline: view(); animation-range: entry 0% cover 70%; }
+}
+
+@keyframes curios-c {
+  0%, 20% { transform: translate(-0.15em, 0.075em) rotate(-0.85deg); }
+  100%    { transform: translate(-0.026em, 0.012em) rotate(-0.16deg); }
+}
+@keyframes curios-m {
+  0%, 20% { transform: translate(0.13em, -0.09em) rotate(0.72deg); }
+  100%    { transform: translate(0.022em, -0.015em) rotate(0.14deg); }
+}
+@keyframes curios-y {
+  0%, 20% { transform: translate(0.055em, 0.14em) rotate(0.5deg); }
+  100%    { transform: translate(0.010em, 0.024em) rotate(0.09deg); }
+}
 
 
-/* 21 ── reading =========================================================== */
+/* 20 ── reading =========================================================== */
 /*
    What survived the collapse to one page. The rest of this section styled
    standalone case-study pages — crumb, work-head, work-nav and friends — and
@@ -1352,7 +1557,7 @@ a { color: inherit; }
 }
 
 
-/* 22 ── footer ============================================================ */
+/* 21 ── footer ============================================================ */
 
 .site-footer {
   margin-top: var(--s9);
@@ -1378,6 +1583,7 @@ a { color: inherit; }
   :root { --rail: 0rem; --gutter: 0rem; }
 
   .thesis,
+  .curios-head,
   .piece { grid-template-columns: 1fr; gap: var(--s3); }
 
   .facts th { width: auto; }
@@ -1406,7 +1612,7 @@ a { color: inherit; }
 }
 
 
-/* 23 ── reduced motion ==================================================== */
+/* 22 ── reduced motion ==================================================== */
 /*
    The plates land pre-registered — at the residual offset, not at zero, so the
    fringe survives. Nothing moves, nothing is lost.
@@ -1420,6 +1626,20 @@ a { color: inherit; }
   .name-plate--c { transform: translate(-0.011em, 0.005em) rotate(-0.06deg); }
   .name-plate--m { transform: translate(0.009em, -0.006em) rotate(0.05deg); }
   .name-plate--y { transform: translate(0.004em, 0.010em) rotate(0.03deg); }
+
+  /* The curios mark lands at ITS residual. Both drivers have to be switched
+     off — the clock one AND the scroll timeline — or the plates keep moving
+     with the scroll for exactly the reader who asked them not to. */
+  .curios-mark .curios-plate--c,
+  .curios-mark .curios-plate--m,
+  .curios-mark .curios-plate--y,
+  .curios-mark.is-registering .curios-plate--c,
+  .curios-mark.is-registering .curios-plate--m,
+  .curios-mark.is-registering .curios-plate--y { animation: none; animation-timeline: auto; }
+
+  .curios-plate--c { transform: translate(-0.026em, 0.012em) rotate(-0.16deg); }
+  .curios-plate--m { transform: translate(0.022em, -0.015em) rotate(0.14deg); }
+  .curios-plate--y { transform: translate(0.010em, 0.024em) rotate(0.09deg); }
 
   .colorbar-link { transition: none; }
 }

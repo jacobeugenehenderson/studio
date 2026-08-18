@@ -32,7 +32,7 @@
   function describe(button, ground) {
     button.setAttribute(
       'aria-label',
-      ground === 'dark' ? 'Switch to paper — the light ground' : 'Switch to plate — the dark ground'
+      ground === 'dark' ? 'Switch to the light ground' : 'Switch to the dark ground'
     );
   }
 
@@ -53,6 +53,28 @@
 
   var stock = document.querySelector('.stock');
   if (stock) wire(stock);
+
+  /* ---- the curios mark: FALLBACK ONLY ------------------------------------
+     The mark comes together on the scroll, and that is done in CSS with
+     `animation-timeline: view()` (site.css §21) — presentation belongs in the
+     stylesheet. This runs only where there is no scroll timeline (Firefox
+     today): an observer trips the same keyframes on the clock when the mark
+     comes into view. Exactly one of the two ever fires. */
+
+  var scrollTimeline = window.CSS && CSS.supports &&
+                       CSS.supports('animation-timeline', 'view()');
+  var mark = scrollTimeline ? null : document.querySelector('.curios-mark');
+  if (mark && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-registering');
+        obs.unobserve(entry.target);
+      });
+    }, { threshold: 0.4 }).observe(mark);
+  } else if (mark) {
+    mark.classList.add('is-registering');
+  }
 
   /* ---- the registered wipe ---------------------------------------------
      The range input owns the value; this only mirrors it onto --wipe so the
@@ -83,7 +105,11 @@
   function bindDrag(frame, range, apply, opts) {
     var pending = null;
     var snapAt = opts && opts.snapAt;
-    var snapWithin = (opts && opts.snapWithin) || 7;
+    /* 20, not 7. Jacob asked for it to return to centre from "anywhere near"
+       it — a seven-percent band is a nudge you have to aim for. Twenty means
+       roughly the middle fifth of the frame lets go and settles. Shared with
+       West Elm's ten pairs, which want the same thing. */
+    var snapWithin = (opts && opts.snapWithin) || 20;
 
     function commit(value) {
       var v = Math.min(100, Math.max(0, value));
@@ -131,7 +157,7 @@
       commit(snapAt);
       window.setTimeout(function () {
         frame.classList.remove('is-snapping');
-      }, 260);
+      }, 340);
     }
 
     function release(e) {
@@ -172,9 +198,42 @@
     if (!range) return;
     /* Kept on the element so the pager can recentre a pair when it comes into
        view, without reaching into bindDrag's internals. */
+    /* A wrapper marked data-wipe-follow also gets the value UNITLESS, so copy
+       below the frame can lean toward whichever end is being uncovered. Only
+       Nordson opts in; West Elm's ten pairs are unaffected. */
+    var follow = frame.parentElement &&
+                 frame.parentElement.closest('[data-wipe-follow]');
+
     frame.setWipe = bindDrag(frame, range, function (v) {
       frame.style.setProperty('--wipe', v + '%');
+      if (follow) follow.style.setProperty('--wipe-n', v);
     }, { snapAt: 50 });
+  });
+
+  /* ---- the ALT badge -----------------------------------------------------
+     The description lives in the image's own alt attribute and nowhere else.
+     This copies it into the panel on demand, so the written text and the
+     accessible text are the same string and cannot drift. Nothing is created
+     if a frame has no described image.
+
+     stopPropagation on pointerdown because the badge sits inside the wipe, and
+     the frame treats any press on itself as the beginning of a drag. */
+
+  Array.prototype.forEach.call(document.querySelectorAll('.alt-badge'), function (badge) {
+    var frame = badge.closest('.wipe');
+    var slide = badge.closest('.pager-slide') || frame.parentElement;
+    var panel = slide && slide.querySelector('.alt-text');
+    var img = frame && frame.querySelector('.wipe-after img');
+    if (!panel || !img || !img.alt) { badge.remove(); return; }
+
+    badge.addEventListener('pointerdown', function (e) { e.stopPropagation(); });
+
+    badge.addEventListener('click', function () {
+      var open = badge.getAttribute('aria-expanded') === 'true';
+      if (!open && !panel.textContent) panel.textContent = img.alt;
+      badge.setAttribute('aria-expanded', String(!open));
+      panel.hidden = open;
+    });
   });
 
   /* ---- the pager --------------------------------------------------------
