@@ -5,11 +5,15 @@ Static HTML/CSS/JS, no framework, no build step.
 
 ```
 repo     ~/Desktop/dev.nosync/jacobhenderson-studio   (branch: rebuild)
-         ⚠ 1 Aug 2026: rebuild is 19 commits AHEAD of origin/rebuild, and
-         nothing of it is public. Pages builds from `main` (legacy source,
-         branch + root), so jacobhenderson.studio still serves the old site.
-         Check: git status -sb, and curl the domain for `iframe src=` — 0
-         means the rebuild has not landed.
+         10 Aug 2026: the rebuild IS public. origin/main and origin/rebuild
+         are the same commit, and jacobhenderson.studio serves it.
+         The warning that stood here — "19 commits ahead, nothing public" —
+         was true on 1 Aug and false by the 2nd; it survived a week because
+         nobody re-ran its own check. Local `main` still sits behind at
+         9eae70c; it is a strict ancestor and has simply never been fetched,
+         which is bookkeeping, not a deploy problem.
+         Check: curl the domain for `iframe src=` — 4 today, 0 would mean
+         the rebuild has not landed.
 serve    python3 -m http.server 8787 --bind 127.0.0.1
 ```
 
@@ -51,6 +55,14 @@ getting it wrong cost a rebuild.
 
 ## Outstanding
 
+0. **Curios has no cover, deliberately — do not put the video back.** The old
+   site's loop was placed and cut within one session. Four reasons, in README
+   §8; the one that settles it is that the *source* is 1080p at 3 Mbps, so it
+   cannot be made sharp at any weight this page can carry. The four extracted
+   covers stay in `_source/curios/` so `/Volumes/Today` need not be read again.
+   Check: `grep -c '<video' index.html` — 0.
+
+
 Every line below was checked against the code on 30 July 2026, not carried
 forward from a previous note. Where a claim is checkable, how to check it is
 written next to it. **Re-verify before trusting; do not just re-copy.**
@@ -70,7 +82,10 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
 
    While in there: the emoji picker works but renders dark on a light app, and
    Codedesk wires it twice. Both noted below.
-2. **The Ward — embedded as three layers, 30 July 2026. NOT YET LIVE.**
+2. **The Ward — embedded as three layers, 30 July 2026. Live on the site since
+   2 Aug, still pointing at the product's STAGING build.** The heading here read
+   "NOT YET LIVE" until 10 Aug, which stopped being true the moment the rebuild
+   published; what is not live is the *prod* Ward, not the embed.
 
    **One demo area.** The wireframe that stood above the embed is gone — it was
    the spec for the demo, and once the demo existed it could only disagree with
@@ -182,13 +197,56 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
 
    Still open: the pill's wireframe art is placeholder, now sitting above a
    live render of the same neighbourhood. See README §8.
-3. **Provincetown — built, waiting on art.** Two previous notes said no section
-   existed; `article#pbg` has been in `index.html` all along, at line 914, with
-   rail, meta, claim and one labelled 4×3 slug. It is the quiet one by design —
-   no interaction, and none wanted. What is missing is only the flat scans of
-   the guides, member map and Pride poster.
-   Check: `grep -c '<article class="piece' index.html` — seven, as COLOPHON says.
-4. **From Jacob:** how many photograph/illustration pairs exist for the Nordson
+3. **Scale Machine — added as piece 7, 10 Aug 2026.** Live embed of
+   `scalemachine.app`, spot ink cyan (`--spot-scale`, from the app's own
+   `--accent: #22d3ee`, deepened to a press ink so it does not collide with
+   `--process-c` or Nordson blue). Article order is now
+   `westelm > nordson > ascend > code > ward > picture > scale > pbg` — **stale
+   as of 16 Aug 2026**, see README §8 for the current order and why it changed.
+   Provincetown ranks `00` — it was `Origin` until 16 Aug 2026, see README §8. `index.html`'s thesis line went "six scales" → "seven".
+
+   **The frame carries `?tuning=bb` and must keep it.** Without it the embed
+   opens on a *Select Tuning* modal and a visitor sees no notation at all.
+   That is the product's own documented parameter — `scales.app.js` §"Precedence:
+   URL > localStorage > tuning overlay" — not the page reaching into the frame.
+   It does write through to the product's `localStorage`; see README §5.
+
+   Outstanding, both product-side: no `embed-height.js` in that repo, and its
+   `LEDGER.md` job 6 calls the mobile layout "already too cramped to read."
+4. **Provincetown — the shelf is in, 10 Aug 2026. The art was never missing.**
+
+   Three previous notes recorded this as "waiting on flat scans." The scans
+   existed the whole time, inside the 601 MB All-in-One WP Migration `.wpress`
+   of the **old** jacobhenderson.studio WordPress site, at
+   `/Volumes/Today/Jacob/wordpress-archive/`. `_source/archive/wpress.py` reads
+   it; `list` walks headers only, and one `get` pass pulled everything, so the
+   flaky drive was read once and never again. Originals now live in
+   `_source/pbg` (gitignored).
+
+   Eight covers in `assets/pbg` (1.4 MB), each linking to the publication in
+   `assets/pbg/full/` — seven PDFs through Ghostscript `/ebook`, 150 MB → **60
+   MB with real text kept**, plus the Pride poster as a JPG since a poster has
+   no pages. **That 60 MB is committed and permanent in git history**; the page
+   itself only loads the covers, so it is opt-in weight for a visitor.
+
+   ⚠ **The filenames lie, and both were caught by rendering page 1.**
+   `2020_Carnival_Cover.jpg` is the **2019** cover — 41st Carnival, August 2019
+   — and there appears to have been no 2020 Carnival.
+   `PBG_2019_Summer_Guide_Download.pdf` duplicates `PBG_Summer_Guide_2019.pdf`
+   and was dropped. Anything else pulled from this archive: render it, do not
+   trust what it is called.
+
+   **This reverses a recorded decision** — the note here said "the quiet one by
+   design — no interaction, and none wanted." A shelf of links keeps the spirit
+   (nothing drags, animates or holds state), but it is a reversal rather than
+   an oversight.
+
+   Still open: the piece has **no `.more` case**, so it is now all *what it
+   does* and none of *what it is* — the database that produced all eight. That
+   is the obvious next thing and it needs Jacob, because nothing on disk
+   describes how that database worked.
+   Check: `grep -c '<article class="piece' index.html` — eight now, not seven.
+5. **From Jacob:** how many photograph/illustration pairs exist for the Nordson
    filmstrip. The Cordis pair landed 1 Aug 2026 and is built — see below.
 
 ### The QR engine's missing pieces live in okQRal — stop hunting
@@ -267,23 +325,27 @@ deleted and `styles/theme.css` modified, all unstaged. Codedesk still references
   `flex-shrink: 0` an item contributes its flex base size no matter what its
   floor is. It was removed again rather than left in looking useful.
   Check: measure `article.piece` at `width: min-content` in a 390px iframe.
-- **The Cordis reveal is real art.** Landed 1 Aug 2026. Both files hold the
-  *same* machine, already composited — drawing left of centre, photograph right,
-  cut at exactly x = 1000 — and differ **only** in which side the pale ground
-  falls on. Verified by differencing them: the machine is pixel-identical, so
-  every column where the two agree is the machine.
+- **The Cordis hero is a plain wipe, and the `.reveal` component is gone.**
+  17 Aug 2026. Jacob replaced the art with a **whole photograph and a whole
+  drawing** of the Cordis VT — same framing, both stamped from one PSD at 2x, so
+  they register by construction. Drag to either end and you get one complete
+  machine; the ends are captioned **Creative Direction** and **Creative
+  Operations**, which is the piece's argument.
 
-  That mirroring is the mechanism, not decoration. Each layer writes its copy
-  into its own pale half, so `paper-left` is the layer with copy on the left and
-  `paper-right` the one on the right. **Swap them and you get type on Nordson
-  blue.** The frame is 1.4993 against `.wipe--3x2`, and the machine's own cut
-  falls on the wipe's rest position, so the handle sits on the join and the seam
-  is the artwork's seam. At centre the ground reads as one unbroken blue and no
-  copy shows; drag either way and a pale field opens carrying the writing.
+  ⚠ **Do not try to verify the registration by measuring edges.** It was tried
+  and reported the machine 20px narrower in the drawing — because flat colour
+  against blue gives a softer gradient than a photograph against grey. That
+  measured edge CONTRAST, not position, and it was wrong.
 
-  Built through `tools/build-images.py` like everything else — originals in
-  `_source/nordson/`, 1600px q80 derivatives in `assets/nordson/`, 765 KB down
-  to ~92 KB each, the pair forced to identical dimensions.
+  The pair builds at **2000px, not the file-wide 1600** (`NORDSON_W`): the source
+  is a deliberate 2x stamp and the column tops out near 1000 CSS px. 5.3 MB of
+  originals → 240 KB served.
+
+  What went with it: `.reveal`, `.reveal-copy` and site.css §13, plus eleven
+  section renumbers. The old art (`Cordis-Spread-1/2`) held half a drawing and
+  half a photograph in each file so the reveal had an empty half to write into.
+  Whole pictures have no empty half, so the copy moved below the frame.
+
 - **Picture Wrap self-sizes.** Confirmed 1 Aug 2026: `embed-height.js` is
   tracked in `~/Desktop/dev.nosync/picture-wrap`, byte-identical to
   `docs/embed-height.js`, and `picture-wrap.com` serves it at its

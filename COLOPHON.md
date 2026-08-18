@@ -31,7 +31,7 @@ no build step, nothing shipped that it didn't write. The only offline tool is an
 image pipeline that turns `_source/` originals into served derivatives.
 
 **The live pieces are the products themselves**, framed from their own public
-addresses — not screenshots, and not copies hosted here. Three of the seven run
+addresses — not screenshots, and not copies hosted here. Four of the nine run
 that way. The Ward goes furthest: its slab and its player are separate payloads
 by contract, so the page mounts them separately and lets you switch between
 them, which is the site's whole argument demonstrated by the one piece that can
@@ -49,11 +49,11 @@ point.
 | Document | What it holds |
 |---|---|
 | `CLAUDE.md` | Binding instructions for a session: you are Colophon, follow the read-in first, the non-negotiables. Loaded as instruction rather than background, which memory is not. |
-| `README.md` | The argument the site makes, the seven rules, which component is right for which job, six traps already fallen into, the audit script, current state. **Start here.** |
+| `README.md` | The argument the site makes, the seven rules, which component is right for which job, every trap already fallen into, the audit script, current state. **Start here.** (It said "six traps" until 10 Aug, when there were thirteen. A count in a sentence nobody re-counts is a note that goes stale on its own — the traps are numbered nowhere, so do not number them here.) |
 | `docs/read-in.md` | **Start-of-session procedure.** What to read, in what order, what to skip, how to verify the docs before trusting them, and the working posture. |
 | `docs/handoff.md` | The short baton. Where things are, what not to do, what's outstanding. |
 | `docs/okqral-cleanup-brief.md` | A behaviour-preserving vestigial pass on okQRal, plus findings from a first look and the sequencing that matters. |
-| `docs/embed-height.js` | The snippet each embedded product carries so it can report its own height. Same file in all three — do not fork it. |
+| `docs/embed-height.js` | The snippet an embedded product carries so it can report its own height. Byte-identical wherever it appears — do not fork it. In Codedesk and Picture Wrap; wanted in Scale Machine; deliberately not in The Ward. |
 | `docs/rebuild-plan.html` | The original plan. Superseded in places by what actually got built; kept because the reasoning still holds. |
 | `tools/build-images.py` | `_source/` → `assets/`. Forces each pair to identical dimensions and reports whether every pair registered. |
 | Commit messages | Where the *why* of each decision is written, including the ones that were wrong first. |
@@ -75,7 +75,7 @@ outside this repo, at
 
 The site argues one thing: **compositing** — sources captured separately, under
 conditions that never coincided, made into one thing that reads as though it
-always was. Seven pieces demonstrate it at different scales.
+always was. Nine pieces demonstrate it at different scales.
 
 Much of what is written down exists because it was got wrong first. A wipe was
 built three times before it was understood that centre-composed and

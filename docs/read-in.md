@@ -61,6 +61,18 @@ r=set(re.findall(r'var\((--[a-z0-9-]+)',site+tokens+js))
 print('unused token:', sorted(d-r) or 'none')
 n=[int(m.group(1)) for m in re.finditer(r'^/\* (\d+) ── ',site,re.M)]
 print('sections    :', 'ok' if n==list(range(1,len(n)+1)) else f'DRIFT {n}')
+o,c=html.count('<!--'),html.count('-->')
+print('comments    :', 'ok' if o==c else f'UNBALANCED {o} open / {c} close')
+body=re.sub(r'<!--.*?-->','',html,flags=re.S)
+VOID={'img','input','br','hr','meta','link','source','area','base','col'}
+stack=[];bad=[]
+for m in re.finditer(r'<(/?)([a-zA-Z][a-zA-Z0-9]*)\b[^>]*?(/?)>',body):
+    cl,nm,sf=m.group(1),m.group(2).lower(),m.group(3)
+    if nm in VOID or sf: continue
+    if not cl: stack.append(nm)
+    elif stack and stack[-1]==nm: stack.pop()
+    else: bad.append(nm)
+print('tags        :', 'ok' if not stack and not bad else f'UNCLOSED {stack[:4]} MISMATCH {bad[:4]}')
 EOF
 ```
 

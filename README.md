@@ -34,8 +34,9 @@ support it should be cut rather than kept.
 > and a runtime become a place you can walk around in.
 
 The same structure recurs across fifteen years and four industries: separate
-tools, each publishing one canonical artifact, composed by a runtime. Seven
-pieces demonstrate it at different scales.
+tools, each publishing one canonical artifact, composed by a runtime. Nine
+pieces demonstrate it at different scales — six numbered, two in Curios, and
+Provincetown at 00.
 
 **Title:** *Creative Operations* leads as the practice, *Creative Director*
 carries the level. People recognise the second but it reads light, and the point
@@ -53,6 +54,8 @@ css/site.css            everything else, in numbered sections
 js/site.js              theme switch, drag, pager, disclosure-from-hash
 assets/                 committed, served
 assets/west-elm/        derivatives built from _source
+assets/pbg/             Provincetown covers, likewise
+assets/pbg/full/        the publications themselves — 7 PDFs + the poster, 60 MB
 tools/build-images.py   _source → assets
 docs/                   working documents, not served
 _source/                originals, gitignored, never served
@@ -112,13 +115,14 @@ Getting this wrong cost several rebuilds. The distinction is worth keeping.
 
 | Component | Use when |
 |---|---|
-| **`.wipe`** | Two **registered** images of the same frame, where the point is seeing a difference *in place* — a plate against its composite. Not for comparing two unrelated things. |
-| **`.reveal`** | A wipe whose artwork is cut so each end opens an empty field, and the copy lives *inside* the clipped layers so the seam uncovers writing as it uncovers picture. |
+| **`.wipe`** | Two **registered** images of the same frame, where the point is seeing a difference *in place* — a plate against its composite, a machine photographed against the same machine drawn. Not for comparing two unrelated things. |
 | **`.states` + `.pill`** | Three or more discrete views of one stack, where one of them is the whole frame at once. A wipe cannot express that: centre-composed and seam-follows-finger are geometrically incompatible. |
 | **`.stepper`** | An ordered sequence. Every stage stays visible, nothing auto-advances. |
 | **`.pager`** | Many variations of one argument. One at a time, buttons in the margins so paging is never confused with dragging, and a visible count so the extent is known. |
-| **`.embed`** | Any live product. Preferred over a screenshot: it is the actual thing, and it cannot go stale. **Three embeds exist today** — Codedesk, Picture Wrap and The Ward. This row has now been wrong three times: first claiming renders-plus-a-link, then claiming all three embedded while only two were, then claiming the iframe count was 2 because a launcher injected The Ward's frame — true for about an hour, until the launcher was removed. **Count, do not trust:** `grep -c "iframe src=" index.html` → 3, `grep -c 'class="embed[ "]' index.html` → 3. Line numbers are deliberately not given here; they move. |
+| **`.shelf`** | A **body of work**, where the extent is the argument — Provincetown's eight publications out of one database. All of it visible at once, which is exactly what `.pager` destroys by showing one at a time, and it is not a `.stepper` because it is not a sequence. Sized to a common **height**, so formats that differ come out narrower or wider rather than cropped. |
+| **`.embed`** | Any live product. Preferred over a screenshot: it is the actual thing, and it cannot go stale. **Four embeds exist today** — Codedesk, Picture Wrap, The Ward and Scale Machine. This row has now been wrong three times and revised a fourth: first claiming renders-plus-a-link, then claiming all three embedded while only two were, then claiming the iframe count was 2 because a launcher injected The Ward's frame — true for about an hour, until the launcher was removed; then it was 3 for a week, until Scale Machine landed. **Count, do not trust:** `grep -c "iframe src=" index.html` → 4, `grep -c 'class="embed[ "]' index.html` → 4. Both were run, not assumed. Line numbers are deliberately not given here; they move. |
 | **`.pill` driving an `.embed`** | When a piece both switches views *and* embeds the product, one control must do both, or the diagram contradicts the thing beside it. On The Ward the pill chooses which **payload** the running product shows. See *An embed can be more than one payload* below. |
+| **`.shot`** | A still of a product, when the product **cannot be framed**. ShowDesk runs off a USB stick against a folder of a client's video, so there is nothing to point an iframe at. Always second-best to `.embed`, which cannot go stale — reach for it only when there is no URL. Must **not** be combined with `.graph`: it sets `background` as a shorthand and would eat the grid, exactly as `.embed` did (§6). |
 | **`.more`** | Depth. **Collapsed is a preview, never a closed door** — the picture and the claim stay out, and expanding only adds reading. |
 
 ---
@@ -139,6 +143,21 @@ build would make the page lie.
 Do it in the product, behind its own flag, not from the embedding page. The
 site cannot reach into a frame, and should not want to: the product knows what
 it looks like with nothing to save.
+
+**A deep-link parameter is the product's front door, not reaching in.** Scale
+Machine framed opens on a *Select Tuning* modal — the whole app behind a
+dropdown, no notation visible, which is Codedesk's setup ceremony in a different
+costume. The fix was not to touch the frame but to use the parameter the product
+already publishes: `scales.app.js` states its own precedence as **URL >
+localStorage > tuning overlay**, so `?tuning=bb` lands on B♭ with the grid
+engraved. Codedesk's `?mode=embed` is the same move. The test for whether this is
+legitimate: would a link someone pasted in a chat do the same thing? If yes it is
+the product's API; if it needs the page to script the frame, it is not.
+
+⚠ **It writes through.** `?tuning=` also sets the product's `localStorage`, so a
+visitor who only ever met Scale Machine here has B♭ chosen for them on their next
+real visit and never sees its onboarding. Harmless but not free, and the clean fix
+is product-side — don't persist the param when framed.
 
 ### An embed can be more than one payload
 
@@ -217,6 +236,7 @@ Do not fork the snippet. It is the same file in every product.
 |---|---|
 | Codedesk (`~/Desktop/dev.nosync/codedesk`) | **live** — committed, deployed, and confirmed reporting height from the deployed URL |
 | Picture Wrap (`~/Desktop/dev.nosync/picture-wrap`) | **live** — tracked, deployed, byte-identical to canonical, and served from `picture-wrap.com` at its `index.html:85`. Was untracked and undeployed for one session; confirmed done 1 Aug 2026 with `curl -s https://picture-wrap.com \| grep -c embed-height` → `1`. |
+| Scale Machine (`~/Desktop/dev.nosync/scalemachine`) | **needed, not yet done.** The grid grows — twelve staves, a listen panel that opens, a song field — so a fixed frame is wrong here in the way it is right for The Ward. Until the snippet lands the frame keeps its CSS ratio, which is the documented fallback and looks deliberate. Check: `curl -s https://scalemachine.app \| grep -c embed-height` → `0` today. |
 | The Ward | **not needed, deliberately.** Embedded from `lafayette-square.com` and carrying no snippet. Self-sizing is for apps whose height is content; The Ward is a landscape you look *across*, so a fixed aspect is the right frame and a reported height would only stretch the horizon. The frame keeps its CSS ratio — 16/10, and 4/3 on a phone so the horizon survives. |
 
 The embeds point at live URLs, not local copies, so a product is only as current
@@ -234,7 +254,15 @@ today that had already been fixed and shipped.
 
 ## 6. Traps already fallen into
 
-Each of these was a real bug. They are cheap to reintroduce.
+Each of these was a real bug, and each is **cheap to reintroduce and invisible
+when it happens** — that is the bar, not "it went wrong once."
+
+A bug you caught by looking at the page does not belong here; it belongs in a
+comment at the line where someone would make it again. This list is read in full
+at the start of every session, so a weak entry costs every future session a
+little and makes the strong ones harder to find. Two were added on 10 Aug and
+removed the same day for exactly that reason. **Prefer deleting an entry to
+adding one.**
 
 - **`summary { display: flex }` breaks `<details>` in Safari.** It toggles fine
   in Chrome, so it passes casual testing. The summary keeps its default display
@@ -281,7 +309,7 @@ Each of these was a real bug. They are cheap to reintroduce.
   the layout you can see.
 - **Type over fixed art cannot use `var(--ink)`.** Every colour here flips with
   the theme because it sits on the page. A photograph does not flip, so on the
-  plate the Nordson reveal put pale ink on the artwork's pale field and the
+  plate the Nordson copy put pale ink on the artwork's pale field and the
   writing vanished — while reading perfectly in Paper, which is how it would
   have shipped. Type over art uses `--ink-on-art` / `--ink-on-art-soft`,
   declared once in `:root` and deliberately absent from both theme blocks. The
@@ -308,6 +336,13 @@ Each of these was a real bug. They are cheap to reintroduce.
 ---
 
 ## 7. Working on it
+
+⚠ **Screenshots go through `_source/`, not straight into `assets/`.** The five
+Ascend interface stills are committed as full-size PNGs — **15 MB between them**
+— because they predate the tool. ShowDesk's does not: 3.1 MB source, 123 KB
+served, indistinguishable at the size it renders (checked by zooming the clip
+list 2x — no artefacts on UI text at 1600/q80). The five legacy PNGs should come
+through `build_showdesk()`'s path eventually.
 
 **Build image derivatives** after adding to `_source/`:
 
@@ -339,6 +374,18 @@ r=set(re.findall(r'var\((--[a-z0-9-]+)',site+tokens+js))
 print('unused token:', sorted(d-r) or 'none')
 n=[int(m.group(1)) for m in re.finditer(r'^/\* (\d+) ── ',site,re.M)]
 print('sections    :', 'ok' if n==list(range(1,len(n)+1)) else f'DRIFT {n}')
+o,c=html.count('<!--'),html.count('-->')
+print('comments    :', 'ok' if o==c else f'UNBALANCED {o} open / {c} close')
+body=re.sub(r'<!--.*?-->','',html,flags=re.S)
+VOID={'img','input','br','hr','meta','link','source','area','base','col'}
+stack=[];bad=[]
+for m in re.finditer(r'<(/?)([a-zA-Z][a-zA-Z0-9]*)\b[^>]*?(/?)>',body):
+    cl,nm,sf=m.group(1),m.group(2).lower(),m.group(3)
+    if nm in VOID or sf: continue
+    if not cl: stack.append(nm)
+    elif stack and stack[-1]==nm: stack.pop()
+    else: bad.append(nm)
+print('tags        :', 'ok' if not stack and not bad else f'UNCLOSED {stack[:4]} MISMATCH {bad[:4]}')
 EOF
 ```
 
@@ -349,8 +396,22 @@ contents block at the top is generated from the headers rather than maintained
 by hand — if you add a section, renumber and regenerate rather than appending a
 letter.
 
-`--spot-nordson2` and `--spot-nordson3` are expected to report unused; they are
-reserved for Nordson art that has not landed.
+**Tokens expected to report unused**, and why each is kept rather than deleted:
+
+| Token | Why |
+|---|---|
+| `--spot-nordson3` | Reserved Nordson gold, for art that has not landed. `--spot-nordson2` was reserved the same way and is now ShowDesk's ink. |
+| `--ink-on-art`, `--ink-on-art-soft`, `--paper-on-art` | These went unused when `.reveal` was deleted on 17 Aug 2026, and they are the *fix for a documented trap* (§6: type over fixed art cannot use `var(--ink)`). Piece 1's incoming line drawing is fixed art; the first caption laid on it needs these. Deleting them would delete the fix and keep only the warning. |
+| `--s1` | The spacing scale is a system. A scale with a hole in it is worse than an unused step. |
+
+Anything else reporting unused is drift, not a reservation.
+
+⚠ **The markup checks were added 17 Aug 2026, after a broken page passed the
+audit clean.** An edit dropped one `-->`, so the rest of the document was
+swallowed into a comment and the div nesting came apart — the page rendered
+without its header. Nothing reported it: the audit read classes and tokens, both
+of which were still perfectly consistent. A structural break is invisible to a
+semantic check, so both are run now. Expected: `ok` and `ok`.
 
 **Check narrow widths in an iframe.** Headless Chrome on macOS clamps windows to
 500px and `--force-device-scale-factor` does not reduce the CSS viewport. Loading
@@ -362,18 +423,79 @@ the page in a fixed-width iframe does give media queries a genuine 390px.
 
 | Piece | Component | Art |
 |---|---|---|
-| 1 West Elm | pager, ten registered pairs | **real** |
-| 2 Nordson | Cordis reveal, filmstrip | reveal **real**; filmstrip still placeholder |
+| 1 Nordson | Cordis **wipe**, filmstrip | wipe **real** — whole photograph against whole drawing; filmstrip still placeholder |
+| 2 ShowDesk | **`.shot`** of the Show Builder | **real** — 1600px derivative, 123 KB |
 | 3 Ascend | five-step stepper | **real** interfaces |
 | 4 QR engine | live Codedesk embed | **live** |
 | 5 The Ward | three-state pill **+ live embed** | pill art still placeholder; the embed is **live** |
-| 6 Picture Wrap | live site embed | **live**, and self-sizing — snippet deployed |
-| Origin Provincetown | rail + claim, no interaction | placeholder — `article#pbg` at `index.html:914`, one labelled 4×3 slug awaiting scans |
+| 6 West Elm | pager, ten registered pairs | **real** |
+| Curio Picture Wrap | live site embed | **live**, and self-sizing — snippet deployed |
+| Curio Scale Machine | live app embed | **live**, framed at `?tuning=bb`; not self-sizing yet |
+| 00 Provincetown | rail + claim + **the shelf** | **real** — eight covers, 2018–2020, each linking to the publication itself |
+
+**Order is an argument, reordered 16 Aug 2026.** It used to open on West Elm,
+because the old thesis was *compositing* and West Elm is the most literal
+illustration of it. That paragraph is gone. West Elm is also the only piece here
+where Jacob was hired hands — *Retoucher, compositor, booked through Industrial
+Color* — so it opened a creative leader's portfolio on a work-for-hire credit.
+It now sits at 6.
+
+**Curios, added 16 Aug 2026.** Picture Wrap and Scale Machine left the numbered
+sequence. Both were justified by the OLD thesis — Scale Machine's disclosure
+still opens *"transposition is compositing"* — and when that paragraph went,
+a film-credits database and a trumpet app stopped arguing anything the new
+thesis claims. They are not cut: they are two of the four live embeds, and they
+are evidence the tools claim is not secondhand. `CURIOS` is Jacob's own repo
+(*"web projects and experiments"*) and Scale Machine already lived in it, so
+the section reflects how the work is filed rather than tidying after the fact.
+They rank **Curio**, which is a category rather than a position — Provincetown
+ranks **00** because it is *before* the sequence, the curios are *outside* it,
+and the rail should not blur the two.
+
+**The 00 was `Origin` until 16 Aug 2026.** It went for being on-the-nose and,
+worse, redundant: the claim beside it already opens *"Where the method starts."*
+The rank is a sequence device and `.piece-rank` is already
+`font-variant-numeric: tabular-nums`, so 00 sits in the same optical column as
+1–6 and makes the point without narrating it. Do not reintroduce a word here.
+
+**`.reveal` was deleted 17 Aug 2026**, with §13 of `site.css` and eleven
+sections renumbered behind it. It existed for one piece of art: a Cordis pair
+cut at x=1000 so each file held half a drawing and half a photograph, differing
+only in which side the pale ground fell on — which gave each wipe layer an empty
+half to write copy into. Jacob replaced that art with **whole** pictures, so
+there is no empty half, and copy inside the layers could only land on the
+machine. The copy moved below the frame and the component had nothing left to
+do. If the mechanism is ever wanted again it is in this commit's history; do not
+rebuild it from the description.
+
+**Curios sits after Provincetown**, as an appendix — the numbered spine ends at West
+Elm, Provincetown says where the method started, and these are the odds and ends.
+
+⚠ **There is no video on this site, and one was tried.** The old WordPress
+site's `Curios_Cover_Video.mp4` was placed as the section cover for one session
+and cut, for four reasons worth not rediscovering. It is **soft at any weight
+the page can afford** — and not because of the encode: the SOURCE is 1080p at
+3 Mbps, so 1280w/CRF 28 is 728 KB and *sharp* starts at 3 MB, which is four
+times the rest of the page for decoration. The wordmark is burned in **in the
+old site's typeface**, not Helvetica Neue. It **does not loop** — frame 300
+differs from frame 0 by ~5% mean with the word mid-drift. And it is tonally
+severe against uncoated stock. All four extracted covers (Curios, Work,
+Interactive Media, Project Management) are kept in `_source/curios/` because
+getting them again means reading `/Volumes/Today`. Placing one back means
+`build_curios()` in `tools/build-images.py`, which was removed with it — it is
+in the git history of this commit.
+
+Pieces **1–4 are all Nordson Industrial Coating Systems** and that is
+deliberate: the assets, the tool that consumed them, the operating environment,
+and the tool that came out of the portal. Four unlabelled credits for one client
+reads as *he did a lot for one company*; the same four named as one four-year
+Fortune 500 engagement is the strongest fact on the site. **Nothing on the page
+says so yet.** That is the gap the order created and has not closed.
 
 **Outstanding, needing Jacob:**
 
 - How many photograph/illustration pairs exist for the Nordson filmstrip. The
-  Cordis reveal above it is now real art, so the eight grey slugs below it are
+  Cordis wipe above it is now real art, so the eight grey slugs below it are
   the last placeholder in that piece.
 - The Ward's pill art. The embed is live now, so the wireframe placeholder sits
   directly above a real render of the same neighbourhood, and the comparison is
@@ -385,7 +507,17 @@ the page in a fixed-width iframe does give media queries a genuine 390px.
   captioned, but the modules are still plain black-and-white squares, so the
   claim above the frame — *pick an emoji and it becomes the code's palette* — is
   the one thing on that piece a visitor cannot see happening. **Next session.**
-- Provincetown: flat scans of the guides, member map and Pride poster.
+- Scale Machine, two things, both product-side and neither blocking the piece:
+  `docs/embed-height.js` is not in that repo, so the frame is a fixed ratio while
+  the grid grows; and its own `LEDGER.md` job 6 calls the mobile layout *"already
+  too cramped to read"* with `overflow-x` now on each `.staff-row`, so on a phone
+  the frame scrolls sideways inside itself. The page survives this — the piece's
+  min-content is 128px, tied narrowest — but it is the weakest thing about the
+  embed.
+- Provincetown: the piece has **no `.more` case**, so it is now all *what it
+  does* and none of *what it is* — the member-and-asset database that produced
+  all eight. Nothing on disk describes how that database worked, so it needs
+  Jacob rather than a session.
 
 **Known and accepted:** collapsing to one page cost per-piece link previews. Any
 share shows the site-level card. Thin share-only pages redirecting into anchors
