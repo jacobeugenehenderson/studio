@@ -54,6 +54,28 @@
   var stock = document.querySelector('.stock');
   if (stock) wire(stock);
 
+  /* ---- previewing a product without deploying it -------------------------
+     Any framed product can carry data-src-local, and it is used INSTEAD of src
+     when this page is itself served from localhost. The Ward already had this
+     via data-embed-base-local; the others did not, so checking a change to
+     Codedesk meant pushing it to Pages first and reading the result off the
+     live site. That is a bad loop for a two-line CSS fix.
+
+     Impossible in production, where the hostname test fails. If the local
+     product is not running the frame fails to load, which is the correct and
+     obvious signal — better than silently showing a stale deploy. Height
+     messages already work: trustedOrigin accepts any localhost port while this
+     page is local. */
+
+  (function () {
+    var here = window.location.hostname;
+    if (here !== '127.0.0.1' && here !== 'localhost') return;
+    Array.prototype.forEach.call(
+      document.querySelectorAll('iframe[data-src-local]'),
+      function (frame) { frame.src = frame.getAttribute('data-src-local'); }
+    );
+  }());
+
   /* ---- the curios mark: FALLBACK ONLY ------------------------------------
      The mark comes together on the scroll, and that is done in CSS with
      `animation-timeline: view()` (site.css §21) — presentation belongs in the
