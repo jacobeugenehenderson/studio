@@ -25,6 +25,7 @@ SRC = os.path.join(ROOT, "_source")
 OUT = os.path.join(ROOT, "assets")
 
 MAX_W = 1600
+COVER_H = 720     # Provincetown's shelf sizes by HEIGHT — see build_pbg()
 QUALITY = 80
 
 # The ten West Elm pairs. NN.jpg is the finished composite; NN_Plate.jpg is the
@@ -32,25 +33,72 @@ QUALITY = 80
 # lets the wipe land without any cropping or alignment work.
 WEST_ELM = ["01", "02", "03", "04", "05", "08", "12", "14", "20", "21"]
 
-# Nordson's Cordis pair. Both files carry the SAME machine — drawing left of
-# centre, photograph right of it, cut at exactly half — and differ only in which
-# side the pale ground falls on. That mirroring is not decoration: each layer of
-# the reveal writes its copy into its own pale half, so the type always lands on
-# the quiet side. Named for where the pale field is, because that is the thing
-# that differs and the thing the layout depends on.
-NORDSON = [("Cordis-Spread-1", "cordis-paper-left"),
-           ("Cordis-Spread-2", "cordis-paper-right")]
+# Nordson's Cordis pair: the machine photographed, and the same machine drawn.
+# Same framing, same scale, both 4000x2668 (1.4993, which is what .wipe--3x2
+# wants). The photograph sets the size and the drawing is forced to match, so a
+# pixel of drift can never show as the machine twitching mid-drag.
+#
+# This REPLACED an earlier pair (Cordis-Spread-1/2) in which each file already
+# held half a drawing and half a photograph, cut at x=1000, differing only in
+# which side the pale ground fell on. That art existed to give the .reveal an
+# empty half to write into. The reveal is gone and so is the need: these two are
+# whole pictures, so dragging to an end now yields a whole machine.
+#
+# They register by construction: both are stamped from the same PSD, so the
+# machine is in the same place by definition. Do not try to verify this by
+# measuring edges — it was tried, and reported the machine 20px narrower in the
+# drawing, because flat colour against blue gives a softer gradient than a
+# photograph against grey. The measurement was of edge CONTRAST, not position.
+#
+# 2000px, not the file-wide 1600. The source is a deliberate 2x stamp and the
+# column tops out near 1000 CSS px, so 2000 is true 2x where 1600 is 1.6x. It
+# costs about 40 KB across the pair, which is worth it on the one piece whose
+# whole subject is that two renderings of one object are interchangeable — any
+# softness here reads as the drawing failing to keep up with the photograph.
+NORDSON_W = 2000
+NORDSON = [("Cordis-Photo", "cordis-photo"),
+           ("Cordis-Blueprint", "cordis-blueprint"),
+           ("Cordis-Illo", "cordis-illo")]
+
+# Covers that WordPress padded, and the box that gets the artwork back. Only one
+# so far: the members map was stored 1262x1920 inside a grey gradient, so it was
+# the single cover on the shelf that did not bleed to its own edges. Cropped, it
+# is 832x1920 — the same tall format as the summer guide, which is the giveaway
+# that the padding was the CMS and not the design.
+#
+# Detected once, then written down. An automatic version was tried first and is
+# NOT worth reviving: it looks for uniform neutral edges, and the Pride poster
+# ends in a white sponsor strip, so it wanted to cut 56px of real artwork off the
+# bottom. White is neutral. Measure a cover, put the numbers here.
+COVER_CROP = {
+    "2019-map.jpg": (216, 0, 1048, 1920),
+}
+
+# Covers whose "full" artifact is the image itself rather than a PDF. The Pride
+# poster is a poster — there are no pages to turn — so it gets a full-size
+# derivative in assets/pbg/full/ alongside the seven publications' PDFs, and the
+# shelf links every tile to something rather than leaving one dead.
+COVER_FULL = ["2020-pride.jpg"]
 
 
-def derive(src_path, out_path, exact=None):
-    """Write one derivative. `exact` forces a size, used to make a pair match."""
+def derive(src_path, out_path, exact=None, max_w=None, max_h=None, crop=None):
+    """Write one derivative. `exact` forces a size, used to make a pair match.
+    `max_w` overrides the default cap for art that never renders full width.
+    `max_h` sizes by HEIGHT instead — for art laid out on a common baseline.
+    `crop` is a box applied before resizing — see COVER_CROP."""
+    cap = max_w or MAX_W
     with Image.open(src_path) as im:
         im = im.convert("RGB")
+        if crop:
+            im = im.crop(crop)
         if exact:
             im = im.resize(exact, Image.LANCZOS)
-        elif im.width > MAX_W:
-            h = round(im.height * MAX_W / im.width)
-            im = im.resize((MAX_W, h), Image.LANCZOS)
+        elif max_h:
+            w = round(im.width * max_h / im.height)
+            im = im.resize((w, max_h), Image.LANCZOS)
+        elif im.width > cap:
+            h = round(im.height * cap / im.width)
+            im = im.resize((cap, h), Image.LANCZOS)
         os.makedirs(os.path.dirname(out_path), exist_ok=True)
         im.save(out_path, "JPEG", quality=QUALITY, optimize=True, progressive=True)
         return im.size, os.path.getsize(out_path)
@@ -58,7 +106,7 @@ def derive(src_path, out_path, exact=None):
 
 def build_nordson():
     """The Cordis pair. Same forcing as West Elm: the first file sets the size and
-    the second is made to match, because the reveal holds them exactly on top of
+    the second is made to match, because the wipe holds them exactly on top of
     each other and a pixel of drift would show as the machine twitching."""
     src_dir = os.path.join(SRC, "nordson")
     if not os.path.isdir(src_dir):
@@ -73,16 +121,78 @@ def build_nordson():
         if not os.path.exists(src):
             print(f"  MISSING {src_name}.jpg")
             continue
-        got, wrote = derive(src, os.path.join(out_dir, f"{out_name}.jpg"), exact=size)
+        got, wrote = derive(src, os.path.join(out_dir, f"{out_name}.jpg"),
+                            exact=size, max_w=NORDSON_W)
         size = size or got
         print(f"  {out_name}.jpg  {got[0]}x{got[1]}  {wrote // 1024} KB")
+
+
+def build_showdesk():
+    """ShowDesk's Show Builder, one still.
+
+    The five Ascend interface shots in assets/ are committed as full-size PNGs —
+    15 MB between them — because they predate this tool. This one does not: the
+    source is a 4480x2520 retina capture at 3.1 MB and the served derivative is
+    about 125 KB, indistinguishable at the size it renders. Checked by zooming
+    the clip list 2x: no artefacts on UI text at 1600/q80. The five legacy PNGs
+    should come through here too, eventually."""
+    src = os.path.join(SRC, "showdesk", "builder.png")
+    if not os.path.exists(src):
+        print("\nno _source/showdesk/builder.png — skipping the Show Builder shot")
+        return
+    print("\nShowDesk")
+    size, wrote = derive(src, os.path.join(OUT, "showdesk", "builder.jpg"))
+    print(f"  builder.jpg  {size[0]}x{size[1]}  {wrote // 1024} KB")
+
+
+def build_pbg():
+    """Provincetown's shelf: one cover per publication, not a pair in sight.
+
+    Sized to a common HEIGHT, not a common width, and that is the whole layout
+    decision. Six of the eight are 2:3 and two are not — the 2019 summer guide
+    is a genuine 288x720pt rack card, confirmed against its own PDF. Sized to a
+    common width, those two tower over the rest and read as two mistakes rather
+    than as two different formats. Sized to a common height they read as what
+    they are: a narrow one and a wide one on the same shelf.
+
+    720px tall, not 1600 wide: a cover renders around 300 CSS px tall at the
+    largest the shelf gets, so 720 is the same 2x reasoning the top of this file
+    applies to figures."""
+    src_dir = os.path.join(SRC, "pbg", "covers")
+    if not os.path.isdir(src_dir):
+        print("\nno _source/pbg/covers — skipping the Provincetown shelf")
+        return
+
+    out_dir = os.path.join(OUT, "pbg")
+    print("\nProvincetown")
+    total_in = total_out = 0
+    for name in sorted(os.listdir(src_dir)):
+        if not name.lower().endswith(".jpg"):
+            continue
+        src = os.path.join(src_dir, name)
+        total_in += os.path.getsize(src)
+        crop = COVER_CROP.get(name)
+        size, wrote = derive(src, os.path.join(out_dir, name),
+                             max_h=COVER_H, crop=crop)
+        total_out += wrote
+        note = "   cropped, see COVER_CROP" if crop else ""
+        print(f"  {name:22} {size[0]}x{size[1]}  {wrote // 1024} KB{note}")
+
+        if name in COVER_FULL:
+            fsize, fwrote = derive(src, os.path.join(out_dir, "full", name),
+                                   crop=crop)
+            total_out += fwrote
+            print(f"  {'  └ full/' + name:22} {fsize[0]}x{fsize[1]}  {fwrote // 1024} KB")
+    print(f"  {total_in // 1024 // 1024} MB source -> {total_out // 1024} KB served")
 
 
 def main():
     src_dir = os.path.join(SRC, "west-elm")
     if not os.path.isdir(src_dir):
         print("no _source/west-elm — skipping those pairs")
-        return build_nordson()
+        build_nordson()
+        build_showdesk()
+        return build_pbg()
 
     out_dir = os.path.join(OUT, "west-elm")
     total_in = total_out = 0
@@ -116,6 +226,8 @@ def main():
     print("all pairs registered" if not mismatched else f"MISMATCHED: {mismatched}")
 
     build_nordson()
+    build_showdesk()
+    build_pbg()
 
 
 if __name__ == "__main__":
