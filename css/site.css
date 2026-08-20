@@ -375,6 +375,7 @@ a { color: inherit; }
 .patch--ward    { --patch: var(--spot-ward); }
 .patch--picture { --patch: var(--spot-picture); }
 .patch--scale   { --patch: var(--spot-scale); }
+.patch--wlvx    { --patch: var(--spot-wlvx); }
 .patch--pbg     { --patch: var(--spot-pbg); }
 
 
@@ -412,6 +413,7 @@ a { color: inherit; }
 .piece--ward    { --spot: var(--spot-ward); }
 .piece--picture { --spot: var(--spot-picture); }
 .piece--scale   { --spot: var(--spot-scale); }
+.piece--wlvx    { --spot: var(--spot-wlvx); }
 .piece--pbg     { --spot: var(--spot-pbg); }
 
 .piece-body { display: grid; gap: var(--s4); }
@@ -453,6 +455,18 @@ a { color: inherit; }
   line-height: var(--lh-snug);
   color: var(--ink-soft);
   font-variant-numeric: tabular-nums;
+}
+
+/* A credit block in the margin: one craft per line, the way a masthead sets
+   them. The rail is 10.5rem, so a run of names separated by middots wraps into
+   a paragraph and stops reading as a list of distinct things — which is the
+   only reason the list exists. */
+.piece-meta .credits {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.1rem;
 }
 
 /* the ink name, swatched with the piece's own spot */

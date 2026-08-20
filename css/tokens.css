@@ -56,6 +56,7 @@
   --spot-ward:     #5E8A3A;  /* treelawn green                */
   --spot-picture:  #B08A1F;  /* gold                          */
   --spot-scale:    #0E7C8C;  /* cyan, from the app's accent   */
+  --spot-wlvx:     #4A3FA8;
   --spot-pbg:      #C8386F;  /* magenta                       */
 
   /* ---- wireframe fills --------------------------------------------------
@@ -154,6 +155,7 @@
     --spot-ward:     #85B356;
     --spot-picture:  #DCB03A;
     --spot-scale:    #3FB0BE;
+    --spot-wlvx:     #9A90E8;
     --spot-pbg:      #E86494;
 
     --graph-bg:    #2A2E30;
@@ -190,6 +192,7 @@
   --spot-ward:     #85B356;
   --spot-picture:  #DCB03A;
   --spot-scale:    #3FB0BE;
+  --spot-wlvx:     #9A90E8;
   --spot-pbg:      #E86494;
 
   --graph-bg:    #2A2E30;
@@ -223,6 +226,7 @@
   --spot-ward:     #5E8A3A;
   --spot-picture:  #B08A1F;
   --spot-scale:    #0E7C8C;
+  --spot-wlvx:     #4A3FA8;
   --spot-pbg:      #C8386F;
 
   --graph-bg:    #C6CACC;

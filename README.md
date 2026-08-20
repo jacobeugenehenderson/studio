@@ -428,7 +428,8 @@ the page in a fixed-width iframe does give media queries a genuine 390px.
 | 3 Ascend | five-step stepper | **real** interfaces |
 | 4 QR engine | live Codedesk embed | **live** |
 | 5 The Ward | three-state pill **+ live embed** | pill art still placeholder; the embed is **live** |
-| 6 West Elm | pager, ten registered pairs | **real** |
+| 6 WLVX | `.shot` of the product cover | **real** — 2021 marketing cover, 177 KB. The nine-year founder decade the site had been silent about. Provisional copy: written from Jacob's CV line and the cover itself only. A 19-page pitch deck exists on `/Volumes/2021` and is deliberately NOT a source — it is fundraising material, and he called it filler. **Check Vimeo**: if the demo videos survive, this becomes a live embed. |
+| 7 West Elm | pager, ten registered pairs | **real** |
 | Curio Picture Wrap | live site embed | **live**, and self-sizing — snippet deployed |
 | Curio Scale Machine | live app embed | **live**, framed at `?tuning=bb`; not self-sizing yet |
 | 00 Provincetown | rail + claim + **the shelf** | **real** — eight covers, 2018–2020, each linking to the publication itself |

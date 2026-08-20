@@ -31,7 +31,7 @@ no build step, nothing shipped that it didn't write. The only offline tool is an
 image pipeline that turns `_source/` originals into served derivatives.
 
 **The live pieces are the products themselves**, framed from their own public
-addresses — not screenshots, and not copies hosted here. Four of the nine run
+addresses — not screenshots, and not copies hosted here. Four of the ten run
 that way. The Ward goes furthest: its slab and its player are separate payloads
 by contract, so the page mounts them separately and lets you switch between
 them, which is the site's whole argument demonstrated by the one piece that can
@@ -75,7 +75,7 @@ outside this repo, at
 
 The site argues one thing: **compositing** — sources captured separately, under
 conditions that never coincided, made into one thing that reads as though it
-always was. Nine pieces demonstrate it at different scales.
+always was. Ten pieces demonstrate it at different scales.
 
 Much of what is written down exists because it was got wrong first. A wipe was
 built three times before it was understood that centre-composed and

@@ -44,11 +44,17 @@ WEST_ELM = ["01", "02", "03", "04", "05", "08", "12", "14", "20", "21"]
 # empty half to write into. The reveal is gone and so is the need: these two are
 # whole pictures, so dragging to an end now yields a whole machine.
 #
-# They register by construction: both are stamped from the same PSD, so the
-# machine is in the same place by definition. Do not try to verify this by
-# measuring edges — it was tried, and reported the machine 20px narrower in the
-# drawing, because flat colour against blue gives a softer gradient than a
-# photograph against grey. The measurement was of edge CONTRAST, not position.
+# REGISTRATION IS CHECKED, NOT ASSUMED — see _shift() below, which prints an
+# offset after every build. They come off one PSD, but "same PSD" is not the
+# same as "aligned": the first blueprint was very slightly out, and it was out
+# in the document. A structural measurement caught it and was then talked out of
+# by the reasonable-sounding argument that identical sources cannot disagree.
+# They can. Trust the number.
+#
+# The number measures TRANSLATION only. A pure scale difference — the machine
+# drawn fractionally larger — would not move the correlation peak, and that is
+# closer to what the first one actually was. So a clean dx/dy is necessary and
+# not sufficient; look at the seam while dragging as well.
 #
 # 2000px, not the file-wide 1600. The source is a deliberate 2x stamp and the
 # column tops out near 1000 CSS px, so 2000 is true 2x where 1600 is 1.6x. It
@@ -104,6 +110,59 @@ def derive(src_path, out_path, exact=None, max_w=None, max_h=None, crop=None):
         return im.size, os.path.getsize(out_path)
 
 
+def _shift(path_a, path_b, width=600, limit=24):
+    """Offset between two renderings of the same subject, in source pixels.
+
+    Pixels, not heuristics: both files come off one document, so any shared
+    structure sits at the same coordinates. Reduce each to two 1-D profiles of
+    gradient magnitude — one per axis — and cross-correlate. The peak is the
+    offset. No thresholds, so nothing to tune and nothing to argue with; the
+    two grounds being wholly different colours does not matter, because only
+    the CHANGES in each image are compared, never the values.
+    """
+    def profiles(path):
+        with Image.open(path) as im:
+            im = im.convert("L")
+            h = round(im.height * width / im.width)
+            im = im.resize((width, h))
+            px = im.load()
+        cols = [0.0] * width
+        rows = [0.0] * h
+        for y in range(h):
+            prev = px[0, y]
+            for x in range(1, width):
+                v = px[x, y]
+                d = abs(v - prev)
+                prev = v
+                cols[x] += d
+                rows[y] += d
+        return cols, rows
+
+    def peak(a, b):
+        def norm(p):
+            m = sum(p) / len(p)
+            s = (sum((v - m) ** 2 for v in p) / len(p)) ** 0.5 or 1.0
+            return [(v - m) / s for v in p]
+        a, b = norm(a), norm(b)
+        best, score = 0, -1e18
+        for s in range(-limit, limit + 1):
+            tot = cnt = 0
+            for i in range(len(a)):
+                j = i + s
+                if 0 <= j < len(b):
+                    tot += a[i] * b[j]
+                    cnt += 1
+            if cnt and tot / cnt > score:
+                best, score = s, tot / cnt
+        return best
+
+    ac, ar = profiles(path_a)
+    bc, br = profiles(path_b)
+    with Image.open(path_a) as im:
+        scale = im.width / width
+    return round(peak(ac, bc) * scale), round(peak(ar, br) * scale)
+
+
 def build_nordson():
     """The Cordis pair. Same forcing as West Elm: the first file sets the size and
     the second is made to match, because the wipe holds them exactly on top of
@@ -116,6 +175,7 @@ def build_nordson():
     out_dir = os.path.join(OUT, "nordson")
     print("\nNordson")
     size = None
+    reference = None
     for src_name, out_name in NORDSON:
         src = os.path.join(src_dir, f"{src_name}.jpg")
         if not os.path.exists(src):
@@ -125,6 +185,15 @@ def build_nordson():
                             exact=size, max_w=NORDSON_W)
         size = size or got
         print(f"  {out_name}.jpg  {got[0]}x{got[1]}  {wrote // 1024} KB")
+        # printed AFTER its own filename, or each result reads as belonging to
+        # the file above it — which is exactly how it was misread once already
+        if reference is None:
+            reference = src
+        else:
+            dx, dy = _shift(reference, src)
+            flag = "" if abs(dx) <= 4 and abs(dy) <= 4 else "   ** OUT OF REGISTER **"
+            print(f"      registration vs {os.path.basename(reference)}: "
+                  f"dx {dx:+d}  dy {dy:+d}{flag}")
 
 
 def build_showdesk():
@@ -143,6 +212,40 @@ def build_showdesk():
     print("\nShowDesk")
     size, wrote = derive(src, os.path.join(OUT, "showdesk", "builder.jpg"))
     print(f"  builder.jpg  {size[0]}x{size[1]}  {wrote // 1024} KB")
+
+
+def build_wlvx():
+    """WLVX's marketing cover — the only asset for that piece.
+
+    CROPPED TO THE DEVICES, and that is the whole of the edit. The source is a
+    2021 keynote cover: a gradient wordmark, the tagline "A Versatile Website
+    Plugin for Video Content Creators", two devices floating on a teal ground.
+    Everything that made it read as a pitch deck for a company that no longer
+    exists sits OUTSIDE the devices; everything that is the work sits inside
+    them. So the crop keeps the tablet, the phone and the hand, and drops the
+    rest — the video playing, the tray of shoppable things beneath it, a finger
+    on one, and the product page that touch produces.
+
+    Cropped, not retouched. Retouching the on-screen text would mean inventing
+    pixels; a crop only chooses which part was ever the product. 3:2 out, which
+    matches the figures elsewhere on the page. The deck it came from is
+    fundraising material and is deliberately NOT a source.
+
+    ⚠ The original lives on /Volumes/2021, which unmounted mid-copy on
+    18 Aug 2026 — the same failure mode as /Volumes/Today, on a second drive.
+    This source is the 1999x1499 copy Jacob sent rather than the 3 MB original.
+    Ample for a 1600px derivative; re-supply if a larger one is ever wanted."""
+    src = os.path.join(SRC, "wlvx", "cover.png")
+    if not os.path.exists(src):
+        print("\nno _source/wlvx/cover.png — skipping the WLVX cover")
+        return
+    print("\nWLVX")
+    with Image.open(src) as probe:
+        w, h = probe.size
+    # fractions, not pixels, so a larger re-supplied original crops the same
+    box = (round(w * 0.115), round(h * 0.327), round(w * 0.875), h)
+    size, wrote = derive(src, os.path.join(OUT, "wlvx", "cover.jpg"), crop=box)
+    print(f"  cover.jpg  {size[0]}x{size[1]}  {wrote // 1024} KB")
 
 
 def build_pbg():
@@ -192,6 +295,7 @@ def main():
         print("no _source/west-elm — skipping those pairs")
         build_nordson()
         build_showdesk()
+        build_wlvx()
         return build_pbg()
 
     out_dir = os.path.join(OUT, "west-elm")
@@ -227,6 +331,7 @@ def main():
 
     build_nordson()
     build_showdesk()
+    build_wlvx()
     build_pbg()
 
 
