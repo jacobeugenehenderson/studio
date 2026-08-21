@@ -95,6 +95,36 @@ a { color: inherit; }
 
 /* 2 ── page furniture ===================================================== */
 
+/* Skip link. Off-screen by transform rather than display:none or visibility,
+   because a hidden element cannot receive focus and this one has to. It sits
+   above .reg (z-index 2) and .page (1), or it would appear behind them.
+
+   FIXED, not absolute: absolute resolves against the initial containing block,
+   which scrolls, so tabbing to it from halfway down the page would reveal it at
+   the top of the DOCUMENT — off screen, and useless exactly when someone is
+   using the keyboard in earnest. */
+.skip {
+  position: fixed;
+  top: var(--s2);
+  left: var(--s2);
+  z-index: 10;
+  transform: translateY(-250%);
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.55em 0.9em;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.skip:focus { transform: none; }
+
+/* The skip target takes focus programmatically; it must not then draw a ring
+   around the whole of main. Keyboard focus elsewhere is untouched. */
+.pieces:focus { outline: none; }
+
 /* Paper tooth. An inline SVG turbulence, so nothing is fetched. */
 .grain {
   position: fixed;

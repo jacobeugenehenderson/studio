@@ -28,6 +28,13 @@
 </head>
 <body>
 
+  <!-- First focusable thing on the page. Ten pieces sit behind a masthead, a
+       name, a billing line, a thesis and a nine-item index; a keyboard or
+       screen-reader visitor should not have to walk all of it. Hidden until
+       focused, which is why it is a transform rather than display:none —
+       something display:none cannot be focused at all. -->
+  <a class="skip" href="#work">Skip to the work</a>
+
   <div class="grain" aria-hidden="true"></div>
 
   <div class="reg" aria-hidden="true">
@@ -156,7 +163,7 @@
       </ul>
     </nav>
 
-    <main class="pieces">
+    <main class="pieces" id="work" tabindex="-1">
 
       <article class="piece piece--nordson" id="nordson">
         <div class="piece-rail">
@@ -354,12 +361,12 @@
             <summary class="more-toggle"><span>Environmental and trade shows</span></summary>
             <div class="more-body">
 
-              <!-- Waiting on Jacob's FABTECH material, 20 Aug 2026. This twirl is
-                   the environmental section: the booth, the hardware, the show. -->
+              <!-- The environmental section: the booth, the hardware, the show.
+                   It gets the FABTECH material when the show does. -->
               <section class="more-section">
                 <p class="label">FABTECH</p>
                 <div class="prose">
-                  <p>TKTK &mdash; the trade show itself.</p>
+                  <p>FABTECH Vegas is in production now.</p>
                 </div>
               </section>
 
@@ -417,7 +424,7 @@
                        loading="lazy" decoding="async">
                 </div>
                 <div class="prose">
-                  <h2 class="prose-h">01 · ArtStart — intake</h2>
+                  <h3 class="prose-h">01 · ArtStart — intake</h3>
                   <p>A workspace that turns a work order into a complete creative brief for the artist.</p>
                   <p>The system assembles the specifications, delivery requirements, copy, imagery, QR code, and workspace link, then handles the handoff through final delivery.</p>
                 </div>
@@ -429,7 +436,7 @@
                        loading="lazy" decoding="async">
                 </div>
                 <div class="prose">
-                  <h2 class="prose-h">02 · Copydesk — language</h2>
+                  <h3 class="prose-h">02 · Copydesk — language</h3>
                   <p>A collaborative writing workspace for long-form content such as specification sheets and international marketing materials.</p>
                   <p>The team edits one source document together; the system translates it into the required languages and routes each version to a human translator for review.</p>
                 </div>
@@ -441,7 +448,7 @@
                        loading="lazy" decoding="async">
                 </div>
                 <div class="prose">
-                  <h2 class="prose-h">03 · Codedesk — codes</h2>
+                  <h3 class="prose-h">03 · Codedesk — codes</h3>
                   <p>A QR code generator for creative projects and connected experiences.</p>
                   <p>CodeDesk creates and manages the QR codes used to connect campaigns, environments, and other physical experiences to digital content.</p>
                 </div>
@@ -453,7 +460,7 @@
                        loading="lazy" decoding="async">
                 </div>
                 <div class="prose">
-                  <h2 class="prose-h">04 · FileRoom — archive</h2>
+                  <h3 class="prose-h">04 · FileRoom — archive</h3>
                   <p>The archival layer of Ascend, keeping finished assets and their supporting resources together.</p>
                   <p>FileRoom keeps production assets, QR codes, translations, and other project materials together so they remain available for the next job.</p>
                 </div>
@@ -465,7 +472,7 @@
                        loading="lazy" decoding="async">
                 </div>
                 <div class="prose">
-                  <h2 class="prose-h">05 · The portal — composed</h2>
+                  <h3 class="prose-h">05 · The portal — composed</h3>
                   <p>The front door to Ascend: one place to access the tools, projects, and resources behind the creative operation.</p>
                   <p>The Portal brings ArtStart, CopyDesk, CodeDesk, and FileRoom together, giving the team one place to start a job and find what they need to finish it.</p>
                 </div>
@@ -482,8 +489,9 @@
               <section class="more-section">
                 <p class="label">Creative operations</p>
                 <div class="prose">
-                  <p>Every graphics job has the visible creative work, which gets the attention,
-                    and everything required to get it correctly into the world. The second part is
+                  <p>Every graphics job has the visible creative work, which gets the attention
+                    &mdash; and then everything required to get it correctly into the world. The
+                    second part is
                     easy to underestimate. It is also where a great deal of expensive failure
                     lives: a tradeshow wall printed at 72&nbsp;dpi is not a lesser creative
                     problem. It is a large, expensive mistake.</p>
@@ -524,8 +532,8 @@
         </div>
         <div class="piece-body">
           <h2 class="piece-title">The QR engine</h2>
-          <p class="piece-claim">A modular QR system that turns the QR code itself into
-            part of the visual language.</p>
+          <p class="piece-claim">A modular QR system that makes the QR code itself part of
+            the visual language.</p>
           <!-- ⚠ "at THE okQRal" — the article is deliberate and is the whole
                joke: ok-QR-al, the OK Corral. It reads like a slip and it is
                not. Colophon "corrected" it once already, 17 Aug 2026. Leave it.
@@ -566,10 +574,7 @@
 
           <p class="credit">Generate custom QR codes using emoji as the visual modules,
             allowing the code to carry a layer of visual meaning while remaining scannable.</p>
-          <p class="credit">QR Engine is the underlying module: CodeDesk is one application of it;
-            <strong><a href="https://okqral.com">okqral.com</a></strong> another. It is
-            intentionally independent of someone else&rsquo;s marketing program because a public
-            utility should be allowed to remain a public utility. #praxis</p>
+
 
           <details class="more">
             <summary class="more-toggle"><span>Systems design</span></summary>
@@ -578,7 +583,10 @@
               <section class="more-section">
                 <p class="label">Systems design</p>
                 <div class="prose">
-                  <p>TKTK &mdash; one engine, three deployments.</p>
+                  <p>QR Engine is the underlying module: CodeDesk is one application of it;
+                    <strong><a href="https://okqral.com">okqral.com</a></strong> another. It is
+                    intentionally independent of someone else&rsquo;s marketing program because a
+                    public utility should be allowed to remain a public utility. #praxis</p>
                 </div>
               </section>
 
@@ -668,12 +676,12 @@
 
           <div class="layer-legend">
             <div class="layer-legend-col layer-legend-col--a">
-              <h2 class="layer-legend-head">The slab</h2>
+              <h3 class="layer-legend-head">The slab</h3>
               <p>The environment. Ground, trees, weather and sky — authored by three separate tools
                 and composed at runtime.</p>
             </div>
             <div class="layer-legend-col layer-legend-col--b">
-              <h2 class="layer-legend-head">The Ward</h2>
+              <h3 class="layer-legend-head">The Ward</h3>
               <p>The commons. Ticker, bulletin board, place cards, presence — an interface layer
                 that lifts off the environment cleanly, so it can stand on a sheet of its own.</p>
             </div>
@@ -691,7 +699,7 @@
 <section class="more-section">
         <p class="label">The slab</p>
         <div class="prose">
-          <h2 class="prose-h">Ground, canopy, weather</h2>
+          <h3 class="prose-h">Ground, canopy, weather</h3>
           <p>Cartograph publishes the ground as a single drawing per Look. Arborist keeps a species
             library and bakes it to instanced geometry — per-specimen jitter, bark, and seasons, so
             a street of the same species is not a street of clones. Weather and sky run on a poller
@@ -705,7 +713,7 @@
 <section class="more-section">
         <p class="label">The Ward</p>
         <div class="prose">
-          <h2 class="prose-h">A noticeboard inside the place it describes</h2>
+          <h3 class="prose-h">A noticeboard inside the place it describes</h3>
           <p>Most neighbourhood software is a feed with an address attached. The Ward puts the
             commons where the thing actually is: an event on the ticker, a notice on the board, a
             business as a card you meet by walking past it. Because the whole layer is DOM rather
@@ -716,7 +724,7 @@
 <section class="more-section">
         <p class="label">Why it matters</p>
         <div class="prose">
-          <h2 class="prose-h">One kit, three neighbourhoods</h2>
+          <h3 class="prose-h">One kit, three neighbourhoods</h3>
           <p>Looks vary styling and never shape, so the runtime swaps between them at no cost — a
             different palette and ground over identical geometry. That rule is what turns one
             neighbourhood into a kit, and the kit is already real: Lafayette Square built out to
@@ -744,7 +752,7 @@
 <section class="more-section">
         <p class="label">Also built</p>
         <div class="prose">
-          <h2 class="prose-h">Dispatch, waiting on a community</h2>
+          <h3 class="prose-h">Dispatch, waiting on a community</h3>
           <p>A courier and dispatch service sits behind the commons: schema with row-level
             security, dispatch logic, credential checks, payments, and two-way SMS. It works and it
             is not rolled out, because a dispatch network needs neighbours before it needs code.
@@ -806,7 +814,7 @@
               <section class="more-section">
                 <p class="label">Why it is here</p>
                 <div class="prose">
-                  <h2 class="prose-h">The tool-building did not start at Nordson</h2>
+                  <h3 class="prose-h">The tool-building did not start at Nordson</h3>
                   <p>Everything above this is 2018 or later, which makes the systems work look
                     like something that began with one client. It did not. This was nine years
                     of it, as the person accountable for the product rather than as the person
@@ -1016,7 +1024,7 @@
 <section class="more-section">
         <p class="label">How it works</p>
         <div class="prose">
-          <h2 class="prose-h">A catalogue needs more rooms than a budget has</h2>
+          <h3 class="prose-h">A catalogue needs more rooms than a budget has</h3>
           <p>A seasonal range has to appear in a plausible home, in enough different homes that
             the range reads as a range. Building or booking a location for every configuration is
             the expensive way there, and it locks you into whatever you shot on the day.</p>
@@ -1209,7 +1217,7 @@
               <section class="more-section">
                 <p class="label">The display is the invention</p>
                 <div class="prose">
-                  <h2 class="prose-h">One bar carries the whole state</h2>
+                  <h3 class="prose-h">One bar carries the whole state</h3>
                   <p>The interesting problem was never fetching the data. It was finding a way to
                     show mortality across a cast and crew of hundreds without turning it into a
                     table nobody reads. One horizontal rule does it: everyone above is alive,
@@ -1223,7 +1231,7 @@
               <section class="more-section">
                 <p class="label">How it is built</p>
                 <div class="prose">
-                  <h2 class="prose-h">Two halves that barely know each other</h2>
+                  <h3 class="prose-h">Two halves that barely know each other</h3>
                   <p>The site is static files. No backend, no build step; the browser queries
                     Wikidata and TMDB directly. The poster is a set of Node scripts that finds
                     pictures which have closed, holds them for approval, and posts the approved
@@ -1303,7 +1311,7 @@
               <section class="more-section">
                 <p class="label">Why it is here</p>
                 <div class="prose">
-                  <h2 class="prose-h">Transposition is compositing</h2>
+                  <h3 class="prose-h">Transposition is compositing</h3>
                   <p>Everything else on this page composites in space — a plate over a photograph,
                     a slab under a commons, a studio shot into an empty room. This one composites
                     in sound, and it is the clearest case because the sources cannot be reconciled
@@ -1319,7 +1327,7 @@
               <section class="more-section">
                 <p class="label">How it is built</p>
                 <div class="prose">
-                  <h2 class="prose-h">One thing that is true, one thing that draws it</h2>
+                  <h3 class="prose-h">One thing that is true, one thing that draws it</h3>
                   <p><code>core/theory.js</code> is pure — no DOM, no <code>window</code>, no
                     knowledge that a browser exists. It spells scales and transposes them, and
                     that is all it does. <code>core/engrave.js</code> takes what it says and draws
@@ -1335,7 +1343,7 @@
               <section class="more-section">
                 <p class="label">Not built yet</p>
                 <div class="prose">
-                  <h2 class="prose-h">A second reader for the same core</h2>
+                  <h3 class="prose-h">A second reader for the same core</h3>
                   <p>The point of a pure core is that more than one thing can read it. A
                     key-resolution service and a daily post to Bluesky are specified and not
                     written — so today the core has exactly one reader, and the claim above is a
