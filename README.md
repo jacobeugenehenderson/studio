@@ -486,7 +486,7 @@ getting them again means reading `/Volumes/Today`. Placing one back means
 `build_curios()` in `tools/build-images.py`, which was removed with it — it is
 in the git history of this commit.
 
-Pieces **1–4 are all Nordson Industrial Coating Systems** and that is
+Pieces **1–4 are all Nordson Industrial Coating Solutions** and that is
 deliberate: the assets, the tool that consumed them, the operating environment,
 and the tool that came out of the portal. Four unlabelled credits for one client
 reads as *he did a lot for one company*; the same four named as one four-year
