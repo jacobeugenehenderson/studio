@@ -369,9 +369,21 @@ used.update(re.findall(r"classList\.(?:add|remove|toggle)\('([^']+)'\)",js))
 used.update(re.findall(r"querySelectorAll?\('\.([a-z0-9-]+)",js))
 print('unused CSS  :', sorted(defined-used) or 'none')
 print('undefined   :', sorted(used-defined) or 'none')
-d=set(re.findall(r'^\s*(--[a-z0-9-]+):',tokens,re.M))
+# EVERY declaration, not just the first on its line: the spacing scale is
+# declared several per line, and an anchored regex saw one of each four.
+tok=re.sub(r'/\*.*?\*/','',tokens,flags=re.S)
+d=set(re.findall(r'(--[a-z0-9-]+)\s*:',tok))
 r=set(re.findall(r'var\((--[a-z0-9-]+)',site+tokens+js))
 print('unused token:', sorted(d-r) or 'none')
+# The other half, and the expensive half — a token REACHED and never declared.
+# An undefined custom property does not fall through; it wins on specificity and
+# then evaporates at computed-value time, so the rule that beat everything paints
+# nothing. No error, nothing wrong-looking in either rule. It rendered every
+# control in Codedesk square. A var() WITH a fallback is safe by construction.
+seeded=set(re.findall(r"setProperty\('(--[a-z0-9-]+)",js))
+local=set(re.findall(r'(--[a-z0-9-]+)\s*:',code))
+bare=set(re.findall(r'var\((--[a-z0-9-]+)\s*\)',site+tokens))
+print('undef token :', sorted(bare-d-local-seeded) or 'none')
 n=[int(m.group(1)) for m in re.finditer(r'^/\* (\d+) ── ',site,re.M)]
 print('sections    :', 'ok' if n==list(range(1,len(n)+1)) else f'DRIFT {n}')
 o,c=html.count('<!--'),html.count('-->')
@@ -402,9 +414,29 @@ letter.
 |---|---|
 | `--spot-nordson3` | Reserved Nordson gold, for art that has not landed. `--spot-nordson2` was reserved the same way and is now ShowDesk's ink. |
 | `--ink-on-art`, `--ink-on-art-soft`, `--paper-on-art` | These went unused when `.reveal` was deleted on 17 Aug 2026, and they are the *fix for a documented trap* (§6: type over fixed art cannot use `var(--ink)`). Piece 1's incoming line drawing is fixed art; the first caption laid on it needs these. Deleting them would delete the fix and keep only the warning. |
-| `--s1` | The spacing scale is a system. A scale with a hole in it is worse than an unused step. |
+| `--s1`, `--s10` | The two ends of the spacing scale. A scale is a system, and a scale with a hole in it is worse than an unused step. |
 
 Anything else reporting unused is drift, not a reservation.
+
+⚠ **`--s10` only started reporting on 23 Aug 2026, and it had been unused all
+along.** The declared-token regex was anchored to the start of a line, and the
+spacing scale is declared four to a line — so it saw `--s1`, `--s5` and `--s9`
+and was blind to the other seven. A check that silently covers less than it
+claims is worse than no check, because its silence is read as a pass. **When a
+check reports clean, ask what it can see** — here, `len(d)` was 61 against 68
+tokens actually declared.
+
+⚠ **`undef token` was added 23 Aug 2026, and it is the more expensive half of
+the token check.** `unused token` finds a token declared and never reached —
+untidiness. This finds one **reached and never declared**, which is a silent
+bug: an undefined custom property does not fall through, it wins on
+specificity and then evaporates at computed-value time, so the declaration
+that beat everything paints nothing. No error, nothing wrong-looking in
+either rule. It rendered every control in Codedesk square, and it caught
+`--vig-rim-accent` on theward.online while that audit reported clean. A
+`var()` **with** a fallback is safe by construction and is deliberately not
+flagged — the fallback is the author saying what happens when the token is
+absent. The same check is `undefined token` in `theward-online/tools/audit.py`.
 
 ⚠ **The markup checks were added 17 Aug 2026, after a broken page passed the
 audit clean.** An edit dropped one `-->`, so the rest of the document was

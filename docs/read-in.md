@@ -56,9 +56,21 @@ used.update(re.findall(r"classList\.(?:add|remove|toggle)\('([^']+)'\)",js))
 used.update(re.findall(r"querySelectorAll?\('\.([a-z0-9-]+)",js))
 print('unused CSS  :', sorted(defined-used) or 'none')
 print('undefined   :', sorted(used-defined) or 'none')
-d=set(re.findall(r'^\s*(--[a-z0-9-]+):',tokens,re.M))
+# EVERY declaration, not just the first on its line: the spacing scale is
+# declared several per line, and an anchored regex saw one of each four.
+tok=re.sub(r'/\*.*?\*/','',tokens,flags=re.S)
+d=set(re.findall(r'(--[a-z0-9-]+)\s*:',tok))
 r=set(re.findall(r'var\((--[a-z0-9-]+)',site+tokens+js))
 print('unused token:', sorted(d-r) or 'none')
+# The other half, and the expensive half — a token REACHED and never declared.
+# An undefined custom property does not fall through; it wins on specificity and
+# then evaporates at computed-value time, so the rule that beat everything paints
+# nothing. No error, nothing wrong-looking in either rule. It rendered every
+# control in Codedesk square. A var() WITH a fallback is safe by construction.
+seeded=set(re.findall(r"setProperty\('(--[a-z0-9-]+)",js))
+local=set(re.findall(r'(--[a-z0-9-]+)\s*:',code))
+bare=set(re.findall(r'var\((--[a-z0-9-]+)\s*\)',site+tokens))
+print('undef token :', sorted(bare-d-local-seeded) or 'none')
 n=[int(m.group(1)) for m in re.finditer(r'^/\* (\d+) ── ',site,re.M)]
 print('sections    :', 'ok' if n==list(range(1,len(n)+1)) else f'DRIFT {n}')
 o,c=html.count('<!--'),html.count('-->')
@@ -76,7 +88,14 @@ print('tags        :', 'ok' if not stack and not bad else f'UNCLOSED {stack[:4]}
 EOF
 ```
 
-Expected: `none`, `none`, the two reserved Nordson inks, `ok`.
+Expected: `none`, `none`, **the six reserved tokens** (README §7 lists them and
+why each is kept), `none`, `ok`, `ok`, `ok`.
+
+⚠ This line said *"the two reserved Nordson inks"* until 2026-08-23, by which
+point there were six and one of the inks had become ShowDesk's. An expectation
+is a claim like any other: it goes stale, and it is the one nobody re-checks
+because a passing audit *looks* like agreement. Read what it printed, not what
+this line predicted.
 
 **If a document contradicts the code, the code is right.** Several documents
 here have now been corrected for confidently stating something untrue. Fix the
