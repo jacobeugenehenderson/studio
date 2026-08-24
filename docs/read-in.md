@@ -108,7 +108,9 @@ earlier draft, which is what made it convincing — when only two did. Then a
 session wrote **"`grep -c "iframe src="` returns 2, and that is correct,"** with
 the verification command right there beside it; it was true when written and
 false one commit later, because removing a launcher put the frame back in the
-markup. It is 3.
+markup. It said 3 here until 23 Aug 2026, when it had been **4** for a week —
+so this passage, whose whole subject is a number that will not stay true, was
+itself carrying the stale number. Run it: `grep -c "iframe src=" index.html`.
 
 So: **check the count, and distrust the check itself.** A note that tells you
 how to verify it can go stale in exactly the way the claim did. Re-derive what

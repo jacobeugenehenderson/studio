@@ -184,12 +184,15 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    Then, and only then: flip `data-embed-base` in `index.html` from the staging
    URL to `https://lafayette-square.com/`. One line, the only one.
 
-   **`grep -c "iframe src=" index.html` → 3**, and it is honest again. It read
-   2 for part of this session, while a launcher injected The Ward's frame on
-   click; that went when the launcher did, and the iframe is back in the markup
-   with the product's own loading screen covering its boot. `grep -c
-   'class="embed[ "]' index.html` also gives 3. Both were checked, not assumed —
-   this row has now been wrong three times.
+   **`grep -c "iframe src=" index.html` → 4**, and `grep -c 'class="embed[ "]'
+   index.html` → 4 with it. Both were run on 23 Aug 2026, not carried forward.
+
+   ⚠ **This row said 3 and had said 3 since Scale Machine landed** — the count
+   was right when written and wrong a commit later, for the fourth time. The
+   README's §5 row was corrected to 4 and this one was not, so the two documents
+   disagreed for a week with the check command printed in both. **Do not read
+   the number; run the command.** And when you correct a count, grep the repo
+   for the old one — a number lives in more places than you remember writing it.
 
    Jacob's in-flight work is untouched: the commit was scoped to one file and
    `BRIEF-polygon-asks-the-stamp.md`, both `design.json`s and the `.pre-reset`
