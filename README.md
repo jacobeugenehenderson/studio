@@ -210,6 +210,40 @@ height messages — and equally impossible in production, where the hostname tes
 fails. It needs the product's dev server running; if it is not, the frame fails
 to load, which beats silently showing a stale deploy.
 
+### The Ward is told where it sits on this page
+
+A framed document's `IntersectionObserver` measures against its **own** viewport,
+and cross-origin it can see nothing of ours — so The Ward cannot tell that it is
+two screens below whatever is being read. It renders at full rate the whole time
+regardless, and on a page of ten pieces with four live embeds that is most of the
+visit.
+
+So this page watches and reports, and the product decides:
+
+```js
+{ type: 'ward-perf', presence: 'active' | 'idle' }   // at half visibility
+```
+
+The throttle itself lives in the product (`src/lib/framedPresence.js`,
+`ls/FEATURES.md §Embedded`) so **every** installation inherits it rather than
+just this page. An embed must not fork the thing it embeds. theward.online sends
+the same message from its own hero frame; the contract is the product's, and
+neither site owns it.
+
+⛔ **Idle is a lower frame rate and never a pause.** Going quiet is precisely
+what makes Chrome drop the WebGL surface, which is the 5–12 second stall in §6
+arrived at from the other direction. Nothing here may ever send a stop.
+
+**Silence means full rate.** A browser with no observer sends nothing and gets
+the product at its own speed, which is the safe way round.
+
+Verified 23 Aug 2026 by scrolling the real page: `idle → active → idle`, three
+transitions, no chatter. ⚠ **An `IntersectionObserver` does not deliver in a tab
+that is not being painted** — the first run of that test recorded nothing at all,
+and a freshly-attached probe observer recorded nothing either, which is what
+proved it was the tab rather than the code. Force a paint before believing an
+observer never fired.
+
 ## 5b. Embedded products size themselves
 
 An iframe has a fixed height; these apps do not — action up top, menus folding

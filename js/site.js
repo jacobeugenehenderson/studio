@@ -466,6 +466,60 @@
     var frame = box.querySelector('iframe');
     if (frame && base() !== box.getAttribute('data-embed-base')) frame.src = base();
 
+    /* ── This page's half of the frame budget ─────────────────────────────
+       The Ward is a WebGL scene that keeps rendering for as long as it is
+       mounted, and on this page it is one piece of ten — so it spends frames
+       the whole time somebody is reading about West Elm two screens down.
+
+       It cannot fix that by itself. A framed document's IntersectionObserver
+       measures against its OWN viewport, and cross-origin it can see nothing
+       of ours, so the Ward has no way to know where it sits here. This page
+       watches and reports; the product decides what to do about it. That
+       division is deliberate — the throttle lives in `src/lib/framedPresence.js`
+       so every installation inherits it, not just this page. An embed must not
+       fork the thing it embeds.
+
+       ⛔ IDLE IS A LOWER FRAME RATE, NEVER A PAUSE. Going quiet is exactly what
+       makes Chrome drop the WebGL surface, and getting it back is one blocked
+       frame of 5–12 seconds — the same trap as hiding the canvas (README §6),
+       reached from the other direction. Nothing here may ever send a stop.
+
+       Half visibility is the line: mostly on screen is worth full rate, mostly
+       gone is not. Silence means full rate, so a browser without the observer
+       simply gets the product at its own speed. */
+    var presence = null;
+    function report(next) {
+      if (next === presence) return;
+      presence = next;
+      var f = box.querySelector('iframe');
+      if (!f || !f.contentWindow) return;
+      try {
+        f.contentWindow.postMessage(
+          { type: 'ward-perf', presence: next },
+          new URL(base(), window.location.href).origin
+        );
+      } catch (e) { /* malformed base, or the product is not up yet */ }
+    }
+
+    if (frame && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        report(entries[0].intersectionRatio >= 0.5 ? 'active' : 'idle');
+      }, { threshold: [0, 0.5, 1] }).observe(frame);
+    }
+
+    /* The frame is lazy and the product mounts before it can listen, so the
+       first report almost always lands on nothing. Re-send once it is up —
+       clearing the cache first, because `report` refuses to repeat itself.
+       If no observer ever ran there is nothing to say, and saying nothing is
+       the safe answer. */
+    if (frame) {
+      frame.addEventListener('load', function () {
+        if (presence === null) return;
+        var last = presence;
+        window.setTimeout(function () { presence = null; report(last); }, 400);
+      });
+    }
+
     Array.prototype.forEach.call(radios, function (radio) {
       radio.addEventListener('change', tell);
     });
