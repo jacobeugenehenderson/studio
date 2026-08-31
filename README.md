@@ -494,11 +494,11 @@ the page in a fixed-width iframe does give media queries a genuine 390px.
 | 3 Ascend | five-step stepper | **real** interfaces |
 | 4 QR engine | live Codedesk embed | **live** |
 | 5 The Ward | three-state pill **+ live embed**, `.more` for the neighbourhood | **live**, and the piece is all real &mdash; no placeholder anywhere in it |
-| 6 WLVX | `.shot` of the product cover | **real** — 2021 marketing cover, 177 KB. The nine-year founder decade the site had been silent about. Provisional copy: written from Jacob's CV line and the cover itself only. A 19-page pitch deck exists on `/Volumes/2021` and is deliberately NOT a source — it is fundraising material, and he called it filler. **Check Vimeo**: if the demo videos survive, this becomes a live embed. |
-| 7 West Elm | pager, ten registered pairs | **real** |
-| Curio Picture Wrap | live site embed | **live**, and self-sizing — snippet deployed |
-| Curio Scale Machine | live app embed | **live**, framed at `?tuning=bb`; not self-sizing yet |
-| 00 Provincetown | rail + claim + **the shelf** | **real** — eight covers, 2018–2020, each linking to the publication itself |
+| 6 WLVX | `.shot` of the product cover, `.more` for the mechanism | **real** — 2021 marketing cover, 177 KB. Copy is Jacob's own. ⛔ The 19-page pitch deck on `/Volumes/2021` is NOT a source — fundraising material, and he called it filler. **Check Vimeo**: if the demo videos survive, this becomes a live embed. |
+| 7 West Elm | pager, ten registered pairs, `.more` for the on-set account | **real**. Pair captions carry the number only; the descriptions came off 2026-08-31 — the wipe shows what they were describing. Alt text is unaffected and still reachable from the `Alt` badge. |
+| Curio Picture Wrap | live site embed, `.more` for methods and sources | **live**, and self-sizing — snippet deployed |
+| Curio Scale Machine | live app embed | **live**, framed at `?tuning=bb`; not self-sizing yet. ⚠️ **Copy is TKTK** — the only piece not rewritten in the 2026-08-31 pass, and now the longest on the page. |
+| 00 Provincetown | rail + claim + **the shelf** + `.more` | **real** — eight covers, 2018–2020, each linking to the publication itself. Titled **Provincetown**; the Guild is named in the rail. |
 
 **Order is an argument, reordered 16 Aug 2026.** It used to open on West Elm,
 because the old thesis was *compositing* and West Elm is the most literal
