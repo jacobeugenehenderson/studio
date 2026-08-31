@@ -789,6 +789,18 @@ a { color: inherit; }
 .credit strong { color: var(--ink-soft); font-weight: 400; }
 
 
+/* ⭐ THE INSTANCE NOTE — whose neighborhood is in the frame, and the way to it.
+   Same treatment it has on theward.online: italic, right-aligned, no box. It
+   hangs off the frame's right edge as a credit line rather than opening a new
+   register beneath it, and it takes the FRAME's width rather than `--measure`,
+   because it belongs to the picture and not to the prose. */
+.instance-note {
+  text-align: right;
+  font-style: italic;
+  font-size: var(--fs-fine);
+  color: var(--ink-faint);
+}
+
 /* 11 ── graph paper ======================================================= */
 /*
    A grey sheet carrying two stroked grids — a fine minor rule with a coarser
@@ -821,63 +833,7 @@ a { color: inherit; }
    whatever it is layered over. */
 
 
-/* 12 ── the layer legend ================================================== */
-/*
-   Two captions under a wipe, one per side, both always present. The wipe dims
-   the side you are not looking at rather than hiding it — content behind a
-   gesture is content most people never read.
-
-   Dimming bottoms out at 0.55 so the quiet side stays legible. Below that it
-   becomes decorative grey, which is worse than not dimming at all.
-
-   These are CAPTIONS. They say what you are looking at in a sentence or two.
-   Explaining a complex system is the job of the prose sections below, which
-   have the width and the room for it.
-*/
-
-.layer-legend {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--s5);
-  margin-top: var(--s4);
-}
-
-.layer-legend-col {
-  display: grid;
-  gap: var(--s2);
-  align-content: start;
-  transition: opacity var(--dur-quick) linear;
-}
-
-/* Whichever control owns the figure sets these; the default is both bright. */
-.layer-legend-col--a { opacity: var(--dim-a, 1); }
-.layer-legend-col--b { opacity: var(--dim-b, 1); }
-
-.layer-legend-head {
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  letter-spacing: var(--tr-label);
-  text-transform: uppercase;
-  color: var(--ink);
-  border-top: 2px solid var(--spot, var(--ink));
-  padding-top: var(--s2);
-}
-
-.layer-legend-col p { font-size: var(--fs-small); line-height: var(--lh-snug); margin: 0; }
-
-@media (max-width: 46rem) {
-  .layer-legend { grid-template-columns: 1fr; gap: var(--s4); }
-  /* stacked, there is no "side you are not looking at" */
-  .layer-legend-col--a,
-  .layer-legend-col--b { opacity: 1; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .layer-legend-col { transition: none; }
-}
-
-
-/* 13 ── the stepper ======================================================= */
+/* 12 ── the stepper ======================================================= */
 /*
    A pipeline is an ordered thing, so this is a stepper and not a carousel:
    every stage is visible in the strip at once, you always know where you are,
@@ -995,7 +951,7 @@ a { color: inherit; }
 }
 
 
-/* 14 ── the pager ========================================================= */
+/* 13 ── the pager ========================================================= */
 /*
    One frame at a time, paged from the margins.
 
@@ -1065,7 +1021,7 @@ a { color: inherit; }
 }
 
 
-/* 15 ── three states, one pill ============================================ */
+/* 14 ── three states, one pill ============================================ */
 /*
    A segmented pill that starts in the middle, choosing between three states of
    one stack. A wipe was wrong here: a wipe compares two registered images by
@@ -1085,10 +1041,25 @@ a { color: inherit; }
 
 .states { position: relative; --dim-a: 1; --dim-b: 1; }
 
-/* The switcher needs air under it. The placeholder stage that used to sit here
-   carried this margin; the live frame replaced the stage and inherited none,
-   so the pill sat straight on the product. */
-.states .embed { margin-top: var(--s4); }
+/* ⭐ THE STACK UNDER THE FRAME, AND IT IS A STACK NOW. The order was reversed
+   on 2026-08-31 — frame, then the control, then the sentence — so this margin no
+   longer separates a pill from a product below it; it separates the frame from
+   the prose above it, and everything that follows the frame needs its own room.
+   ⛔ `.states` is not a grid, so a gap will not do this: each child carries its
+   own margin, and `.states .pill` is two classes to `.pill`'s one, which is what
+   lets it beat the `margin: 0` in the component itself.
+   The order is frame → credit line → headline → pill → paragraph, and the
+   margins carry it. The credit sits tight to the frame because it belongs to the
+   picture, the way a credit belongs to a photograph. The headline then opens a
+   block and the control sits INSIDE that block.
+   ⛔ Do not move the pill between two paragraphs. With prose above and below it
+   stops reading as a control on the frame and starts reading as the thing being
+   demonstrated — a heading introduces, a paragraph does not. */
+.states .embed { margin-top: var(--s6); }
+.states .instance-note { margin-top: var(--s3); }
+.states .prose-h { margin-top: var(--s6); }
+.states .pill { margin-top: var(--s4); }
+.states .prose { margin-top: var(--s4); }
 
 .states:has(input[value="slab"]:checked)      { --i: 0; --dim-a: 1;    --dim-b: 0.55; }
 .states:has(input[value="composite"]:checked) { --i: 1; --dim-a: 1;    --dim-b: 1; }
@@ -1157,7 +1128,7 @@ a { color: inherit; }
 }
 
 
-/* 16 ── the shot ========================================================== */
+/* 15 ── the shot ========================================================== */
 /*
    Two things live here: `.shot`, a still of a product, and `.embed`, the live
    product itself. Prefer .embed — it cannot go stale. Use .shot when the thing
@@ -1252,7 +1223,7 @@ a { color: inherit; }
 }
 
 
-/* 17 ── the disclosure ==================================================== */
+/* 16 ── the disclosure ==================================================== */
 /*
    Eight pieces on one page. Each keeps its working component visible at all
    times and puts the reading behind a twirl.
@@ -1336,7 +1307,7 @@ a { color: inherit; }
 .more-section { display: grid; gap: var(--s3); }
 
 
-/* 18 ── the shelf ========================================================= */
+/* 17 ── the shelf ========================================================= */
 /*
    Provincetown's publications, as covers.
 
@@ -1417,7 +1388,7 @@ a { color: inherit; }
 }
 
 
-/* 19 ── curios ============================================================ */
+/* 18 ── curios ============================================================ */
 /*
    A collection, not a leftovers bin. Jacob's own CURIOS repo is "web projects
    and experiments" and Scale Machine already lives in it, so the page is
@@ -1542,7 +1513,7 @@ a { color: inherit; }
 }
 
 
-/* 20 ── reading =========================================================== */
+/* 19 ── reading =========================================================== */
 /*
    What survived the collapse to one page. The rest of this section styled
    standalone case-study pages — crumb, work-head, work-nav and friends — and
@@ -1598,7 +1569,7 @@ a { color: inherit; }
 }
 
 
-/* 21 ── footer ============================================================ */
+/* 20 ── footer ============================================================ */
 
 .site-footer {
   margin-top: var(--s9);
@@ -1653,7 +1624,7 @@ a { color: inherit; }
 }
 
 
-/* 22 ── reduced motion ==================================================== */
+/* 21 ── reduced motion ==================================================== */
 /*
    The plates land pre-registered — at the residual offset, not at zero, so the
    fringe survives. Nothing moves, nothing is lost.

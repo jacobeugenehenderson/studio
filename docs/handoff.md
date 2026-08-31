@@ -198,8 +198,36 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    `BRIEF-polygon-asks-the-stamp.md`, both `design.json`s and the `.pre-reset`
    are all still dirty and unstaged, exactly as they were.
 
-   Still open: the pill's wireframe art is placeholder, now sitting above a
-   live render of the same neighbourhood. See README §8.
+   ⭐ **THE PIECE WAS REWRITTEN 2026-08-31, and it is the one Jacob asked for.**
+   The old body described the product's ARCHITECTURE — "two authoring tools pour
+   into a slab", sections labelled *The slab* / *The Ward*, five `.more` panels of
+   pipeline detail. It was the only piece on the page organised by its own parts
+   rather than by a reader's questions, and the reader here is someone who hires
+   or introduces creative directors. It now opens on a CREDIT — what Jacob
+   conceived, designed, built, wrote and branded — which is what that reader needs
+   and what Nordson's rail has always done with its `Scope` list.
+
+   546 words → about 330; the piece was 19% of the page and is now nearer 11%.
+
+   Order inside the demo block, and it moved five times before it settled:
+   **frame → credit line → headline → pill → paragraph.** The pill was briefly
+   between two paragraphs and stopped reading as a control on the frame; under a
+   heading it reads as part of the block the heading names. The neighbourhood
+   detail is behind a `.more` disclosure. ⛔ The constituent-tools table stays
+   OUT of it — the sentence above ends in a colon aimed at the table, so hiding
+   one without the other leaves the colon pointing at nothing.
+
+   What went with it: `.layer-legend` and CSS **§12**, which only this piece used,
+   with eleven sections renumbered behind it. The two-column legend was static
+   under a three-way control, so it described two of three states and never the
+   one a visitor lands on.
+
+
+   ▶ Still open, all Jacob's: the table says **Surveyor**, but the code calls that
+   surface *Survey* and it lives inside **Cartograph**, which the table omits while
+   listing four of Cartograph's other rooms; "Universal Player" appears in no
+   product doc; and the rail still reads `Role: Self-directed` and spells the
+   neighbourhood "Highpointe Demun" where the product has `Hi-Pointe–DeMun`.
 3. **Scale Machine — added as piece 7, 10 Aug 2026.** Live embed of
    `scalemachine.app`, spot ink cyan (`--spot-scale`, from the app's own
    `--accent: #22d3ee`, deepened to a press ink so it does not collide with

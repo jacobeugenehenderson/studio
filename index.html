@@ -608,28 +608,23 @@
         </div>
         <div class="piece-body">
           <h2 class="piece-title">The Ward</h2>
-          <p class="piece-claim">The commons, rendered as the actual place. Two authoring tools
-            pour into a slab; a player animates it and carries the ticker and the bulletin board.
-            Three neighbourhoods, one kit.</p>
+          <p class="piece-claim">A complete product, conceived and built from the ground up.</p>
+
+          <div class="prose">
+            <p>I conceived The Ward, identified what it should do and why, developed its visual and
+              interaction language, designed its underlying systems, built the tools required to make
+              it repeatable, wrote it, branded it, and got an actual neighborhood running inside it.</p>
+            <p>The result is a digital presence for real neighborhoods: a working platform that brings
+              the physical place together with the people, places, events, exchanges, and local
+              knowledge that make it a community.</p>
+          </div>
+
 <div class="states">
-          <fieldset class="pill">
-            <legend class="visually-hidden">Which layer of The Ward to load</legend>
-            <label class="pill-opt pill-opt--slab">
-              <input type="radio" name="ward-view" value="slab">Slab
-            </label>
-            <label class="pill-opt pill-opt--composite">
-              <input type="radio" name="ward-view" value="composite" checked>Composite
-            </label>
-            <label class="pill-opt pill-opt--ward">
-              <input type="radio" name="ward-view" value="ward">Ward
-            </label>
-          </fieldset>
+          <!-- The one demo area. ⛔ Never a diagram beside the working version of
+               the same thing — a wireframe can specify a demo, but once the demo
+               exists the wireframe can only disagree with it.
 
-          <!-- The one demo area. A wireframe of three stacked layers stood here
-               while this was being specified; the live thing is that spec built,
-               so there is no diagram beside it to disagree with.
-
-               The pill above is this frame's switcher. Each state loads a
+               The pill below is this frame's switcher. Each state loads a
                different PAYLOAD from the product's own URL:
 
                  Slab       ?layer=slab    the baked environment, no Player
@@ -674,94 +669,85 @@
                     loading="lazy"></iframe>
           </div>
 
-          <div class="layer-legend">
-            <div class="layer-legend-col layer-legend-col--a">
-              <h3 class="layer-legend-head">The slab</h3>
-              <p>The environment. Ground, trees, weather and sky — authored by three separate tools
-                and composed at runtime.</p>
-            </div>
-            <div class="layer-legend-col layer-legend-col--b">
-              <h3 class="layer-legend-head">The Ward</h3>
-              <p>The commons. Ticker, bulletin board, place cards, presence — an interface layer
-                that lifts off the environment cleanly, so it can stand on a sheet of its own.</p>
-            </div>
+          <!-- ⭐ THE SAME LINE THIS NEIGHBORHOOD CARRIES ON theward.online, and
+               deliberately the same shape and the same place: italic,
+               right-aligned, DIRECTLY under the frame, like a credit under a
+               picture rather than a panel under a panel. It names the instance
+               and offers the way to it. ⛔ It belongs to the demo — nothing
+               goes between the two. -->
+          <p class="instance-note">A Ward is a real neighborhood. The one running above is Lafayette Square in St. Louis. <a href="https://lafayette-square.com">Visit Lafayette Square &rarr;</a></p>
+
+          <!-- ⭐ THE HEADLINE TITLES THE WHOLE DEMO, so it sits above the
+               control. A heading opens a block and the pill reads as part of
+               what the heading names. ⛔ Do not put it between two paragraphs —
+               there it reads as the thing being demonstrated. -->
+          <h3 class="prose-h">The place is separate from the product</h3>
+
+          <fieldset class="pill">
+            <legend class="visually-hidden">Which layer of The Ward to load</legend>
+            <label class="pill-opt pill-opt--slab">
+              <input type="radio" name="ward-view" value="slab">Slab
+            </label>
+            <label class="pill-opt pill-opt--composite">
+              <input type="radio" name="ward-view" value="composite" checked>Composite
+            </label>
+            <label class="pill-opt pill-opt--ward">
+              <input type="radio" name="ward-view" value="ward">Ward
+            </label>
+          </fieldset>
+
+
+          <div class="prose">
+            <p>The Slab establishes the physical neighborhood; the Ward brings its civic and social
+              layers online. The composite shows the finished experience; use the switcher to isolate
+              either layer.</p>
           </div>
         </div>
 
-          <p class="credit">The Ward, running, served from its own address with nothing added
-            for this page. The switcher above chooses which <em>payload</em> loads — the slab
-            alone, both, or the commons alone — and each arrives from a separate URL. The slab
-            underneath was baked by a different tool than the one drawing it.</p>
-
+          <!-- ⭐ THE NEIGHBORHOOD DETAIL IS DEPTH, so it goes behind the
+               disclosure — README §5: collapsed is a preview, never a closed
+               door. The claim and the demo stay out; the inventory of one
+               instance folds away.
+               ⛔ THE TOOLS TABLE STAYS OUT. The sentence above it ends in a
+               COLON pointing straight at it, so burying one without the other
+               leaves the colon aimed at nothing. -->
           <details class="more">
-            <summary class="more-toggle"><span>Platform architecture</span></summary>
+            <summary class="more-toggle"><span>Lafayette Square</span></summary>
             <div class="more-body">
-<section class="more-section">
-        <p class="label">The slab</p>
-        <div class="prose">
-          <h3 class="prose-h">Ground, canopy, weather</h3>
-          <p>Cartograph publishes the ground as a single drawing per Look. Arborist keeps a species
-            library and bakes it to instanced geometry — per-specimen jitter, bark, and seasons, so
-            a street of the same species is not a street of clones. Weather and sky run on a poller
-            and a timeline rather than a fixed skybox, which means the neighbourhood has hours and
-            conditions instead of a single flattering afternoon.</p>
-          <p>The Gateway Arch is built from the real NPS catenary equation rather than eyeballed,
-            and it sits in the scene's own coordinate space instead of being painted on the
-            horizon — so buildings occlude its legs, and gaps between them do not.</p>
-        </div>
-      </section>
-<section class="more-section">
-        <p class="label">The Ward</p>
-        <div class="prose">
-          <h3 class="prose-h">A noticeboard inside the place it describes</h3>
-          <p>Most neighbourhood software is a feed with an address attached. The Ward puts the
-            commons where the thing actually is: an event on the ticker, a notice on the board, a
-            business as a card you meet by walking past it. Because the whole layer is DOM rather
-            than geometry, it is responsive, legible, and separable — which is why it can be shown
-            on its own sheet without the environment beneath it.</p>
-        </div>
-      </section>
-<section class="more-section">
-        <p class="label">Why it matters</p>
-        <div class="prose">
-          <h3 class="prose-h">One kit, three neighbourhoods</h3>
-          <p>Looks vary styling and never shape, so the runtime swaps between them at no cost — a
-            different palette and ground over identical geometry. That rule is what turns one
-            neighbourhood into a kit, and the kit is already real: Lafayette Square built out to
-            full fidelity, Highpointe Demun close behind, Altadena with mountains and twenty
-            thousand people.</p>
-          <p>Each helper publishes exactly one canonical artifact and never imports another's
-            code. It is the same structure I built at Nordson and, before that, for a tourism
-            guild — arrived at again, alone, for a different problem.</p>
-        </div>
-      </section>
-<section class="more-section">
-        <p class="label">At a glance</p>
-        <div>
-          <table class="facts">
-            <tbody>
-              <tr><th scope="row">Authoring tools</th><td>Cartograph, Arborist, Meteorologist</td></tr>
-              <tr><th scope="row">Runtime</th><td>Universal Player</td></tr>
-              <tr><th scope="row">Published artifacts</th><td>One per helper: ground, tree library, stage config</td></tr>
-              <tr><th scope="row">Neighbourhoods</th><td>Three, one public</td></tr>
-              <tr><th scope="row">Live</th><td><a href="https://lafayette-square.com">lafayette-square.com</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-<section class="more-section">
-        <p class="label">Also built</p>
-        <div class="prose">
-          <h3 class="prose-h">Dispatch, waiting on a community</h3>
-          <p>A courier and dispatch service sits behind the commons: schema with row-level
-            security, dispatch logic, credential checks, payments, and two-way SMS. It works and it
-            is not rolled out, because a dispatch network needs neighbours before it needs code.
-            Included here as engineering rather than as a product — there is nothing to sign up
-            for.</p>
-        </div>
-      </section>
+
+              <section class="more-section">
+                <p class="label">The first Ward</p>
+                <div class="prose">
+                  <p>Lafayette Square is the first Ward. Its living model contains 1,082 buildings and
+                    5,146 trees &mdash; including the 775 trees of Lafayette Park, surveyed individually
+                    and representing 92 species. Nearly every building carries a historic record, while
+                    the Society Pages map the neighborhood&rsquo;s restaurants, shops, parks, arts and
+                    cultural sites, services, community institutions and residences. Restaurants carry
+                    menus; Places can carry hours, events, photographs, history and reviews. Weather,
+                    daylight and the night sky keep the whole neighborhood situated in the actual place
+                    and time.</p>
+                </div>
+              </section>
+
             </div>
           </details>
+
+          <div class="prose">
+            <p>The Ward is repeatable because each neighborhood is authored through a set of
+              purpose-built tools:</p>
+            <table class="facts">
+              <tbody>
+                <tr><th scope="row">Extent</th><td>Establishes the geographic bounds of the neighborhood</td></tr>
+                <tr><th scope="row">Surveyor</th><td>Builds the physical record of streets, parcels, buildings and landmarks</td></tr>
+                <tr><th scope="row">Designer</th><td>Authors the neighborhood&rsquo;s visual language</td></tr>
+                <tr><th scope="row">Stage</th><td>Controls light, atmosphere, depth, color and post-production</td></tr>
+                <tr><th scope="row">Preview</th><td>GPU emulator for testing the finished environment</td></tr>
+                <tr><th scope="row">Arborist</th><td>Manages species, individual trees and seasonal foliage</td></tr>
+                <tr><th scope="row">Meteorologist</th><td>Authors clouds, weather and atmospheric conditions</td></tr>
+                <tr><th scope="row">Universal Player</th><td>Brings the environment and civic layers together at runtime</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </article>
 
