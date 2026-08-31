@@ -1271,11 +1271,13 @@
         </div>
         <div class="piece-body">
           <h2 class="piece-title">Scale Machine</h2>
-          <p class="piece-claim">A trumpet's C sounds a concert B♭. An alto's sounds E♭. Tell four
-            players a tune is in A minor and only the pianist can use it. Scale Machine holds one
-            canonical set of scales and re-spells them for whichever horn you play — twelve keys,
-            engraved, right clef, right key signature. Four players read four different pages and
-            one sound comes out.</p>
+          <p class="piece-claim">Learn the scales. Play what you feel.</p>
+
+          <div class="prose">
+            <p>I built Scale Machine to sharpen my scales so I could play more freely and
+              improvisationally. For a transposing instrument, the notes you read depend on the
+              instrument you play.</p>
+          </div>
 
           <!-- The instrument itself, running. Static files, no backend, so the
                frame is the product rather than a picture of it.
@@ -1295,73 +1297,35 @@
           <p class="credit">Live at <strong><a href="https://scalemachine.app">scalemachine.app</a></strong>
             · no account, and the microphone never leaves the browser</p>
 
+          <div class="prose">
+            <p>Scale Machine does that work automatically. Choose an instrument and one of ten scale
+              types and it generates all twelve keys as properly spelled, engraved notation. Turn on
+              Listen and it follows you note by note through the microphone, repeating a scale or
+              advancing as you play.</p>
+          </div>
+
           <details class="more">
-            <summary class="more-toggle"><span>Music and notation</span></summary>
+            <summary class="more-toggle"><span>Coming soon</span></summary>
             <div class="more-body">
 
               <section class="more-section">
-                <p class="label">Why it is here</p>
                 <div class="prose">
-                  <h3 class="prose-h">Transposition is compositing</h3>
-                  <p>Everything else on this page composites in space — a plate over a photograph,
-                    a slab under a commons, a studio shot into an empty room. This one composites
-                    in sound, and it is the clearest case because the sources cannot be reconciled
-                    by looking.</p>
-                  <p>The seven notes are the same seven notes. What changes is the page each
-                    player reads. Four musicians hold four different documents, disagreeing about
-                    the name of every note in front of them, and the disagreement is exactly what
-                    makes them agree out loud. That is the whole thesis at the smallest size it
-                    can be seen at.</p>
-                </div>
-              </section>
-
-              <section class="more-section">
-                <p class="label">How it is built</p>
-                <div class="prose">
-                  <h3 class="prose-h">One thing that is true, one thing that draws it</h3>
-                  <p><code>core/theory.js</code> is pure — no DOM, no <code>window</code>, no
-                    knowledge that a browser exists. It spells scales and transposes them, and
-                    that is all it does. <code>core/engrave.js</code> takes what it says and draws
-                    staves. Delete the drawing and the theory is untouched; the split is the same
-                    one every other piece here argues for, at a size where you can hold both
-                    halves in your head at once.</p>
-                  <p>No backend, no build step, no account. The listener runs on the microphone in
-                    the browser and nothing it hears is recorded, uploaded or kept — which is a
-                    design decision, not a privacy notice: there is nowhere for it to go.</p>
-                </div>
-              </section>
-
-              <section class="more-section">
-                <p class="label">Not built yet</p>
-                <div class="prose">
-                  <h3 class="prose-h">A second reader for the same core</h3>
-                  <p>The point of a pure core is that more than one thing can read it. A
-                    key-resolution service and a daily post to Bluesky are specified and not
-                    written — so today the core has exactly one reader, and the claim above is a
-                    structure rather than a demonstration. When the second lands it will be said
-                    here plainly, and not before.</p>
-                </div>
-              </section>
-
-              <section class="more-section">
-                <p class="label">At a glance</p>
-                <div>
-                  <table class="facts">
-                    <tbody>
-                      <tr><th scope="row">Keys</th><td>Twelve, chromatic, enterable at any tonic</td></tr>
-                      <tr><th scope="row">Scale types</th><td>Ten, major through half–whole diminished</td></tr>
-                      <tr><th scope="row">Instruments</th><td>C treble, C bass, B♭, E♭, F</td></tr>
-                      <tr><th scope="row">Notation</th><td>Engraved in the browser, correct clef and key signature</td></tr>
-                      <tr><th scope="row">Listener</th><td>Microphone pitch detection, nothing leaves the page</td></tr>
-                      <tr><th scope="row">Backend</th><td>None</td></tr>
-                      <tr><th scope="row">Second reader</th><td>Specified, not built</td></tr>
-                    </tbody>
-                  </table>
+                  <p>Scale Machine is moving from practicing scales toward using them to play actual
+                    music. Enter a song and it will identify a small palette of scales that gets you
+                    inside it, already transposed and notated for your instrument. Rather than
+                    pretending every song has a single definitive key, it can account for music that
+                    moves, modulates, sits between major and minor, or needs more than one scale to
+                    describe what&rsquo;s happening.</p>
+                  <p>A companion Bluesky feed will periodically pick a song, show what its key means
+                    for different instruments, and link directly into Scale Machine ready to
+                    practice.</p>
                 </div>
               </section>
 
             </div>
           </details>
+
+          <p><a class="visit" href="https://scalemachine.app">Visit Scale Machine &rarr;</a></p>
         </div>
       </article>
 

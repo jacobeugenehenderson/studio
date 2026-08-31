@@ -228,7 +228,7 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    listing four of Cartograph's other rooms; "Universal Player" appears in no
    product doc; and the rail still reads `Role: Self-directed` and spells the
    neighbourhood "Highpointe Demun" where the product has `Hi-Pointe–DeMun`.
-3. **The copy pass, 2026-08-31.** Jacob rewrote six pieces in one sitting; the
+3. **The copy pass, 2026-08-31.** Jacob rewrote every piece from The Ward down in one sitting; the
    text is his, the structure follows the site's existing grammar. The pattern
    that emerged and should be kept: **claim → one visible paragraph → the picture
    or the live thing → a `.more` disclosure for the depth → a short closer.**
@@ -240,16 +240,13 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    | WLVX | 168 | 298 |
    | Provincetown | 99 | 228 |
    | West Elm | 409 | 195 |
+   | Scale Machine | 451 | 215 |
 
    The subject changed, not just the prose. Every rewritten piece now opens on
    what Jacob did or what the thing is *for*, rather than on how it is built —
    the reader is someone who hires or introduces creative directors. Nordson's
    rail had always done this with its `Scope` credit list; the rest of the page
    had not.
-
-   ⚠️ **Scale Machine is TKTK.** It is the only piece not rewritten, and at 451
-   words it is now the longest on the page — so the weighting it was fixed to
-   correct is still wrong at that one spot.
 
    ⚠️ **The recurrence argument is now absent from the page.** Provincetown's
    "four years before anyone paid me to think this way", WLVX's "the tool-building

@@ -789,6 +789,20 @@ a { color: inherit; }
 .credit strong { color: var(--ink-soft); font-weight: 400; }
 
 
+/* An outbound link that reads as one. Every other address on this page sits in
+   an "At a glance" table, which is a reference read after the fact; this one is
+   an invitation at the end of a piece, so it takes the label and the rule that
+   say so. No new colour — it borrows the ink it sits in. */
+.visit {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 0.4em;
+}
+
 /* ⭐ THE INSTANCE NOTE — whose neighborhood is in the frame, and the way to it.
    Same treatment it has on theward.online: italic, right-aligned, no box. It
    hangs off the frame's right edge as a credit line rather than opening a new

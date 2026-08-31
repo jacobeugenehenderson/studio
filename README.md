@@ -497,7 +497,7 @@ the page in a fixed-width iframe does give media queries a genuine 390px.
 | 6 WLVX | `.shot` of the product cover, `.more` for the mechanism | **real** — 2021 marketing cover, 177 KB. Copy is Jacob's own. ⛔ The 19-page pitch deck on `/Volumes/2021` is NOT a source — fundraising material, and he called it filler. **Check Vimeo**: if the demo videos survive, this becomes a live embed. |
 | 7 West Elm | pager, ten registered pairs, `.more` for the on-set account | **real**. Pair captions carry the number only; the descriptions came off 2026-08-31 — the wipe shows what they were describing. Alt text is unaffected and still reachable from the `Alt` badge. |
 | Curio Picture Wrap | live site embed, `.more` for methods and sources | **live**, and self-sizing — snippet deployed |
-| Curio Scale Machine | live app embed | **live**, framed at `?tuning=bb`; not self-sizing yet. ⚠️ **Copy is TKTK** — the only piece not rewritten in the 2026-08-31 pass, and now the longest on the page. |
+| Curio Scale Machine | live app embed, `.more` for what is coming | **live**, framed at `?tuning=bb`; not self-sizing yet |
 | 00 Provincetown | rail + claim + **the shelf** + `.more` | **real** — eight covers, 2018–2020, each linking to the publication itself. Titled **Provincetown**; the Guild is named in the rail. |
 
 **Order is an argument, reordered 16 Aug 2026.** It used to open on West Elm,
