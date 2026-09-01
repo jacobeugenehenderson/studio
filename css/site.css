@@ -445,6 +445,44 @@ a { color: inherit; }
 
 .piece-body { display: grid; gap: var(--s4); }
 
+/* ⭐ A CHANGE OF MODE GETS MORE ROOM THAN A CHANGE OF PARAGRAPH. The grid gap
+   above is the TEXT interval — title to claim, claim to prose, one paragraph to
+   the next. Media is a different relationship: the reader stops reading and
+   starts looking, and at the same 16px the picture reads as another paragraph
+   of the thing above it. These add to the gap rather than replacing it, so the
+   figure is 16 + 16 = 32.
+   ⛔ Do not "simplify" this back to one value. It was flattened to a single 16
+   on 2026-08-31 while fixing a genuine inconsistency, and the claim then butted
+   straight into Ascend's stepper. One interval for text, one for media, one for
+   a disclosure: 16 / 32 / 40. */
+.piece-body > .embed,
+.piece-body > .shot,
+.piece-body > .pager,
+.piece-body > .shelf,
+.piece-body > .stepper,
+.piece-body > .states,
+.piece-body > [data-wipe-follow] { margin-block: var(--s4); }
+
+/* ⛔ …EXCEPT WHEN A DISCLOSURE FOLLOWS. `.more` carries its own top margin — it
+   is what makes the pre-disclosure interval 40 — so a medium's bottom margin
+   stacked on top of it and produced 56. The disclosure gap must read the same
+   whether it follows a paragraph or a picture. */
+.piece-body > :is(.embed, .shot, .pager, .shelf, .stepper, .states, [data-wipe-follow]):has(+ .more) {
+  margin-bottom: 0;
+}
+
+/* ⭐ A CAPTION BELONGS TO ITS PICTURE, so it sits tight to it rather than at the
+   media interval: the medium drops its bottom margin and the note pulls up the
+   remainder of the grid gap, leaving `--s2`. That distance was inherited from
+   `.figure-cap`, the per-pair caption under the West Elm pager, which is gone —
+   the pager already counts "1 / 10" beneath itself, so "Pair 1 · 01" was the
+   same fact twice. The interval outlived it and is still the right one. */
+.piece-body > :is(.embed, .shot, .pager, .shelf, .stepper, .states, [data-wipe-follow]):has(+ .figure-note) {
+  margin-bottom: 0;
+}
+.piece-body > .figure-note { margin-top: calc(var(--s2) - var(--s4)); }
+
+
 .piece-title { font-size: var(--fs-h2); }
 
 .piece-claim {
@@ -768,54 +806,28 @@ a { color: inherit; }
 }
 
 
-/* 10 ── credit line ======================================================= */
-/*
-   A named roster, set as a credit list. Recognisable brands are the highest
-   scan-value thing on the page and cost nothing to state when there are no
-   images to show for them.
-*/
-
-.credit {
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  border-top: 1px solid var(--rule);
-  padding-top: var(--s2);
-  max-width: var(--measure);
-}
-
-.credit strong { color: var(--ink-soft); font-weight: 400; }
-
-
-/* An outbound link that reads as one. Every other address on this page sits in
-   an "At a glance" table, which is a reference read after the fact; this one is
-   an invitation at the end of a piece, so it takes the label and the rule that
-   say so. No new colour — it borrows the ink it sits in. */
-.visit {
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  letter-spacing: var(--tr-label);
-  text-transform: uppercase;
-  color: var(--ink);
-  text-decoration: underline;
-  text-underline-offset: 0.4em;
-}
-
-/* ⭐ THE INSTANCE NOTE — whose neighborhood is in the frame, and the way to it.
-   Same treatment it has on theward.online: italic, right-aligned, no box. It
-   hangs off the frame's right edge as a credit line rather than opening a new
-   register beneath it, and it takes the FRAME's width rather than `--measure`,
-   because it belongs to the picture and not to the prose. */
-.instance-note {
+/* ⭐ THE FIGURE NOTE — the one caption device on the page, and it does exactly
+   one job: WHERE THIS LIVES. Italic, right-aligned, no box; it hangs off the
+   figure's right edge as a credit line rather than opening a new register
+   beneath it, and it takes the FIGURE's width rather than `--measure`, because
+   it belongs to the picture and not to the prose.
+   ⛔ Every figure note must contain a link. Three do — the Ward to Lafayette
+   Square, Picture Wrap to its site and Bluesky, Scale Machine to its app — and
+   nothing else on this page gets one. Notes that merely DESCRIBED the picture
+   were tried under ShowDesk, the QR engine and the West Elm pager and all three
+   were cut: the prose above them already said it, so the caption was a second,
+   quieter voice saying the same thing. A picture that announces itself needs no
+   label; captioning Nordson's trade advertisement "trade advertisement" was
+   labelling a photograph "photograph". If you are about to add a note with no
+   href in it, the sentence you want is a sentence, and it belongs in the prose. */
+.figure-note {
   text-align: right;
   font-style: italic;
   font-size: var(--fs-fine);
   color: var(--ink-faint);
 }
 
-/* 11 ── graph paper ======================================================= */
+/* 10 ── graph paper ======================================================= */
 /*
    A grey sheet carrying two stroked grids — a fine minor rule with a coarser
    major rule over it. This is one of Jacob's recurring motifs, so it is a
@@ -847,7 +859,7 @@ a { color: inherit; }
    whatever it is layered over. */
 
 
-/* 12 ── the stepper ======================================================= */
+/* 11 ── the stepper ======================================================= */
 /*
    A pipeline is an ordered thing, so this is a stepper and not a carousel:
    every stage is visible in the strip at once, you always know where you are,
@@ -965,7 +977,7 @@ a { color: inherit; }
 }
 
 
-/* 13 ── the pager ========================================================= */
+/* 12 ── the pager ========================================================= */
 /*
    One frame at a time, paged from the margins.
 
@@ -1035,7 +1047,7 @@ a { color: inherit; }
 }
 
 
-/* 14 ── three states, one pill ============================================ */
+/* 13 ── three states, one pill ============================================ */
 /*
    A segmented pill that starts in the middle, choosing between three states of
    one stack. A wipe was wrong here: a wipe compares two registered images by
@@ -1070,7 +1082,7 @@ a { color: inherit; }
    stops reading as a control on the frame and starts reading as the thing being
    demonstrated — a heading introduces, a paragraph does not. */
 .states .embed { margin-top: var(--s6); }
-.states .instance-note { margin-top: var(--s3); }
+.states .figure-note { margin-top: var(--s3); }
 .states .prose-h { margin-top: var(--s6); }
 .states .pill { margin-top: var(--s4); }
 .states .prose { margin-top: var(--s4); }
@@ -1142,7 +1154,7 @@ a { color: inherit; }
 }
 
 
-/* 15 ── the shot ========================================================== */
+/* 14 ── the shot ========================================================== */
 /*
    Two things live here: `.shot`, a still of a product, and `.embed`, the live
    product itself. Prefer .embed — it cannot go stale. Use .shot when the thing
@@ -1153,7 +1165,14 @@ a { color: inherit; }
    and would eat the grid's background-image, exactly as .embed did. See §11.
 */
 
+/* ⛔ `margin: 0` IS LOAD-BEARING. `.shot` is a <figure> and the reset never
+   cleared it, so it carried the UA default — 1em top and bottom, 40px left and
+   right. `.piece-body` is a grid with its own gap, so the vertical half stacked
+   on top of that gap (33px against every other medium's 16) and the horizontal
+   half inset the picture from everything else in the column. Measured across all
+   ten pieces, 2026-08-31. */
 .shot {
+  margin: 0;
   border: 1px solid var(--rule-firm);
   overflow: hidden;
   background: var(--paper-raised);
@@ -1237,7 +1256,7 @@ a { color: inherit; }
 }
 
 
-/* 16 ── the disclosure ==================================================== */
+/* 15 ── the disclosure ==================================================== */
 /*
    Eight pieces on one page. Each keeps its working component visible at all
    times and puts the reading behind a twirl.
@@ -1321,7 +1340,7 @@ a { color: inherit; }
 .more-section { display: grid; gap: var(--s3); }
 
 
-/* 17 ── the shelf ========================================================= */
+/* 16 ── the shelf ========================================================= */
 /*
    Provincetown's publications, as covers.
 
@@ -1353,7 +1372,10 @@ a { color: inherit; }
      shoving its cover out of line, which flex-end would do. */
   align-items: flex-start;
   gap: var(--s5) var(--s4);
-  margin: var(--s5) 0 0;
+  /* ⛔ No top margin. `.piece-body`'s grid gap already spaces this, and the
+     `--s5` that used to be here stacked on top of it — 40px where every other
+     medium sits at 16. */
+  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -1402,7 +1424,7 @@ a { color: inherit; }
 }
 
 
-/* 18 ── curios ============================================================ */
+/* 17 ── curios ============================================================ */
 /*
    A collection, not a leftovers bin. Jacob's own CURIOS repo is "web projects
    and experiments" and Scale Machine already lives in it, so the page is
@@ -1527,7 +1549,7 @@ a { color: inherit; }
 }
 
 
-/* 19 ── reading =========================================================== */
+/* 18 ── reading =========================================================== */
 /*
    What survived the collapse to one page. The rest of this section styled
    standalone case-study pages — crumb, work-head, work-nav and friends — and
@@ -1541,24 +1563,6 @@ a { color: inherit; }
 .prose { display: grid; gap: var(--s4); max-width: var(--measure); }
 
 .prose-h { font-size: var(--fs-h3); text-transform: uppercase; letter-spacing: 0.01em; }
-
-/* ---- figure captions ---- */
-
-.figure-cap {
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  letter-spacing: 0.06em;
-  color: var(--ink-faint);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4em 0.8em;
-  border-top: 1px solid var(--rule);
-  padding-top: var(--s2);
-}
-
-.figure-num { color: var(--ink); text-transform: uppercase; letter-spacing: var(--tr-label); }
-
-/* ---- fact sheet ---- */
 
 .facts { width: 100%; border-collapse: collapse; font-size: var(--fs-fine); }
 
@@ -1583,7 +1587,7 @@ a { color: inherit; }
 }
 
 
-/* 20 ── footer ============================================================ */
+/* 19 ── footer ============================================================ */
 
 .site-footer {
   margin-top: var(--s9);
@@ -1638,7 +1642,7 @@ a { color: inherit; }
 }
 
 
-/* 21 ── reduced motion ==================================================== */
+/* 20 ── reduced motion ==================================================== */
 /*
    The plates land pre-registered — at the residual offset, not at zero, so the
    fringe survives. Nothing moves, nothing is lost.
