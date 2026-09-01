@@ -579,6 +579,14 @@ mean.
 Nordson engagement — while its own contents are dated 2026 and 2025–2026. A
 parent cannot predate its children.
 
+⛔ **The layer pill is deliberately not named the way theward.online names it.**
+Same three payloads, two vocabularies: here **Slab · Composite · Ward**, there
+**Place · Both · People**. Plain English serves a neighbour deciding whether they
+want one; the architecture serves a portfolio reader, because naming the parts
+and separating them by contract is most of what that control demonstrates.
+Checked 31 Aug against every other Ward claim on both sites — nothing else
+diverges. Do not "fix" this.
+
 **Provincetown is 8, since 31 Aug 2026.** It ranked `00` on the theory that it
 sat *before* the numbered sequence. The client work is one unbroken run, 1 to 8,
 with the curios outside it. The comment that justified the `00` was doubly wrong
