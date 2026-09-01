@@ -128,6 +128,15 @@ here claimed Scene was "hidden by CSS" (hiding was the bug), described an
 `!important` for a rule that had been deleted, and gave a percentage that had
 changed. Re-read what you wrote before you commit it, not just what you found.
 
+Also confirm the asset stamps are current, which the audit above cannot see:
+
+```
+python3 tools/stamp.py --check
+```
+
+A stale stamp means someone pushed CSS or JS without versioning the link, and
+the live site may be serving an old stylesheet against new markup.
+
 ## 6 · Look at it (2 min)
 
 ```bash

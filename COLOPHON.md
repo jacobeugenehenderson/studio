@@ -26,9 +26,11 @@ the colours are not merely flipped.
 motif, not a texture invented here. Two of the spot inks (treelawn green, lot
 plum) come literally from `looks/lafayette-square/design.json` in The Ward.
 
-**Built from** static HTML, CSS and about 300 lines of JavaScript (406 with its comments, which are half the point). No framework,
-no build step, nothing shipped that it didn't write. The only offline tool is an
-image pipeline that turns `_source/` originals into served derivatives.
+**Built from** static HTML, CSS and about 300 lines of JavaScript (406 with its comments, which are half the point). No framework
+and no bundler, nothing shipped that it didn't write. Two offline tools: an image
+pipeline turning `_source/` originals into served derivatives, and a stamper that
+content-hashes the stylesheet and script links so a deploy cannot pair new markup
+with a cached stylesheet.
 
 **The live pieces are the products themselves**, framed from their own public
 addresses — not screenshots, and not copies hosted here. Four of the ten run
@@ -56,6 +58,7 @@ point.
 | `docs/embed-height.js` | The snippet an embedded product carries so it can report its own height. Byte-identical wherever it appears — do not fork it. In Codedesk and Picture Wrap; wanted in Scale Machine; deliberately not in The Ward. |
 | `docs/rebuild-plan.html` | The original plan. Superseded in places by what actually got built; kept because the reasoning still holds. |
 | `tools/build-images.py` | `_source/` → `assets/`. Forces each pair to identical dimensions and reports whether every pair registered. |
+| `tools/stamp.py` | Content-hashes the `css/` and `js/` links in `index.html`. **Run before every push that touches either.** Cloudflare caches those assets for four hours but not the HTML, so an unstamped push ships new markup against the previous stylesheet. `--check` exits non-zero when a stamp is stale. |
 | Commit messages | Where the *why* of each decision is written, including the ones that were wrong first. |
 
 The products keep their own records, and for The Ward the relevant ones are

@@ -29,7 +29,13 @@ document is trusted.
   for, name the gap and the assumption *before* writing code.
 - **Verify in a browser.** Check computed state rather than attributes, and test
   the state that actually ships — a default-closed control checked only while
-  forced open will hide its own bug.
+  forced open will hide its own bug. **Measuring the origin proves nothing** —
+  the edge can be serving something else entirely; read what the page actually
+  got.
+- **Run `python3 tools/stamp.py` before any push touching `css/` or `js/`.**
+  Cloudflare caches those for four hours and the HTML for ten minutes, so an
+  unstamped push publishes new markup against the old stylesheet. This has
+  already shipped a broken page once.
 - **All site copy is provisional** and will be rewritten. Never let it decide
   anything.
 - **Any dispatched agent that is not Colophon names itself before starting** and

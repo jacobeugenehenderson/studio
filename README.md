@@ -1,18 +1,19 @@
 # jacobhenderson.studio
 
 A one-page portfolio for Jacob Henderson — creative operations, systems design,
-graphics production. Static HTML, CSS and a little JavaScript. No framework, no
-build step for the site itself.
+graphics production. Static HTML, CSS and a little JavaScript. No framework and
+no bundler — but **one required step**: `tools/stamp.py` versions the stylesheet
+and script links. See §7. Skipping it ships new markup against an old
+stylesheet, which has already happened once.
 
 Deployed from `main` to GitHub Pages (legacy source, branch + root), custom
 domain in `CNAME`. Work happens on `rebuild`; `main` is fast-forwarded from it
 to publish, so the two are the same commit whenever the site is current.
 
-**The rebuild went live 1 Aug 2026, deliberately incomplete** — Nordson's art
-and Provincetown's scans are labelled placeholders, per rule 7, and the site
-reads as unfinished rather than broken. It also frames The Ward from that
-product's *staging* build; see `docs/handoff.md` for why that is deliberate and
-what has to happen before it points at prod.
+**The rebuild went live 1 Aug 2026.** Every placeholder is now gone — the last
+was Nordson's filmstrip, removed with the piece's rebuild on 31 Aug. The site
+still frames The Ward from that product's *staging* build; see `docs/handoff.md`
+for why that is deliberate and what has to happen before it points at prod.
 
 ```
 serve   python3 -m http.server 8787 --bind 127.0.0.1
@@ -35,8 +36,8 @@ support it should be cut rather than kept.
 
 The same structure recurs across fifteen years and four industries: separate
 tools, each publishing one canonical artifact, composed by a runtime. Ten
-pieces demonstrate it at different scales — seven numbered, two in Curios, and
-Provincetown at 00. ▶ `grep -c '<article class="piece' index.html`.
+pieces demonstrate it at different scales — **eight numbered, two in Curios**.
+▶ `grep -c '<article class="piece' index.html`.
 
 **Title:** *Creative Operations* leads as the practice, *Creative Director*
 carries the level. People recognise the second but it reads light, and the point
@@ -57,6 +58,7 @@ assets/west-elm/        derivatives built from _source
 assets/pbg/             Provincetown covers, likewise
 assets/pbg/full/        the publications themselves — 7 PDFs + the poster, 60 MB
 tools/build-images.py   _source → assets
+tools/stamp.py          content-hashes the css/js links — run before every push
 docs/                   working documents, not served
 _source/                originals, gitignored, never served
 belle-epoque/           a redirect holding an existing URL
@@ -73,16 +75,25 @@ These are enforced by nothing but attention. An audit script for them is in §7.
 2. **No inline `style` attributes.** JavaScript may set *custom properties* for
    dynamic state (`--wipe`), which is different from styling in markup.
 3. **All CSS in `css/`.** No `<style>` blocks, no CSS-in-JS.
-4. **No `!important`.** If specificity is fighting, name the parts better — see
-   `.filmstrip-cell`, which exists so a caption need not opt out of a rule meant
-   for image cells.
+4. **No `!important`.** If specificity is fighting, name the parts better.
 5. **Both themes, always.** Light is the sheet, dark is the plate. Style through
    tokens and both come free. The viewer's toggle must beat the OS preference in
    both directions, which is why every theme block is declared explicitly.
 6. **Numbering must carry information.** `Fig. 1`, `01 ArtStart`, `1 / 10` are
    sequences a reader needs. Do not number things for decoration.
 7. **Placeholders are labelled and obvious.** Grey slugs saying what belongs
-   there. Never a plausible-looking fake.
+   there. Never a plausible-looking fake. There are none on the page today.
+8. **Above the artifact: a title and a one-sentence claim. Nothing else.** Then
+   the thing itself, then the visit link where there is one, then everything
+   else below. All ten pieces obey this. Prose above the artifact delays the
+   only thing that proves the claim.
+9. **A figure note carries a link or it does not exist.** `.figure-note` does one
+   job — *where this lives* — and three qualify: the Ward to Lafayette Square,
+   Picture Wrap to its site and Bluesky, Scale Machine to its app. Notes that
+   merely described the picture were tried under ShowDesk, the QR engine and the
+   West Elm pager and all three were cut: the prose above already said it, so the
+   caption was a second, quieter voice repeating it. If the note you are about to
+   write has no `href`, it is a sentence and belongs in the prose.
 
 ---
 
@@ -358,14 +369,41 @@ adding one.**
   longer any foot to sit in, so it needs `--paper-on-art` behind it. Measure the
   art before trusting a layout written against its placeholder.
 - **A `background` shorthand later in the file silently disarms a utility
-  class.** `.graph` (§11) paints its grid with `background-image`; `.embed` (§18)
-  sets `background:` as a *shorthand*, which resets `background-image` to `none`.
+  class.** `.graph` (§10, graph paper) paints its grid with `background-image`;
+  `.embed` (§14, the shot) sets `background:` as a *shorthand*, which resets
+  `background-image` to `none`.
   Put both on one element and the grid vanishes with no error, no override
   warning, and nothing wrong-looking in either rule — the later shorthand simply
   ate a longhand it never mentions. This is the same shape as the undefined-token
   trap: the losing declaration is invisible at the point of failure. Utilities
   and components must not both touch `background`; the graph paper now goes on
   the launcher *inside* the frame for exactly this reason.
+- **Deleting a CSS section takes live rules out with it, and the class audit
+  cannot see it.** Removing §10 (the credit line) on 31 Aug also removed
+  `.figure-note`'s style block, which happened to sit inside it. The audit passed
+  anyway: a class counts as *defined* while its name survives in **any** other
+  selector, and `.figure-note` still appeared in two. The page rendered the
+  caption unstyled — `text-align: start`, upright, at prose size — and nothing
+  reported anything. Only measuring computed style caught it. After deleting a
+  section, measure something it used to style.
+- **Renumbering sections breaks references that nothing checks.** The same
+  deletion shifted every heading from 10 up by one and left six citations
+  pointing at the wrong section: graph paper cited as §11 twice, the shelf as
+  §20, curios as §21. Two more pointed nowhere even before that. References now
+  carry the section **name** as well as the number, so the next renumbering
+  leaves a citation that is merely redundant rather than false, and the audit
+  walks every `§N` in `site.css` and fails on one past the section count.
+- **A positional anchor into a whole document is the wrong instrument when the
+  same phrase appears twice.** `s.index('<p class="credit">Live at <strong>')`
+  matched Picture Wrap's credit line instead of the intended one, and the
+  replacement deleted everything to the end of the file — two whole pieces.
+  Recovered with `git checkout`. Edit by extracting the article first, or with a
+  tokenizer that walks top-level children; never `.index()` into the whole page.
+- **A QR code cannot be reviewed by looking at it.** Decode it before publishing.
+  Chrome has `BarcodeDetector` built in, which is enough:
+  `new BarcodeDetector({formats:['qr_code']}).detect(await createImageBitmap(blob))`.
+  Ink contrast is worth measuring too — a second colour at 4.3:1 against the
+  ground narrowed one code's readable range from 78–960px to 104–312px.
 
 ---
 
@@ -377,6 +415,27 @@ Ascend interface stills are committed as full-size PNGs — **15 MB between them
 served, indistinguishable at the size it renders (checked by zooming the clip
 list 2x — no artefacts on UI text at 1600/q80). The five legacy PNGs should come
 through `build_showdesk()`'s path eventually.
+
+**Stamp the assets before every push that touches `css/` or `js/`:**
+
+```
+python3 tools/stamp.py            # rewrites the links with a content hash
+python3 tools/stamp.py --check    # exits non-zero if a stamp is stale
+```
+
+⛔ **This is not optional and nothing else catches it.** jacobhenderson.studio
+sits behind Cloudflare, which caches `index.html` as DYNAMIC at max-age 600 —
+effectively always fresh — while caching `css/` and `js/` at the edge for
+**max-age 14400, four hours**. A push therefore ships new markup against the
+*previous* stylesheet, and any rule introduced alongside its markup does not
+exist for that window. On 31 Aug the site went live with unstyled captions:
+`.figure-note` was in the HTML and absent from the CSS the browser received.
+Every check passed, because the origin was correct the whole time and only the
+edge copy was old.
+
+The version is a hash of the file's own contents, so it changes exactly when the
+file changes and never otherwise — an unchanged asset keeps its cache hit, a
+changed one is a URL the edge has never seen.
 
 **Build image derivatives** after adding to `_source/`:
 
@@ -489,23 +548,49 @@ the page in a fixed-width iframe does give media queries a genuine 390px.
 
 | Piece | Component | Art |
 |---|---|---|
-| 1 Nordson | Cordis **wipe**, filmstrip | wipe **real** — whole photograph against whole drawing; filmstrip still placeholder |
-| 2 ShowDesk | **`.shot`** of the Show Builder | **real** — 1600px derivative, 123 KB |
-| 3 Ascend | five-step stepper | **real** interfaces |
-| 4 QR engine | live Codedesk embed | **live** |
-| 5 The Ward | three-state pill **+ live embed**, `.more` for the neighbourhood | **live**, and the piece is all real &mdash; no placeholder anywhere in it |
-| 6 WLVX | `.shot` of the product cover, `.more` for the mechanism | **real** — 2021 marketing cover, 177 KB. Copy is Jacob's own. ⛔ The 19-page pitch deck on `/Volumes/2021` is NOT a source — fundraising material, and he called it filler. **Check Vimeo**: if the demo videos survive, this becomes a live embed. |
-| 7 West Elm | pager, ten registered pairs, `.more` for the on-set account | **real**. Pair captions carry the number only; the descriptions came off 2026-08-31 — the wipe shows what they were describing. Alt text is unaffected and still reachable from the `Alt` badge. |
+| 1 Ascend Visualization Studio | Cordis **wipe** + follow copy, `.more` for the Studio | **real** — whole photograph against whole drawing; the trade advertisement sits beside the Studio text in `.shot-aside` |
+| 2 Ascend Toolkit | five-step stepper | **real** interfaces |
+| 3 ShowDesk | **`.shot`** of the Show Builder | **real** — 1600px derivative, 123 KB |
+| 4 The QR Engine | live Codedesk embed | **live** |
+| 5 The Ward | three-state pill **+ live embed**, `.more` for the neighbourhood | **live**, all real |
+| 6 WLVX | `.shot` of the product cover, `.more` for how it worked | **real** — 2021 marketing cover, 177 KB. Copy is Jacob's own. ⛔ The 19-page pitch deck on `/Volumes/2021` is NOT a source — fundraising material, and he called it filler. **Check Vimeo**: if the demo videos survive, this becomes a live embed. |
+| 7 West Elm | pager, ten registered pairs, `.more` for the on-set account | **real**. Per-pair captions are gone — the pager already counts `1 / 10` beneath itself, so `Pair 1 · 01` was the same fact twice. Alt text is unaffected and still reachable from the `Alt` badge. |
+| 8 Provincetown | rail + claim + **the shelf** + `.more` | **real** — eight covers, 2018–2020, each linking to the publication itself. Titled **Provincetown**; the Guild is named in the rail. |
 | Curio Picture Wrap | live site embed, `.more` for methods and sources | **live**, and self-sizing — snippet deployed |
 | Curio Scale Machine | live app embed, `.more` for what is coming | **live**, framed at `?tuning=bb`; not self-sizing yet |
-| 00 Provincetown | rail + claim + **the shelf** + `.more` | **real** — eight covers, 2018–2020, each linking to the publication itself. Titled **Provincetown**; the Guild is named in the rail. |
+
+**Piece 1 became Ascend Visualization Studio on 31 Aug 2026.** It was titled
+after the client and claimed nothing about the work — *"A global industrial
+manufacturer with dozens of product lines and brands."* It now names the thing
+Jacob built. The full name is what ShowDesk's own footer reads, and that footer
+is legible in the screenshot two pieces down, so the page and the product had
+been disagreeing about the name in a way a reader could catch.
+
+**Ascend is the Studio plus the Toolkit.** The Studio is the canonical library;
+the Toolkit is the tools around it — ArtStart, CopyDesk, CodeDesk, FileRoom, The
+Portal. The Toolkit moved from 3 to 2 on 31 Aug because ShowDesk and the QR
+Engine are both tools *in* it and both appeared before it: the page was
+introducing an instance ahead of the thing it instantiates. Bare "Ascend" inside
+piece 2 now reads as the umbrella over the pair, which is what those sentences
+mean.
+
+⚠ **The Toolkit is 2025–2026, inside the Studio's 2022–present.** It read
+`2022–present` — the Studio's span, inherited from when this piece was the whole
+Nordson engagement — while its own contents are dated 2026 and 2025–2026. A
+parent cannot predate its children.
+
+**Provincetown is 8, since 31 Aug 2026.** It ranked `00` on the theory that it
+sat *before* the numbered sequence. The client work is one unbroken run, 1 to 8,
+with the curios outside it. The comment that justified the `00` was doubly wrong
+— it said the spine ran "00 to 6" when the page had shown 1 to 7 for some time.
+Do not reintroduce a rank that is not a number.
 
 **Order is an argument, reordered 16 Aug 2026.** It used to open on West Elm,
 because the old thesis was *compositing* and West Elm is the most literal
 illustration of it. That paragraph is gone. West Elm is also the only piece here
 where Jacob was hired hands — *Retoucher, compositor, booked through Industrial
 Color* — so it opened a creative leader's portfolio on a work-for-hire credit.
-It now sits at 6.
+It now sits at 7.
 
 **Curios, added 16 Aug 2026.** Picture Wrap and Scale Machine left the numbered
 sequence. Both were justified by the OLD thesis — Scale Machine's disclosure
@@ -515,15 +600,8 @@ thesis claims. They are not cut: they are two of the four live embeds, and they
 are evidence the tools claim is not secondhand. `CURIOS` is Jacob's own repo
 (*"web projects and experiments"*) and Scale Machine already lived in it, so
 the section reflects how the work is filed rather than tidying after the fact.
-They rank **Curio**, which is a category rather than a position — Provincetown
-ranks **00** because it is *before* the sequence, the curios are *outside* it,
-and the rail should not blur the two.
-
-**The 00 was `Origin` until 16 Aug 2026.** It went for being on-the-nose and,
-worse, redundant: the claim beside it already opens *"Where the method starts."*
-The rank is a sequence device and `.piece-rank` is already
-`font-variant-numeric: tabular-nums`, so 00 sits in the same optical column as
-1–6 and makes the point without narrating it. Do not reintroduce a word here.
+They rank **Curio**, which is a category rather than a position: the numbered
+spine is client work 1–8 and the curios sit outside it.
 
 **`.reveal` was deleted 17 Aug 2026**, with §13 of `site.css` and eleven
 sections renumbered behind it. It existed for one piece of art: a Cordis pair
@@ -535,8 +613,8 @@ machine. The copy moved below the frame and the component had nothing left to
 do. If the mechanism is ever wanted again it is in this commit's history; do not
 rebuild it from the description.
 
-**Curios sits after Provincetown**, as an appendix — the numbered spine ends at West
-Elm, Provincetown says where the method started, and these are the odds and ends.
+**Curios sits after Provincetown**, as an appendix — the numbered spine ends at
+Provincetown and these are the odds and ends.
 
 ⚠ **There is no video on this site, and one was tried.** The old WordPress
 site's `Curios_Cover_Video.mp4` was placed as the section cover for one session
@@ -553,17 +631,16 @@ getting them again means reading `/Volumes/Today`. Placing one back means
 in the git history of this commit.
 
 Pieces **1–4 are all Nordson Industrial Coating Solutions** and that is
-deliberate: the assets, the tool that consumed them, the operating environment,
-and the tool that came out of the portal. Four unlabelled credits for one client
-reads as *he did a lot for one company*; the same four named as one four-year
-Fortune 500 engagement is the strongest fact on the site. **Nothing on the page
-says so yet.** That is the gap the order created and has not closed.
+deliberate: the library, the tools around it, and two of those tools given their
+own entries. Half the client work is one client, and until 31 Aug the page never
+said what that client was — every occurrence of the word was a repeated `<dd>` in
+a metadata rail or a sentence behind a closed disclosure. *"Nordson makes complex
+engineered products for markets around the world"* now opens piece 1's visible
+prose. ⚠ Still unsaid: that these are **one four-year Fortune 500 engagement**
+rather than four separate credits, which is the strongest fact on the site.
 
 **Outstanding, needing Jacob:**
 
-- How many photograph/illustration pairs exist for the Nordson filmstrip. The
-  Cordis wipe above it is now real art, so the eight grey slugs below it are
-  the last placeholder in that piece.
 - Codedesk's startup code is emoji-styled. It encodes `www.okQRal.com` and is
   captioned, but the modules are still plain black-and-white squares, so the
   claim above the frame — *pick an emoji and it becomes the code's palette* — is
@@ -575,10 +652,15 @@ says so yet.** That is the gap the order created and has not closed.
   the frame scrolls sideways inside itself. The page survives this — the piece's
   min-content is 128px, tied narrowest — but it is the weakest thing about the
   embed.
-- Provincetown: the piece has **no `.more` case**, so it is now all *what it
-  does* and none of *what it is* — the member-and-asset database that produced
-  all eight. Nothing on disk describes how that database worked, so it needs
-  Jacob rather than a session.
+- Provincetown's `.more` (*In print*) now says the listings became the spine of
+  the publications, but the member-and-asset database that produced all eight is
+  still undescribed anywhere on disk. Needs Jacob rather than a session.
+- Two open judgement calls from 31 Aug, both deliberate, neither wrong:
+  "Ascend Toolkit" is named nowhere in piece 1, so the Studio → Toolkit relation
+  rests on adjacency and the claim's *"and the tools"*; and
+  `[data-wipe-follow] > .prose` carries a top hairline, now the only ruled
+  `.prose` on the page — right when Nordson was the only piece with copy under
+  its picture, ambiguous since seven pieces gained that arrangement.
 
 **Known and accepted:** collapsing to one page cost per-piece link previews. Any
 share shows the site-level card. Thin share-only pages redirecting into anchors

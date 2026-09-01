@@ -1,7 +1,8 @@
 # Handoff
 
 Picking up the rebuild of **jacobhenderson.studio** — a one-page portfolio.
-Static HTML/CSS/JS, no framework, no build step.
+Static HTML/CSS/JS, no framework, no bundler — but `tools/stamp.py` must run
+before any push touching `css/` or `js/`. See README §7.
 
 ```
 repo     ~/Desktop/dev.nosync/jacobhenderson-studio   (branch: rebuild)
@@ -37,8 +38,8 @@ Everything the site needs now lives on internal disk:
 `docs/read-in.md` is the ten-minute start-of-session procedure — follow it first.
 `COLOPHON.md` indexes every document in the project, including this one.
 
-**Read `README.md` first.** It carries the argument the site makes, seven rules,
-a table of which component is right for which job, six bugs already fallen into
+**Read `README.md` first.** It carries the argument the site makes, the rules, a
+table of which component is right for which job, every bug already fallen into
 with why each survived testing, and an audit script. Most of it exists because
 getting it wrong cost a rebuild.
 
@@ -52,6 +53,14 @@ getting it wrong cost a rebuild.
   decision.
 - **Don't swap the title order.** *Creative Operations* leads as the practice,
   *Creative Director* carries the level. Deliberate.
+- **Every piece is title → claim → artifact, then everything else.** Established
+  31 Aug across all ten. Do not put prose above the artifact.
+- **Stamp before pushing CSS or JS.** `python3 tools/stamp.py`. The edge caches
+  assets for four hours and the HTML for ten minutes; skipping it has already
+  published a page whose stylesheet did not know about its markup.
+- **Fewer notes.** Jacob has asked twice for less annotation. Report a finding in
+  the reply; commit it to a comment only if a future reader would otherwise
+  repeat the mistake. Delete a stale note rather than appending a corrected one.
 
 ## Outstanding
 
