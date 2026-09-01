@@ -1083,7 +1083,11 @@ a { color: inherit; }
    stops reading as a control on the frame and starts reading as the thing being
    demonstrated — a heading introduces, a paragraph does not. */
 .states .embed { margin-top: var(--s6); }
-.states .figure-note { margin-top: var(--s3); }
+/* ⛔ --s2, matching the 8 that `.piece-body > .figure-note` computes to.
+   This read 12 while Picture Wrap and Scale Machine read 8, so the same
+   caption device sat at two distances from its picture. A caption belongs
+   to its frame; the distance is the thing that says so. */
+.states .figure-note { margin-top: var(--s2); }
 .states .prose-h { margin-top: var(--s6); }
 .states .pill { margin-top: var(--s4); }
 .states .prose { margin-top: var(--s4); }
@@ -1275,6 +1279,16 @@ a { color: inherit; }
   border-top: 1px solid var(--rule);
   margin-top: var(--s5);
 }
+
+/* ⭐ A DISCLOSURE IS A BOUNDARY ON BOTH SIDES. `margin-top` above buys the
+   pre-twirl interval of 40 (24 + the grid's 16). Nothing bought the interval
+   AFTER it, so copy following a disclosure sat at the bare 16 — the same gap
+   as between two paragraphs — and read as a continuation of the twirl rather
+   than as the piece resuming. Three pieces do this: the Ward, WLVX and
+   Provincetown all put a closing paragraph under the fold.
+   ⛔ `:not(:last-child)`, because a disclosure that ends its piece must not
+   add trailing air inside .piece-body. */
+.piece-body > .more:not(:last-child) { margin-bottom: var(--s5); }
 
 /* The summary keeps its default display. Safari does not handle display:flex on
    <summary> and can stop the disclosure opening at all, so the layout goes on a
