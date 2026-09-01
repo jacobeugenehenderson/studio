@@ -682,8 +682,9 @@ a { color: inherit; }
    reveal had a dead zone: drag through the middle and there was nothing to read
    in either direction until you had gone far enough. Here opacity runs 0.45 to
    1, so the half you are moving toward inks up and the other recedes, both stay
-   legible, and at centre they are simply equal. Same idea as the layer legend's
-   --dim-a / --dim-b in §12, and for the same reason.
+   legible, and at centre they are simply equal. Same idea as the --dim-a /
+   --dim-b pair the layer legend used before it was removed, and for the same
+   reason.
 */
 
 /* The frame and its copy are one block, so the gap belongs here rather than on
@@ -852,7 +853,7 @@ a { color: inherit; }
 /* A third fill (.wf-c) and a set of wireframe interface blocks (.wf-ui*) stood
    here for The Ward's placeholder stage — a ticker, a panel, a card and a pill
    on a transparent ground, standing in for the commons. The Ward embeds live
-   now and the pill switches the real payloads (§17, §18), so the stand-in went
+   now and the pill switches the real payloads (§13, three states, one pill), so the stand-in went
    with the stage it lived on. The pattern is worth remembering if another piece
    needs interface furniture before its art exists: discrete blocks on a
    transparent ground, never a filled rectangle, or the placeholder hides
@@ -1056,10 +1057,10 @@ a { color: inherit; }
 
    Three stacked placeholder layers stood here while the piece was being
    specified, cross-fading per state. They are gone: the pill now switches the
-   LIVE embed between the product's three payloads (§18), and a diagram beside
+   LIVE embed between the product's three payloads, and a diagram beside
    the working thing can only disagree with it. What survives from that layout
-   is the state → index map for the travelling indicator, and the two dimming
-   values the layer legend reads.
+   is the state → index map for the travelling indicator. The layer legend that
+   read the two dimming values is gone too.
 
    Radio inputs and :has() drive all of it, so there is no JavaScript in the
    switching itself and the indicator is right before scripts load.
@@ -1162,7 +1163,7 @@ a { color: inherit; }
    client's video, so there is nothing to point an iframe at.
 
    .shot must NOT be combined with .graph: it sets `background` as a shorthand
-   and would eat the grid's background-image, exactly as .embed did. See §11.
+   and would eat the grid's background-image, exactly as .embed did. See §10, graph paper.
 */
 
 /* ⛔ `margin: 0` IS LOAD-BEARING. `.shot` is a <figure> and the reset never
@@ -1217,7 +1218,7 @@ a { color: inherit; }
 }
 
 /* `:not(.graph)` rather than a plain `background` on .embed above. That was a
-   SHORTHAND, and §11 is earlier in this file, so `.embed.graph` had its
+   SHORTHAND, and §10 is earlier in this file, so `.embed.graph` had its
    background-image reset to none and the grid vanished with no error anywhere
    — the rule that appeared to win painted nothing. Excluding graph-grounded
    frames lets the utility apply untouched, with no gradients duplicated here.

@@ -13,7 +13,7 @@
 
   <link rel="icon" type="image/svg+xml" href="assets/CD_ROM.svg">
   <link rel="stylesheet" href="css/tokens.css?v=155a6bbe">
-  <link rel="stylesheet" href="css/site.css?v=0e96c1fc">
+  <link rel="stylesheet" href="css/site.css?v=c752ded9">
 
   <!-- Stamp the chosen ground before first paint. Everything else is in
        js/site.js; this cannot wait for it without flashing the wrong sheet. -->
@@ -29,7 +29,7 @@
 <body>
 
   <!-- First focusable thing on the page. Ten pieces sit behind a masthead, a
-       name, a billing line, a thesis and a nine-item index; a keyboard or
+       name, a billing line, a thesis and a ten-item index; a keyboard or
        screen-reader visitor should not have to walk all of it. Hidden until
        focused, which is why it is a transform rather than display:none —
        something display:none cannot be focused at all. -->
@@ -226,7 +226,7 @@
                where it is a consequence rather than half the argument.
 
                The blueprint is drawn on graph paper — Jacob's own recurring
-               motif, and a system element here (§11). It is fixed art either
+               motif, and a system element here (site.css §10, graph paper). It is fixed art either
                way: it does not know the theme changed, so any type laid over it
                must use --ink-on-art, never var(--ink). See README §6. -->
           <div class="wipe wipe--3x2 wipe--ltr">
@@ -508,12 +508,6 @@
               </section>
 
 
-<!-- ⚠ PROVISIONAL, and the argument is Jacob's, said 19 Aug 2026. Two
-           things need his eye before this is trusted in public. The regional
-           example is deliberately UNNAMED — his instance was a "North American
-           Cyclone", and naming a specific machine as unavailable in Europe is a
-           commercial claim I cannot verify. And "One Document" is his term of
-           art at Nordson; it is on his CV and nowhere else on this site. -->
 </div>
           </details>
         </div>
@@ -532,11 +526,7 @@
           <h2 class="piece-title">The QR engine</h2>
           <p class="piece-claim">A modular QR system that makes the QR code itself part of
             the visual language.</p>
-          <!-- ⚠ "at THE okQRal" — the article is deliberate and is the whole
-               joke: ok-QR-al, the OK Corral. It reads like a slip and it is
-               not. Colophon "corrected" it once already, 17 Aug 2026. Leave it.
-
-               ⚠ The claim above is a PROMISE ABOUT THE PAYLOAD, and it is checkable:
+          <!-- ⚠ The claim above is a PROMISE ABOUT THE PAYLOAD, and it is checkable:
                qr_sync_pipeline.js buildText() ends its UTM branch with
                `if (!s && !m && !c) return rawTrim;` — the typed URL goes into
                the code unchanged unless the visitor entered a parameter
@@ -558,7 +548,6 @@
                is a different product from the same code: no header, no setup
                step, one drawer open on a finished code. Nothing is stripped —
                every type is there and the tracking parameters are one disclosure
-               away — so "Change anything" below stays true.
                Served from Codedesk's own repo since it was extracted from
                ascend-portal; the portal's copy is stale and will be retired.
                Lazy, because nobody should pay for a whole app before scrolling
@@ -784,7 +773,7 @@
                       product page: colours, size, price and a checkout button.">
           </figure>
 
-          <!-- ⭐ THE MECHANISM IS DEPTH. What the product WAS and what Jacob DID
+          <!-- ⭐ HOW IT WORKED IS DEPTH. What the product WAS and what Jacob DID
                stay out; how it worked folds away for the reader who wants it.
                README §5: collapsed is a preview, never a closed door. -->
           <details class="more">
@@ -1016,7 +1005,7 @@
 
           <!-- The shelf. Eight publications, 2018–2020, and the extent is the
                argument: one small operation, this much print. Covers keep their
-               own proportions; see site.css §20 for why they are not squared off.
+               own proportions; see site.css §16, the shelf, for why they are not squared off.
 
                Sources are the originals from the Guild's own files, so the
                covers here are the covers that printed. -->
@@ -1130,7 +1119,7 @@
           <p class="piece-rank">Curios</p>
           <div class="curios-intro">
             <!-- The same four plates as the masthead, pulling in and stopping
-                 FAR short of true — see site.css §21. The K plate is the real
+                 FAR short of true — see site.css §17, curios. The K plate is the real
                  heading; C, M and Y are copies and hidden from the reader. -->
             <div class="curios-mark">
               <span class="curios-plate curios-plate--c" aria-hidden="true">Curios</span>
