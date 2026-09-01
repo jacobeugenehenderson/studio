@@ -617,6 +617,14 @@
                honest thing to show while the product loads. `loading="lazy"`
                still keeps the boot off the page until the frame is near.
 
+               ⭐ PRODUCTION SINCE 2026-08-31. This framed the staging build for a
+               month, because `?layer=` was on the trunk while prod sat ~1,750
+               commits behind and promoting the embed alone would have shipped an
+               unrelated job with it. That work is promoted; origin/main and the
+               trunk are the same commit and prod carries the whole protocol.
+               Gate, before ever pointing this back at staging:
+                 git show origin/main:src/App.jsx | grep -c 'layer=slab'  → 2.
+
                `data-embed-base` is the ONE place the deployed origin lives.
                `-local` is used only when THIS page is served from localhost, so
                a change to the product can be seen here without deploying it
@@ -625,9 +633,9 @@
                (`npm run dev:web` in its repo); if it is not running the frame
                fails to load, which is the signal you want. -->
           <div class="embed embed--ward graph"
-               data-embed-base="https://jacobeugenehenderson.github.io/lafayette-square-staging/"
+               data-embed-base="https://lafayette-square.com/"
                data-embed-base-local="http://localhost:5173/">
-            <iframe src="https://jacobeugenehenderson.github.io/lafayette-square-staging/"
+            <iframe src="https://lafayette-square.com/"
                     title="The Ward — Lafayette Square, running"
                     allow="fullscreen"
                     loading="lazy"></iframe>

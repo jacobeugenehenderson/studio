@@ -12,8 +12,7 @@ to publish, so the two are the same commit whenever the site is current.
 
 **The rebuild went live 1 Aug 2026.** Every placeholder is now gone — the last
 was Nordson's filmstrip, removed with the piece's rebuild on 31 Aug. The site
-still frames The Ward from that product's *staging* build; see `docs/handoff.md`
-for why that is deliberate and what has to happen before it points at prod.
+frames The Ward from **lafayette-square.com** — production, since 31 Aug 2026.
 
 ```
 serve   python3 -m http.server 8787 --bind 127.0.0.1
@@ -287,8 +286,10 @@ Do not fork the snippet. It is the same file in every product.
 The embeds point at live URLs, not local copies, so a product is only as current
 as its last deploy. Codedesk publishes from
 `github.com/jacobeugenehenderson/codedesk`; Picture Wrap from `picture-wrap.com`;
-The Ward, for now, from its staging Pages build rather than prod — see the
-handoff for why that is deliberate.
+The Ward from `lafayette-square.com`. It framed the product's staging build
+until 31 Aug 2026, which meant a visitor used one deploy and then clicked
+"Visit Lafayette Square" into another — and meant a push to the working branch
+changed what the portfolio showed. Both are now the same address.
 
 **Caching will lie to you.** The embedded scripts carry `?v=` strings, so a
 browser holding an old copy keeps showing the previous build long after the

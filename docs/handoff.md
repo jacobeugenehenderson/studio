@@ -92,7 +92,7 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
    While in there: the emoji picker works but renders dark on a light app, and
    Codedesk wires it twice. Both noted below.
 2. **The Ward — embedded as three layers, 30 July 2026. Live on the site since
-   2 Aug, still pointing at the product's STAGING build.** The heading here read
+   2 Aug, pointing at PRODUCTION since 31 Aug.** The heading here read
    "NOT YET LIVE" until 10 Aug, which stopped being true the moment the rebuild
    published; what is not live is the *prod* Ward, not the embed.
 
@@ -185,13 +185,16 @@ written next to it. **Re-verify before trusting; do not just re-copy.**
      producing a `main` in a shape neither branch has ever been — too much risk
      for a portfolio embed.
 
-   **So the embed rides along.** When the extent / trees / intake work is
-   promoted to prod, `embed-layers` merges into the trunk first and goes with
-   it — already tested, no hand-merge, free. Until then the site points at
-   staging and works.
+   **The embed rode along, and this is DONE as of 31 Aug 2026.** The extent /
+   trees / intake work was promoted, `origin/main` and the trunk are the same
+   commit, and prod's bundle carries the whole protocol — `ward-layer`,
+   `ward-time`, `ward-perf`, `ward-place`, `embed-sheet`. The gate the old note
+   named now passes: `git show origin/main:src/App.jsx | grep -c 'layer=slab'`
+   → **2**, not 0.
 
-   Then, and only then: flip `data-embed-base` in `index.html` from the staging
-   URL to `https://lafayette-square.com/`. One line, the only one.
+   Both sites moved: `data-embed-base` in this repo's `index.html`, and
+   `EMBED_URL` in `theward-online/js/site.js`. ⛔ Re-run that gate before ever
+   pointing either back at staging.
 
    **`grep -c "iframe src=" index.html` → 4**, and `grep -c 'class="embed[ "]'
    index.html` → 4 with it. Both were run on 23 Aug 2026, not carried forward.
