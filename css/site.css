@@ -338,7 +338,7 @@ a { color: inherit; }
 /* The long version, one quiet line under the summary. Mono and unemphatic on
    purpose: it is a reference for someone who already wants it, not a call to
    action — the ten pieces below are the argument. */
-.cv {
+.resume {
   margin: 0;
   display: flex;
   flex-wrap: wrap;
@@ -350,15 +350,30 @@ a { color: inherit; }
   text-transform: uppercase;
 }
 
-.cv-link {
+/* Two characters at label size is a ~13px target, well under the 44px a finger
+   needs. The hit area is grown with a pseudo-element rather than padding: real
+   padding would drag the underline out past the word, and the rule sitting
+   tight under CV is the whole look. Nothing moves, the target quadruples. */
+.resume-link {
+  position: relative;
   color: var(--ink);
   text-decoration: none;
   border-bottom: 1px solid var(--rule-firm);
 }
 
-.cv-link:hover { border-bottom-color: var(--ink); }
+.resume-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: max(var(--tap), 100%);
+  height: var(--tap);
+}
 
-.cv-meta { color: var(--ink-faint); }
+.resume-link:hover { border-bottom-color: var(--ink); }
+
+.resume-meta { color: var(--ink-faint); }
 
 
 /* 6 ── colour bar — the piece index ======================================= */

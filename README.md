@@ -49,12 +49,12 @@ is substance. Do not swap these.
 ```
 COLOPHON.md             how it was made; index of every document
 index.html              the whole site
-sitemap.xml             the page and the CV; there is no robots.txt — see §9
+sitemap.xml             the page and the résumé; no robots.txt — see §9
 css/tokens.css          every colour, size, family, duration
 css/site.css            everything else, in numbered sections
 js/site.js              theme switch, drag, pager, disclosure-from-hash
 assets/                 committed, served
-assets/Jacob-Henderson-CV.pdf   the CV — undated filename, stable URL
+assets/Jacob-Henderson-Resume.pdf   undated filename, stable URL
 assets/og-card.png      the share card, built by tools/build-og.py
 assets/west-elm/        derivatives built from _source
 assets/pbg/             Provincetown covers, likewise
@@ -690,8 +690,9 @@ matters.
 Added 3 Sep 2026. The page had no canonical link, no share card, no structured
 data and no sitemap; it now has all four, plus a downloadable CV.
 
-**The CV is `assets/Jacob-Henderson-CV.pdf`,** linked once, under the thesis.
-That placement is deliberate — the thesis is the short version and the CV is the
+**The résumé is `assets/Jacob-Henderson-Resume.pdf`,** linked once, under the
+thesis, labelled **Résumé**.
+That placement is deliberate — the thesis is the short version and this is the
 long one, so the link reads as *more of this* rather than as a call to action.
 It is not in the footer, where someone looking for it would have to read ten
 pieces first.
@@ -745,7 +746,7 @@ card changes, or it will look like nothing happened.
 **Structured data** is one `application/ld+json` block: a `WebSite` and a
 `Person`, linked by `@id`. It exists to tie one name to one URL, one job title,
 and the profiles that are demonstrably the same person — LinkedIn and GitHub in
-`sameAs`, the CV in `subjectOf`. Email is deliberately absent; it is on the page
+`sameAs`, the résumé in `subjectOf`. Email is deliberately absent; it is on the page
 as a `mailto` for humans and a machine-readable second copy buys nothing.
 
 **There is no `robots.txt`, on purpose.** Cloudflare serves a *managed* one at

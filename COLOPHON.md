@@ -59,7 +59,7 @@ point.
 | `docs/rebuild-plan.html` | The original plan. Superseded in places by what actually got built; kept because the reasoning still holds. |
 | `tools/build-images.py` | `_source/` → `assets/`. Forces each pair to identical dimensions and reports whether every pair registered. |
 | `tools/build-og.py` | The share card, `assets/og-card.png`. Reads the palette out of `css/tokens.css` at build time rather than copying it, so the card cannot drift from the page. Re-run after a palette change. |
-| `sitemap.xml` | The page and the CV. There is deliberately no `robots.txt` — Cloudflare serves a managed one that blocks the AI crawlers, and a repo copy risks overriding it. README §9. |
+| `sitemap.xml` | The page and the résumé. There is deliberately no `robots.txt` — Cloudflare serves a managed one that blocks the AI crawlers, and a repo copy risks overriding it. README §9. |
 | `tools/stamp.py` | Content-hashes the `css/` and `js/` links in `index.html`. **Run before every push that touches either.** Cloudflare caches those assets for four hours but not the HTML, so an unstamped push ships new markup against the previous stylesheet. `--check` exits non-zero when a stamp is stale. |
 | Commit messages | Where the *why* of each decision is written, including the ones that were wrong first. |
 

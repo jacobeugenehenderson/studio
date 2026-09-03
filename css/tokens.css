@@ -107,6 +107,13 @@
   --s5: 1.5rem;   --s6: 2rem;     --s7: 3rem;     --s8: 4rem;
   --s9: 6rem;     --s10: 9rem;
 
+  /* The smallest a finger can reliably hit (WCAG 2.5.8). Deliberately NOT on
+     the spacing scale: it is a floor set by a hand, not a step in a rhythm,
+     and rounding it to --s6 would make it 32px on a phone. Grow a small
+     control's HIT AREA to this, never its painted box — a two-character link
+     with 14px of padding is no longer a two-character link. */
+  --tap: 44px;
+
   /* ---- layout ----------------------------------------------------------- */
   --measure: 68ch;      /* reading column                     */
   --page-max: 78rem;
