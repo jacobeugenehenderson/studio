@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  One page and one document. The site is deliberately a single URL, so this
+  file exists to declare the CV as much as the page — a PDF is crawled and its
+  text indexed, but only if something points a crawler at it.
+
+  <changefreq> and <priority> are omitted on purpose: Google has ignored both
+  for years, and a field nobody reads is a field that goes stale unwatched.
+
+  Update <lastmod> when the page or the CV changes. It is the one claim in here
+  that can be wrong.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://jacobhenderson.studio/</loc>
+    <lastmod>2026-09-03</lastmod>
+  </url>
+  <url>
+    <loc>https://jacobhenderson.studio/assets/Jacob-Henderson-CV.pdf</loc>
+    <lastmod>2026-09-03</lastmod>
+  </url>
+</urlset>

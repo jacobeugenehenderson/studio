@@ -49,14 +49,18 @@ is substance. Do not swap these.
 ```
 COLOPHON.md             how it was made; index of every document
 index.html              the whole site
+sitemap.xml             the page and the CV; there is no robots.txt — see §9
 css/tokens.css          every colour, size, family, duration
 css/site.css            everything else, in numbered sections
 js/site.js              theme switch, drag, pager, disclosure-from-hash
 assets/                 committed, served
+assets/Jacob-Henderson-CV.pdf   the CV — undated filename, stable URL
+assets/og-card.png      the share card, built by tools/build-og.py
 assets/west-elm/        derivatives built from _source
 assets/pbg/             Provincetown covers, likewise
 assets/pbg/full/        the publications themselves — 7 PDFs + the poster, 60 MB
 tools/build-images.py   _source → assets
+tools/build-og.py       the share card, from css/tokens.css
 tools/stamp.py          content-hashes the css/js links — run before every push
 docs/                   working documents, not served
 _source/                originals, gitignored, never served
@@ -672,7 +676,87 @@ rather than four separate credits, which is the strongest fact on the site.
   its picture, ambiguous since seven pieces gained that arrangement.
 
 **Known and accepted:** collapsing to one page cost per-piece link previews. Any
-share shows the site-level card. Thin share-only pages redirecting into anchors
-would restore it if it matters.
+share shows the site-level card — which, until 3 Sep 2026, did not exist: this
+line claimed a card for weeks while the page carried no `og:image` at all. Thin
+share-only pages redirecting into anchors would restore per-piece previews if it
+matters.
 
 **All copy is provisional** and expected to be rewritten.
+
+---
+
+## 9. The CV, and being found
+
+Added 3 Sep 2026. The page had no canonical link, no share card, no structured
+data and no sitemap; it now has all four, plus a downloadable CV.
+
+**The CV is `assets/Jacob-Henderson-CV.pdf`,** linked once, under the thesis.
+That placement is deliberate — the thesis is the short version and the CV is the
+long one, so the link reads as *more of this* rather than as a call to action.
+It is not in the footer, where someone looking for it would have to read ten
+pieces first.
+
+⛔ **The filename carries no date and the URL must not change.** Jacob's working
+convention is `Jacob_Resume-Fall-2026.pdf`, and there are ~25 such files on disk
+going back to 2021. That is right for a working folder and wrong for a published
+address: a link sent in March should still resolve in October, ranking should
+accrue to one URL, and nothing forwarded should be visibly last season. The date
+belongs *inside* the document. Do not "helpfully" version the filename.
+
+⛔ **No phone number in the published PDF.** It was removed on 3 Sep. Google
+parses PDF text, so a number at a crawlable URL is harvestable at scale in a way
+that a number sitting in an ATS database is not. Email is fine — it is on his own
+domain, filterable and rotatable — and is already public in the footer. If a
+callable version is ever wanted, export it separately and attach it by hand;
+do not put it back here.
+
+**The PDF is tagged**, and that took most of a session. What it carries, and what
+to re-check after any re-export from InDesign:
+
+| | |
+|---|---|
+| headings | `Name`→H1 ×1, `Title`→H2 ×1, `Section_Head`→H2 ×6, `Sidebar_Section_Head`→H3 ×6 |
+| lists | `L` ×4, `LI`/`Lbl`/`LBody` ×17 — real Bullets and Numbering, **not** an explicit `P` tag |
+| artifacts | the page 2 running head, rendered but outside the reading order |
+| links | 4 — site, LinkedIn ×2, `mailto` |
+| meta | Title, Author, Subject; `dc:*`, `xmpRights:WebStatement`; `Lang en-US` |
+
+⚠ **A bulleted paragraph style must stay at `[Automatic]`.** Setting it to `P`
+overrides InDesign's list generation and flattens seventeen list items into loose
+paragraphs, with nothing to see in the export dialog. This was done and undone.
+
+⚠ **Choose the PDF preset before ticking anything.** Changing the preset reloads
+every panel and silently discards Create Tagged PDF, Hyperlinks and Display
+Title. The dropdown reads `(modified)` once the ticks have registered — that is
+the only in-dialog confirmation. A preset named `Tagged PDF` is saved with all of
+it, so this should not recur.
+
+⚠ **Never a PDF/X preset.** X-1a, X-3 and X-4 strip hyperlinks with no warning.
+
+**The share card is `assets/og-card.png`,** built by `tools/build-og.py` from
+`css/tokens.css` — the palette is read at build time rather than copied, so the
+card cannot drift from the page. It is the masthead's own device: four plates
+composed by `multiply`, the colour three stopping just short of true.
+
+⚠ **Social platforms cache a card far longer than the edge does.** A new image
+at the same URL can take days to appear anywhere. Change the *filename* when the
+card changes, or it will look like nothing happened.
+
+**Structured data** is one `application/ld+json` block: a `WebSite` and a
+`Person`, linked by `@id`. It exists to tie one name to one URL, one job title,
+and the profiles that are demonstrably the same person — LinkedIn and GitHub in
+`sameAs`, the CV in `subjectOf`. Email is deliberately absent; it is on the page
+as a `mailto` for humans and a machine-readable second copy buys nothing.
+
+**There is no `robots.txt`, on purpose.** Cloudflare serves a *managed* one at
+the edge — it allows search and blocks the AI crawlers (`GPTBot`, `ClaudeBot`,
+`CCBot`, `Google-Extended`, `Amazonbot`, `Applebot-Extended`, `Bytespider`,
+`meta-externalagent`). Committing one to the repo risks overriding all of that
+and silently un-blocking every crawler Cloudflare is currently refusing, to gain
+a `Sitemap:` line that Search Console does not need. **Do not add one without
+first establishing which copy wins.**
+▶ `curl -s https://jacobhenderson.studio/robots.txt | grep -c GPTBot` → 1 today.
+
+**Submit `sitemap.xml` through Search Console**, not by robots.txt discovery,
+for the reason above. Its `<lastmod>` dates are the one claim in that file that
+can go stale.

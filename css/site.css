@@ -14,19 +14,17 @@
      7  piece list
      8  marginalia rail
      9  the registered wipe
-    10  credit line
-    11  graph paper
-    12  the layer legend
-    13  the stepper
-    14  the pager
-    15  three states, one pill
-    16  the shot
-    17  the disclosure
-    18  the shelf
-    19  curios
-    20  reading
-    21  footer
-    22  reduced motion
+    10  graph paper
+    11  the stepper
+    12  the pager
+    13  three states, one pill
+    14  the shot
+    15  the disclosure
+    16  the shelf
+    17  curios
+    18  reading
+    19  footer
+    20  reduced motion
    ========================================================================= */
 
 
@@ -336,6 +334,31 @@ a { color: inherit; }
   font-size: var(--fs-lead);
   line-height: var(--lh-snug);
 }
+
+/* The long version, one quiet line under the summary. Mono and unemphatic on
+   purpose: it is a reference for someone who already wants it, not a call to
+   action — the ten pieces below are the argument. */
+.cv {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s2) var(--s3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+}
+
+.cv-link {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule-firm);
+}
+
+.cv-link:hover { border-bottom-color: var(--ink); }
+
+.cv-meta { color: var(--ink-faint); }
 
 
 /* 6 ── colour bar — the piece index ======================================= */
