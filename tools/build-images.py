@@ -352,10 +352,21 @@ def build_wlvx():
     matches the figures elsewhere on the page. The deck it came from is
     fundraising material and is deliberately NOT a source.
 
-    ⚠ The original lives on /Volumes/2021, which unmounted mid-copy on
-    18 Aug 2026 — the same failure mode as /Volumes/Today, on a second drive.
-    This source is the 1999x1499 copy Jacob sent rather than the 3 MB original.
-    Ample for a 1600px derivative; re-supply if a larger one is ever wanted."""
+    ⛔ THIS SOURCE IS THE ORIGINAL. There is no larger one, and 1519px is a
+    permanent ceiling, not a to-do.
+
+    The note here said the original was on /Volumes/2021 — which unmounted
+    mid-copy on 18 Aug 2026, the same failure mode as /Volumes/Today — and that
+    this 1999x1499 file was a stand-in to be replaced. Confirmed with Jacob on
+    3 Sep 2026: it is the only copy that remains. Cropped to the devices at
+    0.115-0.875 of the width, that leaves 1519, and the body column asks 1738 of
+    a 2x display. So this is the one figure on the page served short, and it
+    stays that way.
+
+    Do not go looking for a bigger file, do not widen the crop to buy pixels —
+    the crop is the edit, and it is what keeps a fundraising cover reading as
+    the product — and do not upscale. Inventing pixels is what the crop exists
+    to avoid."""
     src = os.path.join(SRC, "wlvx", "cover.png")
     if not os.path.exists(src):
         print("\nno _source/wlvx/cover.png — skipping the WLVX cover")

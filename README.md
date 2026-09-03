@@ -830,7 +830,16 @@ looks like a failure. Read `currentSrc` instead.
 and already carry 1.33x what a 2x display asks for, and their sources are gone
 with the wpress archive.
 
-⛔ **WLVX cannot be fixed here and is the one image served short.** It needs 1738
-and has 1519, because the source is a 1999px copy cropped to 0.76 of its width —
-the original is on `/Volumes/2021`, which unmounted mid-copy on 18 Aug 2026.
-**This needs Jacob to re-supply it**, not another build.
+⛔ **WLVX is the one figure served short, and that is permanent.** It needs 1738
+and has 1519: the source is 1999px cropped to 0.76 of its width, and — confirmed
+with Jacob on 3 Sep 2026 — **that file is the original.** There is no larger copy
+on `/Volumes/2021` or anywhere else.
+
+This note said "needs Jacob to re-supply it" for about an hour, which would have
+sent the next session hunting a file that does not exist. It is not an
+outstanding task. It is a fact about the only surviving art, and 0.87 of a 2x
+ask is close enough to read as intended.
+
+Do not widen the crop to buy pixels — the crop **is** the edit, and it is what
+keeps a fundraising cover reading as the product rather than as a pitch deck.
+Do not upscale: inventing pixels is the exact thing the crop exists to avoid.
