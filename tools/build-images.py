@@ -7,9 +7,18 @@ Re-runnable: it overwrites, so it is safe to run after adding source art.
 
     python3 tools/build-images.py
 
-Why 1600px: the widest a figure gets is 1000 CSS px, and 1600 covers that at the
-1.6x most laptop displays actually use. 2x would double the bytes to buy detail
-almost nobody resolves.
+Two candidates per figure, since 3 Sep 2026. Everything in the body column is
+written twice — full size and SMALL_W — and the markup offers both in a srcset,
+so the browser takes what its viewport and pixel ratio actually ask for.
+
+⚠ This file used to say: "Why 1600px: the widest a figure gets is 1000 CSS px,
+and 1600 covers that at the 1.6x most laptop displays actually use. 2x would
+double the bytes to buy detail almost nobody resolves." That was a sound trade
+while there was ONE file for every visitor — a compromise between a phone and a
+retina desktop, landing short of both. srcset dissolves the trade rather than
+settling it: the phone now takes 1000 and the 2x desktop takes 2000, so the
+compromise width is the one thing nobody needs. MAX_W stays 1600 only where a
+source cannot give more — West Elm's originals are 1920.
 """
 
 import os
@@ -27,6 +36,32 @@ OUT = os.path.join(ROOT, "assets")
 MAX_W = 1600
 COVER_H = 720     # Provincetown's shelf sizes by HEIGHT — see build_pbg()
 QUALITY = 80
+
+# The second candidate every figure offers, for srcset.
+#
+# ⚠ 1200, and it was 1000 for about ten minutes. 1000 looks like the obvious
+# number and it is the wrong one, because the devices that matter are 3x, not
+# 2x. Worked through against the measured column width:
+#
+#   iPhone SE      360 css, 2x  ->  column 312  needs  624   1000 ok
+#   iPhone 14      390 css, 3x  ->  column 342  needs 1026   1000 MISSES, takes 2000
+#   iPhone Pro Max 430 css, 3x  ->  column 382  needs 1146   1000 MISSES, takes 2000
+#   iPad portrait  768 css, 2x  ->  column 518  needs 1036   1000 MISSES, takes 2000
+#   laptop        1119 css, 2x  ->  column 869  needs 1738   takes 2000, correct
+#
+# So at 1000 every modern phone and every iPad skips the small file entirely and
+# downloads the full one — the saving is real only on an SE. At 1200 the whole
+# phone-and-tablet range lands on the small candidate and only laptops upward
+# take 2000, which is the split that was wanted. A srcset whose small candidate
+# nobody qualifies for is just a second file nobody fetches.
+#
+# It is resized from the finished large derivative rather than from the source,
+# which matters for the wipes: both layers of a pair are already forced to
+# identical dimensions, so scaling each guarantees the two small files match
+# too. Deriving each independently from its own source would let a rounding
+# difference put a pixel of drift into the seam at one breakpoint only — the
+# hardest kind of bug to be shown.
+SMALL_W = 1200
 
 # The ten West Elm pairs. NN.jpg is the finished composite; NN_Plate.jpg is the
 # plate, and both are already identical in dimensions per pair — which is what
@@ -100,9 +135,14 @@ COVER_CROP = {
 # shelf links every tile to something rather than leaving one dead.
 COVER_FULL = ["2020-pride.jpg"]
 
+# ShowDesk renders at the full body column, same as the stepper, so it needs the
+# same 2x as Nordson and Ascend. It sat at MAX_W until 3 Sep 2026 and measured
+# 0.92 of a 2x display's ask.
+SHOWDESK_W = 2000
+
 
 def derive(src_path, out_path, exact=None, max_w=None, max_h=None, crop=None,
-           fmt="JPEG", quality=None):
+           fmt="JPEG", quality=None, small=False):
     """Write one derivative. `exact` forces a size, used to make a pair match.
     `max_w` overrides the default cap for art that never renders full width.
     `max_h` sizes by HEIGHT instead — for art laid out on a common baseline.
@@ -110,7 +150,12 @@ def derive(src_path, out_path, exact=None, max_w=None, max_h=None, crop=None,
 
     `fmt="WEBP"` keeps the alpha channel, which JPEG cannot carry and which the
     default RGB conversion below would silently composite onto black. Art with a
-    soft or rounded edge needs it — see build_ascend()."""
+    soft or rounded edge needs it — see build_ascend().
+
+    `small=True` also writes a SMALL_W companion beside it, `name-1000.ext`, for
+    the srcset. Everything that renders in the body column takes one; the
+    Provincetown shelf does not, because its covers are 137-202 CSS px and
+    already carry more pixels than a 2x display asks for."""
     cap = max_w or MAX_W
     with Image.open(src_path) as im:
         # RGBA only where the format can carry it; everything else flattens, as
@@ -128,11 +173,19 @@ def derive(src_path, out_path, exact=None, max_w=None, max_h=None, crop=None,
             h = round(im.height * cap / im.width)
             im = im.resize((cap, h), Image.LANCZOS)
         os.makedirs(os.path.dirname(out_path), exist_ok=True)
-        if fmt == "WEBP":
-            im.save(out_path, "WEBP", quality=quality or QUALITY, method=6)
-        else:
-            im.save(out_path, "JPEG", quality=quality or QUALITY,
-                    optimize=True, progressive=True)
+
+        def write(image, path):
+            if fmt == "WEBP":
+                image.save(path, "WEBP", quality=quality or QUALITY, method=6)
+            else:
+                image.save(path, "JPEG", quality=quality or QUALITY,
+                           optimize=True, progressive=True)
+
+        write(im, out_path)
+        if small and im.width > SMALL_W:
+            root, ext = os.path.splitext(out_path)
+            h = round(im.height * SMALL_W / im.width)
+            write(im.resize((SMALL_W, h), Image.LANCZOS), f"{root}-{SMALL_W}{ext}")
         return im.size, os.path.getsize(out_path)
 
 
@@ -208,7 +261,7 @@ def build_nordson():
             print(f"  MISSING {src_name}.jpg")
             continue
         got, wrote = derive(src, os.path.join(out_dir, f"{out_name}.jpg"),
-                            exact=size, max_w=NORDSON_W)
+                            exact=size, max_w=NORDSON_W, small=True)
         size = size or got
         print(f"  {out_name}.jpg  {got[0]}x{got[1]}  {wrote // 1024} KB")
         # printed AFTER its own filename, or each result reads as belonging to
@@ -248,7 +301,8 @@ def build_ascend():
             continue
         total_in += os.path.getsize(src)
         size, wrote = derive(src, os.path.join(OUT, f"{name}-interface.webp"),
-                             max_w=ASCEND_W, fmt="WEBP", quality=ASCEND_Q)
+                             max_w=ASCEND_W, fmt="WEBP", quality=ASCEND_Q,
+                             small=True)
         total_out += wrote
         print(f"  {name}-interface.webp  {size[0]}x{size[1]}  {wrote // 1024} KB")
     if total_in:
@@ -264,13 +318,20 @@ def build_showdesk():
     source is a 4480x2520 retina capture at 3.1 MB and the served derivative is
     about 125 KB, indistinguishable at the size it renders. Checked by zooming
     the clip list 2x: no artefacts on UI text at 1600/q80. The five legacy PNGs
-    should come through here too, eventually."""
+    should come through here too, eventually.
+
+    2000px since 3 Sep 2026, not the file-wide 1600. Measured: the shot renders
+    869 CSS px at a 1119px viewport and 998 at --page-max, so 1600 was 0.92 of
+    what a 2x display asks for — soft, on the one image standing in for a
+    product that cannot be framed. The source is 4480 wide, so this costs bytes
+    and nothing else."""
     src = os.path.join(SRC, "showdesk", "builder.png")
     if not os.path.exists(src):
         print("\nno _source/showdesk/builder.png — skipping the Show Builder shot")
         return
     print("\nShowDesk")
-    size, wrote = derive(src, os.path.join(OUT, "showdesk", "builder.jpg"))
+    size, wrote = derive(src, os.path.join(OUT, "showdesk", "builder.jpg"),
+                         max_w=SHOWDESK_W, small=True)
     print(f"  builder.jpg  {size[0]}x{size[1]}  {wrote // 1024} KB")
 
 
@@ -304,7 +365,8 @@ def build_wlvx():
         w, h = probe.size
     # fractions, not pixels, so a larger re-supplied original crops the same
     box = (round(w * 0.115), round(h * 0.327), round(w * 0.875), h)
-    size, wrote = derive(src, os.path.join(OUT, "wlvx", "cover.jpg"), crop=box)
+    size, wrote = derive(src, os.path.join(OUT, "wlvx", "cover.jpg"), crop=box,
+                         small=True)
     print(f"  cover.jpg  {size[0]}x{size[1]}  {wrote // 1024} KB")
 
 
@@ -375,11 +437,13 @@ def main():
 
         total_in += os.path.getsize(comp_src) + os.path.getsize(plate_src)
 
-        size, wrote = derive(comp_src, os.path.join(out_dir, f"{pair}-composite.jpg"))
+        size, wrote = derive(comp_src, os.path.join(out_dir, f"{pair}-composite.jpg"),
+                             small=True)
         total_out += wrote
         print(f"  {pair}-composite.jpg  {size[0]}x{size[1]}  {wrote // 1024} KB")
 
-        psize, pwrote = derive(plate_src, os.path.join(out_dir, f"{pair}-plate.jpg"), exact=size)
+        psize, pwrote = derive(plate_src, os.path.join(out_dir, f"{pair}-plate.jpg"),
+                               exact=size, small=True)
         total_out += pwrote
         print(f"  {pair}-plate.jpg      {psize[0]}x{psize[1]}  {pwrote // 1024} KB")
 

@@ -58,7 +58,7 @@ point.
 | `docs/okqral-cleanup-brief.md` | A behaviour-preserving vestigial pass on okQRal, plus findings from a first look and the sequencing that matters. |
 | `docs/embed-height.js` | The snippet an embedded product carries so it can report its own height. Byte-identical wherever it appears — do not fork it. In Codedesk and Picture Wrap; wanted in Scale Machine; deliberately not in The Ward. |
 | `docs/rebuild-plan.html` | The original plan. Superseded in places by what actually got built; kept because the reasoning still holds. |
-| `tools/build-images.py` | `_source/` → `assets/`. Forces each pair to identical dimensions and reports whether every pair registered. |
+| `tools/build-images.py` | `_source/` → `assets/`. Forces each pair to identical dimensions and reports whether every pair registered. Writes every body-column figure at two widths for the srcset — see README §10, which explains why the small one is 1200 and not 1000. |
 | `tools/build-og.py` | The share card, `assets/og-card.png`. Reads the palette out of `css/tokens.css` at build time rather than copying it, so the card cannot drift from the page. Re-run after a palette change. |
 | `sitemap.xml` | The page and the résumé. There is deliberately no `robots.txt` — Cloudflare serves a managed one that blocks the AI crawlers, and a repo copy risks overriding it. README §9. |
 | `tools/stamp.py` | Content-hashes the `css/` and `js/` links in `index.html`. **Run before every push that touches either.** Cloudflare caches those assets for four hours but not the HTML, so an unstamped push ships new markup against the previous stylesheet. `--check` exits non-zero when a stamp is stale. |

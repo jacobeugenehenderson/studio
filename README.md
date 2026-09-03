@@ -774,3 +774,63 @@ first establishing which copy wins.**
 **Submit `sitemap.xml` through Search Console**, not by robots.txt discovery,
 for the reason above. Its `<lastmod>` dates are the one claim in that file that
 can go stale.
+
+---
+
+## 10. Two candidates per figure
+
+Added 3 Sep 2026. Everything in the body column is written at two widths and the
+markup offers both, so a phone and a 2x desktop stop sharing one compromise file.
+
+⛔ **SMALL_W is 1200 and it must not be "tidied" to 1000.** 1000 is the obvious
+number and it is wrong, because the phones that matter are 3x. Against the
+measured column width:
+
+| device | column | needs | at 1000 | at 1200 |
+|---|---|---|---|---|
+| iPhone SE, 2x | 312 | 624 | 1000 ✓ | 1200 ✓ |
+| iPhone 14, 3x | 342 | 1026 | **2000** | 1200 ✓ |
+| iPhone Pro Max, 3x | 382 | 1146 | **2000** | 1200 ✓ |
+| iPad portrait, 2x | 518 | 1036 | **2000** | 1200 ✓ |
+| laptop, 2x | 869 | 1738 | 2000 ✓ | 2000 ✓ |
+
+At 1000, every modern phone and every iPad skips the small file and downloads the
+full one — **a srcset whose small candidate nobody qualifies for is just a second
+file nobody fetches.**
+
+**Three `sizes` strings, because there are three sizing contexts**, each derived
+by measuring the rendered width at twelve viewports rather than guessed:
+
+```
+body column   (max-width: 46rem) calc(100vw - 3rem),
+              (max-width: 78rem) calc(100vw - 250px), 998px
+pager         (max-width: 46rem) calc(100vw - 102px),
+              (max-width: 78rem) calc(100vw - 354px), 894px
+shot-aside    (max-width: 46rem) calc(100vw - 3rem),
+              (max-width: 78rem) calc((100vw - 250px) * 0.49), 489px
+```
+
+⚠ **The small file is resized from the finished large one, not from the source.**
+Both layers of a wipe are already forced to identical dimensions, so scaling each
+keeps the two small files identical too. Deriving each from its own source would
+let a rounding difference put a pixel of drift into the seam **at one breakpoint
+only** — visible while dragging, invisible everywhere you would look for it.
+▶ Check: every `-composite` and `-plate` must match at both widths.
+
+⚠ **Do not measure candidate selection in an iframe.** A probe at twelve widths
+said every image took the small file even at 1119px; the top-level page at the
+same width took the full one on 29 of 30. `sizes` is evaluated before the framed
+layout settles. Measure the real document, or resize the real window.
+
+⚠ **`naturalWidth` lies once `srcset` is present.** Chrome density-corrects it,
+so a 2000px file in an 869px box reports 868 and every ratio computed from it
+looks like a failure. Read `currentSrc` instead.
+
+**Provincetown's covers are deliberately excluded** — they render 137–202 CSS px
+and already carry 1.33x what a 2x display asks for, and their sources are gone
+with the wpress archive.
+
+⛔ **WLVX cannot be fixed here and is the one image served short.** It needs 1738
+and has 1519, because the source is a 1999px copy cropped to 0.76 of its width —
+the original is on `/Volumes/2021`, which unmounted mid-copy on 18 Aug 2026.
+**This needs Jacob to re-supply it**, not another build.
