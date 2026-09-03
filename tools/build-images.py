@@ -66,6 +66,20 @@ NORDSON = [("Cordis-Photo", "cordis-photo"),
            ("Cordis-Blueprint", "cordis-blueprint"),
            ("Cordis-Illo", "cordis-illo")]
 
+# Ascend's five interface stills. 2000px because that is what the column can
+# actually use: the stepper image measures 869 CSS px at a 1119px viewport and
+# tops out near 1000 at --page-max, so 2000 covers a 2x display exactly. Same
+# reasoning, same number, as NORDSON_W.
+#
+# WebP, not JPEG, because these carry a real alpha channel — a soft edge on
+# every one — and JPEG would composite it onto black. q90 rather than the
+# file-wide 80: measured against an uncompressed reference at 3x zoom on the
+# busiest text in the set, q85/q90/q95 were all indistinguishable, so 90 buys
+# margin for nothing. 6.1 MB -> 226 KB on the worst of them.
+ASCEND_W = 2000
+ASCEND_Q = 90
+ASCEND = ["artstart", "ascend", "codedesk", "copydesk", "fileroom"]
+
 # Covers that WordPress padded, and the box that gets the artwork back. Only one
 # so far: the members map was stored 1262x1920 inside a grey gradient, so it was
 # the single cover on the shelf that did not bleed to its own edges. Cropped, it
@@ -87,14 +101,22 @@ COVER_CROP = {
 COVER_FULL = ["2020-pride.jpg"]
 
 
-def derive(src_path, out_path, exact=None, max_w=None, max_h=None, crop=None):
+def derive(src_path, out_path, exact=None, max_w=None, max_h=None, crop=None,
+           fmt="JPEG", quality=None):
     """Write one derivative. `exact` forces a size, used to make a pair match.
     `max_w` overrides the default cap for art that never renders full width.
     `max_h` sizes by HEIGHT instead — for art laid out on a common baseline.
-    `crop` is a box applied before resizing — see COVER_CROP."""
+    `crop` is a box applied before resizing — see COVER_CROP.
+
+    `fmt="WEBP"` keeps the alpha channel, which JPEG cannot carry and which the
+    default RGB conversion below would silently composite onto black. Art with a
+    soft or rounded edge needs it — see build_ascend()."""
     cap = max_w or MAX_W
     with Image.open(src_path) as im:
-        im = im.convert("RGB")
+        # RGBA only where the format can carry it; everything else flattens, as
+        # it always did. Converting an alpha image to RGB does not warn, it just
+        # loses the edge.
+        im = im.convert("RGBA" if fmt == "WEBP" and "A" in im.getbands() else "RGB")
         if crop:
             im = im.crop(crop)
         if exact:
@@ -106,7 +128,11 @@ def derive(src_path, out_path, exact=None, max_w=None, max_h=None, crop=None):
             h = round(im.height * cap / im.width)
             im = im.resize((cap, h), Image.LANCZOS)
         os.makedirs(os.path.dirname(out_path), exist_ok=True)
-        im.save(out_path, "JPEG", quality=QUALITY, optimize=True, progressive=True)
+        if fmt == "WEBP":
+            im.save(out_path, "WEBP", quality=quality or QUALITY, method=6)
+        else:
+            im.save(out_path, "JPEG", quality=quality or QUALITY,
+                    optimize=True, progressive=True)
         return im.size, os.path.getsize(out_path)
 
 
@@ -194,6 +220,40 @@ def build_nordson():
             flag = "" if abs(dx) <= 4 and abs(dy) <= 4 else "   ** OUT OF REGISTER **"
             print(f"      registration vs {os.path.basename(reference)}: "
                   f"dx {dx:+d}  dy {dy:+d}{flag}")
+
+
+def build_ascend():
+    """The five Ascend Toolkit interface stills.
+
+    These were committed as full-size 4704px PNGs — 15 MB between them — because
+    they predated this tool, and they were the heaviest thing on the site by a
+    wide margin. Every one is lazy-loaded, so they never cost a first paint; they
+    cost anyone who scrolls, on a phone, on data.
+
+    The originals now live in _source/ascend like every other original. They are
+    also permanently in git history, so if that directory is ever lost:
+        git show ecb1366:assets/fileroom-interface.png > _source/ascend/...
+    """
+    src_dir = os.path.join(SRC, "ascend")
+    if not os.path.isdir(src_dir):
+        print("\nno _source/ascend — skipping the interface stills")
+        return
+
+    print("\nAscend interfaces")
+    total_in = total_out = 0
+    for name in ASCEND:
+        src = os.path.join(src_dir, f"{name}-interface.png")
+        if not os.path.exists(src):
+            print(f"  MISSING {name}-interface.png")
+            continue
+        total_in += os.path.getsize(src)
+        size, wrote = derive(src, os.path.join(OUT, f"{name}-interface.webp"),
+                             max_w=ASCEND_W, fmt="WEBP", quality=ASCEND_Q)
+        total_out += wrote
+        print(f"  {name}-interface.webp  {size[0]}x{size[1]}  {wrote // 1024} KB")
+    if total_in:
+        print(f"  {total_in / 1048576:.1f} MB -> {total_out / 1024:.0f} KB "
+              f"({100 - 100 * total_out / total_in:.1f}% smaller)")
 
 
 def build_showdesk():
@@ -294,6 +354,7 @@ def main():
     if not os.path.isdir(src_dir):
         print("no _source/west-elm — skipping those pairs")
         build_nordson()
+        build_ascend()
         build_showdesk()
         build_wlvx()
         return build_pbg()
@@ -330,6 +391,7 @@ def main():
     print("all pairs registered" if not mismatched else f"MISMATCHED: {mismatched}")
 
     build_nordson()
+    build_ascend()
     build_showdesk()
     build_wlvx()
     build_pbg()

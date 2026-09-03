@@ -27,10 +27,11 @@ motif, not a texture invented here. Two of the spot inks (treelawn green, lot
 plum) come literally from `looks/lafayette-square/design.json` in The Ward.
 
 **Built from** static HTML, CSS and about 300 lines of JavaScript (406 with its comments, which are half the point). No framework
-and no bundler, nothing shipped that it didn't write. Two offline tools: an image
-pipeline turning `_source/` originals into served derivatives, and a stamper that
+and no bundler, nothing shipped that it didn't write. Three offline tools: an image
+pipeline turning `_source/` originals into served derivatives, a stamper that
 content-hashes the stylesheet and script links so a deploy cannot pair new markup
-with a cached stylesheet.
+with a cached stylesheet, and a generator that draws the share card from the same
+tokens the page uses.
 
 **The live pieces are the products themselves**, framed from their own public
 addresses — not screenshots, and not copies hosted here. Four of the ten run

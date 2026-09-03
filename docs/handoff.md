@@ -409,8 +409,15 @@ deleted and `styles/theme.css` modified, all unstaged. Codedesk still references
   measured edge CONTRAST, not position, and it was wrong.
 
   The pair builds at **2000px, not the file-wide 1600** (`NORDSON_W`): the source
-  is a deliberate 2x stamp and the column tops out near 1000 CSS px. 5.3 MB of
-  originals → 240 KB served.
+  is a deliberate 2x stamp and the column tops out near 1000 CSS px.
+
+  ⚠ This said "240 KB served" until 3 Sep 2026, describing what the builder
+  *produces* rather than what was *committed*. Two of the three derivatives had
+  been built before the cap and never regenerated, so the blueprint shipped at
+  4000px / 2003 KB — the whole above-the-fold weight of the page, on the one
+  image a visitor sees first. Rebuilt: 3534 KB → 515 KB, registration still
+  dx +0 dy +0. **A derivative can be stale in a way nothing checks; the source
+  and the builder both being right does not mean the committed file is.**
 
   What went with it: `.reveal`, `.reveal-copy` and site.css §13, plus eleven
   section renumbers. The old art (`Cordis-Spread-1/2`) held half a drawing and

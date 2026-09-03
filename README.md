@@ -414,12 +414,25 @@ adding one.**
 
 ## 7. Working on it
 
-⚠ **Screenshots go through `_source/`, not straight into `assets/`.** The five
-Ascend interface stills are committed as full-size PNGs — **15 MB between them**
-— because they predate the tool. ShowDesk's does not: 3.1 MB source, 123 KB
-served, indistinguishable at the size it renders (checked by zooming the clip
-list 2x — no artefacts on UI text at 1600/q80). The five legacy PNGs should come
-through `build_showdesk()`'s path eventually.
+⚠ **Screenshots go through `_source/`, not straight into `assets/`.** ShowDesk's
+does: 3.1 MB source, 123 KB served, indistinguishable at the size it renders
+(checked by zooming the clip list 2x — no artefacts on UI text at 1600/q80).
+
+**The five Ascend stills came through on 3 Sep 2026** and were the heaviest thing
+on the site — full-size 4704px PNGs, **15 MB between them**, because they predated
+the tool. `build_ascend()` now writes them at 2000px: **15.0 MB → 685 KB, 95.5%
+smaller**, with the originals moved to `_source/ascend/`.
+
+⚠ **They are WebP, and that is not a preference.** Every one carries a real alpha
+channel — a soft edge — and `derive()` converts to RGB by default, which
+composites alpha onto black without warning. `fmt="WEBP"` is what preserves it.
+Do not "simplify" these to JPEG.
+
+**q90, not the file-wide 80**, and the number was measured rather than chosen:
+the busiest text region in the set was compared against an uncompressed reference
+at 3x zoom, and q85, q90 and q95 were all indistinguishable. 90 buys margin for
+almost nothing. ▶ the trial is reproducible — crop to the alpha bbox, resize,
+encode at each quality, compare.
 
 **Stamp the assets before every push that touches `css/` or `js/`:**
 
