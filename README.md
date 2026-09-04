@@ -451,6 +451,37 @@ exist for that window. On 31 Aug the site went live with unstyled captions:
 Every check passed, because the origin was correct the whole time and only the
 edge copy was old.
 
+⛔ **The stamp covers `css/` and `js/`. It does NOT cover images, and a rebuilt
+image at an unchanged filename is invisible to the edge for four hours.**
+
+Proved on 3 Sep 2026. `cordis-blueprint.jpg` went 2003 KB → 266 KB and deployed
+correctly; the live URL kept serving the 2 MB file, because the *name* had not
+changed and Cloudflare had it cached at `max-age=14400`. `builder.jpg` did the
+same going 1600px → 2000px. The origin was right, the build was green, the
+markup was correct, and the single most expensive image on the page was still
+the old one. A sibling escaped only because nothing had requested it since the
+last purge — so **which files are stale depends on what anybody happened to
+fetch**, which is not a thing you can reason your way to.
+
+New filenames are safe by construction: the `-1200` companions and the `.webp`
+conversions were live immediately, because the edge had never seen those URLs.
+It is only a rebuild in place that bites.
+
+▶ **After any image rebuild, purge those URLs at Cloudflare.** The check, which
+needs no dashboard:
+
+```
+for f in $(git diff --name-status <before>..HEAD -- assets | grep ^M | awk '{print $2}'); do
+  printf '%-44s live %8s  local %8s\n' "$f" \
+    "$(curl -s -o /dev/null -w '%{size_download}' https://jacobhenderson.studio/$f)" \
+    "$(stat -f%z "$f")"
+done
+```
+
+Any row where the two numbers disagree is stale at the edge. Content-hashing
+image filenames the way `stamp.py` hashes the stylesheet links would remove the
+manual step; it has not been done, and until it is, this is a step.
+
 The version is a hash of the file's own contents, so it changes exactly when the
 file changes and never otherwise — an unchanged asset keeps its cache hit, a
 changed one is a URL the edge has never seen.
