@@ -43,6 +43,31 @@ table of which component is right for which job, every bug already fallen into
 with why each survived testing, and an audit script. Most of it exists because
 getting it wrong cost a rebuild.
 
+## ⭐ Now: 2026-11-15, the Ascend redesign
+
+**The site is being rebuilt around Ascend, on branch `ascend-hero`, uncommitted and not public.**
+README §8 describes it. The working record is `docs/ascend-showcase-plan.md`. Read both before
+touching the hero.
+
+- **Ascend's nine manuals** are written, reviewed by Walt and committed in the Ascend repo
+  (`ascend/manual/`). Every station line on the site was checked against them.
+- **CodeDesk was published four times tonight** (framed scroll fix, the résumé easter egg, the
+  colour-picker fix, Jacob's ⚫ landing design). Live at `e9f2d9f`, decoded after each push.
+- **Overnight, local only:** sandbox dry-run screenshots
+  (`~/Desktop/dev.nosync/ascend-showcase-sandbox/`, port 8797, guarded and tested), and
+  CodeDesk's scanning-margin readout (uncommitted). Briefs are on Ascend's desk.
+- **Preview with `tools/serve.py`** (README §6). The plain server served a stale CodeDesk for an
+  hour.
+- **Waiting on Jacob:**
+  - the ShowCase gate (station 02);
+  - FlatFile's "every station can file" (only three apps do);
+  - MediaRoom's half;
+  - the sample job's real copy;
+  - the rights (Swanky Bolt Studios for the MediaRoom photos);
+  - the app labels;
+  - whether to publish the CodeDesk readout;
+  - when to commit the redesign.
+
 ## Before you touch anything
 
 - **`/Volumes/Today` is an exFAT external that unmounts mid-write**, three times

@@ -5,7 +5,7 @@
    there is nothing to wait for before the page is right.
 
      1  the paper / plate switch, and a system preference changing under it
-     2  the drag shared by the wipe and the peel
+     2  the drag shared by the wipe, the fade and the peel
      3  the pager, and deep links into it
      4  opening a disclosure that the hash points inside
      5  embedded products reporting their own height
@@ -76,26 +76,27 @@
     );
   }());
 
-  /* ---- the curios mark: FALLBACK ONLY ------------------------------------
+  /* ---- the section marks: FALLBACK ONLY -----------------------------------
      The mark comes together on the scroll, and that is done in CSS with
-     `animation-timeline: view()` (site.css §21) — presentation belongs in the
+     `animation-timeline: view()` (site.css §18, sections) — presentation belongs in the
      stylesheet. This runs only where there is no scroll timeline (Firefox
      today): an observer trips the same keyframes on the clock when the mark
      comes into view. Exactly one of the two ever fires. */
 
   var scrollTimeline = window.CSS && CSS.supports &&
                        CSS.supports('animation-timeline', 'view()');
-  var mark = scrollTimeline ? null : document.querySelector('.curios-mark');
-  if (mark && 'IntersectionObserver' in window) {
-    new IntersectionObserver(function (entries, obs) {
+  var marks = scrollTimeline ? [] : document.querySelectorAll('.group-mark');
+  if (marks.length && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries, obs) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
         entry.target.classList.add('is-registering');
         obs.unobserve(entry.target);
       });
-    }, { threshold: 0.4 }).observe(mark);
-  } else if (mark) {
-    mark.classList.add('is-registering');
+    }, { threshold: 0.4 });
+    Array.prototype.forEach.call(marks, function (m) { io.observe(m); });
+  } else {
+    Array.prototype.forEach.call(marks, function (m) { m.classList.add('is-registering'); });
   }
 
   /* ---- the registered wipe ---------------------------------------------
@@ -187,6 +188,7 @@
       dragging = false;
       try { frame.releasePointerCapture(e.pointerId); } catch (err) { /* fine */ }
       snapHome();
+      if (opts && opts.onRelease) opts.onRelease();
     }
     frame.addEventListener('pointerup', release);
     frame.addEventListener('pointercancel', release);
@@ -194,7 +196,8 @@
 
     /* keyboard, on the input, in steps a person can actually use */
     range.addEventListener('keydown', function (e) {
-      var step = e.shiftKey ? 10 : 2;
+      /* A component with stops (the fade) moves one whole stop per key. */
+      var step = (opts && opts.step) || (e.shiftKey ? 10 : 2);
       var handled = true;
       var v = parseFloat(range.value);
 
@@ -230,6 +233,86 @@
       frame.style.setProperty('--wipe', v + '%');
       if (follow) follow.style.setProperty('--wipe-n', v);
     }, { snapAt: 50 });
+  });
+
+  /* ---- the fade: one machine, several outputs, nothing moves -------------
+     The drag value 0–100 runs along the layers in source order. Between two
+     stops the upper layer's opacity is the fraction of the way across, so the
+     picture cross-fades in place. On release it settles on the nearest stop.
+     Labels and their one-line notes come from each layer's data-label and
+     data-note, so the scale cannot drift from the art; data-follow feeds the Structure/Expression copy below (100 =
+     the drawing), interpolated like the opacity. */
+
+  Array.prototype.forEach.call(document.querySelectorAll('.fade'), function (frame) {
+    var range = frame.querySelector('.wipe-range');
+    var layers = frame.querySelectorAll('.fade-layer');
+    var n = layers.length;
+    if (!range || n < 2) return;
+
+    var span = 100 / (n - 1);
+    var figure = frame.parentElement;
+    var scale = figure && figure.querySelector('.fade-scale');
+    var follow = frame.parentElement && frame.parentElement.closest('[data-wipe-follow]');
+    var note = figure && figure.querySelector('.fade-note');
+    var labels = [], follows = [], notes = [], ticks = [];
+
+    Array.prototype.forEach.call(layers, function (layer, i) {
+      labels.push(layer.getAttribute('data-label') || String(i + 1));
+      follows.push(parseFloat(layer.getAttribute('data-follow')) || 0);
+      notes.push(layer.getAttribute('data-note') || '');
+    });
+
+    var commit;
+    function settle(i) {
+      frame.classList.add('is-settling');
+      commit(i * span);
+      window.setTimeout(function () { frame.classList.remove('is-settling'); }, 340);
+    }
+
+    if (scale) {
+      labels.forEach(function (label, i) {
+        var li = document.createElement('li');
+        li.textContent = label;
+        li.addEventListener('click', function () { settle(i); });
+        scale.appendChild(li);
+        ticks.push(li);
+      });
+    }
+
+    function apply(v) {
+      var x = v / span;                            /* 0 … n-1 */
+      var lo = Math.min(n - 2, Math.floor(x));
+      var t = x - lo;                              /* 0 … 1 into the next layer */
+      Array.prototype.forEach.call(layers, function (layer, i) {
+        layer.style.opacity = i < lo ? 0 : i === lo ? 1 : i === lo + 1 ? t : 0;
+      });
+      var on = Math.round(x);
+      ticks.forEach(function (li, i) {
+        if (i === on) li.classList.add('is-on'); else li.classList.remove('is-on');
+      });
+      range.setAttribute('aria-valuetext', notes[on] ? labels[on] + '. ' + notes[on] : labels[on]);
+      if (note && note.textContent !== notes[on]) {
+        note.textContent = notes[on];
+        note.setAttribute('data-label', labels[on]);
+      }
+      if (follow) {
+        follow.style.setProperty('--wipe-n', follows[lo] + (follows[lo + 1] - follows[lo]) * t);
+      }
+    }
+
+    var start = Math.min(n - 1, Math.max(0, parseInt(frame.getAttribute('data-start'), 10) || 0));
+    range.value = start * span;
+    commit = bindDrag(frame, range, apply, {
+      step: span,
+      onRelease: function () { settle(Math.round(parseFloat(range.value) / span)); }
+    });
+
+    /* Keys jump a whole stop; let that cross-fade too, rather than cut. This runs
+       after bindDrag's own keydown, before the frame it scheduled. */
+    range.addEventListener('keydown', function () {
+      frame.classList.add('is-settling');
+      window.setTimeout(function () { frame.classList.remove('is-settling'); }, 340);
+    });
   });
 
   /* ---- the ALT badge -----------------------------------------------------
@@ -395,7 +478,7 @@
      still reading two pieces up the page. This one loads when it is asked for.
 
      The script does only what CSS cannot: it swaps one node for another and
-     seeds the src. Everything visible is in css/site.css §18 — removing
+     seeds the src. Everything visible is in css/site.css §15, the shot — removing
      .embed--waiting is what hands the frame back to the ordinary embed rules.
 
      Focus follows the frame in. The button that had it is about to be removed,

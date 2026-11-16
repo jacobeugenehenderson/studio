@@ -15,7 +15,7 @@ was Nordson's filmstrip, removed with the piece's rebuild on 31 Aug. The site
 frames The Ward from **lafayette-square.com** — production, since 31 Aug 2026.
 
 ```
-serve   python3 -m http.server 8787 --bind 127.0.0.1
+serve   python3 tools/serve.py            # no-store; never python3 -m http.server (§6)
 open    http://127.0.0.1:8787
 ```
 
@@ -62,6 +62,7 @@ assets/pbg/full/        the publications themselves — 7 PDFs + the poster, 60 
 tools/build-images.py   _source → assets
 tools/build-og.py       the share card, from css/tokens.css
 tools/stamp.py          content-hashes the css/js links — run before every push
+tools/serve.py          the preview server: sends no-store, so a reload is never stale
 docs/                   working documents, not served
 _source/                originals, gitignored, never served
 belle-epoque/           a redirect holding an existing URL
@@ -130,6 +131,7 @@ Getting this wrong cost several rebuilds. The distinction is worth keeping.
 | Component | Use when |
 |---|---|
 | **`.wipe`** | Two **registered** images of the same frame, where the point is seeing a difference *in place* — a plate against its composite, a machine photographed against the same machine drawn. Not for comparing two unrelated things. |
+| **`.fade`** | Several registered outputs of one machine from one camera, cross-faded in place by a drag, settling on the nearest stop; each layer carries its own `data-label` and `data-note`. Use it when there are more than two states and a moving seam would be motion for its own sake (Jacob, 2026-11-15). |
 | **`.states` + `.pill`** | Three or more discrete views of one stack, where one of them is the whole frame at once. A wipe cannot express that: centre-composed and seam-follows-finger are geometrically incompatible. |
 | **`.stepper`** | An ordered sequence. Every stage stays visible, nothing auto-advances. |
 | **`.pager`** | Many variations of one argument. One at a time, buttons in the margins so paging is never confused with dragging, and a visible count so the extent is known. |
@@ -587,6 +589,15 @@ without its header. Nothing reported it: the audit read classes and tokens, both
 of which were still perfectly consistent. A structural break is invisible to a
 semantic check, so both are run now. Expected: `ok` and `ok`.
 
+**Preview with `tools/serve.py`, never `python3 -m http.server`.** The plain server sends no
+`Cache-Control`, so Chrome keeps each page for as long as its own heuristic allows and reuses it
+without asking. A **framed** product is worse: it's cached separately for each site that embeds
+it, and it loads lazily *after* a hard reload, so even ⌘⇧R leaves it stale. On 2026-11-15 the
+preview ran a CodeDesk from before a fix for an hour, while the fix was live, and the page looked
+broken for a reason that didn't exist. The check is the server log: a framed page making **no
+request** is being served from cache. `serve.py` sends `no-store`. A product framed on localhost
+(`data-src-local`) needs it as well; that's why CodeDesk's local address carries `&preview`.
+
 **Check narrow widths in an iframe.** Headless Chrome on macOS clamps windows to
 500px and `--force-device-scale-factor` does not reduce the CSS viewport. Loading
 the page in a fixed-width iframe does give media queries a genuine 390px.
@@ -594,6 +605,43 @@ the page in a fixed-width iframe does give media queries a genuine 390px.
 ---
 
 ## 8. State
+
+⚠ **Two states, and they differ.** The live site (`main`) is the ten-piece page described in this
+section's history below. **The redesign** is on branch **`ascend-hero`**, uncommitted, as of
+2026-11-15. It isn't public, and it ships only when Jacob says.
+
+### The redesign, on `ascend-hero`
+
+Three sections, with ranks that name the section (§18, sections):
+
+| Section | Pieces |
+|---|---|
+| **Software for Creatives** | **Ascend** (the hero), The Ward, ‖ an era break ‖ WLVX |
+| **Selected Work** | West Elm, Provincetown |
+| **Curios** | Picture Wrap, Scale Machine |
+
+**The Ascend hero** is eight stations in one strip, in job order, each inked by its half (Ascend
+Studio in Nordson blue, Ascend Portal in the reserved deep blue; MediaRoom carries no ink until it
+is assigned). Every station line is Jacob's, written 2026-11-15 and checked against the app's
+manual (`ascend/manual/`):
+
+| # | Station | Art |
+|---|---|---|
+| 01 | Project intake · ArtStart | interface still |
+| 02 | Product visualization · ShowCase | **`.fade`**: seven registered ShowCase outputs of the ChromaBox 8K, opening on In the Hall, with Jacob's names and lines. The ChromaBox stands in for the Cordis "for the time being"; the Cordis's Structure/Expression lines are `hidden` until it returns. Now true: ShowCase made every image |
+| 03 | Copy & translation · CopyDesk | interface still |
+| 04 | QR generation · CodeDesk | **live**, scans to the résumé |
+| 05 | Print production · PrintWorks | four product cards from the print kit, at the die's true corner (`--card-corner`) |
+| 06 | Media presentation · ScreenRoom | the Show Builder still |
+| 07 | Job register · FlatFile | a labelled placeholder |
+| 08 | Asset management · MediaRoom | the Library still (it was mislabelled FileRoom) |
+
+**Open before it ships:** FlatFile's line ("every station can file", but only
+three apps do); MediaRoom's half; the app labels still visible inside the screenshots; and the
+showcase plan's sample-job screenshots (`docs/ascend-showcase-plan.md`), which replace stills
+as they arrive.
+
+### The live page (main), as it was
 
 | Piece | Component | Art |
 |---|---|---|

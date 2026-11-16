@@ -10,21 +10,22 @@
      3  header
      4  the name treatment
      5  positioning line & thesis
-     6  colour bar — the piece index
-     7  piece list
-     8  marginalia rail
-     9  the registered wipe
-    10  graph paper
-    11  the stepper
-    12  the pager
-    13  three states, one pill
-    14  the shot
-    15  the disclosure
-    16  the shelf
-    17  curios
-    18  reading
-    19  footer
-    20  reduced motion
+     6  ascend — the opening
+     7  colour bar — the piece index
+     8  piece list
+     9  marginalia rail
+    10  the registered wipe, and the fade
+    11  graph paper
+    12  the stepper
+    13  the pager
+    14  three states, one pill
+    15  the shot
+    16  the disclosure
+    17  the shelf
+    18  sections
+    19  reading
+    20  footer
+    21  reduced motion
    ========================================================================= */
 
 
@@ -376,7 +377,99 @@ a { color: inherit; }
 .resume-meta { color: var(--ink-faint); }
 
 
-/* 6 ── colour bar — the piece index ======================================= */
+/* 6 ── ascend — the opening ============================================== */
+/*
+   The opening is one system, not a list of products. Its mark is the name's
+   own four plates (§4) at section size: .name-plate supplies the plates, the
+   blend and the on-load registration, so this adds only a box and a size.
+   It registers with the name, to the same near-true — the Curios mark (§18, sections)
+   stops far short on purpose and this must not borrow that.
+
+   The body underneath is an ordinary .piece, rail and all, so the Scope credit
+   list keeps the place every reader of this page has learned to look for it.
+*/
+
+.ascend { display: grid; gap: var(--s5); }
+
+/* The section's name in the rail, beside the mark — the same grid as .piece,
+   so the hero starts on the measure like everything else. */
+.ascend-head {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: var(--gutter);
+}
+
+.ascend-intro { display: grid; gap: var(--s3); }
+
+.ascend-mark {
+  position: relative;
+  isolation: isolate;          /* keep the blend off the page background */
+  width: max-content;
+  max-width: 100%;
+}
+
+.ascend-word {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-mark);
+  line-height: 1;
+  letter-spacing: var(--tr-name);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.ascend-line {
+  font-size: var(--fs-lead);
+  line-height: var(--lh-snug);
+  max-width: var(--measure);
+}
+
+/* The credit is read, not scanned: the reading face in sentence case, small
+   and soft. It was tracked uppercase mono, which made two full sentences work
+   like a label. */
+.ascend-credit {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  line-height: var(--lh-snug);
+  color: var(--ink-soft);
+}
+
+/* The two halves of Ascend, each in a Nordson ink. Studio is the brand blue;
+   Portal takes the deep blue that sat reserved after ShowDesk was absorbed.
+   The same class inks a station's top rule and its key entry in the rail, so
+   the key cannot disagree with the strip it explains. */
+.station--studio { --spot: var(--spot-nordson); }
+.station--portal { --spot: var(--spot-nordson2); }
+
+/* Every station shows its half's ink, not just the chosen one — the
+   alternation is the point. The chosen station is marked by its raised ground
+   and its number in full ink (§12, the stepper). */
+.stepper-step.station--studio,
+.stepper-step.station--portal { border-top-color: var(--spot); }
+
+.halves {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s2);
+}
+
+/* the piece-rank's own device: a short rule of ink beside the words */
+.halves li {
+  border-left: 3px solid var(--spot);
+  padding-left: var(--s2);
+}
+
+.halves strong { display: block; }
+
+/* The hero's .piece is the section's body, not a sibling of it: its own rule
+   would draw a second line a few rem under the section's. */
+.ascend > .piece { border-top: 0; padding-top: 0; }
+
+
+
+/* 7 ── colour bar — the piece index ======================================= */
 /*
    A printer's colour control strip, doing real work: one patch per case study
    in its spot ink. It is the index, so the device encodes something true
@@ -434,9 +527,6 @@ a { color: inherit; }
 /* one patch per piece — the ink is the only thing that varies */
 .patch--westelm { --patch: var(--spot-westelm); }
 .patch--nordson { --patch: var(--spot-nordson); }
-.patch--showdesk{ --patch: var(--spot-nordson2); }
-.patch--ascend  { --patch: var(--spot-ascend); }
-.patch--code    { --patch: var(--spot-code); }
 .patch--ward    { --patch: var(--spot-ward); }
 .patch--picture { --patch: var(--spot-picture); }
 .patch--scale   { --patch: var(--spot-scale); }
@@ -444,7 +534,7 @@ a { color: inherit; }
 .patch--pbg     { --patch: var(--spot-pbg); }
 
 
-/* 7 ── piece list ========================================================= */
+/* 8 ── piece list ========================================================= */
 
 .pieces { display: grid; gap: var(--s8); }
 
@@ -470,16 +560,19 @@ a { color: inherit; }
 
 .piece--westelm { --spot: var(--spot-westelm); }
 .piece--nordson { --spot: var(--spot-nordson); }
-/* ShowDesk is the same engagement as Nordson, so it takes that client's
-   second ink — and the name is the giveaway: Copydesk, Codedesk, ShowDesk. */
-.piece--showdesk{ --spot: var(--spot-nordson2); }
-.piece--ascend  { --spot: var(--spot-ascend); }
-.piece--code    { --spot: var(--spot-code); }
 .piece--ward    { --spot: var(--spot-ward); }
 .piece--picture { --spot: var(--spot-picture); }
 .piece--scale   { --spot: var(--spot-scale); }
 .piece--wlvx    { --spot: var(--spot-wlvx); }
 .piece--pbg     { --spot: var(--spot-pbg); }
+
+/* An era break inside a section: the section's own 2px rule and a section's
+   breathing room, so the change reads as a different time, not the next piece.
+   On WLVX, between current work and the decade before it. */
+.piece--era {
+  border-top: 2px solid var(--ink);
+  margin-top: var(--s6);
+}
 
 .piece-body { display: grid; gap: var(--s4); }
 
@@ -531,7 +624,7 @@ a { color: inherit; }
 }
 
 
-/* 8 ── marginalia rail ==================================================== */
+/* 9 ── marginalia rail ==================================================== */
 /*
    The rail was empty in Phase 2. If the grammar is going to be infographic
    rather than merely well-set, it has to carry real annotation — so it holds
@@ -575,7 +668,7 @@ a { color: inherit; }
 /* the ink name, swatched with the piece's own spot */
 
 
-/* 9 ── the registered wipe ================================================ */
+/* 10 ── the registered wipe ================================================ */
 /*
    A before/after that is honest about what it compares: the registered
    location plate against the finished composite. Same frame, so the wipe
@@ -706,6 +799,106 @@ a { color: inherit; }
 .wipe:has(.wipe-range:focus-visible) .wipe-divider::after { background: var(--process-m); }
 
 
+/* ---- the fade: one machine, several outputs, nothing moves --------------
+   Jacob (2026-11-15): keep the drag, lose the motion. Every layer is the same
+   machine from the same camera, registered, so a seam sweeping across was
+   motion for its own sake. Here the drag cross-fades IN PLACE between
+   neighbouring layers: halfway between two stops you see both, and on release it
+   settles on the nearest one.
+
+   Same drag as the wipe (bindDrag, js/site.js) and the same invisible range
+   input as its accessibility surface, so `.wipe-range` is reused as-is.
+   Opacity per layer is written by script: below the frame only the scale reads
+   the state, as a class.
+*/
+
+.fade {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper-sunk);
+  border: 1px solid var(--rule-firm);
+  touch-action: pan-y;
+  cursor: ew-resize;
+}
+
+.fade--3x2 { aspect-ratio: 3 / 2; }
+
+/* Stacked in source order, later layers on top. Before the script runs, only
+   the first shows, so the page never opens on a pile of half-transparent art. */
+.fade-layer { position: absolute; inset: 0; opacity: 0; }
+.fade-layer:first-child { opacity: 1; }
+.fade-layer img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.fade.is-settling .fade-layer { transition: opacity 320ms var(--ease-ink); }
+
+.fade:has(.wipe-range:focus-visible) { outline: 2px solid var(--process-m); outline-offset: 3px; }
+
+/* The fade's frame and its scale are one figure, so the follow grid's gap
+   falls after the scale, not between the picture and its own labels. */
+.fade-figure { display: grid; gap: var(--s3); }
+
+/* The stops, named, under the frame. Each is a tick and a label; the one
+   showing inks to the piece's spot. Pointer users can click a name; the range
+   input carries the same thing for everyone else (aria-valuetext). */
+.fade-scale {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: var(--s2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+}
+
+.fade-scale li {
+  display: grid;
+  justify-items: center;
+  gap: var(--s1);
+  text-align: center;
+  cursor: pointer;
+  transition: color var(--dur-quick) linear;
+}
+
+.fade-scale li::before {
+  content: "";
+  width: 2px;
+  height: var(--s3);
+  background: currentColor;
+}
+
+.fade-scale li.is-on { color: var(--spot, var(--ink)); }
+
+/* Seven names will not fit across a phone: a seventh of the width is too narrow
+   for any of them, the active one included. There the ticks stay alone, and the
+   name moves to the front of the stop's line below (js/site.js copies it into
+   data-label on the note). */
+@media (max-width: 46rem) {
+  .fade-scale li { font-size: 0; gap: 0; }
+  .fade-note::before {
+    content: attr(data-label) ". ";
+    color: var(--spot, var(--ink));
+  }
+}
+
+/* The stop's one line, under the names. A fixed min-height keeps the copy
+   below from jumping when a note is longer or shorter than the last. */
+.fade-note {
+  min-height: calc(2 * 1.5em);
+  max-width: var(--measure);
+  margin: 0 auto;
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade.is-settling .fade-layer,
+  .fade-scale li { transition: none; }
+}
+
+
 /* ---- copy that follows the drag ----------------------------------------
    Jacob wanted the poster effect — text revealed with the picture. That was
    built once, INSIDE the clipped layers, and removed with .reveal when the art
@@ -738,6 +931,11 @@ a { color: inherit; }
   border-top: 1px solid var(--rule);
   padding-top: var(--s5);
 }
+
+/* .prose sets display: grid, which beats the UA's [hidden]. Station 02's
+   Structure/Expression pair is held back this way while the ChromaBox stands
+   in for the Cordis (same trap as .pager-slide[hidden], §13). */
+[data-wipe-follow] > .prose[hidden] { display: none; }
 
 
 /* --f is this half's share of the drag, 0 to 100.
@@ -866,7 +1064,7 @@ a { color: inherit; }
   color: var(--ink-faint);
 }
 
-/* 10 ── graph paper ======================================================= */
+/* 11 ── graph paper ======================================================= */
 /*
    A grey sheet carrying two stroked grids — a fine minor rule with a coarser
    major rule over it. This is one of Jacob's recurring motifs, so it is a
@@ -891,14 +1089,14 @@ a { color: inherit; }
 /* A third fill (.wf-c) and a set of wireframe interface blocks (.wf-ui*) stood
    here for The Ward's placeholder stage — a ticker, a panel, a card and a pill
    on a transparent ground, standing in for the commons. The Ward embeds live
-   now and the pill switches the real payloads (§13, three states, one pill), so the stand-in went
+   now and the pill switches the real payloads (§14, three states, one pill), so the stand-in went
    with the stage it lived on. The pattern is worth remembering if another piece
    needs interface furniture before its art exists: discrete blocks on a
    transparent ground, never a filled rectangle, or the placeholder hides
    whatever it is layered over. */
 
 
-/* 11 ── the stepper ======================================================= */
+/* 12 ── the stepper ======================================================= */
 /*
    A pipeline is an ordered thing, so this is a stepper and not a carousel:
    every stage is visible in the strip at once, you always know where you are,
@@ -914,11 +1112,17 @@ a { color: inherit; }
 
 .stepper { --i: 0; }
 
-.stepper:has(input[value="artstart"]:checked) { --i: 0; }
-.stepper:has(input[value="copydesk"]:checked) { --i: 1; }
-.stepper:has(input[value="codedesk"]:checked) { --i: 2; }
-.stepper:has(input[value="fileroom"]:checked) { --i: 3; }
-.stepper:has(input[value="portal"]:checked)   { --i: 4; }
+/* POSITIONAL, so a station is markup only: the Nth step moves the track to the
+   Nth panel. It used to key on each radio's value, which meant every new stage
+   needed a stylesheet edit. Eight are wired; a ninth needs one more line, and
+   without it the ninth step would show panel one — count the steps. */
+.stepper:has(.stepper-step:nth-of-type(2) input:checked) { --i: 1; }
+.stepper:has(.stepper-step:nth-of-type(3) input:checked) { --i: 2; }
+.stepper:has(.stepper-step:nth-of-type(4) input:checked) { --i: 3; }
+.stepper:has(.stepper-step:nth-of-type(5) input:checked) { --i: 4; }
+.stepper:has(.stepper-step:nth-of-type(6) input:checked) { --i: 5; }
+.stepper:has(.stepper-step:nth-of-type(7) input:checked) { --i: 6; }
+.stepper:has(.stepper-step:nth-of-type(8) input:checked) { --i: 7; }
 
 .stepper-nav {
   display: grid;
@@ -960,6 +1164,20 @@ a { color: inherit; }
   letter-spacing: 0.01em;
 }
 
+/* the station's tool, under its function: what was done, then what did it.
+   Labels wrap to one or two lines, so the tool is pinned to the FOOT of the
+   step rather than following the label — otherwise every tool name sits at a
+   different height and the strip stops reading as one row. */
+.stepper-step:has(.stepper-app) { grid-template-rows: auto 1fr auto; }
+.stepper-step:has(.stepper-app) .stepper-name { align-self: start; }
+
+.stepper-app {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+}
+
 /* the stage you are on takes the piece's ink */
 .stepper-step:has(input:checked) {
   border-top-color: var(--spot, var(--ink));
@@ -982,7 +1200,13 @@ a { color: inherit; }
    `flex-shrink: 0` an item contributes its flex base size whatever its floor is.
    Containment is the honest statement instead — this box's inline size does not
    depend on its contents, which is exactly what a clipping viewport means. */
-.stepper-viewport { overflow: hidden; contain: inline-size; }
+/* `overflow: CLIP`, not hidden. Hidden only removes the scrollbar — the box can
+   still be scrolled by script, and the browser does exactly that to reveal
+   anything that takes focus. A live embed in a station took focus on load, the
+   viewport scrolled 1000px sideways, and the strip said Copy & Translation over
+   a picture of CodeDesk. The track's transform was correct the whole time;
+   only scrollLeft was wrong. Clip cannot be scrolled at all. */
+.stepper-viewport { overflow: clip; contain: inline-size; }
 
 .stepper-track {
   display: flex;
@@ -990,24 +1214,90 @@ a { color: inherit; }
   transition: transform 320ms var(--ease-ink);
 }
 
-.stepper-panel { flex: 0 0 100%; display: grid; gap: var(--s3); }
+/* `align-content: start`: the track is as tall as its tallest panel, and auto
+   rows share that surplus out — which floated each caption a hand's width below
+   its own picture. Packed to the top, the slack collects under the caption. */
+.stepper-panel { flex: 0 0 100%; display: grid; gap: var(--s3); align-content: start; }
 
+/* 3:2 because that is the machine's own ratio — the wipe and the trade ad are
+   both 3:2 art, and every station matching them keeps the track one height.
+
+   The image is pinned to the frame, NOT sized at height: 100%. In a centred
+   grid that percentage does not resolve, so an <img> carrying width/height
+   attributes took its height from them and overflowed: the 3:2 ad stood 666px
+   in a 563px frame, clipped. Art that happened to match the frame hid it. */
 .stepper-shot {
-  aspect-ratio: 16 / 9;
+  position: relative;
+  aspect-ratio: 3 / 2;
   border: 1px solid var(--rule-firm);
-  display: grid;
-  place-items: center;
   overflow: hidden;
 }
 
-.stepper-shot img { width: 100%; height: 100%; object-fit: contain; display: block; }
+/* A row of finished pieces inside a station frame (PrintWorks' cards). Pinned
+   like the frame's image, but laid out as a grid; each piece keeps its own shape,
+   with the die's one rounded corner (top-right, --card-corner), never cropped. More specific than `.stepper-shot img`
+   on purpose, which would otherwise stretch every card over the whole frame. */
+.card-row {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--s4);
+  align-items: center;
+  padding: var(--s6);
+}
+
+/* A phone's frame is 342 × 228: the desktop padding left each card 57 px wide. */
+@media (max-width: 46rem) {
+  .card-row { padding: var(--s3); gap: var(--s2); }
+}
+
+.stepper-shot .card-row img {
+  position: static;
+  width: 100%;
+  height: auto;
+  object-fit: initial;
+  border-top-right-radius: var(--card-corner);
+}
+
+/* A labelled placeholder (README §3, rule 7): grey, on the graph paper, saying
+   what belongs here. Never a plausible-looking fake. */
+.slug {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: var(--s4);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  line-height: 1.8;
+  color: var(--ink-faint);
+}
+
+/* A live station. Starts at the stations' ratio; once the product reports its
+   height, .embed.is-sized (§15, the shot) takes over — it is later in the file
+   at equal specificity, so it wins, which is the intent. */
+.stepper-panel > .embed { aspect-ratio: 3 / 2; }
+
+.stepper-shot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
 
 .stepper-panel .prose { padding-right: var(--s5); }
 
 @media (max-width: 46rem) {
   /* five columns of names is unreadable on a phone; numbers alone still say
      where you are, and the name repeats in the panel heading anyway */
-  .stepper-name { display: none; }
+  .stepper-name, .stepper-app { display: none; }
   .stepper-step { padding: var(--s2); text-align: center; }
 }
 
@@ -1016,7 +1306,7 @@ a { color: inherit; }
 }
 
 
-/* 12 ── the pager ========================================================= */
+/* 13 ── the pager ========================================================= */
 /*
    One frame at a time, paged from the margins.
 
@@ -1086,7 +1376,7 @@ a { color: inherit; }
 }
 
 
-/* 13 ── three states, one pill ============================================ */
+/* 14 ── three states, one pill ============================================ */
 /*
    A segmented pill that starts in the middle, choosing between three states of
    one stack. A wipe was wrong here: a wipe compares two registered images by
@@ -1197,7 +1487,7 @@ a { color: inherit; }
 }
 
 
-/* 14 ── the shot ========================================================== */
+/* 15 ── the shot ========================================================== */
 /*
    Two things live here: `.shot`, a still of a product, and `.embed`, the live
    product itself. Prefer .embed — it cannot go stale. Use .shot when the thing
@@ -1205,7 +1495,7 @@ a { color: inherit; }
    client's video, so there is nothing to point an iframe at.
 
    .shot must NOT be combined with .graph: it sets `background` as a shorthand
-   and would eat the grid's background-image, exactly as .embed did. See §10, graph paper.
+   and would eat the grid's background-image, exactly as .embed did. See §11, graph paper.
 */
 
 /* ⛔ `margin: 0` IS LOAD-BEARING. `.shot` is a <figure> and the reset never
@@ -1222,21 +1512,6 @@ a { color: inherit; }
 }
 
 .shot img { display: block; width: 100%; height: auto; }
-
-/* A shot beside its argument rather than above it. Half width alone left a
-   small picture stranded with its reasoning scrolled off, which is the worst of
-   both: too small to look at, too far from the words to be read with them.
-   `align-items: start` so a short column does not stretch to match a tall one. */
-.shot-aside {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--s5);
-  align-items: start;
-}
-
-@media (max-width: 46rem) {
-  .shot-aside { grid-template-columns: 1fr; gap: var(--s4); }
-}
 
 /*
    The tool, showing a code it made — and that code is the link out. One image
@@ -1260,7 +1535,7 @@ a { color: inherit; }
 }
 
 /* `:not(.graph)` rather than a plain `background` on .embed above. That was a
-   SHORTHAND, and §10 is earlier in this file, so `.embed.graph` had its
+   SHORTHAND, and §11 is earlier in this file, so `.embed.graph` had its
    background-image reset to none and the grid vanished with no error anywhere
    — the rule that appeared to win painted nothing. Excluding graph-grounded
    frames lets the utility apply untouched, with no gradients duplicated here.
@@ -1299,7 +1574,7 @@ a { color: inherit; }
 }
 
 
-/* 15 ── the disclosure ==================================================== */
+/* 16 ── the disclosure ==================================================== */
 /*
    Eight pieces on one page. Each keeps its working component visible at all
    times and puts the reading behind a twirl.
@@ -1393,7 +1668,7 @@ a { color: inherit; }
 .more-section { display: grid; gap: var(--s3); }
 
 
-/* 16 ── the shelf ========================================================= */
+/* 17 ── the shelf ========================================================= */
 /*
    Provincetown's publications, as covers.
 
@@ -1477,29 +1752,21 @@ a { color: inherit; }
 }
 
 
-/* 17 ── curios ============================================================ */
+/* 18 ── sections ========================================================== */
 /*
-   A collection, not a leftovers bin. Jacob's own CURIOS repo is "web projects
-   and experiments" and Scale Machine already lives in it, so the page is
-   reflecting how the work is actually filed.
+   The page is three sections — Software for Creatives, Selected Work, Curios —
+   and each piece's rank names its section rather than a running number. The
+   numbered spine is retired: three bodies of work are not one sequence.
 
-   It sits AFTER Provincetown, as an appendix: the numbered spine runs 1 to 8
-   and these are the odds and ends, which is why they rank Curio rather than a
-   number. The curios are outside the sequence; nothing else is.
-
-   ⛔ Provincetown is 8. It ranked 00 for a while, on the theory that it sat
-   BEFORE the sequence rather than in it — that is retired, and the client work
-   is one unbroken run. Do not reintroduce a rank that is not a number.
-
-   The old site's cover loop stood here for one session — see README §8 for the
-   four reasons it went. Anything put back in its place is fixed art that does
-   not know the theme changed, so type over it must use --ink-on-art.
+   Software for Creatives opens on the ASCEND hero (§6), so its name sits in the
+   rail and the ASCEND mark is its only plate mark. Selected Work and Curios
+   each carry a mark in four plates, pulling into register on the scroll.
 
    Gap is s6 rather than .pieces' s8: each piece inside already carries its own
    border-top and padding, so the larger gap read as a hole under the header.
 */
 
-.curios {
+.group {
   display: grid;
   gap: var(--s6);
   border-top: 2px solid var(--ink);
@@ -1511,13 +1778,13 @@ a { color: inherit; }
    the page begins — the one thing on the site that was not on the measure. No
    --spot is set: the fallback rule-firm is right, because a collection is not a
    piece and should not borrow one's ink. */
-.curios-head {
+.group-head {
   display: grid;
   grid-template-columns: var(--rail) minmax(0, 1fr);
   gap: var(--gutter);
 }
 
-.curios-intro { display: grid; gap: var(--s4); }
+.group-intro { display: grid; gap: var(--s4); }
 
 /* ---- the mark: the masthead's device, saying the opposite ----------------
    Four plates again, pulling in on the same easing over the same duration —
@@ -1537,14 +1804,29 @@ a { color: inherit; }
    .is-registering when the mark comes into view and the same keyframes run on
    the clock instead. The JS feature-detects, so exactly one of the two fires. */
 
-.curios-mark {
+.group-mark {
   position: relative;
   isolation: isolate;        /* keep the blend off the page background */
   width: max-content;
   max-width: 100%;
+
+  /* Where the plates stop. A section of the main body registers to the name's
+     own near-true (§4): the same hand, the same care. */
+  --end-c: translate(-0.011em, 0.005em) rotate(-0.06deg);
+  --end-m: translate(0.009em, -0.006em) rotate(0.05deg);
+  --end-y: translate(0.004em, 0.010em) rotate(0.03deg);
 }
 
-.curios-plate {
+/* Curios stop about two and a half times further short — the same press run
+   fast, on work that did not warrant the care. That difference is the whole
+   statement, so it is the only thing a section varies. */
+.group--curios .group-mark {
+  --end-c: translate(-0.026em, 0.012em) rotate(-0.16deg);
+  --end-m: translate(0.022em, -0.015em) rotate(0.14deg);
+  --end-y: translate(0.010em, 0.024em) rotate(0.09deg);
+}
+
+.group-plate {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--fs-mark);
@@ -1556,23 +1838,23 @@ a { color: inherit; }
 
 /* C, M and Y are absolute copies over the K plate, which sits in the flow and
    establishes the box — exactly as §4 does it. */
-.curios-plate--c,
-.curios-plate--m,
-.curios-plate--y {
+.group-plate--c,
+.group-plate--m,
+.group-plate--y {
   position: absolute;
   inset: 0;
   mix-blend-mode: var(--plate-blend);
   pointer-events: none;
 }
 
-.curios-plate--c { color: var(--process-c); transform: translate(-0.15em, 0.075em) rotate(-0.85deg); }
-.curios-plate--m { color: var(--process-m); transform: translate(0.13em, -0.09em) rotate(0.72deg); }
-.curios-plate--y { color: var(--process-y); transform: translate(0.055em, 0.14em) rotate(0.5deg); }
-.curios-plate--k { position: relative; color: var(--ink); mix-blend-mode: normal; }
+.group-plate--c { color: var(--process-c); transform: translate(-0.15em, 0.075em) rotate(-0.85deg); }
+.group-plate--m { color: var(--process-m); transform: translate(0.13em, -0.09em) rotate(0.72deg); }
+.group-plate--y { color: var(--process-y); transform: translate(0.055em, 0.14em) rotate(0.5deg); }
+.group-plate--k { position: relative; color: var(--ink); mix-blend-mode: normal; }
 
-.curios-mark.is-registering .curios-plate--c { animation: curios-c var(--dur-register) var(--ease-ink) forwards; }
-.curios-mark.is-registering .curios-plate--m { animation: curios-m var(--dur-register) var(--ease-ink) forwards; }
-.curios-mark.is-registering .curios-plate--y { animation: curios-y var(--dur-register) var(--ease-ink) forwards; }
+.group-mark.is-registering .group-plate--c { animation: group-c var(--dur-register) var(--ease-ink) forwards; }
+.group-mark.is-registering .group-plate--m { animation: group-m var(--dur-register) var(--ease-ink) forwards; }
+.group-mark.is-registering .group-plate--y { animation: group-y var(--dur-register) var(--ease-ink) forwards; }
 
 /* The real version. `both` holds the 0% state before the range opens, so the
    plates sit badly out of register until the mark is actually approached, and
@@ -1587,26 +1869,26 @@ a { color: inherit; }
    the plates arrive at different moments, which is a different effect and not
    this one. */
 @supports (animation-timeline: view()) {
-  .curios-mark .curios-plate--c { animation: curios-c linear both; animation-timeline: view(); animation-range: entry 0% cover 70%; }
-  .curios-mark .curios-plate--m { animation: curios-m linear both; animation-timeline: view(); animation-range: entry 0% cover 70%; }
-  .curios-mark .curios-plate--y { animation: curios-y linear both; animation-timeline: view(); animation-range: entry 0% cover 70%; }
+  .group-mark .group-plate--c { animation: group-c linear both; animation-timeline: view(); animation-range: entry 0% cover 70%; }
+  .group-mark .group-plate--m { animation: group-m linear both; animation-timeline: view(); animation-range: entry 0% cover 70%; }
+  .group-mark .group-plate--y { animation: group-y linear both; animation-timeline: view(); animation-range: entry 0% cover 70%; }
 }
 
-@keyframes curios-c {
+@keyframes group-c {
   0%, 20% { transform: translate(-0.15em, 0.075em) rotate(-0.85deg); }
-  100%    { transform: translate(-0.026em, 0.012em) rotate(-0.16deg); }
+  100%    { transform: var(--end-c); }
 }
-@keyframes curios-m {
+@keyframes group-m {
   0%, 20% { transform: translate(0.13em, -0.09em) rotate(0.72deg); }
-  100%    { transform: translate(0.022em, -0.015em) rotate(0.14deg); }
+  100%    { transform: var(--end-m); }
 }
-@keyframes curios-y {
+@keyframes group-y {
   0%, 20% { transform: translate(0.055em, 0.14em) rotate(0.5deg); }
-  100%    { transform: translate(0.010em, 0.024em) rotate(0.09deg); }
+  100%    { transform: var(--end-y); }
 }
 
 
-/* 18 ── reading =========================================================== */
+/* 19 ── reading =========================================================== */
 /*
    What survived the collapse to one page. The rest of this section styled
    standalone case-study pages — crumb, work-head, work-nav and friends — and
@@ -1644,7 +1926,7 @@ a { color: inherit; }
 }
 
 
-/* 19 ── footer ============================================================ */
+/* 20 ── footer ============================================================ */
 
 .site-footer {
   margin-top: var(--s9);
@@ -1670,7 +1952,8 @@ a { color: inherit; }
   :root { --rail: 0rem; --gutter: 0rem; }
 
   .thesis,
-  .curios-head,
+  .group-head,
+  .ascend-head,
   .piece { grid-template-columns: 1fr; gap: var(--s3); }
 
   .facts th { width: auto; }
@@ -1699,7 +1982,7 @@ a { color: inherit; }
 }
 
 
-/* 20 ── reduced motion ==================================================== */
+/* 21 ── reduced motion ==================================================== */
 /*
    The plates land pre-registered — at the residual offset, not at zero, so the
    fringe survives. Nothing moves, nothing is lost.
@@ -1714,19 +1997,19 @@ a { color: inherit; }
   .name-plate--m { transform: translate(0.009em, -0.006em) rotate(0.05deg); }
   .name-plate--y { transform: translate(0.004em, 0.010em) rotate(0.03deg); }
 
-  /* The curios mark lands at ITS residual. Both drivers have to be switched
+  /* A section mark lands at ITS residual. Both drivers have to be switched
      off — the clock one AND the scroll timeline — or the plates keep moving
      with the scroll for exactly the reader who asked them not to. */
-  .curios-mark .curios-plate--c,
-  .curios-mark .curios-plate--m,
-  .curios-mark .curios-plate--y,
-  .curios-mark.is-registering .curios-plate--c,
-  .curios-mark.is-registering .curios-plate--m,
-  .curios-mark.is-registering .curios-plate--y { animation: none; animation-timeline: auto; }
+  .group-mark .group-plate--c,
+  .group-mark .group-plate--m,
+  .group-mark .group-plate--y,
+  .group-mark.is-registering .group-plate--c,
+  .group-mark.is-registering .group-plate--m,
+  .group-mark.is-registering .group-plate--y { animation: none; animation-timeline: auto; }
 
-  .curios-plate--c { transform: translate(-0.026em, 0.012em) rotate(-0.16deg); }
-  .curios-plate--m { transform: translate(0.022em, -0.015em) rotate(0.14deg); }
-  .curios-plate--y { transform: translate(0.010em, 0.024em) rotate(0.09deg); }
+  .group-plate--c { transform: var(--end-c); }
+  .group-plate--m { transform: var(--end-m); }
+  .group-plate--y { transform: var(--end-y); }
 
   .colorbar-link { transition: none; }
 }

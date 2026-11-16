@@ -79,8 +79,8 @@
   </script>
 
   <link rel="icon" type="image/svg+xml" href="assets/CD_ROM.svg">
-  <link rel="stylesheet" href="css/tokens.css?v=1e859a37">
-  <link rel="stylesheet" href="css/site.css?v=f5df11f2">
+  <link rel="stylesheet" href="css/tokens.css?v=6abbcd73">
+  <link rel="stylesheet" href="css/site.css?v=162ea506">
 
   <!-- Stamp the chosen ground before first paint. Everything else is in
        js/site.js; this cannot wait for it without flashing the wrong sheet. -->
@@ -165,59 +165,38 @@
       <p class="label" id="contents">Contents</p>
       <ul class="colorbar-strip">
         <li class="colorbar-item">
-          <a class="colorbar-link" href="#nordson">
-            <span class="colorbar-patch patch--nordson"></span>
-            <span class="colorbar-name">Ascend Studio</span>
-            <span class="colorbar-ink">1</span>
-          </a>
-        </li>
-        <li class="colorbar-item">
           <a class="colorbar-link" href="#ascend">
-            <span class="colorbar-patch patch--ascend"></span>
-            <span class="colorbar-name">Ascend Toolkit</span>
-            <span class="colorbar-ink">2</span>
-          </a>
-        </li>
-        <li class="colorbar-item">
-          <a class="colorbar-link" href="#showdesk">
-            <span class="colorbar-patch patch--showdesk"></span>
-            <span class="colorbar-name">ShowDesk</span>
-            <span class="colorbar-ink">3</span>
-          </a>
-        </li>
-        <li class="colorbar-item">
-          <a class="colorbar-link" href="#code">
-            <span class="colorbar-patch patch--code"></span>
-            <span class="colorbar-name">QR Engine</span>
-            <span class="colorbar-ink">4</span>
+            <span class="colorbar-patch patch--nordson"></span>
+            <span class="colorbar-name">Ascend</span>
+            <span class="colorbar-ink">Software</span>
           </a>
         </li>
         <li class="colorbar-item">
           <a class="colorbar-link" href="#ward">
             <span class="colorbar-patch patch--ward"></span>
             <span class="colorbar-name">The Ward</span>
-            <span class="colorbar-ink">5</span>
+            <span class="colorbar-ink">Software</span>
           </a>
         </li>
         <li class="colorbar-item">
           <a class="colorbar-link" href="#wlvx">
             <span class="colorbar-patch patch--wlvx"></span>
             <span class="colorbar-name">WLVX</span>
-            <span class="colorbar-ink">6</span>
+            <span class="colorbar-ink">Software</span>
           </a>
         </li>
         <li class="colorbar-item">
           <a class="colorbar-link" href="#westelm">
             <span class="colorbar-patch patch--westelm"></span>
             <span class="colorbar-name">West Elm</span>
-            <span class="colorbar-ink">7</span>
+            <span class="colorbar-ink">Selected Work</span>
           </a>
         </li>
         <li class="colorbar-item">
           <a class="colorbar-link" href="#pbg">
             <span class="colorbar-patch patch--pbg"></span>
             <span class="colorbar-name">Provincetown</span>
-            <span class="colorbar-ink">8</span>
+            <span class="colorbar-ink">Selected Work</span>
           </a>
         </li>
         <li class="colorbar-item">
@@ -237,434 +216,367 @@
       </ul>
     </nav>
 
+
     <main class="pieces" id="work" tabindex="-1">
 
-      <article class="piece piece--nordson" id="nordson">
-        <div class="piece-rail">
-          <p class="piece-rank">1</p>
-          <dl class="piece-meta">
-            <div><dt>Years</dt><dd>2022–present</dd></div>
-            <div><dt>For</dt><dd>Nordson Industrial Coating Solutions</dd></div>
-            <div><dt>Role</dt><dd>Creative Director</dd></div>
-            <!-- A credit block, not a description. Crafts one per line, the way a
-                 masthead lists them: in a 10.5rem column a separator-run wraps
-                 into a paragraph and stops reading as a list of distinct things.
+      <!-- SOFTWARE FOR CREATIVES — tools, platforms and creative systems Jacob
+           conceived and built. It opens on the ASCEND hero, so the section's
+           name sits in the hero's rail and ASCEND is its only plate mark. -->
+      <section class="group" aria-labelledby="software-head">
 
-                 The list is Jacob's own, given 2026-08-31, and it credits the
-                 whole Nordson engagement rather than this piece alone — which
-                 is the question the previous note left open and this answers.
+        <!-- ASCEND — the opening. One system, shown as one machine passing through
+             it: every station is what that part of Ascend made of the Cordis, or
+             the tool that made it. Stations are positional (site.css §12, the
+             stepper), so adding one is markup only — a ShowCase render of the
+             Cordis, or a new product's drawings, drops in as another panel.
 
-                 ⛔ NO NAMING CREDIT. "Product identity" is visual identity and
-                 nothing more. Jacob did NOT name Cordis; it arrived after other
-                 names and he disliked it at first. The only product he named is
-                 Variio, an operating system for the io controllers — it cleared
-                 legal and was dropped when the direction changed, so there is no
-                 shipped naming credit to claim. Do not widen this line from the
-                 phrase "a couple of names and logos": that sentence is what
-                 produced the wrong credit the first time. -->
-            <div>
-              <dt>Scope</dt>
-              <dd>
-                <ul class="credits">
-                  <li>Creative direction</li>
-                  <li>Product &amp; systems design</li>
-                  <li>Product identity</li>
-                  <li>Design facilitation</li>
-                  <li>3D visualization</li>
-                  <li>Graphics &amp; illustration</li>
-                  <li>Photography &amp; retouching</li>
-                  <li>Print production</li>
-                  <li>Environmental &amp; trade show</li>
-                </ul>
-              </dd>
+             The mark is the name's own four plates, registering on load with the
+             name and to the same near-true — this is the same hand, with the same
+             care. Curios uses the device too, but stops far short on purpose; this
+             must not borrow that.
+
+             Visualize is the default station, not Request: the machine is the
+             strongest first picture, and Jacob worked on its design. -->
+        <section class="ascend" id="ascend" aria-labelledby="ascend-title">
+          <div class="ascend-head">
+            <p class="piece-rank" id="software-head">Software for Creatives</p>
+            <div class="ascend-intro">
+            <p class="label">Creative Production System</p>
+            <div class="ascend-mark">
+              <span class="name-plate name-plate--c ascend-word" aria-hidden="true">Ascend</span>
+              <span class="name-plate name-plate--m ascend-word" aria-hidden="true">Ascend</span>
+              <span class="name-plate name-plate--y ascend-word" aria-hidden="true">Ascend</span>
+              <h2 class="name-plate name-plate--k ascend-word" id="ascend-title">Ascend</h2>
             </div>
-          </dl>
-        </div>
-        <div class="piece-body">
-          <h2 class="piece-title">Ascend Visualization Studio</h2>
-          <p class="piece-claim">A canonical library of modular creative assets, and the tools to
-            put them to work across teams, channels, and markets.</p>
-<div data-wipe-follow>
-          <!-- Design to deploy, read left to right: blueprint on the left of the
-               seam, photograph on the right.
-
-               ⚠ THAT MEANS THE BLUEPRINT IS `wipe-after`. The names lie about
-               position: .wipe--ltr clips the AFTER layer with a right-hand
-               inset, so `after` occupies everything LEFT of the divider and
-               `before` is the right-hand side. Built backwards once already.
-               The copy follows the same rule — .follow--a tracks `before`
-               (right), .follow--b tracks `after` (left) — which is why Deploy
-               is --a and Design is --b despite reading in the other order. The flat-colour illustration
-               that used to be the second layer moved down into the disclosure,
-               where it is a consequence rather than half the argument.
-
-               The blueprint is drawn on graph paper — Jacob's own recurring
-               motif, and a system element here (site.css §10, graph paper). It is fixed art either
-               way: it does not know the theme changed, so any type laid over it
-               must use --ink-on-art, never var(--ink). See README §6. -->
-          <div class="wipe wipe--3x2 wipe--ltr">
-            <!-- No alt: the same machine in the same position, photographed.
-                 Describing it again would have a screen reader report two
-                 machines where there is one. -->
-            <div class="wipe-layer wipe-before">
-              <img src="assets/nordson/cordis-photo.jpg"
-                   srcset="assets/nordson/cordis-photo-1200.jpg 1200w, assets/nordson/cordis-photo.jpg 2000w"
-                   sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" width="2000" height="1334" alt="">
+            <p class="ascend-line">Creative production, from concept to delivery.</p>
+            <p class="ascend-credit">Conceived, designed, and developed by Jacob Henderson.<br>
+              First deployed with Nordson Industrial Coating Solutions.</p>
             </div>
-
-            <div class="wipe-layer wipe-after">
-              <img src="assets/nordson/cordis-blueprint.jpg"
-                   srcset="assets/nordson/cordis-blueprint-1200.jpg 1200w, assets/nordson/cordis-blueprint.jpg 2000w"
-                   sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" width="2000" height="1334"
-                   alt="A Nordson Cordis VT powder feed centre drawn as white line on deep
-                        blue over graph paper: the cabinet, the gun bank, the touchscreen and
-                        the hopper, with no lighting or surface.">
-            </div>
-
-            <span class="wipe-divider" aria-hidden="true"></span>
-            <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
-                   aria-label="Drag between the drawn machine and the photographed one">
           </div>
 
-<div class="prose">
-            <p class="follow follow--b"><strong>Structure.</strong> I worked with the engineers on
-              the Next Generation Feed Center &mdash; the programme that became the Cordis.</p>
-            <p class="follow follow--a"><strong>Expression.</strong> I made the final assets and
-              carried them through production, publication, and printing.</p>
-          </div>
-        </div>
+          <div class="piece piece--nordson">
+            <div class="piece-rail">
+              <dl class="piece-meta">
+                <!-- The key to the strip's inks. Studio and Portal ALTERNATE along the
+                     job, and that is the argument: production and operations working
+                     in turn inside one system. Recorded in ascend/ARCHITECTURE.md §
+                     Decisions, 2026-11-14 — "Portal" names the operations half; its
+                     front-door screen is Lobby. -->
+                <div>
+                  <dt>System</dt>
+                  <dd>
+                    <ul class="halves">
+                      <li class="station--studio"><strong>Ascend Studio</strong> Creative Visualization &amp; Production</li>
+                      <li class="station--portal"><strong>Ascend Portal</strong> Creative Operations &amp; Workflow</li>
+                    </ul>
+                  </dd>
+                </div>
+                <div><dt>Years</dt><dd>2022–present</dd></div>
+                <div><dt>Role</dt><dd>Creative Director</dd></div>
+                <!-- Jacob's credit list, given 2026-08-31, for the whole Nordson
+                     engagement. ⛔ NO NAMING CREDIT: "Product identity" is visual
+                     identity only. He did not name Cordis; the only name he gave a
+                     product was Variio, which was dropped. Do not widen this. -->
+                <div>
+                  <dt>Scope</dt>
+                  <dd>
+                    <ul class="credits">
+                      <li>Creative direction</li>
+                      <li>Product &amp; systems design</li>
+                      <li>Product identity</li>
+                      <li>Design facilitation</li>
+                      <li>3D visualization</li>
+                      <li>Graphics &amp; illustration</li>
+                      <li>Photography &amp; retouching</li>
+                      <li>Print production</li>
+                      <li>Environmental &amp; trade show</li>
+                    </ul>
+                  </dd>
+                </div>
+              </dl>
+            </div>
+            <div class="piece-body">
 
-          <div class="prose">
-            <p>Nordson makes complex engineered products for markets around the world.</p>
-            <p>A cross-division product-development programme brought the practice together;
-              Cordis was the product that emerged from it.</p>
-          </div>
+              <div class="stepper">
+                <fieldset class="stepper-nav">
+                  <legend class="visually-hidden">Ascend, station by station</legend>
+                  <label class="stepper-step station--portal"><input type="radio" name="ascend-station" value="request">
+                    <span class="stepper-n">01</span><span class="stepper-name">Project intake</span><span class="stepper-app">ArtStart</span></label>
+                  <label class="stepper-step station--studio"><input type="radio" name="ascend-station" value="visualize" checked>
+                    <span class="stepper-n">02</span><span class="stepper-name">Product visualization</span><span class="stepper-app">ShowCase</span></label>
+                  <label class="stepper-step station--portal"><input type="radio" name="ascend-station" value="write">
+                    <span class="stepper-n">03</span><span class="stepper-name">Copy &amp; translation</span><span class="stepper-app">CopyDesk</span></label>
+                  <label class="stepper-step station--portal"><input type="radio" name="ascend-station" value="code">
+                    <span class="stepper-n">04</span><span class="stepper-name">QR generation</span><span class="stepper-app">CodeDesk</span></label>
+                  <label class="stepper-step station--studio"><input type="radio" name="ascend-station" value="print">
+                    <span class="stepper-n">05</span><span class="stepper-name">Print production</span><span class="stepper-app">PrintWorks</span></label>
+                  <label class="stepper-step station--studio"><input type="radio" name="ascend-station" value="present">
+                    <span class="stepper-n">06</span><span class="stepper-name">Media presentation</span><span class="stepper-app">ScreenRoom</span></label>
+                  <label class="stepper-step station--portal"><input type="radio" name="ascend-station" value="flatfile">
+                    <span class="stepper-n">07</span><span class="stepper-name">Job register</span><span class="stepper-app">FlatFile</span></label>
+                  <!-- MediaRoom has no half yet (ascend/ARCHITECTURE.md § Decisions:
+                       "not yet assigned"), so it carries no ink rather than a guessed one. -->
+                  <label class="stepper-step"><input type="radio" name="ascend-station" value="mediaroom">
+                    <span class="stepper-n">08</span><span class="stepper-name">Asset management</span><span class="stepper-app">MediaRoom</span></label>
+                </fieldset>
 
-          <details class="more">
-            <summary class="more-toggle"><span>The Studio</span></summary>
-            <div class="more-body">
+                <div class="stepper-viewport">
+                  <div class="stepper-track">
 
-              <section class="more-section">
-                <!-- The ad sits BESIDE its argument, not under it. Stacked, it was a
-                     lone half-width picture with the reasoning scrolled off above it,
-                     so neither half was doing its job. .shot-aside is two equal columns
-                     that collapse to one on a phone. -->
-                <div class="shot-aside">
-                  <figure class="shot">
-                    <img src="assets/nordson/cordis-illo.jpg"
-                         srcset="assets/nordson/cordis-illo-1200.jpg 1200w, assets/nordson/cordis-illo.jpg 2000w"
-                         sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc((100vw - 250px) * 0.49), 489px" width="2000" height="1334"
-                         loading="lazy" decoding="async"
-                         alt="A trade advertisement: the same Cordis VT rendered flat in Nordson
-                              blues on a blue field, with the Nordson logo, web address and contact
-                              set in the lower right.">
-                  </figure>
-                  <div class="prose">
-                    <p>Nordson needs a lot of content, in a lot of formats, for a lot of purposes,
-                      and that content has to remain accurate and usable as it moves through the
-                      organization.</p>
-                    <p>I built Ascend Visualization Studio around a canonical library of modular creative assets:
-                      product imagery, illustration, layouts, templates, and production-ready
-                      components that can be assembled for different applications without recreating
-                      the underlying work each time.</p>
-                    <p>The objective is straightforward: do the operational work ahead of time, make
-                      it durable, and leave more time for the work itself &mdash; creative judgment,
-                      careful production, and the precision required to represent complex engineered
-                      products correctly.</p>
+                    <div class="stepper-panel">
+                      <div class="stepper-shot graph">
+                        <img src="assets/artstart-interface.webp"
+                             srcset="assets/artstart-interface-1200.webp 1200w, assets/artstart-interface.webp 2000w"
+                             sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" alt="ArtStart intake interface"
+                             loading="lazy" decoding="async">
+                      </div>
+                      <div class="prose">
+                        <p>From first request to production-ready brief. Specifications, deadlines, team assignments,
+                            copy, QR codes, and imagery come together in one place.</p>
+                      </div>
+                    </div>
+
+                    <!-- One machine, seven outputs, faded in place: nothing moves.
+                         Layers are in stack order, left to right along the drag; the page
+                         opens on data-start (In the Hall, the centre). data-label and
+                         data-note are Jacob's names and lines (docs/ascend-showcase-plan.md);
+                         data-follow is the Structure line's share at that stop, kept for
+                         when that copy returns. All seven are one ShowCase camera,
+                         registered to the pixel (_source/showcase/stack/).
+                         ⚠ The ChromaBox stands in for the Cordis "for the time being"
+                         (Jacob, 2026-11-15). Fixed art: type over it must use
+                         --ink-on-art (README §6). -->
+                    <div class="stepper-panel" data-wipe-follow>
+                      <div class="fade-figure">
+                        <div class="fade fade--3x2" data-start="3">
+                          <!-- One description, on the centre image: the same machine seven
+                               times over would otherwise be read out as seven machines. -->
+                          <div class="fade-layer" data-label="Engineering Drawing" data-follow="100"
+                               data-note="For engineers and technical reviewers. Precise geometry, clearly defined components.">
+                            <img src="assets/nordson/chromabox/1-engineering-drawing.jpg"
+                                 srcset="assets/nordson/chromabox/1-engineering-drawing-1200.jpg 1200w, assets/nordson/chromabox/1-engineering-drawing.jpg 2000w"
+                                 sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" width="2000" height="1333"
+                                 alt="" loading="lazy" decoding="async">
+                          </div>
+                          <div class="fade-layer" data-label="Engineering Illustration" data-follow="100"
+                               data-note="For operators, technicians, and documentation. Simplified forms make assemblies easy to identify and explain.">
+                            <img src="assets/nordson/chromabox/2-engineering-illo.jpg"
+                                 srcset="assets/nordson/chromabox/2-engineering-illo-1200.jpg 1200w, assets/nordson/chromabox/2-engineering-illo.jpg 2000w"
+                                 sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" width="2000" height="1333"
+                                 alt="" loading="lazy" decoding="async">
+                          </div>
+                          <div class="fade-layer" data-label="Marketing Illustration" data-follow="100"
+                               data-note="For brochures, presentations, and product literature. Technical accuracy with visual clarity.">
+                            <img src="assets/nordson/chromabox/3-marketing-illo.jpg"
+                                 srcset="assets/nordson/chromabox/3-marketing-illo-1200.jpg 1200w, assets/nordson/chromabox/3-marketing-illo.jpg 2000w"
+                                 sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" width="2000" height="1333"
+                                 alt="" loading="lazy" decoding="async">
+                          </div>
+                          <div class="fade-layer" data-label="In the Hall" data-follow="0"
+                               data-note="For customers who need the machine in context: scale, installation, a working floor.">
+                            <img src="assets/nordson/chromabox/4-hangar.jpg"
+                                 srcset="assets/nordson/chromabox/4-hangar-1200.jpg 1200w, assets/nordson/chromabox/4-hangar.jpg 2000w"
+                                 sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" width="2000" height="1333"
+                                 alt="A Nordson ChromaBox 8K powder booth seen straight on, standing in a dark
+                                      industrial hall: six cylindrical filters in a row under a blue hood." decoding="async">
+                          </div>
+                          <div class="fade-layer" data-label="Product Rendering" data-follow="0"
+                               data-note="For catalogues and product comparisons. The equipment first, nothing to distract.">
+                            <img src="assets/nordson/chromabox/5-product-rendering.jpg"
+                                 srcset="assets/nordson/chromabox/5-product-rendering-1200.jpg 1200w, assets/nordson/chromabox/5-product-rendering.jpg 2000w"
+                                 sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" width="2000" height="1333"
+                                 alt="" loading="lazy" decoding="async">
+                          </div>
+                          <div class="fade-layer" data-label="Design Rendering" data-follow="0"
+                               data-note="For campaigns, launches, and brand storytelling.">
+                            <img src="assets/nordson/chromabox/6-design-rendering.jpg"
+                                 srcset="assets/nordson/chromabox/6-design-rendering-1200.jpg 1200w, assets/nordson/chromabox/6-design-rendering.jpg 2000w"
+                                 sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" width="2000" height="1333"
+                                 alt="" loading="lazy" decoding="async">
+                          </div>
+                          <div class="fade-layer" data-label="Design Drawing" data-follow="100"
+                               data-note="For conceptual presentations. The language of blueprints: engineering intent, made visible.">
+                            <img src="assets/nordson/chromabox/7-design-drawing.jpg"
+                                 srcset="assets/nordson/chromabox/7-design-drawing-1200.jpg 1200w, assets/nordson/chromabox/7-design-drawing.jpg 2000w"
+                                 sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" width="2000" height="1333"
+                                 alt="" loading="lazy" decoding="async">
+                          </div>
+                          <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
+                                 aria-label="Drag through the machine's seven versions">
+                        </div>
+                        <ol class="fade-scale" aria-hidden="true"></ol>
+                        <p class="fade-note" aria-hidden="true"></p>
+                      </div>
+                      <!-- Hidden, not deleted: these are about the Cordis, and come back
+                           with it. Untrue over the ChromaBox (Jacob, 2026-11-15). -->
+                      <div class="prose" hidden>
+                        <p class="follow follow--b"><strong>Structure.</strong> I worked with the engineers on
+                          the Next Generation Feed Center &mdash; the programme that became the Cordis.</p>
+                        <p class="follow follow--a"><strong>Expression.</strong> I made the final assets and
+                          carried them through production, publication, and printing.</p>
+                      </div>
+                      <div class="prose">
+                        <p>One engineering model, many creative outputs. Layered renders and technical illustrations
+                            turn product geometry into presentation-ready assets.</p>
+                      </div>
+                    </div>
+
+                    <div class="stepper-panel">
+                      <div class="stepper-shot graph">
+                        <img src="assets/copydesk-interface.webp"
+                             srcset="assets/copydesk-interface-1200.webp 1200w, assets/copydesk-interface.webp 2000w"
+                             sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" alt="CopyDesk language interface"
+                             loading="lazy" decoding="async">
+                      </div>
+                      <div class="prose">
+                        <p>One agreed English master, developed collaboratively and translated for eight markets, with
+                            each translation reviewed and corrected by a translator.</p>
+                      </div>
+                    </div>
+
+                    <!-- LIVE, and the only station that is: CodeDesk itself, framed.
+                         mode=embed is CodeDesk's own flag — no header, no setup step,
+                         one drawer open on a finished code. Nothing is stripped, so the
+                         claim stays true: hide, do not strip (README §5).
+
+                         ⚠ The caption is a PROMISE ABOUT THE PAYLOAD, and checkable:
+                         qr_sync_pipeline.js buildText() ends its UTM branch with
+                         `if (!s && !m && !c) return rawTrim;` — the typed URL goes into
+                         the code unchanged unless the visitor added a parameter. No
+                         redirect domain, nothing counts scans. Its only fetches —
+                         FileRoom sync and an Ascend ping — are gated off by
+                         CODEDESK_EMBED_MODE. Re-read that function before editing
+                         either.
+
+                         The emoji palette is PENDING, not retired: Jacob is setting the
+                         landing code's palette, and once he has, this frame shows it on
+                         arrival.
+
+                         Starts at the stations' 3:2 and then follows the height the
+                         product reports (§15, the shot — .embed.is-sized). -->
+                    <div class="stepper-panel">
+                      <div class="embed">
+                        <iframe src="https://jacobeugenehenderson.github.io/codedesk/?mode=embed"
+                                data-src-local="http://127.0.0.1:8788/?mode=embed&preview"
+                                title="CodeDesk — make a QR code"
+                                loading="lazy"></iframe>
+                      </div>
+                      <div class="prose">
+                        <p>Custom QR codes designed as part of the visual language, not added as an afterthought. Built
+                            on a modular engine.</p>
+                      </div>
+                    </div>
+
+                    <div class="stepper-panel">
+                      <!-- Four of PrintWorks' product cards, fronts, as printed and publicly
+                         distributed (Jacob, 2026-11-15). Rendered from the print kit
+                         Out/creator-series/print/Cards_creator-series_print.pdf (exported
+                         2026-10-19), trimmed to the 5.5 × 8.5 in card (TrimBox 9 pt in from the
+                         bleed), inset 1 px so the die's baked-in magenta stroke doesn't show. The die
+                         rounds one corner only, the front's top-right (--card-corner). -->
+                    <div class="stepper-shot graph">
+                      <div class="card-row">
+                        <img src="assets/printworks/card-1.jpg"
+                             srcset="assets/printworks/card-1-360.jpg 358w, assets/printworks/card-1.jpg 718w"
+                             sizes="(max-width: 46rem) 22vw, 220px" width="718" height="1111"
+                             loading="lazy" decoding="async"
+                             alt="PrintWorks product card, NHR Hoppers: three stainless powder hoppers on a dark field, with its top features.">
+                        <img src="assets/printworks/card-2.jpg"
+                             srcset="assets/printworks/card-2-360.jpg 358w, assets/printworks/card-2.jpg 718w"
+                             sizes="(max-width: 46rem) 22vw, 220px" width="718" height="1111"
+                             loading="lazy" decoding="async"
+                             alt="PrintWorks product card, Encore® Manual Powder Coating Systems: the Encore manual coating unit on its cart, with its top features.">
+                        <img src="assets/printworks/card-3.jpg"
+                             srcset="assets/printworks/card-3-360.jpg 358w, assets/printworks/card-3.jpg 718w"
+                             sizes="(max-width: 46rem) 22vw, 220px" width="718" height="1111"
+                             loading="lazy" decoding="async"
+                             alt="PrintWorks product card, ChromaBox: the ChromaBox filter enclosure, with its top features.">
+                        <img src="assets/printworks/card-4.jpg"
+                             srcset="assets/printworks/card-4-360.jpg 358w, assets/printworks/card-4.jpg 718w"
+                             sizes="(max-width: 46rem) 22vw, 220px" width="718" height="1111"
+                             loading="lazy" decoding="async"
+                             alt="PrintWorks product card, Plug and Spray: the Plug and Spray panel of colour connectors, with its top features.">
+                      </div>
+                    </div>
+                      <div class="prose">
+                        <p>One spreadsheet becomes a complete kit of product cards and packaging. Every QR code is
+                            verified against the finished artwork before printing.</p>
+                      </div>
+                    </div>
+
+                    <!-- A still, not an embed: ScreenRoom runs from a USB stick against
+                         a folder of the client's video, so there is nothing to frame.
+                         The footer in the picture reads ASCEND VISUALIZATION STUDIO FOR
+                         NORDSON ICS — the tool's own name for the suite. -->
+                    <div class="stepper-panel">
+                      <div class="stepper-shot graph">
+                        <img src="assets/showdesk/builder.jpg"
+                             srcset="assets/showdesk/builder-1200.jpg 1200w, assets/showdesk/builder.jpg 2000w"
+                             sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" width="2000" height="1125"
+                             loading="lazy" decoding="async"
+                             alt="ScreenRoom's Show Builder. Left: a list of clips and a list of
+                                  transitions. Centre: a live layout preview showing a photograph of the
+                                  Cordis powder feed centre beside its feature list, above an ordered
+                                  playlist. Right: the loaded show, orientation, control mode and audio.">
+                      </div>
+                      <div class="prose">
+                        <p>Video loops, animated transitions, on-demand clips, and PDF presentations brought together
+                            in one show-ready interface.</p>
+                      </div>
+                    </div>
+
+                    <!-- PLACEHOLDER, labelled per README §3 rule 7: the jobs register
+                         has no screenshot yet. FlatFile was FileRoom until 2026-11-14;
+                         code, folders and the Drive folder keep that name until the
+                         cutover (ascend/ARCHITECTURE.md § Decisions). -->
+                    <div class="stepper-panel">
+                      <div class="stepper-shot graph">
+                        <p class="slug">FlatFile · jobs register<br>screenshot to come</p>
+                      </div>
+                      <div class="prose">
+                        <p>One studio-wide register of completed jobs and their QR codes. Every station can file its
+                            work, with removed entries available for restoration.</p>
+                      </div>
+                    </div>
+
+                    <!-- This picture was captioned FileRoom until 2026-11-14, and it
+                         never was: the window reads "Ascend Library", which is
+                         MediaRoom, and FileRoom (now FlatFile) is one of the three
+                         sources in its sidebar. -->
+                    <div class="stepper-panel">
+                      <div class="stepper-shot graph">
+                        <img src="assets/fileroom-interface.webp"
+                             srcset="assets/fileroom-interface-1200.webp 1200w, assets/fileroom-interface.webp 2000w"
+                             sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" alt="MediaRoom, the Ascend library, open on Stock: a folder of colourful powder-burst images, with Stock, Publications and Fileroom listed as its sources"
+                             loading="lazy" decoding="async">
+                      </div>
+                      <div class="prose">
+                        <p>The studio&rsquo;s visual library. Stock imagery and publications organized by folder,
+                            product, and tag for quick discovery and reuse.</p>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
-              </section>
-
-            </div>
-          </details>
-
-        </div>
-      </article>
-
-      <article class="piece piece--ascend" id="ascend">
-        <div class="piece-rail">
-          <p class="piece-rank">2</p>
-          <dl class="piece-meta">
-            <div><dt>Years</dt><dd>2025–2026</dd></div>
-            <div><dt>For</dt><dd>Nordson Industrial Coating Solutions</dd></div>
-            <div><dt>Role</dt><dd>Founded and led</dd></div>
-          </dl>
-        </div>
-        <div class="piece-body">
-          <h2 class="piece-title">Ascend Toolkit</h2>
-          <p class="piece-claim">A creative operating system that brings producers,
-            writers, designers, and developers into the same workflow.</p>
-<div class="stepper">
-          <fieldset class="stepper-nav">
-            <legend class="visually-hidden">Stage of the pipeline</legend>
-            <label class="stepper-step">
-              <input type="radio" name="ascend-stage" value="artstart" checked>
-              <span class="stepper-n">01</span><span class="stepper-name">ArtStart</span>
-            </label>
-            <label class="stepper-step">
-              <input type="radio" name="ascend-stage" value="copydesk">
-              <span class="stepper-n">02</span><span class="stepper-name">CopyDesk</span>
-            </label>
-            <label class="stepper-step">
-              <input type="radio" name="ascend-stage" value="codedesk">
-              <span class="stepper-n">03</span><span class="stepper-name">CodeDesk</span>
-            </label>
-            <label class="stepper-step">
-              <input type="radio" name="ascend-stage" value="fileroom">
-              <span class="stepper-n">04</span><span class="stepper-name">FileRoom</span>
-            </label>
-            <label class="stepper-step">
-              <input type="radio" name="ascend-stage" value="portal">
-              <span class="stepper-n">05</span><span class="stepper-name">The Portal</span>
-            </label>
-          </fieldset>
-
-          <div class="stepper-viewport">
-            <div class="stepper-track">
-
-              <div class="stepper-panel">
-                <div class="stepper-shot graph">
-                  <img src="assets/artstart-interface.webp"
-                       srcset="assets/artstart-interface-1200.webp 1200w, assets/artstart-interface.webp 2000w"
-                       sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" alt="ArtStart intake interface"
-                       loading="lazy" decoding="async">
-                </div>
-                <div class="prose">
-                  <h3 class="prose-h">01 · ArtStart — intake</h3>
-                  <p>A workspace that turns a work order into a complete creative brief for the artist.</p>
-                  <p>The system assembles the specifications, delivery requirements, copy, imagery, QR code, and workspace link, then handles the handoff through final delivery.</p>
-                </div>
               </div>
 
-              <div class="stepper-panel">
-                <div class="stepper-shot graph">
-                  <img src="assets/copydesk-interface.webp"
-                       srcset="assets/copydesk-interface-1200.webp 1200w, assets/copydesk-interface.webp 2000w"
-                       sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" alt="CopyDesk language interface"
-                       loading="lazy" decoding="async">
-                </div>
-                <div class="prose">
-                  <h3 class="prose-h">02 · CopyDesk — language</h3>
-                  <p>A collaborative writing workspace for long-form content such as specification sheets and international marketing materials.</p>
-                  <p>The team edits one source document together; the system translates it into the required languages and routes each version to a human translator for review.</p>
-                </div>
-              </div>
+              <!-- The closer. The four essays that stood here (The Library, Creative
+                   operations, Systems design, Environmental and trade shows) were
+                   condensed into the stations above, 2026-11-14: the eight stations
+                   are the whole case study. -->
+              <p class="piece-claim">The benefit isn&rsquo;t simply more time, but more time for attention.</p>
 
-              <div class="stepper-panel">
-                <div class="stepper-shot graph">
-                  <img src="assets/codedesk-interface.webp"
-                       srcset="assets/codedesk-interface-1200.webp 1200w, assets/codedesk-interface.webp 2000w"
-                       sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" alt="CodeDesk QR interface"
-                       loading="lazy" decoding="async">
-                </div>
-                <div class="prose">
-                  <h3 class="prose-h">03 · CodeDesk — codes</h3>
-                  <p>A QR code generator for creative projects and connected experiences.</p>
-                  <p>CodeDesk creates and manages the QR codes used to connect campaigns, environments, and other physical experiences to digital content.</p>
-                </div>
-              </div>
 
-              <div class="stepper-panel">
-                <div class="stepper-shot graph">
-                  <img src="assets/fileroom-interface.webp"
-                       srcset="assets/fileroom-interface-1200.webp 1200w, assets/fileroom-interface.webp 2000w"
-                       sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" alt="FileRoom archive interface"
-                       loading="lazy" decoding="async">
-                </div>
-                <div class="prose">
-                  <h3 class="prose-h">04 · FileRoom — archive</h3>
-                  <p>The archival layer of Ascend, preserving finished assets and the resources behind them.</p>
-                  <p>FileRoom keeps production assets, QR codes, translations, and other project materials together so they remain available for the next job.</p>
-                </div>
-              </div>
 
-              <div class="stepper-panel">
-                <div class="stepper-shot graph">
-                  <img src="assets/ascend-interface.webp"
-                       srcset="assets/ascend-interface-1200.webp 1200w, assets/ascend-interface.webp 2000w"
-                       sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" alt="The Ascend portal"
-                       loading="lazy" decoding="async">
-                </div>
-                <div class="prose">
-                  <h3 class="prose-h">05 · The Portal — composed</h3>
-                  <p>The front door to Ascend: one place to access the tools, projects, and resources behind the creative operation.</p>
-                  <p>The Portal brings ArtStart, CopyDesk, CodeDesk, and FileRoom together, giving the team one place to start a job and find what they need to finish it.</p>
-                </div>
-              </div>
+
 
             </div>
           </div>
-        </div>
-
-          <details class="more">
-            <summary class="more-toggle"><span>Creative operations</span></summary>
-            <div class="more-body">
-
-              <section class="more-section">
-                <p class="label">Creative operations</p>
-                <div class="prose">
-                  <p>Every graphics job has the visible creative work, which gets the attention
-                    &mdash; and then everything required to get it correctly into the world. The
-                    second part is
-                    easy to underestimate. It is also where a great deal of expensive failure
-                    lives: a tradeshow wall printed at 72&nbsp;dpi is not a lesser creative
-                    problem. It is a large, expensive mistake.</p>
-                  <p>Specifications, translations, versioning, asset preparation, delivery, and
-                    archiving are not ancillary to the work. They are part of making the work.</p>
-                  <p>Ascend moves that work forward. ArtStart structures the job before it reaches
-                    the artist. CopyDesk establishes a canonical source before translation.
-                    CodeDesk handles production details like QR codes. FileRoom preserves the
-                    resulting work. The Portal brings it together.</p>
-                  <p>The point isn&rsquo;t to automate creative judgment. It&rsquo;s to remove the
-                    operational work that competes with it, and to make the things that need to be
-                    precise more precise by giving them the structure and attention they
-                    require.</p>
-                  <p>The visible benefit is time. The real benefit is attention.</p>
-                </div>
-              </section>
-
-
-</div>
-          </details>
-        </div>
-      </article>
-
-      <article class="piece piece--showdesk" id="showdesk">
-        <div class="piece-rail">
-          <p class="piece-rank">3</p>
-          <dl class="piece-meta">
-            <div><dt>Years</dt><dd>2026</dd></div>
-            <div><dt>For</dt><dd>Nordson Industrial Coating Solutions</dd></div>
-            <div><dt>Role</dt><dd>Sole author</dd></div>
-          </dl>
-        </div>
-        <div class="piece-body">
-          <h2 class="piece-title">ShowDesk</h2>
-          <p class="piece-claim">A library of prepared media that can be composed into a
-            presentation for any audience or occasion, without starting from scratch.</p>
-
-          <!-- A .shot rather than an .embed, and it is not a fallback: ShowDesk
-               runs off a USB stick against a folder of the client's video, so
-               there is nothing to point an iframe at. The honest artifact is
-               the builder, not any show it made — which is also why this frame
-               is the authoring UI and not the playback.
-
-               Note the app's own footer in the picture: ASCEND VISUALIZATION
-               STUDIO FOR NORDSON ICS. The tool brands itself as part of the
-               piece below it. -->
-          <figure class="shot">
-            <img src="assets/showdesk/builder.jpg"
-                 srcset="assets/showdesk/builder-1200.jpg 1200w, assets/showdesk/builder.jpg 2000w"
-                 sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" width="2000" height="1125"
-                 loading="lazy" decoding="async"
-                 alt="ShowDesk's Show Builder. Left: a list of clips and a list of
-                      transitions. Centre: a live layout preview in Even mode, showing a
-                      photograph of the Cordis powder feed centre on one side and its feature
-                      list on the other, above an ordered playlist. Right: the loaded show,
-                      orientation, control mode and audio track.">
-          </figure>
-
-          <div class="prose">
-            <p>The Show Builder, loaded with clips and transitions, lets an operator assemble
-              custom, responsive playlists and guided presentations for a trade show.</p>
-          </div>
-
-
-          <details class="more">
-            <summary class="more-toggle"><span>Environmental and trade shows</span></summary>
-            <div class="more-body">
-
-              <!-- The environmental section: the booth, the hardware, the show.
-
-                   ⛔ THIS BLOCK HAS A DATE IN IT. "Installation photography coming
-                   October 2026" is a promise the page keeps making until the
-                   pictures arrive or the line goes. After the show it is either
-                   replaced by the photography or removed — a page still promising
-                   photography from a show that has happened reads as abandoned. -->
-              <section class="more-section">
-                <p class="label">FABTECH 2026 &mdash; Las Vegas</p>
-                <div class="prose">
-                  <p>In production. A major exhibition bringing multiple Nordson product lines
-                    together in one environment. I&rsquo;m developing the product illustration and
-                    visual expression across the show, with each featured system given its own hero
-                    presentation.</p>
-                  <p>Installation photography coming October 2026.</p>
-                </div>
-              </section>
-
-              </div>
-          </details>
-        </div>
-      </article>
-
-      <article class="piece piece--code" id="code">
-        <div class="piece-rail">
-          <p class="piece-rank">4</p>
-          <dl class="piece-meta">
-            <div><dt>Years</dt><dd>2025–2026</dd></div>
-            <div><dt>For</dt><dd>Nordson Industrial Coating Solutions</dd></div>
-            <div><dt>Role</dt><dd>Sole author</dd></div>
-          </dl>
-        </div>
-        <div class="piece-body">
-          <h2 class="piece-title">The QR Engine</h2>
-          <p class="piece-claim">A modular QR system that makes the QR code itself part of
-            the visual language.</p>
-          <!-- ⚠ The claim above is a PROMISE ABOUT THE PAYLOAD, and it is checkable:
-               qr_sync_pipeline.js buildText() ends its UTM branch with
-               `if (!s && !m && !c) return rawTrim;` — the typed URL goes into
-               the code unchanged unless the visitor entered a parameter
-               themselves. There is no redirect domain and nothing counts scans.
-               The only fetches in that file are Nordson's FileRoom sync and an
-               Ascend ping, both gated off by CODEDESK_EMBED_MODE. If that ever
-               stops being true, this paragraph becomes a lie rather than a
-               claim — re-read the function before editing either.
-
-               The claim used to LEAD on "pick an emoji and it becomes the
-               code's palette". That moved behind the twirl because the
-               infrastructure argument is the better opener, NOT because the
-               emoji claim was a problem to hide: Jacob is setting the landing
-               code's palette, and once he has, the embed demonstrates it on
-               arrival. Do not treat it as retired, and do not quietly delete
-               the emoji section while it is pending.
-
-               The actual tool, running. mode=embed is CodeDesk's own flag, and it
-               is a different product from the same code: no header, no setup
-               step, one drawer open on a finished code. Nothing is stripped —
-               every type is there and the tracking parameters are one disclosure
-               Served from CodeDesk's own repo since it was extracted from
-               ascend-portal; the portal's copy is stale and will be retired.
-               Lazy, because nobody should pay for a whole app before scrolling
-               to it. -->
-          <div class="embed">
-            <iframe src="https://jacobeugenehenderson.github.io/codedesk/?mode=embed"
-                    data-src-local="http://127.0.0.1:8788/?mode=embed"
-                    title="CodeDesk — make a QR code"
-                    loading="lazy"></iframe>
-          </div>
-
-          <details class="more">
-            <summary class="more-toggle"><span>Systems design</span></summary>
-            <div class="more-body">
-
-              <section class="more-section">
-                <p class="label">Systems design</p>
-                <div class="prose">
-                  <p>QR Engine is the underlying module: CodeDesk is one application of it;
-                    <strong><a href="https://okqral.com">okqral.com</a></strong> another. It is
-                    intentionally independent of someone else&rsquo;s marketing program because a
-                    public utility should be allowed to remain a public utility. #praxis</p>
-                </div>
-              </section>
-
-              </div>
-          </details>
-        </div>
-      </article>
+        </section>
 
       <article class="piece piece--ward" id="ward">
         <div class="piece-rail">
-          <p class="piece-rank">5</p>
+          <p class="piece-rank">Software</p>
           <dl class="piece-meta">
             <div><dt>Years</dt><dd>2023–present</dd></div>
             <div><dt>For</dt><dd>Independent</dd></div>
@@ -825,9 +737,12 @@
         </div>
       </article>
 
-      <article class="piece piece--wlvx" id="wlvx">
+      <!-- ERA BREAK. Ascend and The Ward are current work (2022–, 2023–); WLVX
+           is the era before (2013–2022). The section-weight rule says so —
+           Jacob, 2026-11-14: "These are literally different eras." -->
+      <article class="piece piece--wlvx piece--era" id="wlvx">
         <div class="piece-rail">
-          <p class="piece-rank">6</p>
+          <p class="piece-rank">Software</p>
           <dl class="piece-meta">
             <div><dt>Years</dt><dd>2013–2022</dd></div>
             <div><dt>For</dt><dd>WLVX</dd></div>
@@ -910,9 +825,27 @@
         </div>
       </article>
 
+      </section>
+
+      <!-- SELECTED WORK — commissioned and published work, already on the page;
+           nothing here was added for this section. Its mark registers to the
+           name's near-true, unlike Curios (site.css §18, sections). -->
+      <section class="group" aria-labelledby="selected-head">
+        <div class="group-head">
+          <p class="piece-rank">Selected Work</p>
+          <div class="group-intro">
+            <div class="group-mark">
+              <span class="group-plate group-plate--c" aria-hidden="true">Selected Work</span>
+              <span class="group-plate group-plate--m" aria-hidden="true">Selected Work</span>
+              <span class="group-plate group-plate--y" aria-hidden="true">Selected Work</span>
+              <h2 class="group-plate group-plate--k" id="selected-head">Selected Work</h2>
+            </div>
+          </div>
+        </div>
+
       <article class="piece piece--westelm" id="westelm">
         <div class="piece-rail">
-          <p class="piece-rank">7</p>
+          <p class="piece-rank">Selected Work</p>
           <dl class="piece-meta">
             <div><dt>Years</dt><dd>2021–2023</dd></div>
             <div><dt>For</dt><dd>West Elm, via Industrial Color</dd></div>
@@ -1125,7 +1058,7 @@
 
       <article class="piece piece--pbg" id="pbg">
         <div class="piece-rail">
-          <p class="piece-rank">8</p>
+          <p class="piece-rank">Selected Work</p>
           <dl class="piece-meta">
             <div><dt>Years</dt><dd>2018–2020</dd></div>
             <div><dt>For</dt><dd>Provincetown Business Guild</dd></div>
@@ -1138,7 +1071,7 @@
 
           <!-- The shelf. Eight publications, 2018–2020, and the extent is the
                argument: one small operation, this much print. Covers keep their
-               own proportions; see site.css §16, the shelf, for why they are not squared off.
+               own proportions; see site.css §17, the shelf, for why they are not squared off.
 
                Sources are the originals from the Guild's own files, so the
                covers here are the covers that printed. -->
@@ -1241,6 +1174,8 @@
         </div>
       </article>
 
+      </section>
+
       <!-- Curios. Jacob's own name for this category, not a bin invented here:
            github.com/jacobeugenehenderson/CURIOS is "web projects and
            experiments" and Scale Machine already lives inside it.
@@ -1252,18 +1187,18 @@
            tonally severe against uncoated stock. The four extracted covers are
            kept in _source/curios/ because getting them again means reading
            /Volumes/Today. Do not re-place one without re-reading README §8. -->
-      <section class="curios" aria-labelledby="curios-head">
-        <div class="curios-head">
+      <section class="group group--curios" aria-labelledby="curios-head">
+        <div class="group-head">
           <p class="piece-rank">Curios</p>
-          <div class="curios-intro">
+          <div class="group-intro">
             <!-- The same four plates as the masthead, pulling in and stopping
-                 FAR short of true — see site.css §17, curios. The K plate is the real
+                 FAR short of true — see site.css §18, sections. The K plate is the real
                  heading; C, M and Y are copies and hidden from the reader. -->
-            <div class="curios-mark">
-              <span class="curios-plate curios-plate--c" aria-hidden="true">Curios</span>
-              <span class="curios-plate curios-plate--m" aria-hidden="true">Curios</span>
-              <span class="curios-plate curios-plate--y" aria-hidden="true">Curios</span>
-              <h2 class="curios-plate curios-plate--k" id="curios-head">Curios</h2>
+            <div class="group-mark">
+              <span class="group-plate group-plate--c" aria-hidden="true">Curios</span>
+              <span class="group-plate group-plate--m" aria-hidden="true">Curios</span>
+              <span class="group-plate group-plate--y" aria-hidden="true">Curios</span>
+              <h2 class="group-plate group-plate--k" id="curios-head">Curios</h2>
             </div>
             <div class="prose">
               <p>Independent projects and experiments developed outside client work.</p>
@@ -1427,6 +1362,6 @@
 
   </div>
 
-  <script src="js/site.js?v=fab3dc6b"></script>
+  <script src="js/site.js?v=c78381bc"></script>
 </body>
 </html>

@@ -51,8 +51,6 @@
   --spot-nordson:  #007AC9;  /* Nordson brand blue            */
   --spot-nordson2: #0039AC;  /* reserved: Nordson deep blue   */
   --spot-nordson3: #F0AB00;  /* reserved: Nordson gold        */
-  --spot-ascend:   #6F7A85;  /* graphite                      */
-  --spot-code:     #6A3E64;  /* plum                          */
   --spot-ward:     #5E8A3A;  /* treelawn green                */
   --spot-picture:  #B08A1F;  /* gold                          */
   --spot-scale:    #0E7C8C;  /* cyan, from the app's accent   */
@@ -117,6 +115,13 @@
   /* ---- layout ----------------------------------------------------------- */
   --measure: 68ch;      /* reading column                     */
   --page-max: 78rem;
+  /* PrintWorks' card die rounds ONE corner, the front's top-right (build_master.jsx:
+     "ONE rounded corner … Front = top-right"), at 1 in on a 5.5 × 8.5 in card. Here it's
+     1 in + 1 px of the 131 dpi render, as fractions of the image (718 × 1111 px, inset
+     1 px from trim), so the clip falls just inside the die's 0.25 pt magenta stroke,
+     which is baked into the export and would otherwise show. 1/131 in ≈ 0.3 px on screen.
+     Bucket's challenge, 2026-11-15: the first version rounded all four corners. */
+  --card-corner: 18.38% 11.88%;
   --rail: 10.5rem;      /* marginalia column                  */
   /* Provincetown's shelf. Covers are sized by height so the formats that
      differ read as different widths rather than as ragged mistakes; the floor
@@ -157,8 +162,6 @@
     --spot-nordson:  #3FA3E0;
     --spot-nordson2: #4A6FD8;
     --spot-nordson3: #FFC02E;
-    --spot-ascend:   #97A2AE;
-    --spot-code:     #A9709F;
     --spot-ward:     #85B356;
     --spot-picture:  #DCB03A;
     --spot-scale:    #3FB0BE;
@@ -194,8 +197,6 @@
   --spot-nordson:  #3FA3E0;
   --spot-nordson2: #4A6FD8;
   --spot-nordson3: #FFC02E;
-  --spot-ascend:   #97A2AE;
-  --spot-code:     #A9709F;
   --spot-ward:     #85B356;
   --spot-picture:  #DCB03A;
   --spot-scale:    #3FB0BE;
@@ -228,8 +229,6 @@
   --spot-nordson:  #007AC9;
   --spot-nordson2: #0039AC;
   --spot-nordson3: #F0AB00;
-  --spot-ascend:   #6F7A85;
-  --spot-code:     #6A3E64;
   --spot-ward:     #5E8A3A;
   --spot-picture:  #B08A1F;
   --spot-scale:    #0E7C8C;
