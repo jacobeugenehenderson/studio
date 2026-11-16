@@ -576,4 +576,36 @@ Calendar moment waits for the real `parseDate` fix**; the shim plan stands for a
   - **Drawn (geometric) shadows are in, as their own layer (Jacob, same day):** vector cast shadows from the same key light, filed under Shadows beside Shadow, AO and Contact, with a toggle and a strength knob.
     - Being vector, they also survive SVG export.
     - Canon default: off until Jacob has seen them on the ChromaBox. He then sets the default for 3 and 8.
+- **Local depth on global depth (Jacob, same day: "Things in the recesses should still recess"):** the filters read flat because each surface's gradient is a two-stop ramp along its depth slope, and depth is ranged across the whole shot. For the depth-shaded looks (3 and 8):
+  - each surface keeps its base tone from its mean depth in the shot;
+  - it also gets its own near→far ramp, with enough stops to round a cylinder;
+  - a local-strength knob sets the ramp, clamped so the recession order holds. Jacob picks it by eye from a range.
+  - Engineering Illustration stays flat. Sent to Gaffer ahead of the canon re-export.
+  - **Picked: local strength 0.45** (Jacob, from Gaffer's range: "4 of 5 is good"). Depth per pixel comes from the same-camera Lab data pass, as a 12-stop vector gradient per surface. The recession clamp caps the filters at about 0.20, so above that only the panels keep ramping.
+- **Containers (Jacob, 2026-11-16):**
+  - **A PSD is AVAILABLE for every look, made only when ordered** (Jacob: "we don't *have* to export all those things… we *can*"). The default export is the flat PNG; a throwaway angle or product combo for an ad needs no named setup. The PSD nests the whole job, hidden layers included, and opens layered in Photoshop, After Effects (as a composition, with blend modes) and InDesign (layer visibility per placement).
+  - **Per-layer SVGs beside the drawing looks**, for true vector work in Illustrator or print.
+  - **No layered PDF or .ai.** After Effects imports a PDF flattened, and ShowCase can't write .ai.
+  - Caveat: drawing line work inside a PSD is pixels. At 3000 px that's 10 in at 300 ppi; export larger for bigger print or for a push-in in motion.
+- **Exports (Jacob):** overwrite at stable names (`<shot>--<look>`); a separate copy only when the operator names one. "Fewest exports and only what's specifically ordered/requested." Each look gets a few real setups (e.g. oblique hero in Lab and Hall; straight-on blueprint; the installation guide straight-on). The list isn't firm yet.
+- **Where exports land (Jacob):** "The *only* reason the user goes to the folder is to collect assets." So: `Exports/<Product>/<Shot>/<Look>.<ext>` in plain names, product first, holding deliverables only. Everything procedural (layers, JSON, EXR, caches, the generated canon setups) stays in the working area.
+- **Smoke (Jacob):** Blackglass renders it once as its own layer and keeps no simulation. It goes stale (clay) on a camera or smoke-knob change.
 - **Next, waiting for Jacob's word:** a Gaffer brief covering the shot/look split, the eight as data, the Marketing contrast range, the grid, Show Drawing and SVG export. Colophon: the station 02 controller (tabs echoing the station row, plus one left-aligned caption).
+
+### Station 02, eight views (Jacob, 2026-11-16)
+
+- **Order:** Engineering Drawing, Engineering Illustration, Marketing Illustration, Product Rendering, **In the Hall** (opens here), Branded Drawing, Design Rendering, Design Drawing. Design Rendering's slot was inferred ("we end on blue grid with white").
+- **The eighth view's name and line (Jacob chose Colophon's trim of his own draft):** **Branded Drawing.** For trade shows, exhibition walls, and environmental installations. Engineering geometry as large-format brand graphics.
+- The ends are as easy to reach as the middle: each stop takes an equal 1/n of the width.
+
+### ShowCase makes PrintWorks' card art (Jacob, 2026-11-16; briefed, nothing built)
+
+- Each Creator Series card already uses two of the canonical looks, made by hand:
+  - front hero = Design Rendering (Blackglass), oblique;
+  - back drawing = white-on-navy elevation with dimensions, the installation drawing.
+  ShowCase becomes their source. The workbook keeps the facts, `product_id` is the join, and `step_model` per variant is proposed, not written.
+- **PrintWorks sets the terms** (`_Art/README.txt`): the filename comes from the workbook. The hero is a PSD at 1725 × 1800, 300 ppi, with the fade as a layer mask, never an alpha channel, and the machine below 2.75 in. The drawing is 2.25 × 1.90 in, any placeable format (ShowCase writes PDF).
+- **Written to the drive for now** (Jacob: "more annoying than dangerous"): `/Volumes/Today/Nordson/Folder/_Art/`, with the root as one setting for the cutover. ShowCase writes NEW names (`chromabox-hero.psd`, `chromabox-illo.pdf`) and never overwrites the hand-made pair. The card switches when Jacob changes the workbook cells.
+- Dimension figures are read from the workbook's Specs and checked against the CAD; a mismatch is flagged, not fixed.
+- The ChromaBox hero shows the 8K (Jacob: "fine for now"; one knob).
+- Open: STEPs for NHR Hoppers and Plug-n-Spray (Encore is unchecked against `vt-controller`); where PrintWorks' art lives after the cutover.
