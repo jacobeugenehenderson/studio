@@ -833,69 +833,116 @@ a { color: inherit; }
 
 .fade:has(.wipe-range:focus-visible) { outline: 2px solid var(--process-m); outline-offset: 3px; }
 
-/* The fade's frame and its scale are one figure, so the follow grid's gap
-   falls after the scale, not between the picture and its own labels. */
-.fade-figure { display: grid; gap: var(--s3); }
+/* The fade's frame, its tabs and its caption are one figure, so the follow
+   grid's gap falls after the caption, not between the picture and its labels. */
+.fade-figure { display: grid; gap: var(--s2); }
 
-/* The stops, named, under the frame. Each is a tick and a label; the one
-   showing inks to the piece's spot. Pointer users can click a name; the range
-   input carries the same thing for everyone else (aria-valuetext). */
+/* The control, ON the picture. Jacob (2026-11-16): tabs under the frame
+   matched the station strip without being it, and read as its weaker copy. So
+   the control became the picture's own: the showing stop's number and name in
+   the corner, and one segment per stop along the foot. It sits in the bottom
+   quarter, which every registered layer leaves empty under the machine, so it
+   never covers the product; it is also where the hand already is, dragging.
+
+   Fixed art, so fixed ink (README §6): --ink-on-art on light layers, and
+   --ink-on-dark-art where the showing layer says data-tone="dark" (js/site.js
+   toggles .is-dark). No scrim, which would grey the clean white product shots.
+   Not the piece's spot either: it flips with the theme, and the art does not.
+
+   Pointer users click a segment (its name on hover); the range input carries
+   the same thing for everyone else (aria-valuetext), so the bar is aria-hidden. */
+.fade-bar {
+  position: absolute;
+  left: var(--s3);
+  right: var(--s3);
+  bottom: var(--s3);
+  z-index: 5;
+  display: grid;
+  gap: var(--s1);
+  color: var(--ink-on-art);
+  transition: color var(--dur-quick) linear;
+}
+
+.fade.is-dark .fade-bar { color: var(--ink-on-dark-art); }
+
+.fade-label {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s2);
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-fine);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.fade-n {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-label);
+  font-variant-numeric: tabular-nums;
+}
+
 .fade-scale {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: minmax(0, 1fr);
-  gap: var(--s2);
+  gap: var(--s1);
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: var(--fs-small);
-  color: var(--ink-soft);
 }
 
+/* The segment is a 3px line; the li around it is the hit area. */
 .fade-scale li {
-  display: grid;
-  justify-items: center;
-  gap: var(--s1);
-  text-align: center;
+  position: relative;
+  height: var(--s4);
   cursor: pointer;
-  transition: color var(--dur-quick) linear;
 }
 
 .fade-scale li::before {
   content: "";
-  width: 2px;
-  height: var(--s3);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
   background: currentColor;
+  opacity: 0.3;
+  transition: opacity var(--dur-quick) linear;
 }
 
-.fade-scale li.is-on { color: var(--spot, var(--ink)); }
+.fade-scale li:hover::before { opacity: 0.6; }
+.fade-scale li.is-on::before { opacity: 1; }
 
-/* Seven names will not fit across a phone: a seventh of the width is too narrow
-   for any of them, the active one included. There the ticks stay alone, and the
-   name moves to the front of the stop's line below (js/site.js copies it into
-   data-label on the note). */
 @media (max-width: 46rem) {
-  .fade-scale li { font-size: 0; gap: 0; }
-  .fade-note::before {
-    content: attr(data-label) ". ";
-    color: var(--spot, var(--ink));
-  }
+  .fade-bar { left: var(--s2); right: var(--s2); bottom: var(--s2); }
 }
 
-/* The stop's one line, under the names. A fixed min-height keeps the copy
-   below from jumping when a note is longer or shorter than the last. */
+/* The stop's one line, under the frame, set left on the same edge as the
+   prose below; the name is on the picture.
+   Every note sits in the same grid cell and only the showing one is visible,
+   so the box is the height of the LONGEST note at whatever width it is. A
+   min-height in lines was tried first and failed twice over: it assumed a
+   line-height the text did not have, and a phone wraps to three lines where a
+   desk wraps to two. Jacob: a two-line caption must not bump the copy below. */
 .fade-note {
-  min-height: calc(2 * 1.5em);
+  display: grid;
   max-width: var(--measure);
-  margin: 0 auto;
+  margin: 0;
   font-size: var(--fs-small);
   color: var(--ink-soft);
-  text-align: center;
 }
+
+.fade-note > span { grid-area: 1 / 1; visibility: hidden; }
+.fade-note > span.is-on { visibility: visible; }
 
 @media (prefers-reduced-motion: reduce) {
   .fade.is-settling .fade-layer,
-  .fade-scale li { transition: none; }
+  .fade-bar,
+  .fade-scale li::before { transition: none; }
 }
 
 

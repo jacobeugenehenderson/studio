@@ -372,7 +372,7 @@
                                  sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" width="2000" height="1333"
                                  alt="" loading="lazy" decoding="async">
                           </div>
-                          <div class="fade-layer" data-label="In the Hall" data-follow="0"
+                          <div class="fade-layer" data-label="In the Hall" data-follow="0" data-tone="dark"
                                data-note="For customers who need the machine in context: scale, installation, a working floor.">
                             <img src="assets/nordson/chromabox/4-hangar.jpg"
                                  srcset="assets/nordson/chromabox/4-hangar-1200.jpg 1200w, assets/nordson/chromabox/4-hangar.jpg 2000w"
@@ -387,14 +387,14 @@
                                  sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" width="2000" height="1333"
                                  alt="" loading="lazy" decoding="async">
                           </div>
-                          <div class="fade-layer" data-label="Design Rendering" data-follow="0"
+                          <div class="fade-layer" data-label="Design Rendering" data-follow="0" data-tone="dark"
                                data-note="For campaigns, launches, and brand storytelling.">
                             <img src="assets/nordson/chromabox/6-design-rendering.jpg"
                                  srcset="assets/nordson/chromabox/6-design-rendering-1200.jpg 1200w, assets/nordson/chromabox/6-design-rendering.jpg 2000w"
                                  sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" width="2000" height="1333"
                                  alt="" loading="lazy" decoding="async">
                           </div>
-                          <div class="fade-layer" data-label="Design Drawing" data-follow="100"
+                          <div class="fade-layer" data-label="Design Drawing" data-follow="100" data-tone="dark"
                                data-note="For conceptual presentations. The language of blueprints: engineering intent, made visible.">
                             <img src="assets/nordson/chromabox/7-design-drawing.jpg"
                                  srcset="assets/nordson/chromabox/7-design-drawing-1200.jpg 1200w, assets/nordson/chromabox/7-design-drawing.jpg 2000w"
@@ -403,8 +403,14 @@
                           </div>
                           <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
                                  aria-label="Drag through the machine's seven versions">
+                          <!-- The control sits on the picture, in the empty quarter under
+                               the machine that every registered layer shares. Its ink follows
+                               the showing layer's data-tone (light by default). -->
+                          <div class="fade-bar" aria-hidden="true">
+                            <p class="fade-label"></p>
+                            <ol class="fade-scale"></ol>
+                          </div>
                         </div>
-                        <ol class="fade-scale" aria-hidden="true"></ol>
                         <p class="fade-note" aria-hidden="true"></p>
                       </div>
                       <!-- Hidden, not deleted: these are about the Cordis, and come back
@@ -452,10 +458,12 @@
                          landing code's palette, and once he has, this frame shows it on
                          arrival.
 
-                         Starts at the stations' 3:2 and then follows the height the
-                         product reports (§15, the shot — .embed.is-sized). -->
+                         FIXED at the stations' 3:2 (data-fixed): it used to follow the
+                         height the product reports, and every drawer that opened
+                         shoved the page (Jacob, 2026-11-16). Closed, CodeDesk's embed
+                         mode fits the frame; opened, it scrolls inside it. -->
                     <div class="stepper-panel">
-                      <div class="embed">
+                      <div class="embed" data-fixed>
                         <iframe src="https://jacobeugenehenderson.github.io/codedesk/?mode=embed"
                                 data-src-local="http://127.0.0.1:8788/?mode=embed&preview"
                                 title="CodeDesk — make a QR code"

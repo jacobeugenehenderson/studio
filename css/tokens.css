@@ -33,6 +33,9 @@
      --ink and gets both themes free.                                        */
   --ink-on-art:      #1A1A19;
   --ink-on-art-soft: #4A4845;
+  /* The same rule for art that is dark (a hall, a blueprint): pale ink that does
+     not flip either. The fade's bar switches to it per layer (data-tone). */
+  --ink-on-dark-art: #F2F0EA;
   /* A wash to lay under type where the art leaves it nowhere quiet to sit. Also
      fixed across themes, and near-opaque on purpose: a faint scrim that still
      lets the picture through is the version that fails, because the letterforms

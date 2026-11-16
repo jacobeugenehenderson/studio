@@ -240,8 +240,9 @@
      stops the upper layer's opacity is the fraction of the way across, so the
      picture cross-fades in place. On release it settles on the nearest stop.
      Labels and their one-line notes come from each layer's data-label and
-     data-note, so the scale cannot drift from the art; data-follow feeds the Structure/Expression copy below (100 =
-     the drawing), interpolated like the opacity. */
+     data-note, so the scale cannot drift from the art; data-tone="dark" flips
+     the bar's ink on that layer; data-follow feeds the Structure/Expression copy
+     below (100 = the drawing), interpolated like the opacity. */
 
   Array.prototype.forEach.call(document.querySelectorAll('.fade'), function (frame) {
     var range = frame.querySelector('.wipe-range');
@@ -251,16 +252,47 @@
 
     var span = 100 / (n - 1);
     var figure = frame.parentElement;
-    var scale = figure && figure.querySelector('.fade-scale');
+    var scale = frame.querySelector('.fade-scale');
+    var bar = frame.querySelector('.fade-bar');
+    var label = frame.querySelector('.fade-label');
     var follow = frame.parentElement && frame.parentElement.closest('[data-wipe-follow]');
     var note = figure && figure.querySelector('.fade-note');
-    var labels = [], follows = [], notes = [], ticks = [];
+    var labels = [], follows = [], notes = [], tones = [], ticks = [];
 
     Array.prototype.forEach.call(layers, function (layer, i) {
       labels.push(layer.getAttribute('data-label') || String(i + 1));
       follows.push(parseFloat(layer.getAttribute('data-follow')) || 0);
       notes.push(layer.getAttribute('data-note') || '');
+      tones.push(layer.getAttribute('data-tone') === 'dark');
     });
+
+    /* The bar sits on the picture, and the frame reads any press on itself as
+       the start of a drag (as with the ALT badge), so presses on the bar stay
+       on the bar. */
+    if (bar) bar.addEventListener('pointerdown', function (e) { e.stopPropagation(); });
+
+    /* Every note is written once and stacked in one grid cell (css/site.css),
+       only the showing one visible, so the box is always as tall as the
+       longest note and the copy below never moves. */
+    var noteLines = [];
+    if (note) {
+      notes.forEach(function (text) {
+        var line = document.createElement('span');
+        line.textContent = text;
+        note.appendChild(line);
+        noteLines.push(line);
+      });
+    }
+
+    /* the showing stop's number and name, in the bar's corner */
+    var labelN, labelName;
+    if (label) {
+      labelN = document.createElement('span');
+      labelName = document.createElement('span');
+      labelN.classList.add('fade-n');
+      label.appendChild(labelN);
+      label.appendChild(labelName);
+    }
 
     var commit;
     function settle(i) {
@@ -270,9 +302,10 @@
     }
 
     if (scale) {
-      labels.forEach(function (label, i) {
+      labels.forEach(function (name, i) {
+        /* one segment per stop; its name on hover */
         var li = document.createElement('li');
-        li.textContent = label;
+        li.title = name;
         li.addEventListener('click', function () { settle(i); });
         scale.appendChild(li);
         ticks.push(li);
@@ -291,10 +324,14 @@
         if (i === on) li.classList.add('is-on'); else li.classList.remove('is-on');
       });
       range.setAttribute('aria-valuetext', notes[on] ? labels[on] + '. ' + notes[on] : labels[on]);
-      if (note && note.textContent !== notes[on]) {
-        note.textContent = notes[on];
-        note.setAttribute('data-label', labels[on]);
+      noteLines.forEach(function (line, i) {
+        if (i === on) line.classList.add('is-on'); else line.classList.remove('is-on');
+      });
+      if (labelName && labelName.textContent !== labels[on]) {
+        labelN.textContent = (on + 1 < 10 ? '0' : '') + (on + 1);
+        labelName.textContent = labels[on];
       }
+      if (tones[on]) frame.classList.add('is-dark'); else frame.classList.remove('is-dark');
       if (follow) {
         follow.style.setProperty('--wipe-n', follows[lo] + (follows[lo + 1] - follows[lo]) * t);
       }
@@ -464,6 +501,10 @@
     for (var i = 0; i < frames.length; i++) {
       if (frames[i].contentWindow !== e.source) continue;
       var box = frames[i].parentElement;
+      /* A frame marked data-fixed keeps its ratio and the product scrolls
+         inside it. CodeDesk (Jacob, 2026-11-16): a station that grows every
+         time a drawer opens shoves the whole page about. */
+      if (box.hasAttribute('data-fixed')) break;
       var h = Math.min(EMBED_MAX, Math.max(EMBED_MIN, Math.ceil(msg.height)));
       box.style.setProperty('--embed-h', h + 'px');
       box.classList.add('is-sized');

@@ -131,7 +131,7 @@ Getting this wrong cost several rebuilds. The distinction is worth keeping.
 | Component | Use when |
 |---|---|
 | **`.wipe`** | Two **registered** images of the same frame, where the point is seeing a difference *in place* — a plate against its composite, a machine photographed against the same machine drawn. Not for comparing two unrelated things. |
-| **`.fade`** | Several registered outputs of one machine from one camera, cross-faded in place by a drag, settling on the nearest stop; each layer carries its own `data-label` and `data-note`. Use it when there are more than two states and a moving seam would be motion for its own sake (Jacob, 2026-11-15). |
+| **`.fade`** | Several registered outputs of one machine from one camera, cross-faded in place by a drag, settling on the nearest stop; each layer carries its own `data-label` and `data-note`, which build the control ON the picture: the showing stop's number and name in the corner, and one clickable segment per stop along the foot, in the empty quarter under the machine. `data-tone="dark"` on a layer switches the bar to `--ink-on-dark-art`. The note sits under the frame, set left. Use it when there are more than two states and a moving seam would be motion for its own sake (Jacob, 2026-11-15). |
 | **`.states` + `.pill`** | Three or more discrete views of one stack, where one of them is the whole frame at once. A wipe cannot express that: centre-composed and seam-follows-finger are geometrically incompatible. |
 | **`.stepper`** | An ordered sequence. Every stage stays visible, nothing auto-advances. |
 | **`.pager`** | Many variations of one argument. One at a time, buttons in the margins so paging is never confused with dragging, and a visible count so the extent is known. |
@@ -557,8 +557,8 @@ letter.
 | Token | Why |
 |---|---|
 | `--spot-nordson3` | Reserved Nordson gold, for art that has not landed. `--spot-nordson2` was reserved the same way and is now ShowDesk's ink. |
-| `--ink-on-art`, `--ink-on-art-soft`, `--paper-on-art` | These went unused when `.reveal` was deleted on 17 Aug 2026, and they are the *fix for a documented trap* (§6: type over fixed art cannot use `var(--ink)`). Piece 1's incoming line drawing is fixed art; the first caption laid on it needs these. Deleting them would delete the fix and keep only the warning. |
-| `--s1`, `--s10` | The two ends of the spacing scale. A scale is a system, and a scale with a hole in it is worse than an unused step. |
+| `--ink-on-art-soft`, `--paper-on-art` | These went unused when `.reveal` was deleted on 17 Aug 2026, and they are the *fix for a documented trap* (§6: type over fixed art cannot use `var(--ink)`). Their siblings `--ink-on-art` and `--ink-on-dark-art` are in use again, by the fade's on-picture bar (2026-11-16). Deleting these would delete the fix and keep only the warning. |
+| `--s10` | The far end of the spacing scale. A scale is a system, and a scale with a hole in it is worse than an unused step. (`--s1` is in use again, by the fade's segments.) |
 
 Anything else reporting unused is drift, not a reservation.
 
