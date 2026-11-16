@@ -628,7 +628,7 @@ manual (`ascend/manual/`):
 | # | Station | Art |
 |---|---|---|
 | 01 | Project intake · ArtStart | interface still |
-| 02 | Product visualization · ShowCase | **`.fade`**: seven registered ShowCase outputs of the ChromaBox 8K, opening on In the Hall, with Jacob's names and lines. The ChromaBox stands in for the Cordis "for the time being"; the Cordis's Structure/Expression lines are `hidden` until it returns. Now true: ShowCase made every image |
+| 02 | Product visualization · ShowCase | **`.fade`**: eight registered ShowCase outputs of the ChromaBox 8K, one per canonical look, in Jacob's order (drawings, renders, then Branded and Design Drawing at the end), opening on In the Hall, with Jacob's names and lines. The ChromaBox stands in for the Cordis "for the time being"; the Cordis's Structure/Expression lines are `hidden` until it returns. Now true: ShowCase made every image |
 | 03 | Copy & translation · CopyDesk | interface still |
 | 04 | QR generation · CodeDesk | **live**, scans to the résumé |
 | 05 | Print production · PrintWorks | four product cards from the print kit, at the die's true corner (`--card-corner`) |

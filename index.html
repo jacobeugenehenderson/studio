@@ -160,58 +160,67 @@
     </section>
 
     <!-- A printer's colour control strip, doing real work: one patch per case
-         study, in that piece's spot ink. The device is the index. -->
+         study, in that piece's spot ink. The device is the index. Grouped by the
+         page's three sections, each named once (Jacob, 2026-11-16). -->
     <nav class="colorbar" aria-labelledby="contents">
       <p class="label" id="contents">Contents</p>
       <ul class="colorbar-strip">
-        <li class="colorbar-item">
-          <a class="colorbar-link" href="#ascend">
-            <span class="colorbar-patch patch--nordson"></span>
-            <span class="colorbar-name">Ascend</span>
-            <span class="colorbar-ink">Software</span>
-          </a>
+        <li class="colorbar-group">
+          <p class="colorbar-section">Software</p>
+          <ul class="colorbar-pieces">
+            <li class="colorbar-item">
+              <a class="colorbar-link" href="#ascend">
+                <span class="colorbar-patch patch--nordson"></span>
+                <span class="colorbar-name">Ascend</span>
+              </a>
+            </li>
+            <li class="colorbar-item">
+              <a class="colorbar-link" href="#ward">
+                <span class="colorbar-patch patch--ward"></span>
+                <span class="colorbar-name">The Ward</span>
+              </a>
+            </li>
+            <li class="colorbar-item">
+              <a class="colorbar-link" href="#wlvx">
+                <span class="colorbar-patch patch--wlvx"></span>
+                <span class="colorbar-name">WLVX</span>
+              </a>
+            </li>
+          </ul>
         </li>
-        <li class="colorbar-item">
-          <a class="colorbar-link" href="#ward">
-            <span class="colorbar-patch patch--ward"></span>
-            <span class="colorbar-name">The Ward</span>
-            <span class="colorbar-ink">Software</span>
-          </a>
+        <li class="colorbar-group">
+          <p class="colorbar-section">Selected Work</p>
+          <ul class="colorbar-pieces">
+            <li class="colorbar-item">
+              <a class="colorbar-link" href="#westelm">
+                <span class="colorbar-patch patch--westelm"></span>
+                <span class="colorbar-name">West Elm</span>
+              </a>
+            </li>
+            <li class="colorbar-item">
+              <a class="colorbar-link" href="#pbg">
+                <span class="colorbar-patch patch--pbg"></span>
+                <span class="colorbar-name">Provincetown</span>
+              </a>
+            </li>
+          </ul>
         </li>
-        <li class="colorbar-item">
-          <a class="colorbar-link" href="#wlvx">
-            <span class="colorbar-patch patch--wlvx"></span>
-            <span class="colorbar-name">WLVX</span>
-            <span class="colorbar-ink">Software</span>
-          </a>
-        </li>
-        <li class="colorbar-item">
-          <a class="colorbar-link" href="#westelm">
-            <span class="colorbar-patch patch--westelm"></span>
-            <span class="colorbar-name">West Elm</span>
-            <span class="colorbar-ink">Selected Work</span>
-          </a>
-        </li>
-        <li class="colorbar-item">
-          <a class="colorbar-link" href="#pbg">
-            <span class="colorbar-patch patch--pbg"></span>
-            <span class="colorbar-name">Provincetown</span>
-            <span class="colorbar-ink">Selected Work</span>
-          </a>
-        </li>
-        <li class="colorbar-item">
-          <a class="colorbar-link" href="#picture">
-            <span class="colorbar-patch patch--picture"></span>
-            <span class="colorbar-name">Picture Wrap</span>
-            <span class="colorbar-ink">Curio</span>
-          </a>
-        </li>
-        <li class="colorbar-item">
-          <a class="colorbar-link" href="#scale">
-            <span class="colorbar-patch patch--scale"></span>
-            <span class="colorbar-name">Scale Machine</span>
-            <span class="colorbar-ink">Curio</span>
-          </a>
+        <li class="colorbar-group">
+          <p class="colorbar-section">Curios</p>
+          <ul class="colorbar-pieces">
+            <li class="colorbar-item">
+              <a class="colorbar-link" href="#picture">
+                <span class="colorbar-patch patch--picture"></span>
+                <span class="colorbar-name">Picture Wrap</span>
+              </a>
+            </li>
+            <li class="colorbar-item">
+              <a class="colorbar-link" href="#scale">
+                <span class="colorbar-patch patch--scale"></span>
+                <span class="colorbar-name">Scale Machine</span>
+              </a>
+            </li>
+          </ul>
         </li>
       </ul>
     </nav>
@@ -336,19 +345,19 @@
                       </div>
                     </div>
 
-                    <!-- One machine, seven outputs, faded in place: nothing moves.
+                    <!-- One machine, eight outputs, faded in place: nothing moves.
                          Layers are in stack order, left to right along the drag; the page
                          opens on data-start (In the Hall, the centre). data-label and
                          data-note are Jacob's names and lines (docs/ascend-showcase-plan.md);
                          data-follow is the Structure line's share at that stop, kept for
-                         when that copy returns. All seven are one ShowCase camera,
+                         when that copy returns. All eight are one ShowCase camera,
                          registered to the pixel (_source/showcase/stack/).
                          ⚠ The ChromaBox stands in for the Cordis "for the time being"
                          (Jacob, 2026-11-15). Fixed art: type over it must use
                          --ink-on-art (README §6). -->
                     <div class="stepper-panel" data-wipe-follow>
                       <div class="fade-figure">
-                        <div class="fade fade--3x2" data-start="3">
+                        <div class="fade fade--3x2" data-start="4">
                           <!-- One description, on the centre image: the same machine seven
                                times over would otherwise be read out as seven machines. -->
                           <div class="fade-layer" data-label="Engineering Drawing" data-follow="100"
@@ -372,37 +381,44 @@
                                  sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" width="2000" height="1333"
                                  alt="" loading="lazy" decoding="async">
                           </div>
+                          <div class="fade-layer" data-label="Product Rendering" data-follow="0"
+                               data-note="For catalogues and product comparisons. The equipment first, nothing to distract.">
+                            <img src="assets/nordson/chromabox/4-product-rendering.jpg"
+                                 srcset="assets/nordson/chromabox/4-product-rendering-1200.jpg 1200w, assets/nordson/chromabox/4-product-rendering.jpg 2000w"
+                                 sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" width="2000" height="1333"
+                                 alt="" loading="lazy" decoding="async">
+                          </div>
                           <div class="fade-layer" data-label="In the Hall" data-follow="0" data-tone="dark"
                                data-note="For customers who need the machine in context: scale, installation, a working floor.">
-                            <img src="assets/nordson/chromabox/4-hangar.jpg"
-                                 srcset="assets/nordson/chromabox/4-hangar-1200.jpg 1200w, assets/nordson/chromabox/4-hangar.jpg 2000w"
+                            <img src="assets/nordson/chromabox/5-hangar.jpg"
+                                 srcset="assets/nordson/chromabox/5-hangar-1200.jpg 1200w, assets/nordson/chromabox/5-hangar.jpg 2000w"
                                  sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" width="2000" height="1333"
                                  alt="A Nordson ChromaBox 8K powder booth seen straight on, standing in a dark
                                       industrial hall: six cylindrical filters in a row under a blue hood." decoding="async">
                           </div>
-                          <div class="fade-layer" data-label="Product Rendering" data-follow="0"
-                               data-note="For catalogues and product comparisons. The equipment first, nothing to distract.">
-                            <img src="assets/nordson/chromabox/5-product-rendering.jpg"
-                                 srcset="assets/nordson/chromabox/5-product-rendering-1200.jpg 1200w, assets/nordson/chromabox/5-product-rendering.jpg 2000w"
+                          <div class="fade-layer" data-label="Branded Drawing" data-follow="100" data-tone="dark"
+                               data-note="For trade shows, exhibition walls, and environmental installations. Engineering geometry as large-format brand graphics.">
+                            <img src="assets/nordson/chromabox/6-branded-drawing.jpg"
+                                 srcset="assets/nordson/chromabox/6-branded-drawing-1200.jpg 1200w, assets/nordson/chromabox/6-branded-drawing.jpg 2000w"
                                  sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" width="2000" height="1333"
                                  alt="" loading="lazy" decoding="async">
                           </div>
                           <div class="fade-layer" data-label="Design Rendering" data-follow="0" data-tone="dark"
                                data-note="For campaigns, launches, and brand storytelling.">
-                            <img src="assets/nordson/chromabox/6-design-rendering.jpg"
-                                 srcset="assets/nordson/chromabox/6-design-rendering-1200.jpg 1200w, assets/nordson/chromabox/6-design-rendering.jpg 2000w"
+                            <img src="assets/nordson/chromabox/7-design-rendering.jpg"
+                                 srcset="assets/nordson/chromabox/7-design-rendering-1200.jpg 1200w, assets/nordson/chromabox/7-design-rendering.jpg 2000w"
                                  sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" width="2000" height="1333"
                                  alt="" loading="lazy" decoding="async">
                           </div>
                           <div class="fade-layer" data-label="Design Drawing" data-follow="100" data-tone="dark"
                                data-note="For conceptual presentations. The language of blueprints: engineering intent, made visible.">
-                            <img src="assets/nordson/chromabox/7-design-drawing.jpg"
-                                 srcset="assets/nordson/chromabox/7-design-drawing-1200.jpg 1200w, assets/nordson/chromabox/7-design-drawing.jpg 2000w"
+                            <img src="assets/nordson/chromabox/8-design-drawing.jpg"
+                                 srcset="assets/nordson/chromabox/8-design-drawing-1200.jpg 1200w, assets/nordson/chromabox/8-design-drawing.jpg 2000w"
                                  sizes="(max-width: 46rem) calc(100vw - 3rem), (max-width: 78rem) calc(100vw - 250px), 998px" width="2000" height="1333"
                                  alt="" loading="lazy" decoding="async">
                           </div>
                           <input class="wipe-range" type="range" min="0" max="100" value="50" step="0.1"
-                                 aria-label="Drag through the machine's seven versions">
+                                 aria-label="Drag through the machine's eight versions">
                           <!-- The control sits on the picture, in the empty quarter under
                                the machine that every registered layer shares. Its ink follows
                                the showing layer's data-tone (light by default). -->

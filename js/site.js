@@ -147,7 +147,8 @@
     function fromPointer(event) {
       var box = frame.getBoundingClientRect();
       if (!box.width) return;
-      commit(((event.clientX - box.left) / box.width) * 100);
+      var f = (event.clientX - box.left) / box.width;
+      commit(opts && opts.fromFraction ? opts.fromFraction(f) : f * 100);
     }
 
     /* A local flag is the source of truth for "is a drag in progress". Capture
@@ -341,6 +342,13 @@
     range.value = start * span;
     commit = bindDrag(frame, range, apply, {
       step: span,
+      /* Every stop gets an equal 1/n of the width, the same stretch as its
+         segment underneath. Mapped straight across, the middle stops got a
+         whole slot each and the two ENDS half a slot, a thin strip at each
+         edge (Jacob, 2026-11-16: "make sure it's easy to reach the end
+         states"). Inset by half a slot each side, the ends are as wide as the
+         rest, and pointing at a segment lands on its stop. */
+      fromFraction: function (f) { return ((f * n - 0.5) / (n - 1)) * 100; },
       onRelease: function () { settle(Math.round(parseFloat(range.value) / span)); }
     });
 
