@@ -539,3 +539,17 @@ Calendar moment waits for the real `parseDate` fix**; the shim plan stands for a
     6. Design Rendering: For campaigns, launches, and brand storytelling.
     7. Design Drawing: For conceptual presentations. The language of blueprints: engineering intent, made visible.
 - **Station 02 loaded with the ChromaBox stack (Colophon, uncommitted):** `assets/nordson/chromabox/1…7-*.jpg` at 2000 and 1200 px, from Gaffer's registered 3000×2000 PNGs (`_source/showcase/stack/`). Opens on #4, In the Hall, with Jacob's trimmed names and lines. One alt, on #4. The Structure/Expression pair is `hidden` (a CSS fix was needed: `.prose` beats `[hidden]`). On a phone the scale is ticks only, and the name leads the line. Checked in Chrome at desktop and 390 px. Pending: Gaffer's redelivery of 1, 2, 3 and 7 with the motor outline; then regenerate those JPGs.
+- **Overnight, 15–16 Nov (Jacob asked for the comps to be logically correct; "black plexi is supposed to be a whole black look with reflections"):** Gaffer audited every look's compositing; Colophon checked the redeliveries and committed them (`ff38373`, not pushed).
+  - **#6 Design Rendering:** now Blackglass in its own environment, with the plexi reflection meeting the base at the contact line, plus glow and smoke. The earlier export had set it on a plain black library background, which hid all of that. The renders already had it, so nothing was re-rendered.
+  - **#4 In the Hall:** the Product layer was ~9% brighter than the product in the render, because the cutout pass hid the hall's haze. The Product is now the picture cut by the matte (ShowCase knob `product_from_picture`).
+  - **#5 Product Rendering:** passed as it stood.
+  - **Lab on a library background** printed the cyc's falloff as a grey floor band. Gaffer fixed it in ShowCase.
+  - **Still open:**
+    - The motor outline (1, 2, 3, 7). The cause is understood: the motor is a surface model, OCCT gives the dome no outline, and the seams sit on the outline. A new surface tracer is right but too slow (over 37 minutes on the 8K), so it's opt-in only. The current drawings stay until it's clean.
+    - All of Gaffer's ShowCase code is uncommitted, awaiting Jacob's OK in Gaffer's session.
+  - **Questions for Jacob (Gaffer's, nothing changed):**
+    1. Keep a contact shadow on library backgrounds by default? Gaffer and the auditor recommend it.
+    2. If so, Hangar needs a plate and a shadow pass (a build item).
+    3. Should an export refuse or flag stale layers? Whiteglass's pair setup would export a mis-scaled depth drawing today.
+    4. Clear light groups left over from a previous look out of the Layers list? (A small fix.)
+    5. `jobs/_test-hangar.json` stays until Hangar tuning is done.
