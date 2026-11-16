@@ -554,3 +554,26 @@ Calendar moment waits for the real `parseDate` fix**; the shim plan stands for a
     4. Clear light groups left over from a previous look out of the Layers list? (A small fix.)
     5. `jobs/_test-hangar.json` stays until Hangar tuning is done.
 - **Motor outline, done for the stack (Gaffer, small hours of 16 Nov; site `ascend-hero`, not pushed):** 1, 2, 3 and 7 are redelivered and in station 02, with the motor closed and filled and every product box at x 938–2061, y 500–1499. The method traces the exact surfaces, but only the faces the camera sees, hidden by rays. **It's not general yet:** on the auto gun (10022656) it loses the barrel's sides and nozzle and adds a bulge. So the ShowCase default stays the old outline, and the new one is opt-in (`draw.py --outline surface`). If any stack setup re-traces in the stage, it falls back and the motor goes missing again. The code is uncommitted, pending Jacob.
+
+### The canonical looks (Jacob, 2026-11-16; agreed, nothing built)
+
+- **The model:** a **Shot** (camera, models, placement, crop, output size: one per angle per model) × a **Look** (canonical, defined once, applies to any shot) = an **Export**. Each look fixes its lighting preset, and **every knob persists** for the operator to override. "Setup" goes back to meaning a lighting preset only.
+- **Scope rule (Jacob):** this serves the website. The looks only need to *read* as what they are, so no spec sheets and no layout elements (footers live in InDesign/PSD). Exports: PNG and PSD as now, plus **plain SVG for the drawing looks** (the source is already SVG).
+- **The eight:**
+  1. Engineering Drawing (installation-drawing feel), as it is now
+  2. Engineering Illustration (`flat` + lines), as now
+  3. Marketing Illustration (`gradient` + lines): the machine as a designed object. The depth shading must be clearly visible. Pick the contrast by eye from a range.
+  4. In the Hall (Hangar), as now
+  5. Product Rendering (Lab), as now
+  6. Design Rendering (Blackglass), as now
+  7. Design Drawing: white lines on navy, **plus a grid background in the look**
+  8. **Show Drawing (new):** white lines over shaded blue, on a #007AC9 ↔ #0039AC gradient. It's a marketing look, so the fills use depth shading (the `blue` style, a Nordson Blue ramp by depth), not `blue-flat`. For trade-show work Jacob had planned to do in Photoshop.
+- **Marketing drawings (3 and 8) get basic light and shadow** (Jacob: "basic", like a simple graphics-library viewport): one key light shades the surfaces, and the same light casts plain, flat-toned shadows within the machine and onto the ground. Not built today: the fills are toned by facing only and cast no shadows. Engineering drawings stay flat and unshadowed.
+  - **Refined (Jacob, same day): use the real shadow passes**, "a nice added distinction". The drawings share the render's camera, so the existing Shadow (floor), AO and Contact layers register under the vector fills. #5's Lab render at the same shot feeds 3, 5 and 8 from one render.
+  - The drawing's key light must come from the render's lighting preset so shading and shadow agree.
+  - The passes give no hard shadows within the machine. Try without them first, and add drawn shadows only if something reads as missing.
+  - A marketing SVG carries the shadows as an embedded image or leaves them out. Engineering SVGs stay pure vector.
+  - **Drawn (geometric) shadows are in, as their own layer (Jacob, same day):** vector cast shadows from the same key light, filed under Shadows beside Shadow, AO and Contact, with a toggle and a strength knob.
+    - Being vector, they also survive SVG export.
+    - Canon default: off until Jacob has seen them on the ChromaBox. He then sets the default for 3 and 8.
+- **Next, waiting for Jacob's word:** a Gaffer brief covering the shot/look split, the eight as data, the Marketing contrast range, the grid, Show Drawing and SVG export. Colophon: the station 02 controller (tabs echoing the station row, plus one left-aligned caption).
