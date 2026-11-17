@@ -83,7 +83,7 @@ These are enforced by nothing but attention. An audit script for them is in §7.
 5. **Both themes, always.** Light is the sheet, dark is the plate. Style through
    tokens and both come free. The viewer's toggle must beat the OS preference in
    both directions, which is why every theme block is declared explicitly.
-6. **Numbering must carry information.** `Fig. 1`, `01 ArtStart`, `1 / 10` are
+6. **Numbering must carry information.** `Fig. 1`, `01 ShowCase`, `1 / 10` are
    sequences a reader needs. Do not number things for decoration.
 7. **Placeholders are labelled and obvious.** Grey slugs saying what belongs
    there. Never a plausible-looking fake. There are none on the page today.
@@ -627,10 +627,10 @@ manual (`ascend/manual/`):
 
 | # | Station | Art |
 |---|---|---|
-| 01 | Ad production · ArtStart | interface still |
-| 02 | Product visualization · ShowCase | **`.fade`**: nine registered ShowCase outputs of the ChromaBox 8K at one heroic shot, one per canonical look, in Jacob's order (drawings, then the four renders, then Branded and Design Drawing), opening on In the Hall at the centre, with Jacob's names and lines. The ChromaBox stands in for the Cordis "for the time being"; the Cordis's Structure/Expression lines are `hidden` until it returns. Now true: ShowCase made every image |
-| 03 | Editorial production · CopyDesk | interface still |
-| 04 | QR generation · CodeDesk | **live**, scans to the résumé |
+| 01 | Product visualization · ShowCase | **`.fade`**: nine registered ShowCase outputs of the ChromaBox 8K at one heroic shot, one per canonical look, in Jacob's order (drawings, then the four renders, then Branded and Design Drawing), opening on In the Hall at the centre, with Jacob's names and lines. The ChromaBox stands in for the Cordis "for the time being"; the Cordis's Structure/Expression lines are `hidden` until it returns. Now true: ShowCase made every image |
+| 02 | Editorial production · CopyDesk | interface still |
+| 03 | QR generation · CodeDesk | **live**, scans to the résumé |
+| 04 | Ad production · AdBuilder (ArtStart in the portal) | interface still |
 | 05 | Print production · PrintWorks | four product cards from the print kit, at the die's true corner (`--card-corner`) |
 | 06 | Media presentation · ScreenRoom | the Show Builder still |
 | 07 | Job register · FlatFile | a labelled placeholder |
