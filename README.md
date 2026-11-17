@@ -556,7 +556,6 @@ letter.
 
 | Token | Why |
 |---|---|
-| `--spot-nordson3` | Reserved Nordson gold, for art that has not landed. `--spot-nordson2` was reserved the same way and is now ShowDesk's ink. |
 | `--ink-on-art-soft`, `--paper-on-art` | These went unused when `.reveal` was deleted on 17 Aug 2026, and they are the *fix for a documented trap* (§6: type over fixed art cannot use `var(--ink)`). Their siblings `--ink-on-art` and `--ink-on-dark-art` are in use again, by the fade's on-picture bar (2026-11-16). Deleting these would delete the fix and keep only the warning. |
 | `--s10` | The far end of the spacing scale. A scale is a system, and a scale with a hole in it is worse than an unused step. (`--s1` is in use again, by the fade's segments.) |
 
@@ -621,8 +620,8 @@ Three sections, with ranks that name the section (§18, sections):
 | **Curios** | Picture Wrap, Scale Machine |
 
 **The Ascend hero** is eight stations in one strip, in job order, each inked by its half (Ascend
-Studio in Nordson blue, Ascend Portal in the reserved deep blue; MediaRoom carries no ink until it
-is assigned). Every station line is Jacob's, written 2026-11-15 and checked against the app's
+Studio in Nordson blue, Ascend Portal in the deep blue, and MediaRoom, neither half, in Nordson
+gold, each with its line in the rail's key). Every station line is Jacob's, written 2026-11-15 and checked against the app's
 manual (`ascend/manual/`):
 
 | # | Station | Art |

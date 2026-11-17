@@ -280,6 +280,7 @@
                     <ul class="halves">
                       <li class="station--studio"><strong>Ascend Studio</strong> Creative Visualization &amp; Production</li>
                       <li class="station--portal"><strong>Ascend Portal</strong> Creative Operations &amp; Workflow</li>
+                      <li class="station--mediaroom"><strong>MediaRoom</strong> Asset Management</li>
                     </ul>
                   </dd>
                 </div>
@@ -326,9 +327,9 @@
                     <span class="stepper-n">06</span><span class="stepper-name">Media presentation</span><span class="stepper-app">ScreenRoom</span></label>
                   <label class="stepper-step station--portal"><input type="radio" name="ascend-station" value="flatfile">
                     <span class="stepper-n">07</span><span class="stepper-name">Job register</span><span class="stepper-app">FlatFile</span></label>
-                  <!-- MediaRoom has no half yet (ascend/ARCHITECTURE.md § Decisions:
-                       "not yet assigned"), so it carries no ink rather than a guessed one. -->
-                  <label class="stepper-step"><input type="radio" name="ascend-station" value="mediaroom">
+                  <!-- MediaRoom is neither half: it takes its own ink, Nordson Gold (Jacob,
+                       2026-11-16), and its own line in the rail's key. -->
+                  <label class="stepper-step station--mediaroom"><input type="radio" name="ascend-station" value="mediaroom">
                     <span class="stepper-n">08</span><span class="stepper-name">Asset management</span><span class="stepper-app">MediaRoom</span></label>
                 </fieldset>
 
@@ -578,7 +579,7 @@
                              loading="lazy" decoding="async">
                       </div>
                       <div class="prose">
-                        <p><span class="app-name">MediaRoom</span> organizes the studio&rsquo;s stock imagery and publications into a searchable visual library, with browsing by folder and filtering by product and tag.</p>
+                        <p><span class="app-name station--mediaroom">MediaRoom</span> organizes the studio&rsquo;s stock imagery and publications into a searchable visual library, with browsing by folder and filtering by product and tag.</p>
                       </div>
                     </div>
 

@@ -456,12 +456,16 @@ a { color: inherit; }
    the key cannot disagree with the strip it explains. */
 .station--studio { --spot: var(--spot-nordson); }
 .station--portal { --spot: var(--spot-nordson2); }
+/* MediaRoom belongs to neither half: the library both draw from takes the
+   reserved third Nordson ink, gold (Jacob, 2026-11-16). */
+.station--mediaroom { --spot: var(--spot-nordson3); }
 
 /* Every station shows its half's ink, not just the chosen one — the
    alternation is the point. The chosen station is marked by its raised ground
    and its number in full ink (§12, the stepper). */
 .stepper-step.station--studio,
-.stepper-step.station--portal { border-top-color: var(--spot); }
+.stepper-step.station--portal,
+.stepper-step.station--mediaroom { border-top-color: var(--spot); }
 
 .halves {
   list-style: none;
@@ -1287,7 +1291,8 @@ a { color: inherit; }
    and the app's name all say the same thing: this is a Studio app, this a
    Portal one (Jacob, 2026-11-16: "leaning in to colors"). */
 .stepper-step.station--studio .stepper-app,
-.stepper-step.station--portal .stepper-app { color: var(--spot); }
+.stepper-step.station--portal .stepper-app,
+.stepper-step.station--mediaroom .stepper-app { color: var(--spot); }
 
 /* The app's name where the caption says it, set in the SAME mono as the
    tab's tool line above, so the eye matches "CodeDesk" here to "CodeDesk"
