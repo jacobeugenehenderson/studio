@@ -1389,23 +1389,6 @@ a { color: inherit; }
   border-top-right-radius: var(--card-corner);
 }
 
-/* A labelled placeholder (README §3, rule 7): grey, on the graph paper, saying
-   what belongs here. Never a plausible-looking fake. */
-.slug {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  margin: 0;
-  padding: var(--s4);
-  text-align: center;
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  letter-spacing: var(--tr-label);
-  text-transform: uppercase;
-  line-height: 1.8;
-  color: var(--ink-faint);
-}
 
 /* A live station. Starts at the stations' ratio; once the product reports its
    height, .embed.is-sized (§15, the shot) takes over — it is later in the file
