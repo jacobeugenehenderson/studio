@@ -81,6 +81,11 @@
   <link rel="icon" type="image/svg+xml" href="assets/CD_ROM.svg">
   <link rel="stylesheet" href="css/tokens.css?v=3b5ef872">
   <link rel="stylesheet" href="css/site.css?v=fe219dc0">
+  <!-- With scripts off, the loader in js/site.js never gives a frame its src, so each
+       script-managed frame is hidden and the <noscript> frame beside it loads the old way.
+       Ignored entirely when scripts run. Kept inline: it exists only for a page with no
+       script, and it's the one style that must arrive with the HTML. -->
+  <noscript><style>iframe[data-src] { display: none; }</style></noscript>
 
   <!-- Stamp the chosen ground before first paint. Everything else is in
        js/site.js; this cannot wait for it without flashing the wrong sheet. -->
@@ -479,6 +484,7 @@
                         <iframe data-src="https://jacobeugenehenderson.github.io/codedesk/?mode=embed"
                                 data-src-local="http://127.0.0.1:8788/?mode=embed&preview"
                                 title="CodeDesk — make a QR code"></iframe>
+                        <noscript><iframe src="https://jacobeugenehenderson.github.io/codedesk/?mode=embed" title="CodeDesk — make a QR code" loading="lazy"></iframe></noscript>
                       </div>
                       <div class="prose">
                         <p><span class="app-name station--portal">CodeDesk</span> creates custom QR codes as integral elements of a visual identity, combining creative design with a modular generation engine.</p>
@@ -676,6 +682,7 @@
             <iframe data-src="https://lafayettesquare.online/"
                     title="The Ward — Lafayette Square, running"
                     allow="fullscreen"></iframe>
+            <noscript><iframe src="https://lafayettesquare.online/" title="The Ward — Lafayette Square, running" allow="fullscreen" loading="lazy"></iframe></noscript>
           </div>
 
           <!-- ⭐ THE SAME LINE THIS NEIGHBORHOOD CARRIES ON theward.online, and
@@ -1257,6 +1264,7 @@
           <div class="embed">
             <iframe data-src="https://picture-wrap.com"
                     title="Picture Wrap — who made a film, and who is left"></iframe>
+            <noscript><iframe src="https://picture-wrap.com" title="Picture Wrap — who made a film, and who is left" loading="lazy"></iframe></noscript>
           </div>
 
           <p class="figure-note">Live at <strong><a href="https://picture-wrap.com">picture-wrap.com</a></strong>
@@ -1340,6 +1348,7 @@
           <div class="embed">
             <iframe data-src="https://scalemachine.app/?tuning=bb"
                     title="Scale Machine — twelve-key scale practice for transposing instruments"></iframe>
+            <noscript><iframe src="https://scalemachine.app/?tuning=bb" title="Scale Machine — twelve-key scale practice for transposing instruments" loading="lazy"></iframe></noscript>
           </div>
 
           <p class="figure-note"><a href="https://scalemachine.app">Visit Scale Machine &rarr;</a></p>
