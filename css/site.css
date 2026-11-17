@@ -1635,7 +1635,7 @@ a { color: inherit; }
 /*
    Two things live here: `.shot`, a still of a product, and `.embed`, the live
    product itself. Prefer .embed — it cannot go stale. Use .shot when the thing
-   cannot be framed: ShowDesk runs off a USB stick against a folder of a
+   cannot be framed: ScreenRoom runs off a USB stick against a folder of a
    client's video, so there is nothing to point an iframe at.
 
    .shot must NOT be combined with .graph: it sets `background` as a shorthand
