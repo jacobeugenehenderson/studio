@@ -606,9 +606,9 @@ the page in a fixed-width iframe does give media queries a genuine 390px.
 
 ## 8. State
 
-⚠ **Two states, and they differ.** The live site (`main`) is the ten-piece page described in this
-section's history below. **The redesign** is on branch **`ascend-hero`**, uncommitted, as of
-2026-11-15. It isn't public, and it ships only when Jacob says.
+**The redesign is live** (published 2026-11-16 at `5edc764`, on Jacob's word). `main`, `rebuild` and
+`ascend-hero` were the same commit at publish; the ten-piece page described in this section's
+history below is what it replaced.
 
 ### The redesign, on `ascend-hero`
 

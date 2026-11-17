@@ -45,7 +45,7 @@ getting it wrong cost a rebuild.
 
 ## ⭐ Now: 2026-11-15, the Ascend redesign
 
-**The site is being rebuilt around Ascend, on branch `ascend-hero`, uncommitted and not public.**
+**The Ascend redesign is LIVE (published 2026-11-16, `5edc764`; `main`, `rebuild` and `ascend-hero` are the same commit).** Station 02's drawing views still await ShowCase's edge-on outline fix, and The Ward's layer switch awaits Quire's port being promoted (theward branch `quire/the-layer-switch`).
 README §8 describes it. The working record is `docs/ascend-showcase-plan.md`. Read both before
 touching the hero.
 
