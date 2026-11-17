@@ -76,6 +76,52 @@
     );
   }());
 
+  /* ---- The Ward shows a different town each visit -------------------------
+     Jacob, 2026-11-16. The towns are a hidden list in the markup
+     ([data-ward-towns]), so adding one is markup only. Each visit takes the town
+     AFTER the one this visitor last saw, so a returning visitor works through
+     them all; a first visit starts at a random one. The choice is a per-viewer
+     convenience in localStorage, and a browser that refuses storage simply gets
+     a random town each time.
+
+     It writes the town into the frame's data-src (the loader below gives it its
+     src) and into the embed's data-embed-base, which the layer switch reads
+     each time it posts, so the switch always targets the town actually showing.
+     It runs BEFORE the loader and before The Ward's own block, which on
+     localhost swaps in the local product over the top of whatever this chose. */
+
+  (function () {
+    var list = document.querySelector('[data-ward-towns]');
+    var box = document.querySelector('.embed--ward');
+    var frame = box && box.querySelector('iframe[data-src]');
+    if (!list || !frame) return;
+    var towns = Array.prototype.map.call(list.querySelectorAll('li[data-url]'), function (li) {
+      return { url: li.getAttribute('data-url'), name: li.getAttribute('data-name'), place: li.textContent };
+    });
+    if (towns.length < 2) return;
+
+    var KEY = 'ward-town';
+    var last = null;
+    try { last = window.localStorage.getItem(KEY); } catch (e) { /* no storage */ }
+    var at = -1;
+    for (var i = 0; i < towns.length; i++) if (towns[i].url === last) at = i;
+    var pick = at >= 0 ? (at + 1) % towns.length : Math.floor(Math.random() * towns.length);
+    var town = towns[pick];
+    try { window.localStorage.setItem(KEY, town.url); } catch (e) { /* fine */ }
+
+    box.setAttribute('data-embed-base', town.url);
+    frame.setAttribute('data-src', town.url);
+    frame.title = 'The Ward — ' + town.name + ', running';
+
+    var piece = box.closest('.piece') || document;
+    var where = piece.querySelector('[data-ward-town]');
+    var name = piece.querySelector('[data-ward-name]');
+    var visit = piece.querySelector('[data-ward-visit]');
+    if (where) where.textContent = town.place;
+    if (name) name.textContent = town.name;
+    if (visit) visit.href = town.url;
+  }());
+
   /* ---- the frames load in order, or as you approach them ------------------
      Jacob, 2026-11-16: "load things in order ~or~ as they approach the
      viewfinder." Four live products are framed on this page, and The Ward is

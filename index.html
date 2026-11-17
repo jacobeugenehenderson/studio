@@ -676,6 +676,20 @@
                equally impossible in production. Requires The Ward's dev server
                (`npm run dev:web` in its repo); if it is not running the frame
                fails to load, which is the signal you want. -->
+          <!-- A DIFFERENT TOWN EACH VISIT (Jacob, 2026-11-16). The list below is the
+               rotation: js/site.js takes the next town after the one this visitor last
+               saw, and writes its address into data-embed-base and the frame's data-src
+               and its name into the note under the map. The markup's own values are
+               Lafayette Square, which is what a visitor with scripts off gets (the
+               <noscript> frame). Huron is on The Ward's STAGING site, unlisted and
+               noindexed, by Jacob's choice ("Huron now"); move it to its own domain
+               when it's promoted. -->
+          <ul hidden data-ward-towns>
+            <li data-url="https://lafayettesquare.online/" data-name="Lafayette Square">Lafayette Square in St. Louis</li>
+            <li data-url="https://hipointedemun.online/" data-name="Hi-Pointe&ndash;DeMun">Hi-Pointe&ndash;DeMun in St. Louis</li>
+            <li data-url="https://provincetown.online/" data-name="Provincetown">Provincetown, on Cape Cod</li>
+            <li data-url="https://staging.theward.online/huron/" data-name="Huron">Huron, Ohio</li>
+          </ul>
           <div class="embed embed--ward graph"
                data-embed-base="https://lafayettesquare.online/"
                data-embed-base-local="http://localhost:5173/">
@@ -691,7 +705,7 @@
                picture rather than a panel under a panel. It names the instance
                and offers the way to it. ⛔ It belongs to the demo — nothing
                goes between the two. -->
-          <p class="figure-note">A Ward is a real neighborhood. The one running above is Lafayette Square in St. Louis. <a href="https://lafayettesquare.online">Visit Lafayette Square &rarr;</a></p>
+          <p class="figure-note">A Ward is a real neighborhood. The one running above is <span data-ward-town>Lafayette Square in St. Louis</span>. <a href="https://lafayettesquare.online" data-ward-visit>Visit <span data-ward-name>Lafayette Square</span> &rarr;</a></p>
 
           <!-- ⭐ THE HEADLINE TITLES THE WHOLE DEMO, so it sits above the
                control. A heading opens a block and the pill reads as part of
