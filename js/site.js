@@ -142,11 +142,20 @@
 
      A frame inside a clipped stepper panel doesn't intersect until its
      station is chosen, because ancestor clipping counts, so CodeDesk waits
-     for station 03 or its turn. */
+     for station 03 or its turn.
+
+     THE IDLE QUEUE ENDS AT THE WARD (Jacob, 2026-11-17). A frame's `load`
+     fires when its page arrives, but The Ward builds its town for seconds
+     after that (Provincetown: 15–18 s). Booting Picture Wrap and Scale Machine
+     beside it overloaded the GPU, and the town fell back to its emblem. So
+     frames after The Ward start only on approach (rule 1). */
 
   (function () {
     var frames = Array.prototype.slice.call(document.querySelectorAll('iframe[data-src]'));
     if (!frames.length) return;
+
+    var ward = document.querySelector('.embed--ward iframe[data-src]');
+    var queue = ward ? frames.slice(0, frames.indexOf(ward) + 1) : frames;
 
     function start(frame) {
       if (frame.getAttribute('src')) return;
@@ -177,8 +186,8 @@
         return;
       }
       var waiting = null;
-      for (var i = 0; i < frames.length; i++) {
-        if (!frames[i].getAttribute('src')) { waiting = frames[i]; break; }
+      for (var i = 0; i < queue.length; i++) {
+        if (!queue[i].getAttribute('src')) { waiting = queue[i]; break; }
       }
       if (!waiting) return;
       waiting.addEventListener('load', function () {
