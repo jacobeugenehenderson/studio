@@ -12,7 +12,7 @@ to publish, so the two are the same commit whenever the site is current.
 
 **The rebuild went live 1 Aug 2026.** Every placeholder is now gone — the last
 was Nordson's filmstrip, removed with the piece's rebuild on 31 Aug. The site
-frames The Ward from **lafayette-square.com** — production, since 31 Aug 2026.
+frames The Ward from **lafayettesquare.online** — production, since 31 Aug 2026 (lafayette-square.com now 301s there; the embed follows it, 16 Nov 2026).
 
 ```
 serve   python3 tools/serve.py            # no-store; never python3 -m http.server (§6)
@@ -287,7 +287,7 @@ Do not fork the snippet. It is the same file in every product.
 | Codedesk (`~/Desktop/dev.nosync/codedesk`) | **live** — committed, deployed, and confirmed reporting height from the deployed URL |
 | Picture Wrap (`~/Desktop/dev.nosync/picture-wrap`) | **live** — tracked, deployed, byte-identical to canonical, and served from `picture-wrap.com` at its `index.html:85`. Was untracked and undeployed for one session; confirmed done 1 Aug 2026 with `curl -s https://picture-wrap.com \| grep -c embed-height` → `1`. |
 | Scale Machine (`~/Desktop/dev.nosync/scalemachine`) | **needed, not yet done.** The grid grows — twelve staves, a listen panel that opens, a song field — so a fixed frame is wrong here in the way it is right for The Ward. Until the snippet lands the frame keeps its CSS ratio, which is the documented fallback and looks deliberate. Check: `curl -s https://scalemachine.app \| grep -c embed-height` → `0` today. |
-| The Ward | **not needed, deliberately.** Embedded from `lafayette-square.com` and carrying no snippet. Self-sizing is for apps whose height is content; The Ward is a landscape you look *across*, so a fixed aspect is the right frame and a reported height would only stretch the horizon. The frame keeps its CSS ratio — 16/10, and 4/3 on a phone so the horizon survives. |
+| The Ward | **not needed, deliberately.** Embedded from `lafayettesquare.online` and carrying no snippet. Self-sizing is for apps whose height is content; The Ward is a landscape you look *across*, so a fixed aspect is the right frame and a reported height would only stretch the horizon. The frame keeps its CSS ratio — 16/10, and 4/3 on a phone so the horizon survives. |
 
 The embeds point at live URLs, not local copies, so a product is only as current
 as its last deploy. Codedesk publishes from
@@ -616,7 +616,7 @@ Three sections, with ranks that name the section (§18, sections):
 
 | Section | Pieces |
 |---|---|
-| **Software for Creatives** | **Ascend** (the hero), The Ward, ‖ an era break ‖ WLVX |
+| **Machinery for Creative Work** (the strip says Machinery) | **Ascend** (the hero), The Ward, ‖ an era break ‖ WLVX |
 | **Selected Work** | West Elm, Provincetown |
 | **Curios** | Picture Wrap, Scale Machine |
 
@@ -627,9 +627,9 @@ manual (`ascend/manual/`):
 
 | # | Station | Art |
 |---|---|---|
-| 01 | Project intake · ArtStart | interface still |
-| 02 | Product visualization · ShowCase | **`.fade`**: eight registered ShowCase outputs of the ChromaBox 8K, one per canonical look, in Jacob's order (drawings, renders, then Branded and Design Drawing at the end), opening on In the Hall, with Jacob's names and lines. The ChromaBox stands in for the Cordis "for the time being"; the Cordis's Structure/Expression lines are `hidden` until it returns. Now true: ShowCase made every image |
-| 03 | Copy & translation · CopyDesk | interface still |
+| 01 | Ad production · ArtStart | interface still |
+| 02 | Product visualization · ShowCase | **`.fade`**: nine registered ShowCase outputs of the ChromaBox 8K at one heroic shot, one per canonical look, in Jacob's order (drawings, then the four renders, then Branded and Design Drawing), opening on In the Hall at the centre, with Jacob's names and lines. The ChromaBox stands in for the Cordis "for the time being"; the Cordis's Structure/Expression lines are `hidden` until it returns. Now true: ShowCase made every image |
+| 03 | Editorial production · CopyDesk | interface still |
 | 04 | QR generation · CodeDesk | **live**, scans to the résumé |
 | 05 | Print production · PrintWorks | four product cards from the print kit, at the die's true corner (`--card-corner`) |
 | 06 | Media presentation · ScreenRoom | the Show Builder still |

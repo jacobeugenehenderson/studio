@@ -408,6 +408,22 @@ a { color: inherit; }
   max-width: 100%;
 }
 
+/* The name's plates register on LOAD, which is right at the top of the page.
+   Ascend sits below the fold, so its run finished before anyone scrolled to it
+   and visitors only ever met it clean (Jacob, 2026-11-16: "out-of-register to
+   clean"). Where the browser has a scroll timeline, it registers on the
+   SCROLL instead, with the same range as the section marks (§18), and comes to
+   the name's own near-true, not the Curios' short stop. Without one, the load
+   run stands. Reduced motion is excluded here, because this rule outranks the
+   one at the foot of the file that lands the plates pre-registered. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .ascend-mark .name-plate--c { animation: register-c linear both; animation-timeline: view(); animation-range: entry 0% cover 70%; }
+    .ascend-mark .name-plate--m { animation: register-m linear both; animation-timeline: view(); animation-range: entry 0% cover 70%; }
+    .ascend-mark .name-plate--y { animation: register-y linear both; animation-timeline: view(); animation-range: entry 0% cover 70%; }
+  }
+}
+
 .ascend-word {
   font-family: var(--font-display);
   font-weight: 700;
@@ -652,6 +668,17 @@ a { color: inherit; }
   line-height: var(--lh-snug);
   color: var(--ink-soft);
   max-width: var(--measure);
+}
+
+/* Ascend's line is the only claim that CLOSES its piece; the others sit under
+   their titles as subtitles. It is the thesis of the eight stations, so it
+   lands as a conclusion (Jacob, 2026-11-16): the subheads' size, with the letters
+   themselves in process magenta, one of the four inks the site is built on
+   (tokens.css), set against the page's blues. Magenta, not yellow: yellow
+   vanishes on the light paper. */
+.piece-claim--close {
+  margin-top: var(--s6);
+  color: var(--process-m);
 }
 
 
@@ -1253,7 +1280,26 @@ a { color: inherit; }
   font-family: var(--font-mono);
   font-size: var(--fs-label);
   letter-spacing: 0.06em;
-  color: var(--ink-faint);
+  color: var(--ink-soft);
+}
+
+/* The tool line takes its half's ink, so the key in the rail, the bar on top
+   and the app's name all say the same thing: this is a Studio app, this a
+   Portal one (Jacob, 2026-11-16: "leaning in to colors"). */
+.stepper-step.station--studio .stepper-app,
+.stepper-step.station--portal .stepper-app { color: var(--spot); }
+
+/* The app's name where the caption says it, set in the SAME mono as the
+   tab's tool line above, so the eye matches "CodeDesk" here to "CodeDesk"
+   there and reads it as a product, not a label (Jacob, 2026-11-16: does the
+   visitor "see" the app names as discrete apps?). Not italics: an italic would
+   mark the name but make it look different from the tab, which is the link
+   this exists to make. Sized to the prose around it rather than to the tab. */
+.app-name {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  letter-spacing: 0.02em;
+  color: var(--spot, var(--ink));
 }
 
 /* the stage you are on takes the piece's ink */
@@ -1372,11 +1418,26 @@ a { color: inherit; }
 
 .stepper-panel .prose { padding-right: var(--s5); }
 
+/* Eight names across need 894px (measured, 2026-11-16): the longest names
+   ("PRESENTATION", "MANAGEMENT") cannot shrink below their own width, so
+   under about 1150px the row pushed the whole page sideways. It overflowed at
+   every window between a phone and a wide desk. Between the two, the strip
+   becomes two rows of four (Jacob), which needs about 450px. It is still one
+   ordered strip, read left to right and then down. */
+@media (max-width: 72rem) {
+  .stepper-nav {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 46rem) {
   /* five columns of names is unreadable on a phone; numbers alone still say
      where you are, and the name repeats in the panel heading anyway */
   .stepper-name, .stepper-app { display: none; }
   .stepper-step { padding: var(--s2); text-align: center; }
+  /* numbers alone fit eight across again */
+  .stepper-nav { grid-auto-flow: column; grid-template-columns: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

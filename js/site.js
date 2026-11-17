@@ -482,7 +482,7 @@
   var EMBED_ORIGINS = [
     'https://jacobeugenehenderson.github.io',
     'https://picture-wrap.com',
-    'https://lafayette-square.com',
+    'https://lafayettesquare.online',
     'https://okqral.com'
   ];
   var EMBED_MIN = 420;
