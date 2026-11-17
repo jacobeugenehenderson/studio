@@ -609,3 +609,37 @@ Calendar moment waits for the real `parseDate` fix**; the shim plan stands for a
 - Dimension figures are read from the workbook's Specs and checked against the CAD; a mismatch is flagged, not fixed.
 - The ChromaBox hero shows the 8K (Jacob: "fine for now"; one knob).
 - Open: STEPs for NHR Hoppers and Plug-n-Spray (Encore is unchecked against `vt-controller`); where PrintWorks' art lives after the cutover.
+
+### In the Hall: long view, more daylight (Jacob, 2026-11-16)
+
+- **The shot:** "on the long dimension of the warehouse with the back wall far away." The camera stays shared, so the eight views still register. ShowCase moves the hall instead: room.turn, plus room.clip "auto" so the camera can stand outside the near end. The back wall goes from about 11 m to about 24 m. A plan view in the stage's Look tab makes it adjustable by hand.
+- **The light:** "I said moody but that wasn't the right word; I meant less computer-flat, more variety in surfaces in shadows and highlights… we just need a lot more daylight." The surfaces and grime stay. The daylight rises and the tonal range stays. It becomes the canon lighting for In the Hall.
+- Jacob's unsaved camera change in the stage was discarded (Gaffer; it never reached disk).
+- **New lens, new stack (Jacob, same afternoon):** "I think we change lenses. We just have to get this right." The product read "extremely flat and symmetrical", so it gets "some hero-perspective". The environment is "a floor, a plausible light source, and 'place'", so it recedes: DoF, haze, a small share of ceiling. The fixtures get bloom and softer geometry. Then "we will have to rerender the stack": ALL EIGHT views move to one new shared hero shot, so the fade stays registered. In the Hall is tested first; the other seven re-render once Jacob approves the camera. The drawings need the surface outline method for the motor.
+- **Annotation dropped; hero pose for all (Jacob, same afternoon):** "I think we should ditch this line of work. I'll need to just do some stuff in PS… We need a heroic dynamic pose, with all layers registered to it." There are no callouts, legends or workbook-driven notation in ShowCase; Jacob adds them in Photoshop. All eight looks move to one heroic shot, every layer registered, with layered PSDs for his Photoshop work. The card-art brief is on hold (its dimension drawing was part of the dropped work). Next: Jacob picks the pose from Gaffer's camera drafts.
+- **The hero shot, picked (Jacob):** from Gaffer's second camera sheet, top left. 20° off-axis, with the machine turned 15° rather than the camera swung, A's 22.7 mm lens, camera 0.35 m, verticals vertical. All six filters show. The motor can't be seen from any low angle (the roof edge hides it) and is let go for this shot. All eight looks re-render at it, registered, as PNGs plus a layered PSD per look.
+- **Edge-on outlines (Jacob):** "in line drawings where the surfaces disappear at certain angles, their stroke outline must remain." Gaffer fixes it right after the batch: the cull and the sliver merge keep unoccluded edge-on borders. One re-trace; the drawing looks re-render. The site swap waits for the fixed drawings.
+- **Blackglass (Jacob):** "mainly black and blue with sharp and contained specular highlights and small fields of the accent colors. The white stroke should be visible." Tested at the hero shot as a variant sheet; #6 re-renders once approved.
+- **Blackglass becomes two looks, both modelled on the cards (Jacob):** "we're just setting them up correctly the first time out of the renderer."
+  - (A) **Folder cover / Design Rendering:** the shiny black-and-blue story on black plexi.
+  - (B) **Card hero:** the product in its true materials ON black plexi, lit by the card's neon (cyan-blue), with real reflections and smoke/light interaction, to the card hero's slug terms.
+  - The card-art brief is back on, for the hero only; the dimension drawing stays dropped.
+- **Product Rendering stays Lab white (Jacob):** "Lab white is the cover of our brochures and what will likely go on the website a la carte." Each look now has a destination:
+  - Lab white: the brochure cover and the website;
+  - Blackglass (B): the card hero;
+  - Blackglass (A): the folder cover, and Design Rendering in the stack.
+- **Station 02 goes to nine views (Jacob):** "I like an odd number for presentation reasons; the truth is tho they are all distinctive." Order (option 2, symmetrical: drawings, renders, drawings, centred on the Hall):
+  1. Engineering Drawing
+  2. Engineering Illustration
+  3. Marketing Illustration
+  4. Product Rendering
+  5. **In the Hall** (opens here, the exact centre)
+  6. **Collateral Rendering** (Blackglass B)
+  7. Design Rendering (Blackglass A)
+  8. Branded Drawing
+  9. Design Drawing
+  Collateral Rendering's line, Colophon's, approved by Jacob "for now": "For sales cards and product sheets. The true machine, lit like a stage."
+- **Blackglass picks (Jacob, "for now"):**
+  - A1 is Design Rendering / folder cover: navy gloss paint (polished metal reads black on this set), a pale-blue key, clean white strokes.
+  - B1 is Collateral Rendering: true paint, a 40° key that falls off, cyan rims, DoF.
+  - Deferred to the aesthetic pass: the foreground haze in front of the machine, and stronger cyan rims on B.
