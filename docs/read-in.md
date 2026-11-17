@@ -88,7 +88,7 @@ print('tags        :', 'ok' if not stack and not bad else f'UNCLOSED {stack[:4]}
 EOF
 ```
 
-Expected: `none`, `none`, **the six reserved tokens** (README §7 lists them and
+Expected: `none`, `none`, **the three reserved tokens** (README §7 lists them and
 why each is kept), `none`, `ok`, `ok`, `ok`.
 
 ⚠ This line said *"the two reserved Nordson inks"* until 2026-08-23, by which
