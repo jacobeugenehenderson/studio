@@ -681,14 +681,16 @@
                saw, and writes its address into data-embed-base and the frame's data-src
                and its name into the note under the map. The markup's own values are
                Lafayette Square, which is what a visitor with scripts off gets (the
-               <noscript> frame). Huron is on The Ward's STAGING site, unlisted and
-               noindexed, by Jacob's choice ("Huron now"); move it to its own domain
-               when it's promoted. -->
+               <noscript> frame). Huron joins when it's PROMOTED to its own domain: from
+               staging its town data isn't cached at the edge (cf-cache-status
+               DYNAMIC; one file is 11.9 MB), so a first visit was ~25 s (Jacob,
+               2026-11-16: "remove it from the group until we promote").
+               Its line, for then:
+               <li data-url="https://huron…/" data-name="Huron">Huron, Ohio</li> -->
           <ul hidden data-ward-towns>
             <li data-url="https://lafayettesquare.online/" data-name="Lafayette Square">Lafayette Square in St. Louis</li>
             <li data-url="https://hipointedemun.online/" data-name="Hi-Pointe&ndash;DeMun">Hi-Pointe&ndash;DeMun in St. Louis</li>
             <li data-url="https://provincetown.online/" data-name="Provincetown">Provincetown, on Cape Cod</li>
-            <li data-url="https://staging.theward.online/huron/" data-name="Huron">Huron, Ohio</li>
           </ul>
           <div class="embed embed--ward graph"
                data-embed-base="https://lafayettesquare.online/"
