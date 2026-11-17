@@ -72,8 +72,80 @@
     if (here !== '127.0.0.1' && here !== 'localhost') return;
     Array.prototype.forEach.call(
       document.querySelectorAll('iframe[data-src-local]'),
-      function (frame) { frame.src = frame.getAttribute('data-src-local'); }
+      function (frame) { frame.setAttribute('data-src', frame.getAttribute('data-src-local')); }
     );
+  }());
+
+  /* ---- the frames load in order, or as you approach them ------------------
+     Jacob, 2026-11-16: "load things in order ~or~ as they approach the
+     viewfinder." Four live products are framed on this page, and The Ward is
+     a WebGL town. With `loading="lazy"` all four started within seconds of
+     arriving, because lazy only waits until a frame is NEAR the screen, and
+     on a fast line that's almost at once. The Ward then booted behind
+     Ascend's stations, taking the processor and the GPU from the page being
+     read. So no frame carries a src in the markup; it carries data-src, and
+     two rules give it one:
+
+     1. APPROACH: a frame within a screen of the viewport starts at once.
+        Somebody who lands on #scale gets Scale Machine without queueing
+        behind The Ward.
+     2. IDLE, IN ORDER: once the page has loaded and gone quiet, the frames
+        still waiting start in page order, ONE at a time, each after the last
+        has loaded, pausing while the tab is hidden. Stay on Ascend and The
+        Ward is already warming up by the time you reach it.
+
+     A frame inside a clipped stepper panel doesn't intersect until its
+     station is chosen, because ancestor clipping counts, so CodeDesk waits
+     for station 03 or its turn. */
+
+  (function () {
+    var frames = Array.prototype.slice.call(document.querySelectorAll('iframe[data-src]'));
+    if (!frames.length) return;
+
+    function start(frame) {
+      if (frame.getAttribute('src')) return;
+      frame.src = frame.getAttribute('data-src');
+    }
+
+    if (!('IntersectionObserver' in window)) { frames.forEach(start); return; }
+
+    var near = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        start(entry.target);
+        near.unobserve(entry.target);
+      });
+    }, { rootMargin: '100% 0px' });
+    frames.forEach(function (frame) { near.observe(frame); });
+
+    var whenIdle = window.requestIdleCallback ||
+                   function (cb) { return window.setTimeout(cb, 300); };
+
+    function next() {
+      if (document.hidden) {
+        document.addEventListener('visibilitychange', function again() {
+          if (document.hidden) return;
+          document.removeEventListener('visibilitychange', again);
+          next();
+        });
+        return;
+      }
+      var waiting = null;
+      for (var i = 0; i < frames.length; i++) {
+        if (!frames[i].getAttribute('src')) { waiting = frames[i]; break; }
+      }
+      if (!waiting) return;
+      waiting.addEventListener('load', function () {
+        window.setTimeout(function () { whenIdle(next, { timeout: 4000 }); }, 1500);
+      }, { once: true });
+      start(waiting);
+    }
+
+    function begin() {
+      window.setTimeout(function () { whenIdle(next, { timeout: 4000 }); }, 1500);
+    }
+    if (document.readyState === 'complete') begin();
+    else window.addEventListener('load', begin, { once: true });
   }());
 
   /* ---- the section marks: FALLBACK ONLY -----------------------------------
@@ -358,6 +430,36 @@
       frame.classList.add('is-settling');
       window.setTimeout(function () { frame.classList.remove('is-settling'); }, 340);
     });
+
+    /* Ready before it's asked for (Jacob, 2026-11-16: the views "don't
+       immediately show or appear with the use of the slider"). Lazy layers
+       fetch late, and even a fetched picture is decoded on first show, which
+       is the stutter. So once the opening view is in, the others are fetched
+       AND decoded, nearest stop first, one at a time, so a drag in either
+       direction meets a picture that's ready. decode() is the browser
+       preparing the bitmap off the main thread; a browser without it simply
+       loads them. */
+    var order = Array.prototype.slice.call(layers).map(function (layer, i) {
+      return { img: layer.querySelector('img'), d: Math.abs(i - start) };
+    }).filter(function (o) { return o.img; })
+      .sort(function (a, b) { return a.d - b.d; });
+
+    function warm(k) {
+      if (k >= order.length) return;
+      var img = order[k].img;
+      img.loading = 'eager';
+      var ready = img.decode ? img.decode() : Promise.resolve();
+      ready.catch(function () { /* a failed decode still moves the queue on */ })
+           .then(function () { warm(k + 1); });
+    }
+    function warmWhenOpen() {
+      var first = order[0] && order[0].img;
+      if (!first || first.complete) { warm(0); return; }
+      first.addEventListener('load', function () { warm(0); }, { once: true });
+      first.addEventListener('error', function () { warm(1); }, { once: true });
+    }
+    if (document.readyState === 'complete') warmWhenOpen();
+    else window.addEventListener('load', warmWhenOpen, { once: true });
   });
 
   /* ---- the ALT badge -----------------------------------------------------
@@ -596,7 +698,12 @@
        the sort of thing script may do; the markup still carries the deployed
        URL, so view-source and production are unchanged. */
     var frame = box.querySelector('iframe');
-    if (frame && base() !== box.getAttribute('data-embed-base')) frame.src = base();
+    if (frame && base() !== box.getAttribute('data-embed-base')) frame.setAttribute('data-src', base());
+
+    /* The frame starts later now (the loader, above), so a choice made on the
+       pill or the theme before it was up would be lost. Say it again once it
+       is. */
+    if (frame) frame.addEventListener('load', function () { window.setTimeout(tell, 400); });
 
     /* ── This page's half of the frame budget ─────────────────────────────
        The Ward is a WebGL scene that keeps rendering for as long as it is
