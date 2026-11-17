@@ -1691,13 +1691,17 @@ a { color: inherit; }
   height: var(--embed-h);
 }
 
-@media (max-width: 46rem) {
-  /* A form-heavy authoring UI needs height more than width on a phone. */
-  .embed { aspect-ratio: 3 / 4; }
+/* The Ward is 4:3 on a desktop. 16:10 left the town a strip above the Almanac,
+   which is a fixed height and sits over the scene's lower half; every pixel of
+   extra height goes to the town (Jacob, 2026-11-17: expand the window rather
+   than ask the Ward for a slim Almanac). */
+.embed--ward { aspect-ratio: 4 / 3; }
 
-  /* The Ward is the exception: it is a landscape you look across, and a
-     portrait frame crops the horizon out of it. */
-  .embed--ward { aspect-ratio: 4 / 3; }
+@media (max-width: 46rem) {
+  /* Every embed is portrait on a phone, The Ward included (Jacob, 2026-11-17:
+     "on a phone, the Ward preview needs to open in a vertical format"). This
+     rule comes later than the Ward's 4:3, so it wins. */
+  .embed { aspect-ratio: 3 / 4; }
 }
 
 
