@@ -84,9 +84,12 @@ Rebuild Cards), and watching Provincetown for its bounce back to the load-in.
      1. Part 2 is reviewed and committed.
      2. The suite is deployed. That's `deploy-dist.sh`, on its own yes from Jacob; the yes above doesn't cover it.
      3. `ascend.jacobhenderson.studio/codedesk/?mode=embed` is checked live: 200s, no console errors, and the
-        brief's decode table.
+        brief's decode table (the corrected one, as of `ascend` `f2f5c30`: blank in embed mode → the résumé PDF;
+        `love.html` is normal mode only). An 82-character URL+UTM code reads at a 1600 px raster but not at
+        1000 px, and live github.io does the same. That's the design's scan margin, so it isn't a step-3 failure.
      4. Colophon does (a): stamp, publish, and check the live frame.
-     5. Colophon does (b), only once (a) is verified live.
+     5. Colophon does (b), only once (a) is verified live. Archiving the GitHub repo leaves the local `codedesk/`
+        (Guilloche's held edits) alone and doesn't block Brief 2.
      Embed mode keeps CodeDesk off FileRoom (`CODEDESK_EMBED_MODE` guards in `qr_sync_pipeline.js`). The suite's
      copy is the same `af449bc` the site serves now, so repointing adds no connection; re-check this if Part 2 or
      Brief 2 changes those guards.
