@@ -70,8 +70,13 @@ Rebuild Cards), and watching Provincetown for its bounce back to the load-in.
 4. Huron's promotion.
 
 **Older, carried:**
-5. Security: Walt's sign-in lock.
-6. CodeDesk: disconnecting the site's copy from the live system.
+5. Security: the sign-in lock. Per Walt's 2026-11-23 roll call, no seat holds it now; the record is Ascend's 11-16 sign-in plan memo in `ascend/_desk/`.
+6. CodeDesk: disconnecting the site's copy from the live system. In motion as Walt's Brief 1
+   (`ascend/_desk/2026-11-17-brief-codedesk-af449bc.md`). Quoin's Part 1 is STAGED in `ascend/portal/`
+   (2 added, 7 modified), and his report `ascend/_desk/2026-11-17-report-codedesk-af449bc-quoin.md` is
+   untracked. Neither has been reviewed or committed yet: a fresh Walt picks this up cold from the brief, the
+   report and the staged diff. Brief 2 waits on Brief 1's two commits. Leave `codedesk/`'s uncommitted
+   files alone (`qr_render_engine.js`, `qr_sync_pipeline.js`, `scan-readout.js`): they're Guilloche's held edits.
 7. Ascend clean-up rulings Jacob still owes.
 8. Burin's bugs, and committing his report.
 9. Gaffer's ShowCase queue.
