@@ -71,12 +71,17 @@ Rebuild Cards), and watching Provincetown for its bounce back to the load-in.
 
 **Older, carried:**
 5. Security: the sign-in lock. Per Walt's 2026-11-23 roll call, no seat holds it now; the record is Ascend's 11-16 sign-in plan memo in `ascend/_desk/`.
-6. CodeDesk: disconnecting the site's copy from the live system. In motion as Walt's Brief 1
-   (`ascend/_desk/2026-11-17-brief-codedesk-af449bc.md`). Quoin's Part 1 is STAGED in `ascend/portal/`
-   (2 added, 7 modified), and his report `ascend/_desk/2026-11-17-report-codedesk-af449bc-quoin.md` is
-   untracked. Neither has been reviewed or committed yet: a fresh Walt picks this up cold from the brief, the
-   report and the staged diff. Brief 2 waits on Brief 1's two commits. Leave `codedesk/`'s uncommitted
-   files alone (`qr_render_engine.js`, `qr_sync_pipeline.js`, `scan-readout.js`): they're Guilloche's held edits.
+6. CodeDesk: disconnecting the site's copy from the live system. This is Walt's Brief 1
+   (`ascend/_desk/2026-11-17-brief-codedesk-af449bc.md`).
+   - **Part 1 is closed (2026-11-23):** the suite's copy is committed as `ascend/portal` `b2a3b7d1`, local and
+     not pushed. Quoin's report and Walt's review are committed as `ascend` `f2f5c30`.
+   - **Part 2 (the host guard) is open.** It needs a new agent; the baton is
+     `ascend/_desk/2026-11-17-batons-codedesk-af449bc.md`. Brief 2 is not written yet.
+   - **⛔ Two steps touch this site, and each needs Jacob's word through Colophon:** (a) repointing the
+     CodeDesk frame from github.io to the suite's `/codedesk/`; (b) archiving the standalone `codedesk` repo and
+     turning off its Pages, which changes what the embed serves today.
+   - Leave `codedesk/`'s uncommitted files alone (`qr_render_engine.js`, `qr_sync_pipeline.js`,
+     `scan-readout.js`): they're Guilloche's held edits.
 7. Ascend clean-up rulings Jacob still owes.
 8. Burin's bugs, and committing his report.
 9. Gaffer's ShowCase queue.
