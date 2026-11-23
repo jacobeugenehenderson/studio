@@ -603,7 +603,7 @@ Calendar moment waits for the real `parseDate` fix**; the shim plan stands for a
 - Each Creator Series card already uses two of the canonical looks, made by hand:
   - front hero = Design Rendering (Blackglass), oblique;
   - back drawing = white-on-navy elevation with dimensions, the installation drawing.
-  ShowCase becomes their source. The workbook keeps the facts, `product_id` is the join, and `step_model` per variant is proposed, not written.
+  ShowCase becomes their source. The workbook keeps the facts, `product_id` is the join, and `step_model` per variant is written (Variants tab, column G: the STEP file's exact name, which can be anything, e.g. `final_pump-091116-Tom-fr.step`; chromabox-3k → `1628926.STEP`, chromabox-8k → `1629193.STEP`; Jacob, 2026-11-17).
 - **PrintWorks sets the terms** (`_Art/README.txt`): the filename comes from the workbook. The hero is a PSD at 1725 × 1800, 300 ppi, with the fade as a layer mask, never an alpha channel, and the machine below 2.75 in. The drawing is 2.25 × 1.90 in, any placeable format (ShowCase writes PDF).
 - **Written to the drive for now** (Jacob: "more annoying than dangerous"): `/Volumes/Today/Nordson/Folder/_Art/`, with the root as one setting for the cutover. ShowCase writes NEW names (`chromabox-hero.psd`, `chromabox-illo.pdf`) and never overwrites the hand-made pair. The card switches when Jacob changes the workbook cells.
 - Dimension figures are read from the workbook's Specs and checked against the CAD; a mismatch is flagged, not fixed.
