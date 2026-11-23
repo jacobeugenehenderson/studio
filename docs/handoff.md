@@ -77,9 +77,19 @@ Rebuild Cards), and watching Provincetown for its bounce back to the load-in.
      not pushed. Quoin's report and Walt's review are committed as `ascend` `f2f5c30`.
    - **Part 2 (the host guard) is open.** It needs a new agent; the baton is
      `ascend/_desk/2026-11-17-batons-codedesk-af449bc.md`. Brief 2 is not written yet.
-   - **⛔ Two steps touch this site, and each needs Jacob's word through Colophon:** (a) repointing the
-     CodeDesk frame from github.io to the suite's `/codedesk/`; (b) archiving the standalone `codedesk` repo and
-     turning off its Pages, which changes what the embed serves today.
+   - **Two steps touch this site. Jacob said yes to both on 2026-11-23** ("yes and yes"):
+     (a) repointing the CodeDesk frame from github.io to the suite's `/codedesk/`; (b) archiving the standalone
+     `codedesk` repo and turning off its Pages, which changes what the embed serves today.
+     **They run in this order, each only when the step before it has landed:**
+     1. Part 2 is reviewed and committed.
+     2. The suite is deployed. That's `deploy-dist.sh`, on its own yes from Jacob; the yes above doesn't cover it.
+     3. `ascend.jacobhenderson.studio/codedesk/?mode=embed` is checked live: 200s, no console errors, and the
+        brief's decode table.
+     4. Colophon does (a): stamp, publish, and check the live frame.
+     5. Colophon does (b), only once (a) is verified live.
+     Embed mode keeps CodeDesk off FileRoom (`CODEDESK_EMBED_MODE` guards in `qr_sync_pipeline.js`). The suite's
+     copy is the same `af449bc` the site serves now, so repointing adds no connection; re-check this if Part 2 or
+     Brief 2 changes those guards.
    - Leave `codedesk/`'s uncommitted files alone (`qr_render_engine.js`, `qr_sync_pipeline.js`,
      `scan-readout.js`): they're Guilloche's held edits.
 7. Ascend clean-up rulings Jacob still owes.
