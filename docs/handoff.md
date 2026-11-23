@@ -43,9 +43,46 @@ table of which component is right for which job, every bug already fallen into
 with why each survived testing, and an audit script. Most of it exists because
 getting it wrong cost a rebuild.
 
+## ⭐ Now: 2026-11-23, open items for the next session
+
+Jacob, 2026-11-23: "let's record for next session." The list is in his order. Re-read each
+item's own report before acting on it; the notes below are pointers, not specs.
+
+**Done 2026-11-17 (for context):**
+- CopyDesk's crop and The Ward's frame are published: 4:3 on a desktop, 3:4 on a phone.
+- The frame loader's idle queue now ends at The Ward (`js/site.js`; `ab1caef`).
+- The layer switch and the framed Almanac are live on all three towns (player `53be9a23`). Lafayette
+  Square was promoted from this seat, Hi-Pointe–DeMun and Provincetown from Boz's.
+- theward `ward-pin/2026-11-17` is pushed at `421b3b9`.
+- The card workbook's Variants tab has `step_model` (the STEP file's exact name).
+
+**Jacob's own, in motion:** the ChromaBox card hero (`hero_image` → `chromabox-hero.psd`, then
+Rebuild Cards), and watching Provincetown for its bounce back to the load-in.
+
+**The Ward's side (filed with Boz):**
+1. The emblem coming back under load:
+   `~/Desktop/lafayette-square.nosync/_handoffs/HANDOFF-2026-11-17-ward-falls-back-to-its-emblem-under-load.md`.
+   It asks for a "town is up" message the site can wait for, and for the town to survive a lost
+   WebGL context. Keep the load-in itself exactly as it is.
+2. HPDM's intermittent HeroImpostorTrees ⛔. It happens live too, and the Ward's pinned kit
+   predates the kit's 11-03 fix.
+3. Quire's question: does the framed-only hiding belong in the player or in each town?
+4. Huron's promotion.
+
+**Older, carried:**
+5. Security: Walt's sign-in lock.
+6. CodeDesk: disconnecting the site's copy from the live system.
+7. Ascend clean-up rulings Jacob still owes.
+8. Burin's bugs, and committing his report.
+9. Gaffer's ShowCase queue.
+10. Site nits (srcset) and the Scale Machine debug build.
+11. Records: the roster rows and one BACKLOG line.
+
+Colophon recommended starting with 5 (security).
+
 ## ⭐ Now: 2026-11-15, the Ascend redesign
 
-**The Ascend redesign is LIVE (published 2026-11-16, `5edc764`; `main`, `rebuild` and `ascend-hero` are the same commit).** Station 02's drawing views still await ShowCase's edge-on outline fix, and The Ward's layer switch awaits Quire's port being promoted (theward branch `quire/the-layer-switch`).
+**The Ascend redesign is LIVE (published 2026-11-16, `5edc764`; `main`, `rebuild` and `ascend-hero` are the same commit).** Station 02's drawing views still await ShowCase's edge-on outline fix, and The Ward's layer switch is live on all three towns (2026-11-17, see above).
 README §8 describes it. The working record is `docs/ascend-showcase-plan.md`. Read both before
 touching the hero.
 
