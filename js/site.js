@@ -637,7 +637,7 @@
      reporting 20,000px would otherwise take over the page.                   */
 
   var EMBED_ORIGINS = [
-    'https://jacobeugenehenderson.github.io',
+    'https://ascend.jacobhenderson.studio',
     'https://picture-wrap.com',
     'https://lafayettesquare.online',
     'https://okqral.com'
